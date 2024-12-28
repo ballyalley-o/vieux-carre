@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter_Tight } from 'next/font/google'
-import './globals.css'
+import { KEY } from 'lib'
+import { GLOBAL } from 'config'
 
 const interTight = Inter_Tight({
   subsets: ['latin']
@@ -8,8 +9,8 @@ const interTight = Inter_Tight({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Vieux Carré',
-    default: 'Vieux Carré'
+    template: `%s | ${GLOBAL.appName}`,
+    default: GLOBAL.appName
   },
   description: 'Old Square shop'
 }
@@ -20,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang={KEY.EN}>
       <body className={`${interTight.className} antialiased`}>{children}</body>
     </html>
   )
