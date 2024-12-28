@@ -85,6 +85,10 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  .red-bg {
+    @apply bg-red-700 text-foreground;
+  }
 }
 
 @layer base {
