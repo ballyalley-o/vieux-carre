@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ReactNode } from 'react'
 import { Inter_Tight } from 'next/font/google'
 import { KEY } from 'lib'
 import { GLOBAL } from 'config'
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html lang={KEY.EN}>
