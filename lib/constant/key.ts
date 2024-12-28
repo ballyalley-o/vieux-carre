@@ -4,5 +4,6 @@ export const LOCALE = {
 }
 
 export const KEY = {
+  BAG: 'bag',
   ...LOCALE
 }
