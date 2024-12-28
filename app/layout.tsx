@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter_Tight } from 'next/font/google'
 import { KEY } from 'lib'
 import { GLOBAL } from 'config'
+import 'asset/style/global.css'
 
 const interTight = Inter_Tight({
   subsets: ['latin']
@@ -9,10 +10,11 @@ const interTight = Inter_Tight({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${GLOBAL.appName}`,
-    default: GLOBAL.appName
+    template: `%s | ${GLOBAL.APP_NAME}`,
+    default: GLOBAL.APP_NAME
   },
-  description: 'Old Square shop'
+  description: GLOBAL.APP_DESCRIPTION,
+  metadataBase: new URL(GLOBAL.SERVER_URL)
 }
 
 export default function RootLayout({
