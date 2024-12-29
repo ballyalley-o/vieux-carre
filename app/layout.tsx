@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import { Inter_Tight } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 import { KEY } from 'lib'
 import { GLOBAL } from 'config'
 import 'asset/style/global.css'
@@ -24,8 +25,12 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang={KEY.EN}>
-      <body className={`${interTight.className} antialiased`}>{children}</body>
+    <html lang={KEY.EN} suppressHydrationWarning>
+      <body className={`${interTight.className} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme={KEY.LIGHT} enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
