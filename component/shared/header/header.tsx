@@ -1,6 +1,8 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingBagIcon, User2Icon } from 'lucide-react'
+import { ThemeToggle } from 'component'
 import { Button } from 'component/ui'
 import { GLOBAL, ICON_DIR, PATH_DIR } from 'config'
 
@@ -15,6 +17,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="space-x-2">
+          <ThemeToggle />
           <Button asChild variant="ghost">
             <Link href={PATH_DIR.CART}>
               <ShoppingBagIcon /> Bag
