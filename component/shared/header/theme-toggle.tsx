@@ -22,10 +22,10 @@ const ThemeToggle = () => {
   if (!mounted) return null
 
   const renderIcon = () => {
-    if (theme === KEY.DARK) {
+    if (theme === 'dark') {
       return <MoonIcon />
     }
-    if (theme === KEY.LIGHT) {
+    if (theme === 'light') {
       return <SunIcon />
     }
     return <SunMoon />
