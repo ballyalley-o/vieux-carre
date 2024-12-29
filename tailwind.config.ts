@@ -53,6 +53,30 @@ const config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
+      },
+      keyframes: {
+        shuffle1: {
+          '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' },
+          '50%': { transform: 'translate(80px, 80px) rotate(180deg)' }
+        },
+        shuffle2: {
+          '0%, 100%': { transform: 'translate(80px, 0) rotate(0deg)' },
+          '50%': { transform: 'translate(0, 80px) rotate(-180deg)' }
+        },
+        shuffle3: {
+          '0%, 100%': { transform: 'translate(0, 80px) rotate(0deg)' },
+          '50%': { transform: 'translate(80px, 0) rotate(-180deg)' }
+        },
+        shuffle4: {
+          '0%, 100%': { transform: 'translate(80px, 80px) rotate(0deg)' },
+          '50%': { transform: 'translate(0, 0) rotate(180deg)' }
+        }
+      },
+      animation: {
+        shuffle1: 'shuffle1 2s ease-in-out infinite',
+        shuffle2: 'shuffle2 2s ease-in-out infinite',
+        shuffle3: 'shuffle3 2s ease-in-out infinite',
+        shuffle4: 'shuffle4 2s ease-in-out infinite'
       }
     }
   },
