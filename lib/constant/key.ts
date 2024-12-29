@@ -3,7 +3,16 @@ export const LOCALE = {
   VI: 'vi'
 }
 
+export const VARIANT = {
+  GHOST: 'ghost'
+}
+
 export const KEY = {
   BAG: 'bag',
-  ...LOCALE
+  CLASS: 'class',
+  SYSTEM: 'system',
+  LIGHT: 'light',
+  DARK: 'dark',
+  ...LOCALE,
+  ...VARIANT
 }
