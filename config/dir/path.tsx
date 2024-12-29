@@ -1,6 +1,6 @@
 import { join } from 'lib'
 
 export const PATH_DIR = {
-  CART: join('cart'),
+  BAG: join('bag'),
   SIGN_IN: join('sign-in')
 }

@@ -19,7 +19,7 @@ const Header = () => {
         <div className="space-x-2">
           <ThemeToggle />
           <Button asChild variant="ghost">
-            <Link href={PATH_DIR.CART}>
+            <Link href={PATH_DIR.BAG}>
               <ShoppingBagIcon /> Bag
             </Link>
           </Button>
