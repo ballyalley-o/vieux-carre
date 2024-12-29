@@ -1,0 +1,7 @@
+{
+    "welcome": "Bienvenue sur notre site",
+    "description": "Ceci est un exemple d'i18n avec Next.js",
+    "home": {
+        "label": "Accueil"
+    }
+}
