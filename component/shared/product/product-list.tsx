@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import ProductCard from './product-card'
 
 interface ProductListProps {
   data: Product[]
@@ -13,8 +14,8 @@ const ProductList: FC<ProductListProps> = ({ data, title, limit }) => {
       <h2 className="h2-bold mb-4">{title}</h2>
       {data.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {limitedData.map((product, index) => (
-            <div key={index}> {product.name}</div>
+          {limitedData.map((product: Product, index: number) => (
+            <ProductCard key={index} {...product} />
           ))}
         </div>
       ) : (
