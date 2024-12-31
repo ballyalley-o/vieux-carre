@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardHeader, CardContent } from 'component/ui'
 import { PATH_DIR } from 'config'
+import ProductPrice from './product-price'
 
 const ProductCard: FC<Product> = (product) => {
   return (
@@ -21,7 +22,7 @@ const ProductCard: FC<Product> = (product) => {
           <p>
             {product.rating} {'Stars'}
           </p>
-          {product.stock > 0 ? <p className="font-bold">{product.price}</p> : <p className="text-destructive">{'Out of Stock'}</p>}
+          {product.stock > 0 ? <ProductPrice value={Number(product.price)} /> : <p className="text-destructive">{'Out of Stock'}</p>}
         </div>
       </CardContent>
     </Card>
