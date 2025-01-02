@@ -1,5 +1,5 @@
 export * from './global'
-export * from './dir/icon'
+export * from './dir/asset'
 export * from './dir/path'
 export * from './http-response'
 export * from './max-age'

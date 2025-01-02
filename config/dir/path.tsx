@@ -1,6 +1,7 @@
 import { join } from 'lib'
 
 export const PATH_DIR = {
+  ROOT: '/',
   MOCK: join('__mock', 'sample-data.ts'),
   MOCK_PRODUCT: (slug: string) => join('product', slug),
   BAG: join('bag'),
