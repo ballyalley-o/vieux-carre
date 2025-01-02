@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useSearchParams } from 'next/navigation'
 import { signInWithCredentials } from 'lib/action'
 import { Loader } from 'lucide-react'
 import Link from 'next/link'
@@ -11,6 +12,8 @@ import { KEY, RESPONSE, signInDefaultValue } from 'lib'
 
 const SignInForm = () => {
   const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
 
   const SignInButton = () => {
     const { pending } = useFormStatus()
@@ -25,6 +28,7 @@ const SignInForm = () => {
   const renderDataMessage = data && !data.success && <div className="text-center text-destructive">{data.message}</div>
   return (
     <form action={action}>
+      <input type="hidden" name={KEY.CALLBACK_URL} value={callbackUrl} />
       {renderDataMessage}
       <div className="space-y-6">
         <div>
