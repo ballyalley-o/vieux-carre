@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { auth } from 'auth'
+import { redirect } from 'next/navigation'
 import { Card, CardHeader, CardDescription, CardContent } from 'component'
 import { PATH_DIR, ASSET_DIR } from 'config'
 import SignInForm from './sign-in-form'
@@ -9,7 +11,11 @@ export const metadata: Metadata = {
   title: 'Sign In'
 }
 
-const SignInPage = () => {
+const SignInPage = async () => {
+  const session = await auth()
+  if (session) {
+    redirect(PATH_DIR.ROOT)
+  }
   return (
     <div className="w-full max-w-md mx-auto">
       <Card className="shadow-none border-none">

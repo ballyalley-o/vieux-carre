@@ -1,14 +1,43 @@
+'use client'
+
+import { useActionState } from 'react'
+import { useFormStatus } from 'react-dom'
+import { signInWithCredentials } from 'lib/action'
+import { Loader } from 'lucide-react'
+import Link from 'next/link'
 import { Label, Input, Button } from 'component'
 import { PATH_DIR } from 'config'
-import { KEY, signInDefaultValue } from 'lib'
-import Link from 'next/link'
+import { KEY, RESPONSE, signInDefaultValue } from 'lib'
+
 const SignInForm = () => {
+  const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
+
+  const SignInButton = () => {
+    const { pending } = useFormStatus()
+    return (
+      <div className="mb-5">
+        <Button disabled={pending} className="w-full" variant={'default'}>
+          {pending ? <Loader className="animate-spin mr-2" /> : 'Sign In'}
+        </Button>
+      </div>
+    )
+  }
+  const renderDataMessage = data && !data.success && <div className="text-center text-destructive">{data.message}</div>
   return (
-    <form>
+    <form action={action}>
+      {renderDataMessage}
       <div className="space-y-6">
         <div>
           <Label htmlFor="email">{'Email'}</Label>
-          <Input id={KEY.EMAIL} name={KEY.EMAIL} type={KEY.EMAIL} autoComplete={KEY.EMAIL} defaultValue={signInDefaultValue.email} required />
+          <Input
+            id={KEY.EMAIL}
+            name={KEY.EMAIL}
+            type={KEY.EMAIL}
+            autoComplete={KEY.EMAIL}
+            defaultValue={signInDefaultValue.email}
+            className="rounded-sm"
+            required
+          />
         </div>
         <div>
           <Label htmlFor="password">{'Password'}</Label>
@@ -18,13 +47,12 @@ const SignInForm = () => {
             type={KEY.PASSWORD}
             autoComplete={KEY.PASSWORD}
             defaultValue={signInDefaultValue.password}
+            className="rounded-sm"
             required
           />
         </div>
         <div className="">
-          <Button className="w-full rounded-sm" variant="default">
-            {'Sign In'}
-          </Button>
+          <SignInButton />
         </div>
         <div className="text-sm text-center text-muted-foreground">
           {`Don't have an account? `}
