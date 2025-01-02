@@ -13,6 +13,7 @@ export const FORM = {
 }
 
 export const KEY = {
+  CALLBACK_URL: 'callbackUrl',
   BAG: 'bag',
   CLASS: 'class',
   SYSTEM: 'system',
