@@ -1,4 +1,43 @@
+import { hashSync } from 'bcrypt-ts-edge'
 const _mockData = {
+  users: [
+    {
+      name: 'Admin User',
+      email: 'admin@vieux-carre.com',
+      password: hashSync('123456', 10),
+      role: 'admin'
+    },
+    {
+      name: 'Hank Hill',
+      email: 'propane.love@strickland.com',
+      password: hashSync('123456', 10),
+      role: 'user'
+    },
+    {
+      name: 'Dale Gribble',
+      email: 'dale@dale-tech.com',
+      password: hashSync('123456', 10),
+      role: 'user'
+    },
+    {
+      name: 'Bill Dauterive',
+      email: 'bill.d@usarmy.com',
+      password: hashSync('123456', 10),
+      role: 'user'
+    },
+    {
+      name: 'Jeff Boomhauer',
+      email: 'boomhauer@yahoo.com',
+      password: hashSync('123456', 10),
+      role: 'user'
+    },
+    {
+      name: 'Rusty Shackleford',
+      email: 'rusty@godaddy.com',
+      password: hashSync('123456', 10),
+      role: 'user'
+    }
+  ],
   products: [
     {
       name: 'Polo Sporting Stretch Shirt',
