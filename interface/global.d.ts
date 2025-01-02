@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ProductSchema } from 'lib'
+import { CODE, ProductSchema } from 'lib'
 
 declare global {
   export interface Product extends z.infer<typeof ProductSchema> {
@@ -10,5 +10,11 @@ declare global {
 
   export interface ReadonlyReactNode {
     children: Readonly<{ children: ReactNode }>
+  }
+
+  export interface ResponseMessage {
+    code: CODE
+    success: boolean
+    message: string
   }
 }
