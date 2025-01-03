@@ -3,6 +3,7 @@ export { default as Header } from './header/header'
 export { default as Toolbar } from './header/toolbar'
 export { default as ThemeToggle } from './header/theme-toggle'
 export { default as MobileMenu } from './header/mobile-menu'
+export { default as UserMenu } from './header/user-menu'
 // ⎿ product
 export { default as ProductList } from './product/product-list'
 export { default as ProductCard } from './product/product-card'

@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { ShoppingBagIcon, User2Icon } from 'lucide-react'
-import { ThemeToggle, Button, MobileMenu } from 'component'
+import { ShoppingBagIcon } from 'lucide-react'
+import { ThemeToggle, Button, MobileMenu, UserMenu } from 'component'
 import { PATH_DIR } from 'config'
 
 const Toolbar = () => {
@@ -13,11 +13,7 @@ const Toolbar = () => {
             <ShoppingBagIcon /> {'Bag'}
           </Link>
         </Button>
-        <Button asChild variant="ghost">
-          <Link href={PATH_DIR.SIGN_IN}>
-            <User2Icon /> {'Sign In'}
-          </Link>
-        </Button>
+        <UserMenu />
       </nav>
       <MobileMenu />
     </div>
