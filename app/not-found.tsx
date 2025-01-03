@@ -7,7 +7,7 @@ import { CODE } from 'lib'
 const NotFoundPage = () => {
   const handleNavigateHome = () => (window.location.href = '/')
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen" suppressHydrationWarning>
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Image src={ASSET_DIR.LOGO_RED} width={48} height={48} alt="logo" priority />
       <div className="p-6 w-1/3 rounded-sm shadow-sm text-center">
         <h4 className="text-lg mt-2">{CODE.NOT_FOUND}</h4>
