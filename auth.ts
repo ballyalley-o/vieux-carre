@@ -3,7 +3,6 @@ import NextAuth from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { prisma } from 'db/prisma'
-import { GLOBAL, thirtyDays } from 'config'
 import { compareSync } from 'bcrypt-ts-edge'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
@@ -14,8 +13,8 @@ export const config = {
     error: '/sign-in'
   },
   session: {
-    strategy: GLOBAL.NEXTAUTH_STRATEGY as SessionStrategyType,
-    maxAge: thirtyDays
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60
   },
   adapter: PrismaAdapter(prisma),
   providers: [
