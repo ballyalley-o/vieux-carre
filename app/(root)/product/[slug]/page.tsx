@@ -39,7 +39,7 @@ const ProductDetailsPage: FC<ProductDetailsPageProps> = async ({ params }) => {
           </div>
         </div>
         <div>
-          <Card>
+          <Card className="rounded-sm shadow-none">
             <CardContent className="p-4">
               <div className="mb-2 flex justify-between">
                 <div className="">{'Price'}</div>
