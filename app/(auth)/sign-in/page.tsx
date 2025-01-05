@@ -14,9 +14,10 @@ export const metadata: Metadata = {
 interface SignInPageProps {
   searchParams: Promise<{ callbackUrl: string }>
 }
+
 const SignInPage = async ({ searchParams }: SignInPageProps) => {
-  const session = await auth()
   const { callbackUrl } = await searchParams
+  const session = await auth()
   if (session) {
     redirect(callbackUrl || PATH_DIR.ROOT)
   }
