@@ -9,16 +9,19 @@ export const VARIANT = {
 
 export const FORM = {
   EMAIL: 'email',
+  CONFIRM_PASSWORD: 'confirmPassword',
+  NAME: 'name',
   PASSWORD: 'password'
 }
 
 export const KEY = {
-  CALLBACK_URL: 'callbackUrl',
   BAG: 'bag',
+  CALLBACK_URL: 'callbackUrl',
   CLASS: 'class',
-  SYSTEM: 'system',
-  LIGHT: 'light',
   DARK: 'dark',
+  LIGHT: 'light',
+  SYSTEM: 'system',
+  TEXT: 'text',
   ...FORM,
   ...LOCALE,
   ...VARIANT
