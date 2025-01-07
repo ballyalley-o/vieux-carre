@@ -45,6 +45,6 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
     if (isRedirectError(error)) {
       throw error
     }
-    return RESPONSE.ERROR('User failed to sign up', CODE.BAD_REQUEST)
+    return RESPONSE.ERROR_FORMATTED(error as AppError, CODE.BAD_REQUEST)
   }
 }
