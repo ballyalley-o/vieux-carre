@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client'
 import { GLOBAL } from 'config'
 
 neonConfig.webSocketConstructor = ws
-const connectionString = `${process.env.DATABASE_URL}`
+const connectionString = `${GLOBAL.DATABASE_URL}`
 const pool = new Pool({ connectionString })
 const adapter = new PrismaNeon(pool)
 
