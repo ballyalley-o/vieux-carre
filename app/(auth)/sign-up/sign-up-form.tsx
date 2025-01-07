@@ -3,15 +3,17 @@
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
-import { signInWithCredentials } from 'lib/action'
+import { signUpUser } from 'lib/action/user.action'
 import { Loader } from 'lucide-react'
 import Link from 'next/link'
-import { Label, Input, Button } from 'component'
+import { Button } from 'component/ui/button'
+import { Input } from 'component/ui/input'
+import { Label } from 'component/ui/label'
 import { PATH_DIR } from 'config'
-import { KEY, RESPONSE, signInDefaultValue } from 'lib'
+import { KEY, RESPONSE, signUpDefaultValue } from 'lib'
 
 const SignUpForm = () => {
-  const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
+  const [data, action] = useActionState(signUpUser, RESPONSE.DEFAULT)
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
 
@@ -32,13 +34,25 @@ const SignUpForm = () => {
       {renderDataMessage}
       <div className="space-y-6">
         <div>
+          <Label htmlFor={KEY.NAME}>{'Name'}</Label>
+          <Input
+            id={KEY.NAME}
+            name={KEY.NAME}
+            type={KEY.TEXT}
+            autoComplete={KEY.NAME}
+            defaultValue={signUpDefaultValue.name}
+            className="rounded-sm"
+            required
+          />
+        </div>
+        <div>
           <Label htmlFor="email">{'Email'}</Label>
           <Input
             id={KEY.EMAIL}
             name={KEY.EMAIL}
             type={KEY.EMAIL}
             autoComplete={KEY.EMAIL}
-            defaultValue={signInDefaultValue.email}
+            defaultValue={signUpDefaultValue.email}
             className="rounded-sm"
             required
           />
@@ -50,7 +64,19 @@ const SignUpForm = () => {
             name={KEY.PASSWORD}
             type={KEY.PASSWORD}
             autoComplete={KEY.PASSWORD}
-            defaultValue={signInDefaultValue.password}
+            defaultValue={signUpDefaultValue.password}
+            className="rounded-sm"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor={KEY.CONFIRM_PASSWORD}>{'Confirm Password'}</Label>
+          <Input
+            id={KEY.CONFIRM_PASSWORD}
+            name={KEY.CONFIRM_PASSWORD}
+            type={KEY.PASSWORD}
+            autoComplete={KEY.PASSWORD}
+            defaultValue={signUpDefaultValue.confirmPassword}
             className="rounded-sm"
             required
           />
@@ -59,9 +85,9 @@ const SignUpForm = () => {
           <SignInButton />
         </div>
         <div className="text-sm text-center text-muted-foreground">
-          {`Don't have an account? `}
-          <Link href={PATH_DIR.SIGN_UP} target="_self" className="link font-bold">
-            {'Sign Up'}
+          {`Already have an account? `}
+          <Link href={PATH_DIR.SIGN_IN} target="_self" className="link font-bold">
+            {'Sign In'}
           </Link>
         </div>
       </div>
