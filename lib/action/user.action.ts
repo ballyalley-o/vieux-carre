@@ -1,5 +1,4 @@
 'use server'
-
 import { hashSync } from 'bcrypt-ts-edge'
 import { SignInSchema, SignUpSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'

@@ -1,6 +1,6 @@
 import { z, ZodError } from 'zod'
 import { Prisma } from '@prisma/client'
-import { CODE, ProductSchema, CartSchema, CartItemSchema } from 'lib'
+import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema } from 'lib'
 
 declare global {
   export interface Product extends z.infer<typeof ProductSchema> {
@@ -9,8 +9,8 @@ declare global {
     createdAt: Date
   }
 
-  export type Cart = z.infer<typeof CartSchema>
-  export type CartItem = z.infer<typeof CartItemSchema>
+  export type Bag = z.infer<typeof BagSchema>
+  export type BagItem = z.infer<typeof BagItemSchema>
 
   export interface ReadonlyReactNode {
     children: Readonly<{ children: ReactNode }>
