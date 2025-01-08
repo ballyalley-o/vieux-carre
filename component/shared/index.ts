@@ -14,3 +14,5 @@ export { default as Footer } from './footer/footer'
 export { default as LinkButton } from './button/link-button'
 // ⎿ loader
 export { default as Loader } from './loader/loader'
+// ⎿ cart
+export { default as AddToBag } from './bag/add-to-bag'
