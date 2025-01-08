@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { currency } from './product-schema'
 
-export const CartItemSchema = z.object({
+export const BagItemSchema = z.object({
   productId: z.string().min(1, 'Product is required'),
   name: z.string().min(1, 'Name is required'),
   slug: z.string().min(1, 'Slug is required'),

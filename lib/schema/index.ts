@@ -1,5 +1,5 @@
 export * from './product-schema'
 export * from './sign-in-schema'
 export * from './sign-up-schema'
-export * from './cart-item-schema'
-export * from './cart-schema'
+export * from './bag-item-schema'
+export * from './bag-schema'

@@ -1,13 +1,13 @@
 import { z } from 'zod'
-import { CartItemSchema } from './cart-item-schema'
+import { BagItemSchema } from './bag-item-schema'
 import { currency } from './product-schema'
 
-export const CartSchema = z.object({
-  items: z.array(CartItemSchema),
+export const BagSchema = z.object({
+  items: z.array(BagItemSchema),
   itemsPrice: currency,
   totalPrice: currency,
   shippingPrice: currency,
   taxPrice: currency,
-  sessionCartId: z.string().min(1, 'Session cart id is required'),
+  sessionBagId: z.string().min(1, 'Session bag id is required'),
   userId: z.string().optional().nullable()
 })
