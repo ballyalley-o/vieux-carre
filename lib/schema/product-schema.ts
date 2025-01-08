@@ -1,7 +1,9 @@
 import { z } from 'zod'
 import { formatNumberWithDecimal } from 'lib/util'
 
-const currency = z.string().refine((num) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(num))), 'Price must have exactly 2 decimal places')
+export const currency = z
+  .string()
+  .refine((num) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(num))), 'Price must have exactly 2 decimal places')
 
 export const ProductSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters').max(255),
