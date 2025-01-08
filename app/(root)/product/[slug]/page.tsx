@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { notFound } from 'next/navigation'
 import { getProductBySlug } from 'lib'
 import { Button, Card, CardContent, Badge, ProductPrice, ProductImage } from 'component'
+import { AddToBag } from 'component/shared'
 
 interface ProductDetailsPageProps {
   params: Promise<{ slug: string }>
@@ -11,9 +12,10 @@ const ProductDetailsPage: FC<ProductDetailsPageProps> = async ({ params }) => {
   const product = await getProductBySlug(slug)
   if (!product) return notFound()
 
+  const bagProduct = { productId: product.id, name: product.name, slug: product.slug, price: product.price, qty: 1, image: product.images![0] }
+
   const productStatus = product.stock > 0 ? <Badge variant="outline">{'In Stock'}</Badge> : <Badge variant="destructive">{'Out of Stock'}</Badge>
-  const renderAddToCartButton =
-    product.stock > 0 ? <Button className="w-full rounded-sm">{'Add to Cart'}</Button> : <Button disabled>{'Out of Stock'}</Button>
+  const renderAddToBagButton = product.stock > 0 ? <AddToBag item={bagProduct} /> : <Button disabled>{'Out of Stock'}</Button>
 
   return (
     <section>
@@ -51,7 +53,7 @@ const ProductDetailsPage: FC<ProductDetailsPageProps> = async ({ params }) => {
                 <div>{'Status'}</div>
                 {productStatus}
               </div>
-              {renderAddToCartButton}
+              {renderAddToBagButton}
             </CardContent>
           </Card>
         </div>
