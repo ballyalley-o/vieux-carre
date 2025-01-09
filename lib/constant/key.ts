@@ -17,6 +17,7 @@ export const FORM = {
 export const KEY = {
   BAG: 'bag',
   CALLBACK_URL: 'callbackUrl',
+  SESSION_BAG_ID: 'sessionBagId',
   CLASS: 'class',
   DARK: 'dark',
   LIGHT: 'light',
