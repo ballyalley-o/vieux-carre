@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextAuthConfig } from 'next-auth'
 import NextAuth from 'next-auth'
+import { NextResponse } from 'next/server'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { prisma } from 'db/prisma'
 import { compareSync } from 'bcrypt-ts-edge'
+import { cookies } from 'next/headers'
+import { prisma } from 'db/prisma'
+import { KEY } from 'lib/constant'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
 
@@ -46,7 +51,6 @@ export const config = {
     })
   ],
   callbacks: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async session({ session, user, trigger, token }: any) {
       session.user.id = token.sub
       session.user.role = token.role
@@ -56,7 +60,7 @@ export const config = {
       }
       return session
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+
     async jwt({ token, user, trigger, session }: any) {
       if (user) {
         token.role = user.role
@@ -66,6 +70,17 @@ export const config = {
         }
       }
       return token
+    },
+    authorized({ request, auth }: any) {
+      if (!request.cookies.get(KEY.SESSION_BAG_ID)) {
+        const sessionBagId = crypto.randomUUID()
+        const newRequestHeaders = new Headers(request.headers)
+        const response = NextResponse.next({ request: { headers: newRequestHeaders } })
+        response.cookies.set(KEY.SESSION_BAG_ID, sessionBagId)
+        return response
+      } else {
+        return true
+      }
     }
   }
 } satisfies NextAuthConfig
