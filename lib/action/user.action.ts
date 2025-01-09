@@ -12,7 +12,6 @@ export async function signInWithCredentials(prevState: unknown, formData: FormDa
       email: formData.get('email'),
       password: formData.get('password')
     })
-
     await signIn('credentials', user)
     return RESPONSE.SUCCESS('Signed In')
   } catch (error) {
