@@ -12,4 +12,5 @@ export const RESPONSE = {
   ERROR: (message: string, code = CODE.INTERNAL_SERVER_ERROR) => ({ code, success: false, message }),
   ERROR_FORMATTED: (message: AppError, code = CODE.INTERNAL_SERVER_ERROR) => ({ code, success: false, message: errorHandler(message) }),
   DEFAULT: { code: CODE.INTERNAL_SERVER_ERROR, success: false, message: '' }
+  // Add more response types here
 }
