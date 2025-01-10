@@ -22,6 +22,20 @@ declare global {
     message: string
   }
 
+   export interface ErrorResponseMessage {
+     code: CODE
+     success: boolean
+     message: AppError | string
+   }
+
+  export interface SystemResponse extends ResponseMessage {
+    tag?: string
+  }
+
+   export interface SystemErrorResponse extends ErrorResponseMessage {
+     tag?: string
+   }
+
   export type AppError =
     | ZodError
     | Prisma.PrismaClientKnownRequestError
@@ -29,4 +43,5 @@ declare global {
     | Prisma.PrismaClientRustPanicError
     | Prisma.PrismaClientInitializationError
     | Prisma.PrismaClientValidationError
+
 }
