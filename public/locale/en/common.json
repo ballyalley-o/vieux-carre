@@ -1,7 +1,17 @@
 {
+    "add_to_bag": "Add to Bag",
     "welcome": "Welcome to our site",
     "description": "This is an example of i18n with Next.js",
+    "go_to_bag": "Go to Bag",
     "home": {
         "label": "Home"
+    },
+    "success": {},
+    "error": {
+        "bag_not_found": "Bag not found",
+        "item_not_found": "Item not found",
+        "no_existing_item": "No existing item to add on",
+        "product_not_found": "Product not found",
+        "sesssion_not_found": "Session bag id not found"
     }
 }
