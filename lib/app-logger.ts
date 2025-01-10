@@ -29,14 +29,14 @@ class AppLogger {
     goodlog.error(errorRaw, TAG_FORMAT(tag), targetLineInfo, content)
   }
 
-  public reponse(message: string, code?: CODE, tag: string = TAG_DEFAULT) {
+  public response(message: string, code?: CODE, tag: string = TAG_DEFAULT) {
     goodlog.info(TAG_FORMAT(tag), message)
-    RESPONSE.SUCCESS(message, code)
+    return RESPONSE.SUCCESS(message, code)
   }
 
   public errorResponse(message: AppError | string, code: CODE, tag: string = TAG_DEFAULT) {
     goodlog.error(message as Error, TAG_FORMAT(tag), code.toString(), message)
-    RESPONSE.ERROR(errorHandler(message as AppError), code)
+    return RESPONSE.ERROR(errorHandler(message as AppError), code)
   }
 
   public info(content: string, tag: string = TAG_DEFAULT) {
