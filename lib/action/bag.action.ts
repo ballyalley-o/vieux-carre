@@ -7,7 +7,7 @@ import { GLOBAL, PATH_DIR } from 'config'
 import { SystemLogger } from 'lib/app-logger'
 import { BagItemSchema, BagSchema } from 'lib/schema'
 import { RESPONSE, CODE, KEY } from 'lib/constant'
-import { convertToPlainObject, errorHandler, float2 } from 'lib/util'
+import { convertToPlainObject, float2 } from 'lib/util'
 import { Prisma } from '@prisma/client'
 import { en } from 'public/locale'
 
@@ -77,12 +77,10 @@ export async function addItemToBag(data: BagItem) {
         data: { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
       })
       revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
-      RESPONSE.SUCCESS(`${product.name} ${existItem ? 'updated in' : 'added to'} bag`)
-      return  SystemLogger.reponse(`${product.name} ${existItem ? 'updated in' : 'added to'} bag`, CODE.OK, TAG)
+      return SystemLogger.response(`${product.name} ${existItem ? 'updated in' : 'added to'} bag`, CODE.OK, TAG)
     }
   } catch (error) {
-    RESPONSE.ERROR(errorHandler(error as AppError), CODE.BAD_REQUEST)
-    return SystemLogger.error(error as AppError, TAG, 'addItemToBag', (error as AppError).message)
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
 
@@ -135,7 +133,7 @@ export async function removeItemFromBag(productId: string) {
     })
 
     revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
-    return SystemLogger.reponse(`${product.name} was removed from bag`, CODE.OK, TAG)
+    return SystemLogger.response(`${product.name} was removed from bag`, CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
