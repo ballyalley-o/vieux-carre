@@ -3,14 +3,17 @@ import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 import { auth } from 'auth'
 import { prisma } from 'db/prisma'
-import { BagItemSchema, BagSchema } from 'lib/schema'
 import { GLOBAL, PATH_DIR } from 'config'
+import { SystemLogger } from 'lib/app-logger'
+import { BagItemSchema, BagSchema } from 'lib/schema'
 import { RESPONSE, CODE, KEY } from 'lib/constant'
 import { convertToPlainObject, errorHandler, float2 } from 'lib/util'
 import { Prisma } from '@prisma/client'
 import { en } from 'public/locale'
 
 const { TAX, NO_SHIPPING_THRESHOLD, DEFAULT_SHIPPING_COST } = GLOBAL.PRICES
+
+const TAG = 'BAG.ACTION'
 
 const calculatePrices = (items: BagItem[]) => {
   const itemsPrice = float2(items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)),
@@ -74,10 +77,12 @@ export async function addItemToBag(data: BagItem) {
         data: { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
       })
       revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
-      return RESPONSE.SUCCESS(`${product.name} ${existItem ? 'updated in' : 'added to'} bag`)
+      RESPONSE.SUCCESS(`${product.name} ${existItem ? 'updated in' : 'added to'} bag`)
+      return  SystemLogger.reponse(`${product.name} ${existItem ? 'updated in' : 'added to'} bag`, CODE.OK, TAG)
     }
   } catch (error) {
-    return RESPONSE.ERROR(errorHandler(error as AppError), CODE.BAD_REQUEST)
+    RESPONSE.ERROR(errorHandler(error as AppError), CODE.BAD_REQUEST)
+    return SystemLogger.error(error as AppError, TAG, 'addItemToBag', (error as AppError).message)
   }
 }
 
@@ -130,8 +135,8 @@ export async function removeItemFromBag(productId: string) {
     })
 
     revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
-    return RESPONSE.SUCCESS(`${product.name} was removed from bag`)
+    return SystemLogger.reponse(`${product.name} was removed from bag`, CODE.OK, TAG)
   } catch (error) {
-    return RESPONSE.ERROR(errorHandler(error as AppError), CODE.BAD_REQUEST)
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
