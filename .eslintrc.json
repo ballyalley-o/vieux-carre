@@ -1,0 +1,12 @@
+{
+  "plugins": ["better-align"],
+  "rules": {
+    "better-align/spaced-alignment": [
+      "error",
+      {
+        "align": "value",
+        "multiLine": true
+      }
+    ]
+  }
+}
