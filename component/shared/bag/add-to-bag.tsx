@@ -1,8 +1,8 @@
 'use client'
 
-import { Fragment, FC } from 'react'
+import { Fragment, useTransition, FC } from 'react'
 import { useRouter } from 'next/navigation'
-import { Minus, Plus } from 'lucide-react'
+import { Minus, Plus, Loader } from 'lucide-react'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
 import { Button, ToastAction } from 'component/ui'
@@ -17,28 +17,33 @@ interface AddToBagProps {
 const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   const router = useRouter()
   const { toast } = useToast()
+  const [isPending, startTransition] = useTransition()
   const existItem = bag && bag.items.find((x) => x.productId === item.productId)
 
   const handleAddToBag = async () => {
-    const response = await addItemToBag(item)
-    if (!response.success) {
-      toast({ variant: 'destructive', description: response.message })
-      return
-    }
-    toast({
-      description: response.message,
-      action: (
-        <ToastAction className="bg-primary text-white hover:bg-gray-800" altText="Go to Bag" onClick={() => router.push(PATH_DIR.BAG)}>
-          {en.go_to_bag}
-        </ToastAction>
-      )
+    startTransition(async () => {
+      const response = await addItemToBag(item)
+      if (!response.success) {
+        toast({ variant: 'destructive', description: response.message })
+        return
+      }
+      toast({
+        description: response.message,
+        action: (
+          <ToastAction className="bg-primary text-white hover:bg-gray-800" altText="Go to Bag" onClick={() => router.push(PATH_DIR.BAG)}>
+            {en.go_to_bag}
+          </ToastAction>
+        )
+      })
     })
   }
 
   const handleRemoveFromBag = async () => {
-    const response = await removeItemFromBag(item.productId)
-    toast({ variant: response.success ? 'default' : 'destructive', description: response.message })
-    return
+    startTransition(async () => {
+      const response = await removeItemFromBag(item.productId)
+      toast({ variant: response.success ? 'default' : 'destructive', description: response.message })
+      return
+    })
   }
 
   const render = existItem ? (
@@ -46,14 +51,20 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
       <Button type={'button'} variant={'outline'} onClick={handleRemoveFromBag} className="shadow-none rounded-sm">
         <Minus className="h-4 w-4" />
       </Button>
-      <span className="px-5 font-bold">{existItem.qty}</span>
+      <span className="px-5 font-bold">{isPending ? <Loader className="w-4 h-4 animate-spin " /> : existItem.qty}</span>
       <Button type={'button'} variant={'outline'} onClick={handleAddToBag} className="shadow-none rounded-sm">
         <Plus className="h-4 w-4" />
       </Button>
     </Fragment>
   ) : (
     <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
-      <Plus /> {en.add_to_bag}
+      {isPending ? (
+        <Loader className="w-4 h-4 animate-spin" />
+      ) : (
+        <Fragment>
+          <Plus /> {en.add_to_bag}
+        </Fragment>
+      )}
     </Button>
   )
   return render
