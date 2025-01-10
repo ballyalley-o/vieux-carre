@@ -15,10 +15,10 @@ interface AddToBagProps {
 }
 
 const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
-  const router = useRouter()
-  const { toast } = useToast()
   const [isPending, startTransition] = useTransition()
-  const existItem = bag && bag.items.find((x) => x.productId === item.productId)
+  const router                       = useRouter()
+  const { toast }                    = useToast()
+  const existItem                    = bag && bag.items.find((x) => x.productId === item.productId)
 
   const handleAddToBag = async () => {
     startTransition(async () => {
