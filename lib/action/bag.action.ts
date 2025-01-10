@@ -8,6 +8,7 @@ import { GLOBAL, PATH_DIR } from 'config'
 import { RESPONSE, CODE, KEY } from 'lib/constant'
 import { convertToPlainObject, errorHandler, float2 } from 'lib/util'
 import { Prisma } from '@prisma/client'
+import { en } from 'public/locale'
 
 const { TAX, NO_SHIPPING_THRESHOLD, DEFAULT_SHIPPING_COST } = GLOBAL.PRICES
 
@@ -29,14 +30,14 @@ const calculatePrices = (items: BagItem[]) => {
 export async function addItemToBag(data: BagItem) {
   try {
     const sessionBagId = (await cookies()).get(KEY.SESSION_BAG_ID)?.value
-    if (!sessionBagId) throw new Error('Session bag id not found')
+    if (!sessionBagId) throw new Error(en.error.sesssion_not_found)
     const session = await auth()
     const userId = session?.user?.id ? (session.user.id as string) : undefined
 
     const bag = await getMyBag()
     const item = BagItemSchema.parse(data)
     const product = await prisma.product.findFirst({ where: { id: item.productId } })
-    if (!product) throw new Error('Product not found')
+    if (!product) throw new Error(en.error.product_not_found)
 
     if (!bag) {
       const newBag = BagSchema.parse({
@@ -60,7 +61,7 @@ export async function addItemToBag(data: BagItem) {
         if (foundItem) {
           foundItem.qty = existItem.qty + 1
         } else {
-          throw new Error('Theres no existing item to add on')
+          throw new Error(en.error.no_existing_item)
         }
       } else {
         //still check stock
@@ -82,7 +83,7 @@ export async function addItemToBag(data: BagItem) {
 
 export async function getMyBag() {
   const sessionBagId = (await cookies()).get(KEY.SESSION_BAG_ID)?.value
-  if (!sessionBagId) throw new Error('Session bag id not found')
+  if (!sessionBagId) throw new Error(en.error.sesssion_not_found)
 
   const session = await auth()
   const userId = session?.user?.id ? (session.user.id as string) : undefined
@@ -100,4 +101,37 @@ export async function getMyBag() {
   })
 
   return myBag
+}
+
+export async function removeItemFromBag(productId: string) {
+  try {
+    const sessionBagId = (await cookies()).get(KEY.SESSION_BAG_ID)?.value
+    if (!sessionBagId) throw new Error(en.error.sesssion_not_found)
+
+    const product = await prisma.product.findFirst({ where: { id: productId } })
+    if (!product) throw new Error(en.error.product_not_found)
+
+    const bag = await getMyBag()
+    if (!bag) throw new Error(en.error.bag_not_found)
+
+    const exist = (bag.items as BagItem[]).find((x) => x.productId === productId)
+    if (!exist) throw new Error(en.error.item_not_found)
+
+    if (exist.qty === 1) {
+      bag.items = (bag.items as BagItem[]).filter((x) => x.productId !== exist.productId)
+    } else {
+      const item = (bag.items as BagItem[]).find((x) => x.productId === productId)
+      if (item) item.qty = exist.qty - 1
+    }
+
+    await prisma.bag.update({
+      where: { id: bag.id },
+      data: { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
+    })
+
+    revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
+    return RESPONSE.SUCCESS(`${product.name} was removed from bag`)
+  } catch (error) {
+    return RESPONSE.ERROR(errorHandler(error as AppError), CODE.BAD_REQUEST)
+  }
 }
