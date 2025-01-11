@@ -2,12 +2,13 @@
 
 import { Fragment, useTransition, FC } from 'react'
 import { useRouter } from 'next/navigation'
-import { Minus, Plus, Loader } from 'lucide-react'
+import { en } from 'public/locale'
+import { Plus, Loader } from 'lucide-react'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
 import { Button, ToastAction } from 'component/ui'
+import { DynamicBagBtn } from 'component/shared/btn'
 import { PATH_DIR } from 'config'
-import { en } from 'public/locale'
 
 interface AddToBagProps {
   item: BagItem
@@ -47,15 +48,7 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   }
 
   const render = existItem ? (
-    <Fragment>
-      <Button type={'button'} variant={'outline'} onClick={handleRemoveFromBag} className="shadow-none rounded-sm">
-        <Minus className="h-4 w-4" />
-      </Button>
-      <span className="px-5 font-bold">{isPending ? <Loader className="w-4 h-4 animate-spin " /> : existItem.qty}</span>
-      <Button type={'button'} variant={'outline'} onClick={handleAddToBag} className="shadow-none rounded-sm">
-        <Plus className="h-4 w-4" />
-      </Button>
-    </Fragment>
+    <DynamicBagBtn isPending={isPending} handlePlus={handleAddToBag} handleMinus={handleRemoveFromBag} amount={existItem.qty} />
   ) : (
     <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
       {isPending ? (
