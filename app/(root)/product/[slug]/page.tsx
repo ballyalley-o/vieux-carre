@@ -34,7 +34,7 @@ const ProductDetailsPage: FC<ProductDetailsPageProps> = async ({ params }) => {
               {product.rating} of {product.numReviews} {'Reviews'}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ProductPrice value={Number(product.price)} className="w-24 rounded-sm bg-green-100 text-green-700 px-5 py-2" />
+              <ProductPrice value={Number(product.price)} className="w-24 rounded-sm px-5 py-2" />
             </div>
             <div className="mt-10">
               <p>{product.description}</p>
