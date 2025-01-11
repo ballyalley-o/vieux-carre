@@ -1,4 +1,3 @@
-import goodlog from 'good-logs'
 import { errorHandler } from 'lib'
 import { CODE, RESPONSE } from 'lib/constant'
 
@@ -26,25 +25,25 @@ class AppLogger {
       }
     }
     const targetLineInfo = `${target} @ ${lineInfo}`
-    goodlog.error(errorRaw, TAG_FORMAT(tag), targetLineInfo, content)
+    console.error(`ERROR: ${errorRaw}`, `TAG: ${TAG_FORMAT(tag)}`, targetLineInfo, content)
   }
 
   public response(message: string, code?: CODE, tag: string = TAG_DEFAULT) {
-    goodlog.info(TAG_FORMAT(tag), message)
+    console.info(TAG_FORMAT(tag), message)
     return RESPONSE.SUCCESS(message, code)
   }
 
   public errorResponse(message: AppError | string, code: CODE, tag: string = TAG_DEFAULT) {
-    goodlog.error(message as Error, TAG_FORMAT(tag), code.toString(), message)
+    console.error(`ERROR: ${message as Error}`, `TAG: ${TAG_FORMAT(tag)}`, `CODE:${code.toString()}`, message)
     return RESPONSE.ERROR(errorHandler(message as AppError), code)
   }
 
   public info(content: string, tag: string = TAG_DEFAULT) {
-    goodlog.info(TAG_FORMAT(tag), content)
+    console.info(TAG_FORMAT(tag), content)
   }
 
   public log(content: string, tag: string = TAG_DEFAULT) {
-    goodlog.log(TAG_FORMAT(tag), content)
+    console.log(TAG_FORMAT(tag), content)
   }
 }
 
