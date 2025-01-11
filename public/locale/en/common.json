@@ -1,11 +1,13 @@
 {
     "add_to_bag": "Add to Bag",
-    "welcome": "Welcome to our site",
+    "bag_empty": "Bag is empty",
     "description": "This is an example of i18n with Next.js",
     "go_to_bag": "Go to Bag",
+    "go_shopping": "Go Shopping",
     "home": {
         "label": "Home"
     },
+    "welcome": "Welcome to our site",
     "success": {},
     "error": {
         "bag_not_found": "Bag not found",
