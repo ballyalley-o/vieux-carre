@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
+import { en } from 'public/locale'
 import { auth } from 'auth'
 import { getMyBag, getUserById } from 'lib/action'
 import { redirect } from 'next/navigation'
@@ -20,7 +21,7 @@ const ShippingPage = async () => {
     const user = await getUserById(userId)
   return (
     <Fragment>
-      <PurchaseFlow current={1} />
+      <PurchaseFlow current={1} locale={en} />
       <ShippingAddressForm address={user.address as ShippingAddress} />
     </Fragment>
   )
