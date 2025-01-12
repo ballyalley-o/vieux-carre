@@ -8,6 +8,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { compareSync } from 'bcrypt-ts-edge'
 import { cookies } from 'next/headers'
 import { prisma } from 'db/prisma'
+import { PROTECTED_ROUTES } from 'config'
 import { KEY } from 'lib/constant'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
@@ -63,15 +64,29 @@ export const config = {
 
     async jwt({ token, user, trigger, session }: any) {
       if (user) {
+        token.id = user.id
         token.role = user.role
         if (user.name === 'NO_NAME') {
           token.name = user.email!.split('@')[0]
           await prisma.user.update({ where: { id: user.id }, data: { name: token.name } })
         }
+        if (trigger === 'signIn' || trigger === 'signUp') {
+          const cookiesObject = await cookies()
+          const sessionBagId = cookiesObject.get(KEY.SESSION_BAG_ID)?.value
+          if (sessionBagId) {
+            const sessionBag = await prisma.bag.findFirst({ where: { sessionBagId } })
+            if (sessionBag) {
+              await prisma.bag.deleteMany({where:{userId: user.id}})
+              await prisma.bag.update({where: {id: sessionBag.id}, data: {userId: user.id}})
+            }
+          }
+        }
       }
       return token
     },
     authorized({ request, auth }: any) {
+      const { pathname } = request.nextUrl
+      if (!auth && PROTECTED_ROUTES.some(p => p.test(pathname))) return false
       if (!request.cookies.get(KEY.SESSION_BAG_ID)) {
         const sessionBagId = crypto.randomUUID()
         const newRequestHeaders = new Headers(request.headers)
