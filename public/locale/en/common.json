@@ -1,19 +1,77 @@
 {
     "add_to_bag": "Add to Bag",
     "bag_empty": "Bag is empty",
+    "continue": {
+        "label": "Continue",
+        "description": "Continue to the next step"
+    },
     "description": "This is an example of i18n with Next.js",
+    "form": {
+        "first_name": {
+            "label": "First Name",
+            "placeholder": "Enter your first name"
+        },
+        "last_name": {
+            "label": "Last Name",
+            "placeholder": "Enter your last name"
+        },
+        "full_name": {
+            "label": "Full Name",
+            "placeholder": "Enter your full name"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Enter your email"
+        },
+        "phone": {
+            "label": "Phone",
+            "placeholder": "Enter your phone"
+        },
+        "address": {
+            "label": "Address",
+            "placeholder": "Enter your address"
+        },
+        "street": {
+            "label": "Street",
+            "placeholder": "Enter your street"
+        },
+        "city": {
+            "label": "City",
+            "placeholder": "Enter your city"
+        },
+        "state": {
+            "label": "State",
+            "placeholder": "Enter your state"
+        },
+        "postal_code": {
+            "label": "Postal Code",
+            "placeholder": "Enter your postal code"
+        },
+        "country": {
+            "label": "Country",
+            "placeholder": "Enter your country"
+        }
+    },
     "go_to_bag": "Go to Bag",
     "go_shopping": "Go Shopping",
     "home": {
         "label": "Home"
     },
     "welcome": "Welcome to our site",
+    "shipping_address": {
+        "label": "Shipping Address",
+        "description": "Complete the form with your shipping address"
+    },
+    "submit": {
+        "label": "Submit"
+    },
     "success": {},
     "error": {
         "bag_not_found": "Bag not found",
         "item_not_found": "Item not found",
         "no_existing_item": "No existing item to add on",
         "product_not_found": "Product not found",
-        "sesssion_not_found": "Session bag id not found"
+        "sesssion_not_found": "Session bag id not found",
+        "user_not_found": "User not found"
     }
 }
