@@ -86,6 +86,9 @@
     "submit": {
         "label": "Submit"
     },
+    "subtotal": {
+        "label": "Subtotal"
+    },
     "welcome": "Welcome to our site",
     "success": {},
     "error": {
