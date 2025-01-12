@@ -3,6 +3,15 @@ export const LOCALE = {
   VI: 'vi'
 }
 
+export const METHOD = {
+  GET: 'get',
+  POST: 'post',
+  PATCH: 'patch',
+  PUT: 'put',
+  DELETE: 'delete',
+  OPTION: 'option'
+}
+
 export const VARIANT = {
   GHOST: 'ghost'
 }
@@ -25,5 +34,6 @@ export const KEY = {
   TEXT: 'text',
   ...FORM,
   ...LOCALE,
+  ...METHOD,
   ...VARIANT
 }
