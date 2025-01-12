@@ -1,5 +1,6 @@
 export * from './bag-item-schema'
 export * from './bag-schema'
+export * from './default-value'
 export * from './product-schema'
 export * from './shipping-schema'
 export * from './sign-in-schema'
