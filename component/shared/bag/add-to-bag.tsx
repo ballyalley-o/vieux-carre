@@ -52,7 +52,7 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   ) : (
     <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
       {isPending ? (
-        <Loader className="w-4 h-4 animate-spin" />
+        <Loader className="loader" />
       ) : (
         <Fragment>
           <Plus /> {en.add_to_bag}

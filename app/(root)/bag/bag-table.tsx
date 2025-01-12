@@ -60,7 +60,7 @@ const BagTable: FC<BagTableProps> = ({ bag }) => {
   const renderNavigateCheckoutButton = () => {
     return (
       <Button className="w-full" disabled={isPending} onClick={handleNavigateCheckout}>
-        {isPending ? <Loader className={'h-4 w-4 animate-spin'} /> : (<Fragment> <ArrowRight className='w-4 h-4' /> {'Proceed to Checkout'}</Fragment>)}
+        {isPending ? <Loader className={'loader'} /> : (<Fragment> <ArrowRight className='w-4 h-4' /> {'Proceed to Checkout'}</Fragment>)}
       </Button>
     )
   }

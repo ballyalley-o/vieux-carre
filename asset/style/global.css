@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer utilities {
+
+  /* config  */
+
+  .icon-default-size {
+    @apply w-4 h-4;
+  }
+
+  .loader-default-size {
+    @apply w-4 h-4;
+  }
+
   .wrapper {
     @apply max-w-7xl lg:mx-auto p-5 md:px-10 w-full;
   }
@@ -28,6 +39,10 @@
 
   .h3-bold {
     @apply font-bold text-xl lg:text-2xl;
+  }
+
+  .loader {
+    @apply loader-default-size animate-spin;
   }
 }
 

@@ -22,7 +22,7 @@ const SignInForm = () => {
     return (
       <div className="mb-5">
         <Button disabled={pending} className="w-full" variant={'default'}>
-          {pending ? <Loader className="animate-spin mr-2" /> : 'Sign In'}
+          {pending ? <Loader className="loader mr-2" /> : 'Sign In'}
         </Button>
       </div>
     )
