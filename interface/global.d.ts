@@ -45,4 +45,12 @@ declare global {
     | Prisma.PrismaClientInitializationError
     | Prisma.PrismaClientValidationError
 
+  export enum METHOD  {
+    GET = 'get',
+    POST =  'post',
+    PATCH = 'patch',
+    PUT = 'put',
+    DELETE = 'delete',
+    OPTION= 'option'
+  }
 }
