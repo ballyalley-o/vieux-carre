@@ -1,4 +1,4 @@
-    // prettier-ignore
+// prettier-ignore
 export const GLOBAL = {
   APP_NAME               : process.env.NEXT_PUBLIC_APP_NAME || 'Vieux Carré',
   APP_VERSION            : process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
@@ -13,5 +13,6 @@ export const GLOBAL = {
     NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
     DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
   },
+  PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || "",
   PURCHASE_FLOW          : ['user_sign_in', 'shipping', 'payment', 'place_order']
 }
