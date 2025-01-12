@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { auth } from 'auth'
 import { getMyBag, getUserById } from 'lib/action'
 import { redirect } from 'next/navigation'
+import { PurchaseFlow } from 'component/shared/custom'
 import { PATH_DIR } from 'config'
 import ShippingAddressForm from './shipping-address-form'
 
@@ -19,7 +20,8 @@ const ShippingPage = async () => {
     const user = await getUserById(userId)
   return (
     <Fragment>
-      <ShippingAddressForm  address={user.address as ShippingAddress}/>
+      <PurchaseFlow current={1} />
+      <ShippingAddressForm address={user.address as ShippingAddress} />
     </Fragment>
   )
 }
