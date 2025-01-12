@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
 import { ArrowRight, Loader } from 'lucide-react'
-import { Table, Card, CardContent, Button } from 'component/ui'
+import { Table, Card, CardContent, Button, Badge } from 'component/ui'
 import { PATH_DIR } from 'config'
 import { formatCurrency } from 'lib/util'
 import BagTableHead from './bag-table-head'
@@ -80,11 +80,17 @@ const BagTable: FC<BagTableProps> = ({ bag }) => {
               <BagTableBody bag={bag} isPending={isPending} handleMinus={handleRemoveItem} handlePlus={handleAddItem} />
             </Table>
           </div>
-          <Card>
+          <Card className="rounded-sm shadow-none">
             <CardContent className="p-4 gap-4">
-              <div className="pb-3 text-xl">
-                {'Subtotal'} ({subtotal}):
-                <span className="font-bold">{formatCurrency(bag.itemsPrice)}</span>
+              <div className="pb-3 text-xl justify-between flex">
+                <div>
+                  {en.subtotal.label} &nbsp;
+                  <Badge variant={'secondary'} className="text-md">
+                    {subtotal}
+                  </Badge>
+                  &nbsp;:&nbsp;
+                </div>
+                <span className="font-bold"> {formatCurrency(bag.itemsPrice)}</span>
               </div>
               {renderNavigateCheckoutButton()}
             </CardContent>
