@@ -48,7 +48,7 @@ const ShippingAddressForm: FC<ShippingAddressFormProps> = ({ address }) => {
             <Loader className={'loader'} />
           ) : (
             <Fragment>
-              {en.continue.label} <ArrowRight className={'icon-default-size'} />
+              {en.continue.label} <ArrowRight className={'default-size_icon'} />
             </Fragment>
           )}
         </Button>
