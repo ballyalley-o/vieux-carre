@@ -3,6 +3,8 @@ export { default as AddToBag } from './bag/add-to-bag'
 // ⎿ btn
 export { default as LinkBtn } from './btn/link-btn'
 export { default as DynamicBagBtn } from './btn/dynamic-bag-btn'
+// ⎿ custom
+export { default as ProcessFlow } from './custom/purchase-flow'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header
