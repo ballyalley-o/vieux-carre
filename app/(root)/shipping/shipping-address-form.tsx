@@ -10,7 +10,7 @@ import { useToast } from 'hook'
 import { shippingAddressDefaultValue, updateUserAddress } from 'lib'
 import { ShippingAddressSchema } from 'lib/schema'
 import { Form } from 'component/ui/form'
-import { RHFFormFieldProps } from 'component/shared/rhf'
+import { RHFFormField } from 'component/shared/rhf'
 import { LoadingBtn } from 'component/shared/btn'
 import { PATH_DIR } from 'config'
 
@@ -46,11 +46,11 @@ const ShippingAddressForm: FC<ShippingAddressFormProps> = ({ address }) => {
         <p className="text-sm text-muted-foreground">{en.shipping_address.description}</p>
         <Form {...form}>
           <form method={'post'} onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <RHFFormFieldProps control={control} name={'fullName'} formKey={'full_name'} />
-            <RHFFormFieldProps control={control} name={'streetAddress'} formKey={'street'} />
-            <RHFFormFieldProps control={control} name={'city'} formKey={'city'} />
-            <RHFFormFieldProps control={control} name={'postalCode'} formKey={'postal_code'} />
-            <RHFFormFieldProps control={control} name={'country'} formKey={'country'} />
+            <RHFFormField control={control} name={'fullName'} formKey={'full_name'} />
+            <RHFFormField control={control} name={'streetAddress'} formKey={'street'} />
+            <RHFFormField control={control} name={'city'} formKey={'city'} />
+            <RHFFormField control={control} name={'postalCode'} formKey={'postal_code'} />
+            <RHFFormField control={control} name={'country'} formKey={'country'} />
             <LoadingBtn isPending={isPending} label={en.continue.label} />
           </form>
         </Form>
