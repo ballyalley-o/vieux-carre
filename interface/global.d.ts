@@ -4,13 +4,13 @@ import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddre
 
 declare global {
   export interface Product extends z.infer<typeof ProductSchema> {
-    id: number
-    rating: string
+    id       : number
+    rating   : string
     createdAt: Date
   }
 
-  export type Bag = z.infer<typeof BagSchema>
-  export type BagItem = z.infer<typeof BagItemSchema>
+  export type Bag             = z.infer<typeof BagSchema>
+  export type BagItem         = z.infer<typeof BagItemSchema>
   export type ShippingAddress = z.infer<typeof ShippingAddressSchema>
 
   export interface ReadonlyReactNode {
@@ -18,24 +18,24 @@ declare global {
   }
 
   export interface ResponseMessage {
-    code: CODE
+    code   : CODE
     success: boolean
     message: string
   }
 
-   export interface ErrorResponseMessage {
-     code: CODE
-     success: boolean
-     message: AppError | string
-   }
+  export interface ErrorResponseMessage {
+    code   : CODE
+    success: boolean
+    message: AppError | string
+  }
 
   export interface SystemResponse extends ResponseMessage {
     tag?: string
   }
 
-   export interface SystemErrorResponse extends ErrorResponseMessage {
-     tag?: string
-   }
+  export interface SystemErrorResponse extends ErrorResponseMessage {
+    tag?: string
+  }
 
   export type AppError =
     | ZodError
@@ -45,12 +45,14 @@ declare global {
     | Prisma.PrismaClientInitializationError
     | Prisma.PrismaClientValidationError
 
-  export enum METHOD  {
-    GET = 'get',
-    POST =  'post',
-    PATCH = 'patch',
-    PUT = 'put',
+  export type ButtonType = 'submit' | 'button' | 'reset' | undefined
+
+  export enum METHOD {
+    GET    = 'get',
+    POST   = 'post',
+    PATCH  = 'patch',
+    PUT    = 'put',
     DELETE = 'delete',
-    OPTION= 'option'
+    OPTION = 'option'
   }
 }
