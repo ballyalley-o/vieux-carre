@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { GLOBAL } from 'config'
 import { cn } from 'lib'
 
 interface ProductPriceProps {
@@ -10,7 +11,7 @@ const ProductPrice: FC<ProductPriceProps> = ({ value, className }) => {
   const [intValue, floatValue] = stringValue.split('.')
   return (
     <p className={cn('text-2xl', className)}>
-      <span className="text-xs align-super">{'$'}</span>
+      <span className="text-xs align-super">{GLOBAL.PRICES.CURRENCY}&nbsp;</span>
       {intValue}
       <span className="text-xs align-super">{floatValue}</span>
     </p>
