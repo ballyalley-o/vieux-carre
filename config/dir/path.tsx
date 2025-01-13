@@ -1,11 +1,9 @@
 import { join } from 'lib'
 import { GLOBAL } from 'config'
 
-const wrapPath = (path: string) => `/${path}`
-
 const protect = () => {
   const routesArray = GLOBAL.PROTECTED_ROUTES.split(';') || ""
-  return routesArray.map((route: string) => new RegExp(wrapPath(route)))
+  return routesArray.map((route: string) => new RegExp(join(route)))
 }
 
 export const PROTECTED_ROUTES = protect()
