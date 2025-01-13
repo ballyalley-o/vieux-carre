@@ -9,10 +9,9 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useToast } from 'hook'
 import { shippingAddressDefaultValue, updateUserAddress } from 'lib'
 import { ShippingAddressSchema } from 'lib/schema'
-import { ArrowRight, Loader } from 'lucide-react'
 import { Form } from 'component/ui/form'
-import { Button } from 'component/ui/button'
 import { RHFFormFieldProps } from 'component/shared/rhf'
+import { LoadingBtn } from 'component/shared/btn'
 import { PATH_DIR } from 'config'
 
 interface ShippingAddressFormProps {
@@ -40,21 +39,6 @@ const ShippingAddressForm: FC<ShippingAddressFormProps> = ({ address }) => {
     })
   }
 
-  const renderSubmitButton = () => {
-    return (
-      <div className="flex gap-2">
-        <Button type={'submit'} disabled={isPending} className="w-full mt-5">
-          {isPending ? (
-            <Loader className={'loader'} />
-          ) : (
-            <Fragment>
-              {en.continue.label} <ArrowRight className={'default-size_icon'} />
-            </Fragment>
-          )}
-        </Button>
-      </div>
-    )
-  }
   return (
     <Fragment>
       <div className="max-w-md mx-auto space-y-4">
@@ -67,7 +51,7 @@ const ShippingAddressForm: FC<ShippingAddressFormProps> = ({ address }) => {
             <RHFFormFieldProps control={control} name={'city'} formKey={'city'} />
             <RHFFormFieldProps control={control} name={'postalCode'} formKey={'postal_code'} />
             <RHFFormFieldProps control={control} name={'country'} formKey={'country'} />
-            {renderSubmitButton()}
+            <LoadingBtn isPending={isPending} label={en.continue.label} />
           </form>
         </Form>
       </div>
