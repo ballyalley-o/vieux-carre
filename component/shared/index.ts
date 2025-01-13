@@ -22,5 +22,5 @@ export { default as ProductCard } from './product/product-card'
 export { default as ProductPrice } from './product/product-price'
 export { default as ProductImage } from './product/product-image'
 // ⎿ rhf
-export { default as RHFFormFieldProps } from './rhf/rhf-form-field'
+export { default as RHFFormField } from './rhf/rhf-form-field'
 export { default as RHFRadioGroup } from './rhf/rhf-radio-group'

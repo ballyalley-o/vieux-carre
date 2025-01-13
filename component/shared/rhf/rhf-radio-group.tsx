@@ -36,4 +36,4 @@ const RHFRadioGroup = <TSchema extends ZodSchema, TName extends Path<z.infer<TSc
   )
 }
 
-export default RHFRadioGroup;
+export default RHFRadioGroup
