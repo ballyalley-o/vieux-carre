@@ -33,7 +33,7 @@ const BagTable: FC<BagTableProps> = ({ bag }) => {
   const { toast } = useToast()
   const router = useRouter()
 
-  const subtotal = bag.items.reduce((acc, item) => acc + item.qty, 0)
+  const subtotal = bag  && bag.items.reduce((acc, item) => acc + item.qty, 0)
 
   const handleRemoveItem = async (item: BagItem) => {
     startTransition(async () => {
