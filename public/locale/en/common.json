@@ -58,6 +58,10 @@
     "home": {
         "label": "Home"
     },
+    "payment_method": {
+        "label": "Payment Method",
+        "description": "Select your preferred payment method"
+    },
     "purchase_flow": {
         "user_sign_in": {
             "label": "User Sign In",
