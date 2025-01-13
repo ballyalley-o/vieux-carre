@@ -1,3 +1,8 @@
+export const BUTTON_TYPE = {
+  SUBMIT: 'submit',
+  BUTTON: 'button'
+}
+
 export const LOCALE = {
   EN: 'en',
   VI: 'vi'
@@ -32,6 +37,7 @@ export const KEY = {
   LIGHT: 'light',
   SYSTEM: 'system',
   TEXT: 'text',
+  ...BUTTON_TYPE,
   ...FORM,
   ...LOCALE,
   ...METHOD,
