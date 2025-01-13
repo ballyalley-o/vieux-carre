@@ -2,7 +2,7 @@ import { z } from "zod"
 import { en } from "public/locale"
 import { GLOBAL } from "config"
 
-const PAYMENT_METHODS = GLOBAL.PAYMENT_METHODS && GLOBAL.PAYMENT_METHODS.split(';') || ['PayPal', 'Stripe', 'Cash']
+export const PAYMENT_METHODS = GLOBAL.PAYMENT_METHODS && GLOBAL.PAYMENT_METHODS.split(';') || ['PayPal', 'Stripe', 'Cash']
 
 export const PaymentMethodSchema = z.object({
     type: z.string().min(1, 'Payment method is required')
