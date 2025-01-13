@@ -52,6 +52,7 @@
             "placeholder": "Enter your country"
         }
     },
+    "go_back": "Go Back",
     "go_to_bag": "Go to Bag",
     "go_shopping": "Go Shopping",
     "home": {
@@ -90,9 +91,15 @@
         "label": "Subtotal"
     },
     "welcome": "Welcome to our site",
-    "success": {},
+    "success": {
+        "user_updated": "User updated",
+        "user_signed_up": "User signed up",
+        "user_signed_in": "User signed in"
+    },
     "error": {
         "bag_not_found": "Bag not found",
+        "invalid_credentials": "Invalid credentials",
+        "invalid_payment_method": "Invalid payment method",
         "item_not_found": "Item not found",
         "no_existing_item": "No existing item to add on",
         "product_not_found": "Product not found",
