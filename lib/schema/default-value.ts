@@ -1,19 +1,19 @@
 export const signInDefaultValue = {
-  email: '',
+  email   : '',
   password: ''
 }
 
 export const signUpDefaultValue = {
-  name: '',
-  email: '',
-  password: '',
+  name           : '',
+  email          : '',
+  password       : '',
   confirmPassword: ''
 }
 
 export const shippingAddressDefaultValue = {
-  fullName: '',
+  fullName     : '',
   streetAddress: '',
-  city: '',
-  postalCode: '',
-  country: '',
+  city         : '',
+  postalCode   : '',
+  country      : '',
 }
