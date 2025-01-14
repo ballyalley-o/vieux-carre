@@ -30,7 +30,7 @@ const RHFFormField = <TSchema extends ZodSchema, TName extends Path<z.infer<TSch
             <Input placeholder={en.form[formKey].placeholder} {...field} />
             <FormMessage />
           </FormItem>
-        )}></FormField>
+        )}/>
     </div>
   )
 }
