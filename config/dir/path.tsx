@@ -9,9 +9,9 @@ const protect = () => {
 export const PROTECTED_ROUTES = protect()
 export const PATH_DIR = {
   BAG: join('bag'),
+  CHECKOUT: join('order', 'checkout'),
   MOCK: join('__mock', 'sample-data.ts'),
   PAYMENT: join('payment'),
-  PLACE_ORDER: join('place-order'),
   PRODUCT_VIEW: (slug: string) => join('product', slug),
   ROOT: '/',
   SHIPPING: join('shipping'),
