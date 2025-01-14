@@ -35,7 +35,7 @@ const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
         toast({ variant: "destructive", description: response.message })
         return
       }
-      router.push(PATH_DIR.PLACE_ORDER)
+      router.push(PATH_DIR.CHECKOUT)
     })
   }
 
