@@ -7,6 +7,7 @@ export const GLOBAL = {
   DATABASE_URL           : process.env.DATABASE_URL || '',
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
+  LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
   PAYMENT_METHODS        : process.env.NEXT_PUBLIC_PAYMENT_METHODS,
   PAYMENT_METHOD_DEFAULT : process.env.NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD || 'PayPal',
   PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || '',
