@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import ProductCard from './product-card'
+import { en } from 'public/locale'
 
 interface ProductListProps {
   data: Product[]
@@ -19,8 +20,8 @@ const ProductList: FC<ProductListProps> = ({ data, title, limit }) => {
           ))}
         </div>
       ) : (
-        <div className="">
-          <h3>{'No Products found'}</h3>
+        <div>
+          <h3>{en.error.product_not_found}</h3>
         </div>
       )}
     </div>
