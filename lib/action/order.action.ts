@@ -8,6 +8,7 @@ import { getUserById } from './user.action'
 import { getMyBag } from './bag.action'
 import { PATH_DIR } from 'config'
 import { OrderSchema } from 'lib/schema'
+import { convertToPlainObject } from 'lib/util'
 
 const TAG = 'ORDER.ACTION'
 export async function createOrder() {
@@ -58,13 +59,11 @@ export async function createOrder() {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
-export async function getOrderById() {
+export async function getOrderById(orderId: string) {
   try {
-    const session = await auth()
-    if (!session) throw new Error(en.error.user_not_authenticated)
-    const userId = session?.user?.id
-    if (!userId) throw new Error(en.error.user_not_found)
+    const order = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }}} })
+    return convertToPlainObject(order)
   } catch (error) {
-    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+    return SystemLogger.errorResponse(error as AppError, CODE.NOT_FOUND, TAG)
   }
 }
