@@ -1,11 +1,18 @@
 {
     "add_to_bag": "Add to Bag",
     "bag_empty": "Bag is empty",
+    "checkout": {
+        "label": "Checkout",
+        "description": "Complete the form with your information"
+    },
     "continue": {
         "label": "Continue",
         "description": "Continue to the next step"
     },
     "description": "This is an example of i18n with Next.js",
+    "edit": {
+        "label": "Edit"
+    },
     "form": {
         "first_name": {
             "label": "First Name",
@@ -58,6 +65,15 @@
     "home": {
         "label": "Home"
     },
+    "item": {
+        "label": "Item",
+        "items": {
+            "label": "Items"
+        }
+    },
+    "order_items": {
+        "label": "Order Items"
+    },
     "payment_method": {
         "label": "Payment Method",
         "description": "Select your preferred payment method"
@@ -84,15 +100,28 @@
             "completed": "Order Placed"
         }
     },
+    "shipping": {
+        "label": "Shipping",
+        "description": "Complete the form with your shipping information"
+    },
     "shipping_address": {
         "label": "Shipping Address",
         "description": "Complete the form with your shipping address"
+    },
+    "status": {
+        "label": "Status"
     },
     "submit": {
         "label": "Submit"
     },
     "subtotal": {
         "label": "Subtotal"
+    },
+    "tax": {
+        "label": "Tax"
+    },
+    "total": {
+        "label": "Total"
     },
     "welcome": "Welcome to our site",
     "success": {
@@ -101,13 +130,18 @@
         "user_signed_in": "User signed in"
     },
     "error": {
+        "bag_empty": "Bag is empty",
         "bag_not_found": "Bag not found",
         "invalid_credentials": "Invalid credentials",
         "invalid_payment_method": "Invalid payment method",
         "item_not_found": "Item not found",
         "no_existing_item": "No existing item to add on",
+        "no_shipping_address": "No shipping address",
+        "no_payment_method": "No payment method selected",
+        "order_not_found": "Order not found",
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",
+        "user_not_authenticated": "User not authenticated",
         "user_not_found": "User not found"
     }
 }
