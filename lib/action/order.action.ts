@@ -53,7 +53,7 @@ export async function createOrder() {
         return createdOrder.id
     })
     if (!createdOrderId) throw new Error(en.error.order_not_created)
-    return SystemLogger.response(en.success.order_created, CODE.CREATED, TAG)
+    return SystemLogger.response(`${en.success.order_created} - ${createdOrderId}`, CODE.CREATED, TAG, PATH_DIR.ORDER_VIEW(createdOrderId))
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
