@@ -45,6 +45,8 @@ declare global {
     | Prisma.PrismaClientInitializationError
     | Prisma.PrismaClientValidationError
 
+
+  export type ButtonVariant = 'ghost' | 'default' | 'destructive' | 'outline' | 'secondary' | 'link' | null | undefined
   export type ButtonType = 'submit' | 'button' | 'reset' | undefined
 
   export enum METHOD {

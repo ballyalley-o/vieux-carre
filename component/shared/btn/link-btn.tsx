@@ -2,8 +2,6 @@ import { ReactNode, FC } from 'react'
 import Link from 'next/link'
 import { Button } from 'component/ui'
 
-type ButtonVariant = 'ghost' | 'default' | 'destructive' | 'outline' | 'secondary' | 'link' | null | undefined
-
 interface LinkBtnProps {
   href: string
   children: ReactNode
