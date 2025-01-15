@@ -125,6 +125,7 @@
     },
     "welcome": "Welcome to our site",
     "success": {
+        "order_created": "Order created",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
         "user_signed_in": "User signed in"
@@ -138,6 +139,7 @@
         "no_existing_item": "No existing item to add on",
         "no_shipping_address": "No shipping address",
         "no_payment_method": "No payment method selected",
+        "order_not_created": "Order not created",
         "order_not_found": "Order not found",
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",
