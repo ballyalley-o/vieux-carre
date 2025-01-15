@@ -4,10 +4,10 @@ import { getProductBySlug, getMyBag } from 'lib'
 import { Button, Card, CardContent, Badge, ProductPrice, ProductImage } from 'component'
 import { AddToBag } from 'component/shared'
 
-interface ProductDetailsPageProps {
+interface ProductViewPageProps {
   params: Promise<{ slug: string }>
 }
-const ProductDetailsPage: FC<ProductDetailsPageProps> = async ({ params }) => {
+const ProductViewPage: FC<ProductViewPageProps> = async ({ params }) => {
   const { slug } = await params
   const product = await getProductBySlug(slug)
   if (!product) return notFound()
@@ -63,4 +63,4 @@ const ProductDetailsPage: FC<ProductDetailsPageProps> = async ({ params }) => {
   )
 }
 
-export default ProductDetailsPage
+export default ProductViewPage
