@@ -70,11 +70,11 @@ const CheckoutPage = async () => {
               {PRICE_CARD.map(({ label, price }, index) => (
                 <CheckoutPriceRow key={index} price={price} label={label} />
               ))}
+              <CheckoutForm />
             </CardContent>
           </Card>
         </div>
       </div>
-      <CheckoutForm />
     </Fragment>
   )
 }
