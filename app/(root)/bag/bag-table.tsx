@@ -10,9 +10,7 @@ import { ArrowRight, Loader } from 'lucide-react'
 import { Table, Card, CardContent, Button, Badge } from 'component/ui'
 import { PATH_DIR } from 'config'
 import { formatCurrency } from 'lib/util'
-import BagTableHead from './bag-table-head'
-import BagTableBody from './bag-table-body'
-
+import { BagTableHead, BagTableBody } from 'component/shared/bag'
 
 interface BagTableCell {
   id: string

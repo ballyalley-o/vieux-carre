@@ -1,5 +1,5 @@
 import { TableHeader, TableRow, TableHead } from 'component/ui'
-import { BagTableCells } from './bag-table'
+import { BagTableCells } from '../../../app/(root)/bag/bag-table'
 
 const BagTableHead = () => {
   const HEADER: BagTableCells = {

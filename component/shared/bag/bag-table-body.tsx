@@ -4,16 +4,17 @@ import Link from 'next/link'
 import { TableBody, TableRow, TableCell } from 'component/ui'
 import { DynamicBagBtn } from 'component/shared/btn'
 import { GLOBAL, PATH_DIR } from 'config'
-import { BagTableCells } from './bag-table'
+import { BagTableCells } from '../../../app/(root)/bag/bag-table'
 
 interface BagTableBodyProps {
   bag: Bag
-  isPending: boolean
-  handleMinus: (item: BagItem) => void
-  handlePlus: (item: BagItem) => void
+  isPending?: boolean
+  withQtyController?: boolean
+  handleMinus?: (item: BagItem) => void
+  handlePlus?: (item: BagItem) => void
 }
 
-const BagTableBody: FC<BagTableBodyProps> = ({ isPending, handleMinus, handlePlus, bag }) => {
+const BagTableBody: FC<BagTableBodyProps> = ({ isPending = false, handleMinus = () => {}, handlePlus = () => {}, bag, withQtyController = false }) => {
   const BODY = (item: BagItem): BagTableCells => ({
     cells: [
       {
@@ -29,7 +30,7 @@ const BagTableBody: FC<BagTableBodyProps> = ({ isPending, handleMinus, handlePlu
       {
         id: 'quantity',
         align: 'text-center',
-        value: <DynamicBagBtn amount={item.qty} isPending={isPending} handleMinus={() => handleMinus(item)} handlePlus={() => handlePlus(item)} />
+        value: withQtyController ? <DynamicBagBtn amount={item.qty} isPending={isPending} handleMinus={() => handleMinus(item)} handlePlus={() => handlePlus(item)} /> :  <span>{item.qty}</span>
       },
       {
         id: 'price',
