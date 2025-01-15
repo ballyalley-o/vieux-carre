@@ -1,11 +1,13 @@
+import { GLOBAL } from "config/global"
+
 export const formatNumberWithDecimal = (num: number): string => {
   const [integer, decimal] = num.toString().split('.')
   return decimal ? `${integer}.${decimal.padEnd(2, '0')}` : `${integer}.00`
 }
 
 const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-  currency: 'NZD',
-  style: 'currency',
+  currency             : GLOBAL.PRICES.CURRENCY,
+  style                : 'currency',
   minimumFractionDigits: 2,
 })
 
