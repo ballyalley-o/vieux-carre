@@ -78,6 +78,13 @@
         "label": "Payment Method",
         "description": "Select your preferred payment method"
     },
+    "place_order": {
+        "label": "Place Order",
+        "description": "Place your order"
+    },
+    "price": {
+        "label": "Price"
+    },
     "purchase_flow": {
         "user_sign_in": {
             "label": "User Sign In",
