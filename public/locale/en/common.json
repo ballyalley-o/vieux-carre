@@ -80,7 +80,8 @@
     },
     "place_order": {
         "label": "Place Order",
-        "description": "Place your order"
+        "description": "Place your order",
+        "pending": "Placing Order..."
     },
     "price": {
         "label": "Price"
