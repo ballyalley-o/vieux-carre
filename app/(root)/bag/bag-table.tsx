@@ -13,7 +13,7 @@ import { formatCurrency } from 'lib/util'
 import { BagTableHead, BagTableBody } from 'component/shared/bag'
 
 interface BagTableCell {
-  id: string
+  id   : string
   value: string | JSX.Element | number | ReactNode
   align: string
 }
