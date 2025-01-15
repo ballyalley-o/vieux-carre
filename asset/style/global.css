@@ -10,6 +10,10 @@
     @apply w-4 h-4;
   }
 
+  .default-card {
+    @apply rounded-sm shadow-none
+  }
+
   .loader-default-size {
     @apply w-4 h-4;
   }
