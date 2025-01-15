@@ -11,6 +11,8 @@ export const PATH_DIR = {
   BAG: join('bag'),
   CHECKOUT: join('order', 'checkout'),
   MOCK: join('__mock', 'sample-data.ts'),
+  ORDER: join('order'),
+  ORDER_VIEW: (id: string) => join('order', id),
   PAYMENT: join('payment'),
   PRODUCT_VIEW: (slug: string) => join('product', slug),
   ROOT: '/',
