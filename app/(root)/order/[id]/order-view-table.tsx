@@ -3,22 +3,25 @@ import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
 import { parseAddress } from 'lib'
 import { Badge } from 'component/ui'
+import { PriceSummaryCard } from 'component/shared/card'
 import OrderViewCard from './order-view-card'
 
 interface OrderViewTableProps {
   order: Order
 }
 const OrderViewTable: FC<OrderViewTableProps> = ({ order }) => {
-  const { id, orderitems, shippingAddress, shippingPrice, taxPrice, itemsPrice, totalPrice, paymentMethod, isDelivered, deliveredAt,  isPaid, paidAt } = order
+  const { orderitems, shippingAddress, paymentMethod, isDelivered, deliveredAt,  isPaid, paidAt } = order
 
   return (
     <Fragment>
+        {/* title and order id */}
       <div className="flex flex-row items-center justify-start gap-4">
         <h1 className={'py-4 h3-bold'}>{en.order.label}</h1>
         <span>
           <Badge variant={'secondary'}>{order.id}</Badge>
         </span>
       </div>
+      {/* cards  */}
       <div className="grid md:grid-cols-3 md:gap-5">
         <div className="col-span-2 space-y-4 overflow-x-auto">
           {/* payment method card */}
@@ -44,6 +47,10 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order }) => {
 
           {/* order items card */}
           <OrderViewCard title={en.order_items.label} orderItems={orderitems} showTable />
+        </div>
+        {/* prices summary */}
+        <div>
+          <PriceSummaryCard prices={order} />
         </div>
       </div>
     </Fragment>
