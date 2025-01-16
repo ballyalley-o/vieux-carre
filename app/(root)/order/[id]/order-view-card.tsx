@@ -49,8 +49,10 @@ const OrderViewCard: FC<OverViewCardProps> = ({
     <Card>
       <CardContent className={'p-4 gap-4'}>
         <h2 className={'text-xl pb-4'}>{title}</h2>
-        <p>{subtitle}</p>
-        {subtitle2 && <p>{subtitle2}</p>}
+        <div className={'mb-2'}>
+          <p>{subtitle}</p>
+          {subtitle2 && <p>{subtitle2}</p>}
+        </div>
         {showTable ? (
           <Table>
             <BagTableHead />
