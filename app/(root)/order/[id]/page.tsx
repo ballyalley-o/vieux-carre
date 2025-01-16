@@ -1,7 +1,8 @@
-import { FC, Fragment } from 'react'
+import { FC } from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getOrderById } from 'lib'
+import OrderViewTable from './order-view-table'
 
 interface OrderViewPageProps {
   params: Promise<{ id: string }>
@@ -14,7 +15,11 @@ const OrderViewPage: FC<OrderViewPageProps> = async ({ params }) => {
   const { id } = await params
   const order = await getOrderById(id)
   if (!order) notFound()
-  return <div>{id}</div>
+  return (
+    <div>
+      <OrderViewTable order={order} />
+    </div>
+  )
 }
 
 export default OrderViewPage
