@@ -9,6 +9,9 @@
         "label": "Continue",
         "description": "Continue to the next step"
     },
+    "delivered_at": {
+        "label": "Delivered At"
+    },
     "description": "This is an example of i18n with Next.js",
     "edit": {
         "label": "Edit"
@@ -71,8 +74,21 @@
             "label": "Items"
         }
     },
+    "not_delivered": {
+        "label": "Not Delivered"
+    },
+    "not_paid": {
+        "label": "Not Paid"
+    },
+    "order": {
+        "label": "Order",
+        "description": "Complete the form with your order information"
+    },
     "order_items": {
         "label": "Order Items"
+    },
+    "paid_at": {
+        "label": "Paid At"
     },
     "payment_method": {
         "label": "Payment Method",
