@@ -58,6 +58,7 @@ declare global {
 
 
   export type ButtonVariant = 'ghost' | 'default' | 'destructive' | 'outline' | 'secondary' | 'link' | null | undefined
+  export type BadgeVariant = "default" | "destructive" | "outline" | "secondary" | null | undefined
   export type ButtonType = 'submit' | 'button' | 'reset' | undefined
 
   export enum METHOD {
