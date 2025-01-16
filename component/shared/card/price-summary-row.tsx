@@ -1,11 +1,11 @@
 import { FC } from "react"
 import { formatCurrency } from "lib"
 
-interface CheckoutPriceRowProps {
+interface PriceSummaryRowProps {
   label: string
   price: string | number
 }
-const CheckoutPriceRow: FC<CheckoutPriceRowProps> = ({ label,  price }) => {
+const PriceSummaryRow: FC<PriceSummaryRowProps> = ({ label, price }) => {
   return (
     <div className="flex justify-between">
       <div className="">{label}</div>
@@ -14,4 +14,4 @@ const CheckoutPriceRow: FC<CheckoutPriceRowProps> = ({ label,  price }) => {
   )
 }
 
-export default CheckoutPriceRow
+export default PriceSummaryRow
