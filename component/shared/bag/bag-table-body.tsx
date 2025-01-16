@@ -6,15 +6,21 @@ import { DynamicBagBtn } from 'component/shared/btn'
 import { GLOBAL, PATH_DIR } from 'config'
 import { BagTableCells } from '../../../app/(root)/bag/bag-table'
 
-interface BagTableBodyProps {
-  bag: Bag
-  isPending?: boolean
+export interface BagTableBodyProps {
+  bagItems          : OrderItem[]
+  isPending        ?: boolean
   withQtyController?: boolean
-  handleMinus?: (item: BagItem) => void
-  handlePlus?: (item: BagItem) => void
+  handleMinus      ?: (item: BagItem) => void
+  handlePlus       ?: (item: BagItem) => void
 }
 
-const BagTableBody: FC<BagTableBodyProps> = ({ isPending = false, handleMinus = () => {}, handlePlus = () => {}, bag, withQtyController = false }) => {
+const BagTableBody: FC<BagTableBodyProps> = ({
+  isPending   = false,
+  handleMinus = () => {},
+  handlePlus  = () => {},
+  bagItems,
+  withQtyController = false
+}) => {
   const BODY = (item: BagItem): BagTableCells => ({
     cells: [
       {
@@ -30,7 +36,11 @@ const BagTableBody: FC<BagTableBodyProps> = ({ isPending = false, handleMinus = 
       {
         id: 'quantity',
         align: 'text-center',
-        value: withQtyController ? <DynamicBagBtn amount={item.qty} isPending={isPending} handleMinus={() => handleMinus(item)} handlePlus={() => handlePlus(item)} /> :  <span>{item.qty}</span>
+        value: withQtyController ? (
+          <DynamicBagBtn amount={item.qty} isPending={isPending} handleMinus={() => handleMinus(item)} handlePlus={() => handlePlus(item)} />
+        ) : (
+          <span>{item.qty}</span>
+        )
       },
       {
         id: 'price',
@@ -41,10 +51,12 @@ const BagTableBody: FC<BagTableBodyProps> = ({ isPending = false, handleMinus = 
   })
   return (
     <TableBody>
-      {bag.items.map((item) => (
+      {bagItems.map((item) => (
         <TableRow key={item.slug}>
           {BODY(item).cells?.map(({ id, value, align }) => (
-            <TableCell key={id} className={align}>{value}</TableCell>
+            <TableCell key={id} className={align}>
+              {value}
+            </TableCell>
           ))}
         </TableRow>
       ))}
