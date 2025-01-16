@@ -75,7 +75,7 @@ const BagTable: FC<BagTableProps> = ({ bag }) => {
           <div className="overflow-x-auto md:col-span-3">
             <Table>
               <BagTableHead />
-              <BagTableBody bag={bag} isPending={isPending} handleMinus={handleRemoveItem} handlePlus={handleAddItem} withQtyController />
+              <BagTableBody bagItems={bag.items} isPending={isPending} handleMinus={handleRemoveItem} handlePlus={handleAddItem} withQtyController />
             </Table>
           </div>
           <Card className="rounded-sm shadow-none">

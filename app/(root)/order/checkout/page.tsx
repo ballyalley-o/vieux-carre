@@ -59,7 +59,7 @@ const CheckoutPage = async () => {
           <CheckoutCard i18Title={en.order_items.label} href={PATH_DIR.PAYMENT} icon={<ShoppingBag className={'default-size_icon'} />}>
             <Table>
               <BagTableHead />
-              <BagTableBody bag={bag} />
+              <BagTableBody bagItems={bag.items} />
             </Table>
           </CheckoutCard>
         </div>
