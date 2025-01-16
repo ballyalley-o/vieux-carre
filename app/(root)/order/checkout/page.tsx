@@ -4,13 +4,12 @@ import { en } from 'public/locale'
 import { auth } from 'auth'
 import { redirect } from 'next/navigation'
 import { WalletCards, Container, ShoppingBag } from 'lucide-react'
-import { Card, CardContent, Table } from 'component/ui'
-import { CheckoutCard } from 'component/shared/card'
+import { Table } from 'component/ui'
+import { CheckoutCard, PriceSummaryCard } from 'component/shared/card'
 import { PurchaseFlow } from 'component/shared/custom'
 import { BagTableBody, BagTableHead } from 'component/shared/bag'
 import { getMyBag, getUserById, parseAddress } from 'lib'
 import { PATH_DIR } from 'config'
-import CheckoutPriceRow from './checkout-price-row'
 import CheckoutForm from './checkout-form'
 
 export const metadata: Metadata = {
@@ -31,12 +30,6 @@ const CheckoutPage = async () => {
 
   const userAddress = user.address as ShippingAddress
 
-  const PRICE_CARD = [
-    { label: en.item.items.label, price: bag.itemsPrice },
-    { label: en.tax.label, price: bag.taxPrice },
-    { label: en.shipping.label, price: bag.shippingPrice },
-    { label: en.total.label, price: bag.totalPrice }
-  ]
   return (
     <Fragment>
       <PurchaseFlow current={3} locale={en} />
@@ -63,17 +56,10 @@ const CheckoutPage = async () => {
             </Table>
           </CheckoutCard>
         </div>
-        {/* price panel */}
-        <div className="">
-          <Card>
-            <CardContent className={'p-4 gap-4 space-y-4'}>
-              {PRICE_CARD.map(({ label, price }, index) => (
-                <CheckoutPriceRow key={index} price={price} label={label} />
-              ))}
-              <CheckoutForm />
-            </CardContent>
-          </Card>
-        </div>
+        {/* price summary panel */}
+        <PriceSummaryCard prices={bag}>
+            <CheckoutForm />
+        </PriceSummaryCard>
       </div>
     </Fragment>
   )
