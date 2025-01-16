@@ -22,10 +22,10 @@ const calculatePrices = (items: BagItem[]) => {
     totalPrice = float2(itemsPrice + shippingPrice + taxPrice)
 
   const prices = {
-    itemsPrice: itemsPrice.toFixed(2),
+    itemsPrice   : itemsPrice.toFixed(2),
     shippingPrice: shippingPrice.toFixed(2),
-    taxPrice: taxPrice.toFixed(2),
-    totalPrice: totalPrice.toFixed(2)
+    taxPrice     : taxPrice.toFixed(2),
+    totalPrice   : totalPrice.toFixed(2)
   }
   return prices
 }
@@ -96,11 +96,11 @@ export async function getMyBag() {
 
   const myBag = convertToPlainObject({
     ...bag,
-    items: bag.items as BagItem[],
-    itemsPrice: bag.itemsPrice.toString(),
-    totalPrice: bag.totalPrice.toString(),
+    items        : bag.items as BagItem[],
+    itemsPrice   : bag.itemsPrice.toString(),
+    totalPrice   : bag.totalPrice.toString(),
     shippingPrice: bag.shippingPrice.toString(),
-    taxPrice: bag.taxPrice.toString()
+    taxPrice     : bag.taxPrice.toString()
   })
 
   return myBag
