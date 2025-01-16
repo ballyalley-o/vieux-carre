@@ -10,6 +10,11 @@ export const GLOBAL = {
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
   PAYMENT_METHODS        : process.env.NEXT_PUBLIC_PAYMENT_METHODS,
   PAYMENT_METHOD_DEFAULT : process.env.NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD || 'PayPal',
+  PAYPAL: {
+    PAYPAL_API_URL   : process.env.PAYPAL_API_URL || 'https://api-m.sandbox.paypal.com',
+    PAYPAL_CLIENT_ID : process.env.PAYPAL_CLIENT_ID || '',
+    PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET || '',
+  },
   PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || '',
   PURCHASE_FLOW          : ['user_sign_in', 'shipping', 'payment', 'place_order'],
   PRICES                 : {
