@@ -9,7 +9,7 @@ export const RESPONSE = {
    * @param redirectTo - redirect path
    * @returns  { code: number, success: boolean, message: string, redirectTo: string }
    */
-  SUCCESS: (message: string, code: CODE = CODE.OK, redirectTo?: string) => ({ code, success: true, message, redirectTo }),
+  SUCCESS: (message: string, code: CODE = CODE.OK, redirectTo?: string, data?: unknown) => ({ code, success: true, message, redirectTo, data }),
   /**
    * Error response formatter
    * @param message
