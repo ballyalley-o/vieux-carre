@@ -18,7 +18,7 @@ export const GLOBAL = {
   PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || '',
   PURCHASE_FLOW          : ['user_sign_in', 'shipping', 'payment', 'place_order'],
   PRICES                 : {
-    CURRENCY             : process.env.NEXT_PUBLIC_CURRENCY || 'USD',
+    CURRENCY             : process.env.NEXT_PUBLIC_CURRENCY || 'NZD',
     TAX                  : process.env.NEXT_PUBLIC_TAX || 0.15,
     NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
     DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
