@@ -6,7 +6,7 @@ export const paypal = {
   createOrder: async function createOrder(price: number) {
     const accessToken = await generateAccessToken()
     const url     = join(base, 'v2', 'checkout', 'orders')
-    const body    = { intent: 'CAPTURE', puchase_units: [{ amount: { amount: { currency: 'NZD', value: price } } }] }
+    const body    = { intent: 'CAPTURE', purchase_units: [{ amount: { currency_code: GLOBAL.PRICES.CURRENCY, value: price } }] }
     const options = {
       method : 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
