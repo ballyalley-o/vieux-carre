@@ -1,6 +1,6 @@
 import { z, ZodError } from 'zod'
 import { Prisma } from '@prisma/client'
-import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema } from 'lib'
+import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema } from 'lib'
 
 declare global {
   export interface Product extends z.infer<typeof ProductSchema> {
@@ -23,6 +23,7 @@ declare global {
   export type BagItem         = z.infer<typeof BagItemSchema>
   export type ShippingAddress = z.infer<typeof ShippingAddressSchema>
   export type OrderItem       = z.infer<typeof OrderItemSchema>
+  export type PaymentResult   = z.infer<typeof PaymentResultSchema>
 
   export interface ReadonlyReactNode {
     children: Readonly<{ children: ReactNode }>
