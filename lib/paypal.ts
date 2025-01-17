@@ -4,7 +4,7 @@ import { join } from 'path'
 const base = GLOBAL.PAYPAL.PAYPAL_API_URL
 export const paypal = {}
 
-export async function generateAccessToken() {
+async function generateAccessToken() {
   const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET } = GLOBAL.PAYPAL
   const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_APP_SECRET}`).toString('base64')
 
@@ -24,3 +24,5 @@ export async function generateAccessToken() {
     throw new Error(errorMessage)
   }
 }
+
+export { generateAccessToken }
