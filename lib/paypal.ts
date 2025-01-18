@@ -5,21 +5,21 @@ const base = GLOBAL.PAYPAL.PAYPAL_API_URL
 export const paypal = {
   createOrder: async function createOrder(price: number) {
     const accessToken = await generateAccessToken()
-    const url     = join(base, 'v2', 'checkout', 'orders')
-    const body    = { intent: 'CAPTURE', purchase_units: [{ amount: { currency_code: GLOBAL.PRICES.CURRENCY, value: price } }] }
-    const options = {
+    const url         = join(base, 'v2', 'checkout', 'orders')
+    const body        = { intent: 'CAPTURE', purchase_units: [{ amount: { currency_code: GLOBAL.PRICES.CURRENCY, value: price } }] }
+    const options     = {
       method : 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
       body   : JSON.stringify(body)
     }
-    const response    = await fetch(url, options)
+    const response = await fetch(url, options)
 
     return handleResponse(response)
   },
   capturePayment: async function capturePayment(orderId: string) {
     const accessToken = await generateAccessToken()
-    const url = join(base, 'v2', 'checkout', 'orders', orderId, 'capture')
-    const options = {
+    const url         = join(base, 'v2', 'checkout', 'orders', orderId, 'capture')
+    const options     = {
       method : 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` }
     }
