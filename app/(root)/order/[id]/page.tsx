@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getOrderById } from 'lib'
+import { GLOBAL } from 'config/global'
 import OrderViewTable from './order-view-table'
 
 interface OrderViewPageProps {
@@ -17,7 +18,7 @@ const OrderViewPage: FC<OrderViewPageProps> = async ({ params }) => {
   if (!order) notFound()
   return (
     <div>
-      <OrderViewTable order={order} />
+      <OrderViewTable order={order} paypalClientId={GLOBAL.PAYPAL.PAYPAL_CLIENT_ID} />
     </div>
   )
 }
