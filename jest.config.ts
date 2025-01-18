@@ -89,6 +89,7 @@ const config: Config = {
   //     '^(?!@|\\.|node_modules)(.+)$': '<rootDir>/node_modules/$1',
   moduleNameMapper: {
     '^/(.*)$': '<rootDir>/$1',
+    'vieux-carre': '<rootDir>/config/global.ts'
   },
   moduleDirectories: ['node_modules', '<rootDir>'],
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
