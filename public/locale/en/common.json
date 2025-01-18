@@ -74,6 +74,20 @@
             "label": "Items"
         }
     },
+    "navigation":{
+        "account": {
+            "label": "Account"
+        },
+        "bag": {
+            "label": "Bag"
+        },
+        "order": {
+            "label": "Order",
+            "orders": {
+                "label": "Orders"
+            }
+        }
+    },
     "not_delivered": {
         "label": "Not Delivered"
     },
