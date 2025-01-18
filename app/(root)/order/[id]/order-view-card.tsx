@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, Fragment, JSX } from 'react'
 import { Card, CardContent, Badge, Table } from 'component/ui'
 import { formatDateTime } from 'lib'
 import { BagTableHead, BagTableBody, BagTableBodyProps } from 'component/shared/bag'
@@ -15,6 +15,7 @@ interface OverViewCardProps {
     notBadgeLabel    ?: string
     orderItems       ?: OrderItem[]
     bagTableBodyProps?: BagTableBodyProps
+    icon             ?: JSX.Element
 }
 /**
  * OrderViewCard component displays a card with a title, subtitle, and conditional content.
@@ -30,6 +31,7 @@ interface OverViewCardProps {
  * @param {string} badgeLabel - The label to be displayed in the badge when badgeCondition is true.
  * @param {string} notBadgeLabel - The label to be displayed in the badge when badgeCondition is false.
  * @param {React.ReactNode} children - The children elements to be displayed when showTable is true.
+ * @param {JSX.Element} icon - The icon to be displayed in the card.
  *
  * @returns {JSX.Element} The rendered OrderViewCard component.
  */
@@ -43,14 +45,16 @@ const OrderViewCard: FC<OverViewCardProps> = ({
   dateAt,
   badgeLabel,
   notBadgeLabel,
+  icon,
   orderItems = [],
 }) => {
   return (
     <Card>
       <CardContent className={'p-4 gap-4'}>
         <h2 className={'text-xl pb-4'}>{title}</h2>
-        <div className={'mb-2'}>
-          <p>{subtitle}</p>
+        <div className={`${icon && 'flex items-center' } mb-2`}>
+          {icon && (<Fragment><div className="mr-2">{icon}</div><span><p>{subtitle}</p></span></Fragment>)}
+          {!icon && (subtitle && <p>{subtitle}</p>)}
           {subtitle2 && <p>{subtitle2}</p>}
         </div>
         {showTable ? (
