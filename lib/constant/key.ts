@@ -28,6 +28,11 @@ export const FORM = {
   PASSWORD: 'password'
 }
 
+export const PAYMENT_METHOD = {
+  PAYPAL: 'PayPal',
+  STRIPE: 'Stripe',
+}
+
 export const KEY = {
   BAG: 'bag',
   CALLBACK_URL: 'callbackUrl',
@@ -41,5 +46,6 @@ export const KEY = {
   ...FORM,
   ...LOCALE,
   ...METHOD,
+  ...PAYMENT_METHOD,
   ...VARIANT
 }
