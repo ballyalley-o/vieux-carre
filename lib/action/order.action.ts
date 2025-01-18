@@ -75,8 +75,8 @@ export async function createPayPalOrder(orderId: string) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
     if (order) {
-      const paypalOrder = await paypal.createOrder(Number(order.totalPrice))
-      await prisma.order.update({ where: {id: orderId}, data: {paymentResult: {id: paypalOrder.id, email_address: '', status: '', pricePaid: 0}}})
+      const paypalOrder = await paypal.createOrder(Number(order.totalPrice));
+      await prisma.order.update({ where: { id: orderId }, data: { paymentResult: { id: paypalOrder.id, email_address: '', status: '', pricePaid: 0 }}})
       return SystemLogger.response(en.success.order_created, CODE.CREATED, TAG, undefined, paypalOrder.id)
     } else {
       throw new Error(en.error.order_not_found)
@@ -86,7 +86,7 @@ export async function createPayPalOrder(orderId: string) {
   }
 }
 
-export async function approvePayPalOrder(orderId: string, data:{ orderID: string }) {
+export async function approvePayPalOrder(orderId: string, data: { orderID: string }) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
     if (!order) throw new Error(en.error.order_not_found)
@@ -95,7 +95,15 @@ export async function approvePayPalOrder(orderId: string, data:{ orderID: string
       throw new Error(en.error.paypal_payment_error)
    }
 
-  await updateOrderToPaid({ orderId, paymentResult: { id: captureData.id, status: captureData.status, email_address: captureData.payer.email_address, pricePaid: captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value }})
+   await updateOrderToPaid({
+    orderId,
+    paymentResult: {
+      id           : captureData.id,
+      status       : captureData.status,
+      email_address: captureData.payer.email_address,
+      pricePaid    : captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value,
+    },
+  });
    revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
    return SystemLogger.response(en.success.order_paid)
   } catch (error) {
@@ -103,20 +111,16 @@ export async function approvePayPalOrder(orderId: string, data:{ orderID: string
   }
 }
 
-async function updateOrderToPaid({orderId, paymentResult}:{orderId: string, paymentResult?:PaymentResult}) {
-  try {
-    const order = await prisma.order.findFirst({ where: {id: orderId}, include: { orderitems: true }})
-    if (!order) throw new Error(en.error.order_not_found)
-    if (order.isPaid) throw new Error(en.error.order_paid)
-    await prisma.$transaction(async (tx) => {
-      for (const item of order.orderitems) {
-        await tx.product.update({ where: { id: item.productId }, data: { stock: { increment: -item.qty }}})
-      }
-      await tx.order.update({ where: { id: orderId }, data: { isPaid: true, paidAt: new Date(), paymentResult }})
-    })
-    const updatedOrder = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }} }})
-    if (!updatedOrder) throw new Error(en.error.order_not_found)
-  } catch (error) {
-    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
-  }
+export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: string, paymentResult?: PaymentResult }) {
+  const order = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true }})
+  if (!order) throw new Error(en.error.order_not_found)
+  if (order.isPaid) throw new Error(en.error.order_paid)
+  await prisma.$transaction(async (tx) => {
+    for (const item of order.orderitems) {
+      await tx.product.update({ where: { id: item.productId }, data: { stock: { increment: -item.qty }}})
+    }
+    await tx.order.update({ where: { id: orderId }, data: { isPaid: true, paidAt: new Date(), paymentResult }})
+  })
+  const updatedOrder = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }} }})
+  if (!updatedOrder) throw new Error(en.error.order_not_found)
 }
