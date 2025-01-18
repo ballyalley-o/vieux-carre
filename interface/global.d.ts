@@ -25,6 +25,11 @@ declare global {
   export type OrderItem       = z.infer<typeof OrderItemSchema>
   export type PaymentResult   = z.infer<typeof PaymentResultSchema>
 
+  export interface PayPalOrderID {
+    data    : { orderID: string }
+    orderId?: string
+  }
+
   export interface ReadonlyReactNode {
     children: Readonly<{ children: ReactNode }>
   }
