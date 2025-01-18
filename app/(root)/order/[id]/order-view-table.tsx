@@ -1,16 +1,46 @@
 'use client'
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import { parseAddress } from 'lib'
-import { Badge } from 'component/ui'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
+import { useToast } from 'hook'
+import { parseAddress, createPayPalOrder, approvePayPalOrder, KEY } from 'lib'
+import { PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import { Badge, Button } from 'component/ui'
 import { PriceSummaryCard } from 'component/shared/card'
 import OrderViewCard from './order-view-card'
 
 interface OrderViewTableProps {
-  order: Order
+  order         : Order
+  paypalClientId: string
 }
-const OrderViewTable: FC<OrderViewTableProps> = ({ order }) => {
+const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId }) => {
   const { orderitems, shippingAddress, paymentMethod, isDelivered, deliveredAt,  isPaid, paidAt } = order
+  const { toast } = useToast()
+  const PrintPendingState = () => {
+    const [{ isPending, isRejected }] = usePayPalScriptReducer()
+    let status
+    if (isPending) {
+      status = <Button variant={'secondary'} disabled={isPending}><i>{'Loading PayPal...'}</i></Button>
+    } else if (isRejected) {
+      status = <Button variant={'destructive'} disabled>{'PayPal: Error Occured'}</Button>
+    }
+    return status
+  }
+
+  const handleCreatePayPalOrder = async () => {
+    const response = await createPayPalOrder(order.id)
+    if (!response.success) {
+      toast({ variant: 'destructive',  description: response.message })
+    }
+    return response.data as string
+  }
+
+  const handleApprovePayPalOrder = async (data: { orderID: string }) => {
+    const response = await approvePayPalOrder(order.id, data)
+    toast({ variant: response.success ? 'default' : 'destructive', description: response.message })
+  }
 
   return (
     <Fragment>
@@ -32,6 +62,7 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order }) => {
             badgeLabel={en.paid_at.label}
             dateAt={paidAt!}
             notBadgeLabel={en.not_paid.label}
+            icon={<FontAwesomeIcon icon={paymentMethod === KEY.PAYPAL ? faPaypal : paymentMethod === KEY.STRIPE ? faStripe : faMoneyBill } />}
           />
 
           {/* payment method card */}
@@ -50,7 +81,16 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order }) => {
         </div>
         {/* prices summary */}
         <div>
-          <PriceSummaryCard prices={order} />
+          <PriceSummaryCard prices={order}>
+            {!isPaid && paymentMethod === KEY.PAYPAL && (
+              <div className="">
+                <PayPalScriptProvider options={{clientId: paypalClientId}}>
+                  <PrintPendingState/>
+                  <PayPalButtons createOrder={handleCreatePayPalOrder} onApprove={handleApprovePayPalOrder}/>
+                </PayPalScriptProvider>
+              </div>
+            )}
+          </PriceSummaryCard>
         </div>
       </div>
     </Fragment>
