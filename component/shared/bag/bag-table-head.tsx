@@ -1,5 +1,15 @@
+import { ReactNode, JSX } from 'react'
 import { TableHeader, TableRow, TableHead } from 'component/ui'
-import { BagTableCells } from '../../../app/(root)/bag/bag-table'
+
+interface BagTableCell {
+  id   : string
+  value: string | JSX.Element | number | ReactNode
+  align: string
+}
+
+export interface BagTableCells {
+  cells: [BagTableCell, BagTableCell, BagTableCell]
+}
 
 const BagTableHead = () => {
   const HEADER: BagTableCells = {

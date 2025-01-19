@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { TableBody, TableRow, TableCell } from 'component/ui'
 import { DynamicBagBtn } from 'component/shared/btn'
 import { GLOBAL, PATH_DIR } from 'config'
-import { BagTableCells } from '../../../app/(root)/bag/bag-table'
+import { BagTableCells }  from './bag-table-head'
 
 export interface BagTableBodyProps {
   bagItems          : OrderItem[]
