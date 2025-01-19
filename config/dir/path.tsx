@@ -8,15 +8,19 @@ const protect = () => {
 
 export const PROTECTED_ROUTES = protect()
 export const PATH_DIR = {
-  BAG: join('bag'),
-  CHECKOUT: join('order', 'checkout'),
-  MOCK: join('__mock', 'sample-data.ts'),
-  ORDER: join('order'),
-  ORDER_VIEW: (id: string) => join('order', id),
-  PAYMENT: join('payment'),
+  BAG         : join('bag'),
+  CHECKOUT    : join('order', 'checkout'),
+  MOCK        : join('__mock', 'sample-data.ts'),
+  ORDER       : join('order'),
+  ORDER_VIEW  : (id: string) => join('order', id),
+  PAYMENT     : join('payment'),
   PRODUCT_VIEW: (slug: string) => join('product', slug),
-  ROOT: '/',
-  SHIPPING: join('shipping'),
-  SIGN_IN: join('sign-in'),
-  SIGN_UP: join('sign-up')
+  ROOT        : '/',
+  SHIPPING    : join('shipping'),
+  SIGN_IN     : join('sign-in'),
+  SIGN_UP     : join('sign-up'),
+  USER        : {
+                  ACCOUNT: join('user', 'account'),
+                  ORDER  : join('user', 'order'),
+  }
 }
