@@ -8,9 +8,10 @@ export const GLOBAL = {
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
+  PAGE_SIZE              : 4,
   PAYMENT_METHODS        : process.env.NEXT_PUBLIC_PAYMENT_METHODS,
   PAYMENT_METHOD_DEFAULT : process.env.NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD || 'PayPal',
-  PAYPAL: {
+  PAYPAL                 : {
     PAYPAL_API_URL   : process.env.PAYPAL_API_URL || 'https://api-m.sandbox.paypal.com',
     PAYPAL_CLIENT_ID : process.env.PAYPAL_CLIENT_ID || 'sb',
     PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET || '',
