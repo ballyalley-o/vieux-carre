@@ -1,12 +1,13 @@
 'use client'
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
-import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
-import { useToast } from 'hook'
 import { parseAddress, createPayPalOrder, approvePayPalOrder, KEY } from 'lib'
 import { PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import { useToast } from 'hook'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
+import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
+import { ArrowLeft } from 'lucide-react'
 import { Badge, Button } from 'component/ui'
 import { PriceSummaryCard } from 'component/shared/card'
 import OrderViewCard from './order-view-card'
@@ -42,14 +43,19 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId }) => {
     toast({ variant: response.success ? 'default' : 'destructive', description: response.message })
   }
 
+  const handleBackButton = () => {
+    window.history.back()
+  }
+
   return (
     <Fragment>
         {/* title and order id */}
+      <Button variant={'ghost'} onClick={handleBackButton}><ArrowLeft className={'default-size_icon'}/></Button>
       <div className="flex flex-row items-center justify-start gap-4">
-        <h1 className={'py-4 h3-bold'}>{en.order.label}</h1>
-        <span>
-          <Badge variant={'secondary'}>{order.id}</Badge>
-        </span>
+          <h1 className={'py-4 h3-bold'}>{en.order.label}</h1>
+          <span>
+            <Badge variant={'secondary'}>{order.id}</Badge>
+          </span>
       </div>
       {/* cards  */}
       <div className="grid md:grid-cols-3 md:gap-5">
