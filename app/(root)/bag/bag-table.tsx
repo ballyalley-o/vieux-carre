@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, JSX, ReactNode, Fragment, useTransition } from 'react'
+import { FC, Fragment, useTransition } from 'react'
 import { en } from 'public/locale'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -11,16 +11,6 @@ import { Table, Card, CardContent, Button, Badge } from 'component/ui'
 import { PATH_DIR } from 'config'
 import { formatCurrency } from 'lib/util'
 import { BagTableHead, BagTableBody } from 'component/shared/bag'
-
-interface BagTableCell {
-  id   : string
-  value: string | JSX.Element | number | ReactNode
-  align: string
-}
-
-export interface BagTableCells {
-  cells: [BagTableCell, BagTableCell, BagTableCell]
-}
 
 interface BagTableProps {
   bag: Bag
