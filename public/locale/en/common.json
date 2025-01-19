@@ -91,6 +91,9 @@
             }
         }
     },
+    "next": {
+        "label": "Next"
+    },
     "not_delivered": {
         "label": "Not Delivered"
     },
@@ -101,6 +104,9 @@
         "label": "Order",
         "description": "Complete the form with your order information",
         "orders": "Orders"
+    },
+    "order_history": {
+        "label": "Order History"
     },
     "order_items": {
         "label": "Order Items"
@@ -116,6 +122,9 @@
         "label": "Place Order",
         "description": "Place your order",
         "pending": "Placing Order..."
+    },
+    "previous": {
+        "label": "Previous"
     },
     "price": {
         "label": "Price"
@@ -149,6 +158,10 @@
     "shipping_address": {
         "label": "Shipping Address",
         "description": "Complete the form with your shipping address"
+    },
+    "sign_out": {
+        "label": "Sign out",
+        "description": "Complete the form with your information"
     },
     "status": {
         "label": "Status"
