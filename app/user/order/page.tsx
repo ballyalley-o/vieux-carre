@@ -4,6 +4,7 @@ import { getMyOrders, formatCurrency, formatDateTime, formatId } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody, TblCells } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
+import { Pagination } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: 'My Orders' }
@@ -18,7 +19,7 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
 
   const HEADER: TblCells = {
     cells: [
-      { id: 'id', value: 'Id', align: 'left' },
+      { id: 'id', value: 'Order id', align: 'left' },
       { id: 'date', value: 'Date', align: 'center' },
       { id: 'total', value: 'Total', align: 'left' },
       { id: 'paid', value: 'Paid', align: 'center' },
@@ -64,6 +65,7 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
           <TblHead cells={HEADER.cells} />
           <TblBody cells={BODY} items={orders.orders as unknown as Order[]} />
         </Table>
+        {orders.totalPages > 1 && (<div className={'mt-5 flex justify-end'}><Pagination page={Number(page) || 1} totalPages={orders?.totalPages}/></div>)}
       </div>
     </div>
   )
