@@ -38,6 +38,14 @@ const config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
         },
+        white: {
+           DEFAULT: '#F2EED8',
+           foreground: 'hsl(var(--white-foreground))'
+        },
+        black: {
+          DEFAULT: '#0D0E0E',
+          foreground: 'hsl(var(--black-foreground))'
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
