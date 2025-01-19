@@ -27,7 +27,7 @@ export const formatId = (id: string): string  => {
   return `...${id.substring(id.length - 6)}`
 }
 
-export const formatDateTime = (dateString: Date) => {
+export const formatDateTime = (dateString: Date): {dateTime: string, date: string, time: string} => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     month : 'short',
     year  : 'numeric',
