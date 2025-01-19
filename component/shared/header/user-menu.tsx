@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { en } from 'public/locale'
 import { auth } from 'auth'
 import { signOutUser, charAtName } from 'lib'
 import { User2Icon, LogOut } from 'lucide-react'
@@ -34,10 +35,16 @@ const UserMenu = async () => {
               <Separator className="my-4" />
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuItem className="p-0 mb-1">
+          <DropdownMenuItem className="p-2">
+            <Link href={PATH_DIR.USER.ACCOUNT}>{en.navigation.account.label}</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="p-2">
+            <Link href={PATH_DIR.USER.ORDER}>{en.order_history.label}</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="p-1">
             <form action={signOutUser} className="w-full">
               <Button className="w-full py-4 px-2 h-4 justify-start" variant={'ghost'}>
-                <LogOut /> {'Sign Out'}
+                <LogOut /> {en.sign_out.label}
               </Button>
             </form>
           </DropdownMenuItem>
