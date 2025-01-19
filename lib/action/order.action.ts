@@ -1,6 +1,7 @@
 'use server'
 import { auth } from 'auth'
 import { en } from 'public/locale'
+import { GLOBAL } from 'vieux-carre'
 import { revalidatePath } from 'next/cache'
 import { prisma } from 'db/prisma'
 import { paypal } from 'lib/paypal'
@@ -123,4 +124,13 @@ export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: s
   })
   const updatedOrder = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }} }})
   if (!updatedOrder) throw new Error(en.error.order_not_found)
+}
+
+export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page}: { limit?: number, page: number }) {
+  const session = await auth()
+  if (!session) throw new Error(en.error.user_not_authenticated)
+  const orders = await prisma.order.findMany({ where: { userId: session?.user?.id}, orderBy:{ createdAt:'desc' }, take: limit, skip: (page - 1) * limit })
+
+  const dataCount = await prisma.order.count({ where: {userId: session?.user?.id }})
+  return { orders, totalPages: Math.ceil( dataCount / limit )}
 }
