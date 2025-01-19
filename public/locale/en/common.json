@@ -63,6 +63,9 @@
         }
     },
     "go_back": "Go Back",
+    "go_to": {
+        "label": "Go to"
+    },
     "go_to_bag": "Go to Bag",
     "go_shopping": "Go Shopping",
     "home": {
@@ -74,7 +77,7 @@
             "label": "Items"
         }
     },
-    "navigation":{
+    "navigation": {
         "account": {
             "label": "Account"
         },
@@ -96,7 +99,8 @@
     },
     "order": {
         "label": "Order",
-        "description": "Complete the form with your order information"
+        "description": "Complete the form with your order information",
+        "orders": "Orders"
     },
     "order_items": {
         "label": "Order Items"
