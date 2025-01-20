@@ -17,3 +17,8 @@ export const shippingAddressDefaultValue = {
   postalCode   : '',
   country      : '',
 }
+
+export const updateUserAccountDefaultValue = {
+  name: '',
+  email: ''
+}
