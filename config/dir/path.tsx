@@ -8,6 +8,12 @@ const protect = () => {
 
 export const PROTECTED_ROUTES = protect()
 export const PATH_DIR = {
+  ADMIN       : {
+                  ORDER   : join('admin', 'order'),
+                  OVERVIEW: join('admin', 'overview'),
+                  PRODUCT : join('admin', 'product'),
+                  USER    : join('admin', 'user'),
+  },
   BAG         : join('bag'),
   CHECKOUT    : join('order', 'checkout'),
   MOCK        : join('__mock', 'sample-data.ts'),
