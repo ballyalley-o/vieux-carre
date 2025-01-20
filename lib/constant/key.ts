@@ -33,6 +33,11 @@ export const PAYMENT_METHOD = {
   STRIPE: 'Stripe',
 }
 
+export const ROLE = {
+  USER: 'user',
+  ADMIN: 'admin'
+}
+
 export const KEY = {
   BAG: 'bag',
   CALLBACK_URL: 'callbackUrl',
@@ -47,5 +52,6 @@ export const KEY = {
   ...LOCALE,
   ...METHOD,
   ...PAYMENT_METHOD,
+  ...ROLE,
   ...VARIANT
 }
