@@ -1,5 +1,8 @@
 {
     "add_to_bag": "Add to Bag",
+    "admin": {
+        "label": "Admin"
+    },
     "bag_empty": "Bag is empty",
     "checkout": {
         "label": "Checkout",
@@ -115,6 +118,9 @@
     "order_items": {
         "label": "Order Items"
     },
+    "overview": {
+        "label": "Overview"
+    },
     "paid_at": {
         "label": "Paid At"
     },
@@ -132,6 +138,12 @@
     },
     "price": {
         "label": "Price"
+    },
+    "product": {
+        "label": "Product",
+        "products": {
+            "label": "Products"
+        }
     },
     "purchase_flow": {
         "user_sign_in": {
@@ -186,6 +198,10 @@
         "label": "Update Account",
         "description": "Complete the form with your information",
         "toast": "User name updated"
+    },
+    "user":{
+        "label": "User",
+        "description": "Complete the form with your user information"
     },
     "welcome": "Welcome to our site",
     "success": {
