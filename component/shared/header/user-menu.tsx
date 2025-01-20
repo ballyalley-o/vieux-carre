@@ -1,7 +1,8 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { en } from 'public/locale'
 import { auth } from 'auth'
-import { signOutUser, charAtName } from 'lib'
+import { signOutUser, charAtName, KEY } from 'lib'
 import { User2Icon, LogOut } from 'lucide-react'
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, Separator } from 'component'
 import { PATH_DIR } from 'config'
@@ -41,6 +42,17 @@ const UserMenu = async () => {
           <DropdownMenuItem className="p-2">
             <Link href={PATH_DIR.USER.ORDER}>{en.order_history.label}</Link>
           </DropdownMenuItem>
+
+          <Separator className="my-2" />
+          {session?.user?.role === KEY.ADMIN && (
+            <Fragment>
+              <DropdownMenuItem className="p-2">
+                <Link href={PATH_DIR.ADMIN.OVERVIEW}>{en.admin.label}</Link>
+              </DropdownMenuItem>
+              <Separator className="my-2" />
+            </Fragment>
+          )}
+
           <DropdownMenuItem className="p-1">
             <form action={signOutUser} className="w-full">
               <Button className="w-full py-4 px-2 h-4 justify-start" variant={'ghost'}>
