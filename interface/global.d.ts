@@ -3,6 +3,11 @@ import { Prisma } from '@prisma/client'
 import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema } from 'lib'
 
 declare global {
+  export interface UserBase {
+    name : string
+    email: string
+  }
+
   export interface Product extends z.infer<typeof ProductSchema> {
     id       : number
     rating   : string
