@@ -84,3 +84,16 @@ export async function updateUserPaymentMethod(paymentType: z.infer<typeof Paymen
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
+
+export async function updateUserAccount(user: UserBase) {
+  try {
+    const session     = await auth()
+    const userId      = session?.user?.id
+    const currentUser = await prisma.user.findFirst({ where: { id: userId }})
+    if (!currentUser) throw new Error(en.error.user_not_found)
+    const updatedUser = await prisma.user.update({ where:{ id: currentUser.id }, data: { name: user.name, email: user.email }})
+    return SystemLogger.response(en.success.user_updated, CODE.OK, TAG, '', updatedUser)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
