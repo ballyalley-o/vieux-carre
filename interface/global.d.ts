@@ -1,6 +1,6 @@
 import { z, ZodError } from 'zod'
 import { Prisma } from '@prisma/client'
-import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema } from 'lib'
+import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema } from 'lib'
 
 declare global {
   export interface UserBase {
@@ -29,6 +29,7 @@ declare global {
   export type ShippingAddress = z.infer<typeof ShippingAddressSchema>
   export type OrderItem       = z.infer<typeof OrderItemSchema>
   export type PaymentResult   = z.infer<typeof PaymentResultSchema>
+  export type UpdateUser      = z.infer<typeof UpdateUserSchema>
 
   export interface PayPalOrderID {
     data    : { orderID: string }
