@@ -7,16 +7,17 @@ import { Input } from 'component/ui/input'
 type FormKeyLocale = keyof typeof en.form
 
 interface RHFFormFieldProps<TSchema extends ZodSchema, TName extends Path<z.infer<TSchema>>> {
-  control: Control<z.infer<TSchema>>
-  name: TName
-  formKey: FormKeyLocale
+  control  : Control<z.infer<TSchema>>
+  name     : TName
+  formKey  : FormKeyLocale
+  disabled?: boolean
 }
 
 interface RHFFormFieldControllerRender<TSchema extends ZodSchema, TName extends Path<z.infer<TSchema>>> {
   field: ControllerRenderProps<z.infer<TSchema>, TName>
 }
 
-const RHFFormField = <TSchema extends ZodSchema, TName extends Path<z.infer<TSchema>>>({ control, name, formKey }: RHFFormFieldProps<TSchema, TName>) => {
+const RHFFormField = <TSchema extends ZodSchema, TName extends Path<z.infer<TSchema>>>({ control, name, formKey, disabled = false }: RHFFormFieldProps<TSchema, TName>) => {
   return (
     <div className="flex flex-col md:flex-row gap-5">
       <FormField
@@ -27,7 +28,7 @@ const RHFFormField = <TSchema extends ZodSchema, TName extends Path<z.infer<TSch
             <FormControl>
               <FormLabel>{en.form[formKey].label}</FormLabel>
             </FormControl>
-            <Input placeholder={en.form[formKey].placeholder} {...field} />
+            <Input disabled={disabled} placeholder={en.form[formKey].placeholder} {...field} />
             <FormMessage />
           </FormItem>
         )}/>
