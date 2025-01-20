@@ -17,6 +17,10 @@
         "label": "Edit"
     },
     "form": {
+        "name": {
+            "label": "Name",
+            "placeholder": "Enter your name"
+        },
         "first_name": {
             "label": "First Name",
             "placeholder": "Enter your first name"
@@ -177,6 +181,11 @@
     },
     "total": {
         "label": "Total"
+    },
+    "update_account": {
+        "label": "Update Account",
+        "description": "Complete the form with your information",
+        "toast": "User name updated"
     },
     "welcome": "Welcome to our site",
     "success": {
