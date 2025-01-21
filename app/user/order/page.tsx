@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { getMyOrders, formatCurrency, formatDateTime, formatId } from 'lib'
 import { Table, Badge } from 'component/ui'
-import { TblHead, TblBody, TblCells } from 'component/shared/tbl'
+import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
 import { Pagination } from 'component/shared'
 import { PATH_DIR } from 'config'
@@ -17,7 +17,8 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
   const { page } = await searchParams
   const orders = await getMyOrders({ page: Number(page) || 1 })
 
-  const HEADER: TblCells = {
+  type FiveCellType = TblCells<5>
+  const HEADER: FiveCellType = {
     cells: [
       { id: 'id', value: 'Order id', align: 'left' },
       { id: 'date', value: 'Date', align: 'center' },
@@ -27,7 +28,7 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
     ]
   }
 
-  const BODY = (item: Order): TblCells => ({
+  const BODY = (item: Order): FiveCellType => ({
     cells: [
       {
         id: 'id',
