@@ -6,7 +6,9 @@ export { default as EditBtn } from './btn/edit-btn'
 export { default as LinkBtn } from './btn/link-btn'
 export { default as LoadingBtn } from './btn/loading-btn'
 // ⎿ card
+export { default as AdminOverviewCard } from './card/admin-overview-card'
 export { default as CheckoutPage } from './card/checkout-card'
+export { default as GridCard } from './card/grid-card'
 // ⎿ custom
 export { default as ProcessFlow } from './custom/purchase-flow'
 // ⎿ footer
@@ -31,6 +33,7 @@ export { default as Tooltp } from './tooltp/tooltp'
 export { default as TooltpGoBadge } from './tooltp/tooltp-go-badge'
 // ⎿ tbl
 export { default as TblHead } from './tbl/tbl-head'
+export { default as TblBody } from './tbl/tbl-body'
 // ⎿ rhf
 export { default as RHFFormField } from './rhf/rhf-form-field'
 export { default as RHFRadioGroup } from './rhf/rhf-radio-group'
