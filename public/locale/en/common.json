@@ -1,5 +1,11 @@
 {
+    "action": {
+        "label": "Action"
+    },
     "add_to_bag": "Add to Bag",
+    "archived_user": {
+        "label": "Archived User"
+    },
     "admin": {
         "label": "Admin"
     },
@@ -11,6 +17,18 @@
     "continue": {
         "label": "Continue",
         "description": "Continue to the next step"
+    },
+    "customer": {
+        "label": "Customer",
+        "customers": {
+            "label": "Customers"
+        }
+    },
+    "dashboard": {
+        "label": "Dashboard"
+    },
+    "date": {
+        "label": "Date"
     },
     "delivered_at": {
         "label": "Delivered At"
@@ -167,6 +185,9 @@
             "completed": "Order Placed"
         }
     },
+    "sales": {
+        "label": "Sales"
+    },
     "search": {
         "label": "Search",
         "placeholder": "Looking for something?"
@@ -195,6 +216,9 @@
     },
     "subtotal": {
         "label": "Subtotal"
+    },
+    "recent_sales": {
+        "label": "Recent Sales"
     },
     "tax": {
         "label": "Tax"
