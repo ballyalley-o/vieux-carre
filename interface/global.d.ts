@@ -30,6 +30,7 @@ declare global {
   export type OrderItem       = z.infer<typeof OrderItemSchema>
   export type PaymentResult   = z.infer<typeof PaymentResultSchema>
   export type UpdateUser      = z.infer<typeof UpdateUserSchema>
+  export type SalesData       = { month: string, totalSales: number }[]
 
   export interface PayPalOrderID {
     data    : { orderID: string }
@@ -70,8 +71,8 @@ declare global {
 
 
   export type ButtonVariant = 'ghost' | 'default' | 'destructive' | 'outline' | 'secondary' | 'link' | null | undefined
-  export type BadgeVariant = "default" | "destructive" | "outline" | "secondary" | null | undefined
-  export type ButtonType = 'submit' | 'button' | 'reset' | undefined
+  export type BadgeVariant  = "default" | "destructive" | "outline" | "secondary" | null | undefined
+  export type ButtonType    = 'submit' | 'button' | 'reset' | undefined
 
   export enum METHOD {
     GET    = 'get',
