@@ -7,11 +7,16 @@ export const formatNumberWithDecimal = (num: number): string => {
   return decimal ? `${integer}.${decimal.padEnd(2, '0')}` : `${integer}.00`
 }
 
+const NUMBER_FORMATTER   = new Intl.NumberFormat(LOCALE)
 const CURRENCY_FORMATTER = new Intl.NumberFormat(LOCALE, {
   currency             : GLOBAL.PRICES.CURRENCY,
   style                : 'currency',
   minimumFractionDigits: 2
 })
+
+export function formatNumber(number: number) {
+  return NUMBER_FORMATTER.format(number)
+}
 
 export const formatCurrency = (amount: number | string | null): string => {
   if (typeof amount === 'number') {
