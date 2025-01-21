@@ -13,7 +13,7 @@ export default function UserLayout({ children }: Readonly<{ children: ReactNode 
       <header className="w-full border-b">
         <div className="wrapper flex-center">
           <Link href={PATH_DIR.ROOT} className={'w-22'}>
-            <Image src={ASSET_DIR.LOGO_RED} height={LOGO.NAV_ADMIN_H} width={LOGO.NAV_ADMIN_W} alt={GLOBAL.APP_NAME} />
+            <Image src={ASSET_DIR.LOGO_RED} height={LOGO.NAV_H} width={LOGO.NAV_W} alt={GLOBAL.APP_NAME} />
           </Link>
           <MainNav className={'mx-6'} />
           <div className="ml-auto items-center flex">
