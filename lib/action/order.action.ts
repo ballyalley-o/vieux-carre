@@ -136,19 +136,36 @@ export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page}: { limit?: n
   return { orders, totalPages: Math.ceil( dataCount / limit )}
 }
 
+/**
+ * Retrieves a summary of orders, including counts, total sales, sales data by month, and latest sales.
+ *
+ * @returns {Promise<{
+ *   count: { orders: number; products: number; user: number };
+ *   totalSales: { _sum: { totalPrice: number | null } };
+ *   salesData: Array<{ month: string; totalSales: number }>;
+ *   latestSales: Array<{ createdAt: Date; user: { name: string } }>;
+ * }>} A promise that resolves to an object containing the order summary.
+ */
 export async function getOrderSummary() {
-  // :counts
+ /**
+  * count
+  */
   const orders               = await prisma.order.count()
   const products             = await prisma.product.count()
-  const user                 = await prisma.user.count()
+  const users                 = await prisma.user.count()
+  const count                = { orders, products, users }
+  /**
+   * data
+   */
   const totalSales           = await prisma.order.aggregate({ _sum: { totalPrice: true } })
-  // :sales data
   const rawSalesData         = await prisma.$queryRaw<Array<{month:string; totalSales: Prisma.Decimal}>>`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
   const salesData: SalesData = rawSalesData.map(entry => ({ month: entry.month, totalSales: Number(entry.totalSales) }))
-  // :latest sales
+  /**
+   * latest sales
+   */
   const latestSales          = await prisma.order.findMany({ orderBy: { createdAt: 'desc' }, include: { user: { select: { name: true }}}, take: 6 })
 
-  const summary = { orders, products, user, totalSales, salesData, latestSales }
+  const summary = { count, totalSales, salesData, latestSales }
 
   return summary
 }
