@@ -167,6 +167,10 @@
             "completed": "Order Placed"
         }
     },
+    "search": {
+        "label": "Search",
+        "placeholder": "Looking for something?"
+    },
     "shipping": {
         "label": "Shipping",
         "description": "Complete the form with your shipping information"
@@ -174,6 +178,10 @@
     "shipping_address": {
         "label": "Shipping Address",
         "description": "Complete the form with your shipping address"
+    },
+    "sign_in": {
+        "label": "Sign in",
+        "description": "Complete the form with your information"
     },
     "sign_out": {
         "label": "Sign out",
@@ -193,6 +201,9 @@
     },
     "total": {
         "label": "Total"
+    },
+    "total_revenue": {
+        "label": "Total Revenue"
     },
     "update_account": {
         "label": "Update Account",
@@ -227,6 +238,7 @@
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",
         "user_not_authenticated": "User not authenticated",
+        "user_not_authorized": "User not authorized",
         "user_not_found": "User not found"
     }
 }
