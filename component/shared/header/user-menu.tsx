@@ -13,11 +13,14 @@ const UserMenu = async () => {
     return (
       <Button asChild variant="ghost">
         <Link href={PATH_DIR.SIGN_IN}>
-          <User2Icon /> {'Sign In'}
+          <User2Icon /> {en.sign_in.label}
         </Link>
       </Button>
     )
   }
+
+  const isAdmin = session?.user?.role === KEY.ADMIN
+
   return (
     <div className="flex gap-2 items-center">
       <DropdownMenu>
@@ -44,7 +47,7 @@ const UserMenu = async () => {
           </DropdownMenuItem>
 
           <Separator className="my-2" />
-          {session?.user?.role === KEY.ADMIN && (
+          {isAdmin && (
             <Fragment>
               <DropdownMenuItem className="p-2">
                 <Link href={PATH_DIR.ADMIN.OVERVIEW}>{en.admin.label}</Link>
