@@ -32,6 +32,17 @@ declare global {
   export type UpdateUser      = z.infer<typeof UpdateUserSchema>
   export type SalesData       = { month: string, totalSales: number }[]
 
+  export interface TblCell {
+    id   : string
+    value: string | JSX.Element | number | ReactNode
+    align: string
+  }
+
+
+  export interface TblCells<T extends number> {
+    cells: TblCell[] & { length: T }
+  }
+
   export interface PayPalOrderID {
     data    : { orderID: string }
     orderId?: string

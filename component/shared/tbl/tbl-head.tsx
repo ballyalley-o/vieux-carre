@@ -1,23 +1,21 @@
-import { ReactNode, JSX } from 'react'
 import { TableHeader, TableRow, TableHead } from 'component/ui'
 
-export interface TblCell {
-  id   : string
-  value: string | JSX.Element | number | ReactNode
-  align: string
-}
+// export interface TblCell {
+//   id   : string
+//   value: string | JSX.Element | number | ReactNode
+//   align: string
+// }
 
-
-export interface TblCells {
-  cells: [TblCell, TblCell, TblCell, TblCell, TblCell]
-}
+// export interface TblCells<T extends number> {
+//   cells: TblCell[] & { length: T }
+// }
 
 // export type TblCells<T extends TblCell[]> = T
 // export interface TblHeadProps<T extends TblCell[]> {
 //   header: TblCells<T>
 // }
 
-const TblHead = ({ cells }:TblCells) => {
+const TblHead = <T extends number>({ cells }:TblCells<T>) => {
   return (
     <TableHeader>
       <TableRow>

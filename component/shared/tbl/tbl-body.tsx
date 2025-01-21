@@ -1,9 +1,8 @@
 import { TableBody, TableRow, TableCell } from 'component/ui'
-import { TblCells } from './tbl-head'
 
 export interface TblBodyProps<T> {
   items: T[]
-  cells: (item: T) => TblCells
+  cells: (item: T) => TblCells<number>
 }
 
 // interface TblBodyProps<T extends TblCell[]> {
