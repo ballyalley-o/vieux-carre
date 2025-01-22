@@ -15,6 +15,24 @@ import { getUserById } from './user.action'
 import { getMyBag } from './bag.action'
 
 const TAG = 'ORDER.ACTION'
+/**
+ * Creates a new order for the authenticated user.
+ *
+ * This function performs the following steps:
+ * 1. Authenticates the user.
+ * 2. Retrieves the user's bag.
+ * 3. Validates the user's ID, address, and payment method.
+ * 4. Parses the order data using the OrderSchema.
+ * 5. Creates the order and order items in a database transaction.
+ * 6. Clears the user's bag.
+ * 7. Returns a success response with the created order ID.
+ *
+ * @returns {Promise<SystemLogger.Response>} A promise that resolves to a success response with the created order ID,
+ * or an error response if any step fails.
+ *
+ * @throws {Error} If the user is not authenticated, user ID is not found, bag is empty, no shipping address, no payment method,
+ * or order creation fails.
+ */
 export async function createOrder() {
   try {
     const session = await auth()
@@ -64,6 +82,13 @@ export async function createOrder() {
   }
 }
 
+/**
+ * Retrieves an order by its ID from the database.
+ *
+ * @param {string} orderId - The unique identifier of the order to retrieve.
+ * @returns {Promise<any>} A promise that resolves to the order object, including its items and user details, or an error response if the order is not found.
+ * @throws {AppError} If an error occurs while retrieving the order.
+ */
 export async function getOrderById(orderId: string) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }}} })
@@ -73,6 +98,13 @@ export async function getOrderById(orderId: string) {
   }
 }
 
+/**
+ * Creates a PayPal order for the given order ID.
+ *
+ * @param {string} orderId - The ID of the order to create a PayPal order for.
+ * @returns {Promise<SystemLogger>} - The result of the PayPal order creation.
+ * @throws {Error} - Throws an error if the order is not found.
+ */
 export async function createPayPalOrder(orderId: string) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
@@ -88,6 +120,15 @@ export async function createPayPalOrder(orderId: string) {
   }
 }
 
+/**
+ * Approves a PayPal order by capturing the payment and updating the order status to paid.
+ *
+ * @param {string} orderId - The ID of the order to approve.
+ * @param {Object} data - The data containing the PayPal order ID.
+ * @param {string} data.orderID - The PayPal order ID to capture payment for.
+ * @returns {Promise<any>} - A promise that resolves to a success response if the order is approved and paid, or an error response if an error occurs.
+ * @throws {Error} - Throws an error if the order is not found or if there is an issue with the PayPal payment.
+ */
 export async function approvePayPalOrder(orderId: string, data: { orderID: string }) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
@@ -113,6 +154,18 @@ export async function approvePayPalOrder(orderId: string, data: { orderID: strin
   }
 }
 
+/**
+ * Updates the order status to paid and adjusts the stock of the ordered items.
+ *
+ * @param {Object} params - The parameters for updating the order.
+ * @param {string} params.orderId - The ID of the order to be updated.
+ * @param {PaymentResult} [params.paymentResult] - The result of the payment process.
+ *
+ * @throws {Error} If the order is not found.
+ * @throws {Error} If the order is already paid.
+ *
+ * @returns {Promise<void>} A promise that resolves when the order is successfully updated.
+ */
 export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: string, paymentResult?: PaymentResult }) {
   const order = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true }})
   if (!order) throw new Error(en.error.order_not_found)
