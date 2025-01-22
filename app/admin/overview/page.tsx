@@ -8,6 +8,7 @@ import { Landmark, Receipt, Users, Package, SquareArrowOutUpRight } from 'lucide
 import { Table } from 'component/ui'
 import { AdminOverviewCard, GridCard, TblHead, TblBody } from 'component/shared'
 import { PATH_DIR } from 'config'
+import Chart from './chart'
 
 export const metadata: Metadata = { title: 'Admin Overview' }
 
@@ -18,12 +19,13 @@ const AdminOverviewPage = async () => {
   if (!isAdmin) throw new Error(en.error.user_not_authorized)
 
   const summary = await getOrderSummary()
+  const chartData = { salesData: summary.salesData }
 
   const HEADER: FourCellType = {
     cells: [
       { id: 'customer', value: en.customer.label, align: 'left' },
       { id: 'date', value: en.date.label, align: 'left' },
-      { id: 'total', value: en.total.label, align: 'left' },
+      { id: 'total-price', value: en.total.label, align: 'left' },
       { id: 'action', value: en.action.label, align: 'left' }
     ]
   }
@@ -33,9 +35,9 @@ const AdminOverviewPage = async () => {
         { id: 'customer', value: item?.user?.name ? item.user.name : en.archived_user.label, align: 'left' },
         { id: 'date', value: formatDateTime(item.createdAt).date, align: 'left' },
         { id: 'total-price', value: formatCurrency(item.totalPrice), align: 'left' },
-        { id: 'actions',
+        { id: 'action',
             value: (
-                    <Link href      = {PATH_DIR.ORDER_VIEW(item.id)}>
+                    <Link href = {PATH_DIR.ORDER_VIEW(item.id)}>
                         <span className = {'px-2'}><SquareArrowOutUpRight size = {15} className = {'text-muted-foreground'} /></span>
                     </Link>
              ),
@@ -44,7 +46,7 @@ const AdminOverviewPage = async () => {
   })
 
   return (
-    <div className={'space-y-2'}>
+    <div className={'space-y-4'}>
       <h2 className="h2-bold">{en.dashboard.label}</h2>
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <AdminOverviewCard label={en.total_revenue.label} icon={<Landmark size={20} className={'text-muted-foreground'} />}>
@@ -61,30 +63,16 @@ const AdminOverviewPage = async () => {
           <div className="text-2xl font-bold">{formatNumber(summary.count.products)}</div>
         </AdminOverviewCard>
       </div>
-      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-7'>
-        <GridCard span={4} label={en.overview.label}>
-          {/* chart */}
-          <></>
+      <div className={'grid gap-4 md:grid-cols-2 lg:grid-cols-7'}>
+        <GridCard label={en.overview.label} span={4}>
+            <Chart data={chartData} />
         </GridCard>
-        <GridCard span={3} label={en.recent_sales.label}>
+        <GridCard label={en.recent_sales.label} span={3}>
             <Table>
                 <TblHead cells={HEADER.cells} />
                 <TblBody cells={BODY} items={summary.latestSales as unknown as Order[]} />
             </Table>
         </GridCard>
-        {/* <Card className={`col-span-3`}>
-            <CardHeader>
-                <CardTitle>{en.recent_sales.label}</CardTitle>
-            </CardHeader>
-            <CardContent>
-            <div className="overflow-x-auto">
-                <Table>
-                <TblHead cells={HEADER.cells} />
-                <TblBody cells={BODY} items={summary.latestSales as unknown as Order[]} />
-                </Table>
-            </div>
-            </CardContent>
-        </Card> */}
       </div>
     </div>
   )
