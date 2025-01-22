@@ -8,20 +8,24 @@ export const GLOBAL = {
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
+  LIMIT                  : {
+                            ADMIN_ORDERS: 10,
+                            USER_ORDERS : 10,
+                          },
   PAGE_SIZE              : 4,
   PAYMENT_METHODS        : process.env.NEXT_PUBLIC_PAYMENT_METHODS,
   PAYMENT_METHOD_DEFAULT : process.env.NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD || 'PayPal',
   PAYPAL                 : {
-    PAYPAL_API_URL   : process.env.PAYPAL_API_URL || 'https://api-m.sandbox.paypal.com',
-    PAYPAL_CLIENT_ID : process.env.PAYPAL_CLIENT_ID || 'sb',
-    PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET || '',
-  },
+                            PAYPAL_API_URL   : process.env.PAYPAL_API_URL || 'https://api-m.sandbox.paypal.com',
+                            PAYPAL_CLIENT_ID : process.env.PAYPAL_CLIENT_ID || 'sb',
+                            PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET || '',
+                          },
   PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || '',
   PURCHASE_FLOW          : ['user_sign_in', 'shipping', 'payment', 'place_order'],
   PRICES                 : {
-    CURRENCY             : process.env.NEXT_PUBLIC_CURRENCY || 'USD',
-    TAX                  : process.env.NEXT_PUBLIC_TAX || 0.15,
-    NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
-    DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
-  },
+                            CURRENCY             : process.env.NEXT_PUBLIC_CURRENCY || 'USD',
+                            TAX                  : process.env.NEXT_PUBLIC_TAX || 0.15,
+                            NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
+                            DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
+                          },
 }
