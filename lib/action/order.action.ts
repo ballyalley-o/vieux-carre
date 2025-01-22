@@ -127,7 +127,7 @@ export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: s
   if (!updatedOrder) throw new Error(en.error.order_not_found)
 }
 
-export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page}: { limit?: number, page: number }) {
+export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPagination) {
   const session = await auth()
   if (!session) throw new Error(en.error.user_not_authenticated)
   const orders = await prisma.order.findMany({ where: { userId: session?.user?.id}, orderBy:{ createdAt:'desc' }, take: limit, skip: (page - 1) * limit })
@@ -168,4 +168,20 @@ export async function getOrderSummary() {
   const summary = { count, totalSales, salesData, latestSales }
 
   return summary
+}
+
+/**
+ * Retrieves a paginated list of orders from the database.
+ *
+ * @param {AppPagination} param0 - The pagination parameters.
+ * @param {number} [param0.limit=GLOBAL.PAGE_SIZE] - The number of orders to retrieve per page.
+ * @param {number} param0.page - The current page number.
+ * @returns {Promise<{ data: Order[], totalPages: number }>} A promise that resolves to an object containing the list of orders and the total number of pages.
+ */
+export async function getAllOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPagination) {
+ const data      = await prisma.order.findMany({ orderBy: { createdAt: 'desc' }, take: limit, skip: (page - 1) * limit, include: { user: { select: { name: true }}} })
+ const dataCount = await prisma.order.count()
+ const summary   = { data, totalPages: Math.ceil( dataCount / limit ) }
+
+ return summary
 }
