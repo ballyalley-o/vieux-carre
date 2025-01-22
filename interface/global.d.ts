@@ -73,6 +73,11 @@ declare global {
     tag?: string
   }
 
+  export interface AppPagination {
+    limit?: number
+    page  : number
+  }
+
   export type AppError =
     | ZodError
     | Prisma.PrismaClientKnownRequestError
