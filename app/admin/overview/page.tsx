@@ -10,7 +10,7 @@ import { AdminOverviewCard, GridCard, TblHead, TblBody } from 'component/shared'
 import { PATH_DIR } from 'config'
 import Chart from './chart'
 
-export const metadata: Metadata = { title: 'Admin Overview' }
+export const metadata: Metadata = { title: 'Overview  | Admin' }
 
 type FourCellType = TblCells<4>
 const AdminOverviewPage = async () => {
