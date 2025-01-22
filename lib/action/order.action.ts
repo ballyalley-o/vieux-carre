@@ -144,7 +144,7 @@ export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page}: { limit?: n
  *   totalSales: { _sum: { totalPrice: number | null } };
  *   salesData: Array<{ month: string; totalSales: number }>;
  *   latestSales: Array<{ createdAt: Date; user: { name: string } }>;
- * }>} A promise that resolves to an object containing the order summary.
+ * }>} A promise that resolves to an object containing the summary report.
  */
 export async function getOrderSummary() {
  /**
