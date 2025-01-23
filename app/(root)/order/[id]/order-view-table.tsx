@@ -1,7 +1,7 @@
 'use client'
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import { parseAddress, createPayPalOrder, approvePayPalOrder, KEY } from 'lib'
+import { parseAddress, createPayPalOrder, approvePayPalOrder, KEY, CASH_ON_DELIVERY } from 'lib'
 import { PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { useToast } from 'hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,15 +10,19 @@ import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { ArrowLeft } from 'lucide-react'
 import { Badge, Button } from 'component/ui'
 import { PriceSummaryCard } from 'component/shared/card'
+import { MarkPaidBtn } from 'component/shared/btn'
 import OrderViewCard from './order-view-card'
+import MarkDeliveredBtn from 'component/shared/btn/mark-delivered-btn'
 
 interface OrderViewTableProps {
   order         : Order
   paypalClientId: string
+  isAdmin       : boolean
 }
-const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId }) => {
+const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmin }) => {
   const { orderitems, shippingAddress, paymentMethod, isDelivered, deliveredAt,  isPaid, paidAt } = order
   const { toast } = useToast()
+
   const PrintPendingState = () => {
     const [{ isPending, isRejected }] = usePayPalScriptReducer()
     let status
@@ -96,6 +100,8 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId }) => {
                 </PayPalScriptProvider>
               </div>
             )}
+            {isAdmin && !isPaid && paymentMethod === CASH_ON_DELIVERY && <MarkPaidBtn orderId={order.id} />}
+            {isAdmin && isPaid  && !isDelivered && <MarkDeliveredBtn orderId={order.id} />}
           </PriceSummaryCard>
         </div>
       </div>

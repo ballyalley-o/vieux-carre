@@ -256,3 +256,52 @@ export async function deleteOrder(orderId: string) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
+
+/**
+ * Updates a Cash on Delivery (COD) order to a paid status.
+ *
+ * This function attempts to update the specified order to a paid status
+ * and revalidates the order view path. If the operation is successful,
+ * it logs a success response. If an error occurs, it logs an error response.
+ *
+ * @param {string} orderId - The unique identifier of the order to be updated.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ * @throws {AppError} - Throws an error if the update operation fails.
+ */
+export async function updateCODOrderToPaid(orderId: string) {
+  try {
+    await updateOrderToPaid({ orderId })
+    revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
+    return SystemLogger.response(en.success.order_paid)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
+
+/**
+ * Updates the status of an order to delivered.
+ *
+ * This function performs the following steps:
+ * 1. Finds the order by its ID.
+ * 2. Checks if the order exists.
+ * 3. Checks if the order is paid.
+ * 4. Updates the order's status to delivered and sets the delivery date.
+ * 5. Revalidates the order view path.
+ * 6. Logs and returns a success response.
+ *
+ * @param {string} orderId - The ID of the order to update.
+ * @returns {Promise<SystemLogger>} - A promise that resolves to a success response or an error response.
+ * @throws {Error} - Throws an error if the order is not found or not paid.
+ */
+export async function updateOrderToDelivered(orderId: string) {
+  try {
+    const order = await prisma.order.findFirst({ where: { id: orderId }})
+    if (!order) throw new Error(en.error.order_not_found)
+    if (!order.isPaid) throw new Error(en.error.order_not_paid)
+    await prisma.order.update({ where: { id: orderId}, data: { isDelivered: true, deliveredAt: new Date() }})
+    revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
+    return SystemLogger.response(en.success.order_delivered)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}

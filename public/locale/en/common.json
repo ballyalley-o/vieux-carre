@@ -112,7 +112,14 @@
         }
     },
     "loading":{
-        "delete_order": "Deleting Order..."
+        "delete_order": "Deleting Order...",
+        "processing": "Processing..."
+    },
+    "mark_paid": {
+        "label": "Mark as Paid"
+    },
+    "mark_delivered": {
+        "label": "Mark as Delivered"
     },
     "navigation": {
         "account": {
@@ -264,6 +271,7 @@
     "success": {
         "order_created": "Order created",
         "order_deleted": "Order deleted",
+        "order_delivered": "Order delivered",
         "order_paid": "Your order has been paid",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
@@ -281,6 +289,7 @@
         "order_paid": "Order is already paid",
         "order_not_created": "Order not created",
         "order_not_found": "Order not found",
+        "order_not_paid": "Order not paid",
         "paypal_payment_error": "Error occurred while processing PayPal payment",
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",

@@ -5,6 +5,7 @@ export { default as DynamicBagBtn } from './btn/dynamic-bag-btn'
 export { default as EditBtn } from './btn/edit-btn'
 export { default as LinkBtn } from './btn/link-btn'
 export { default as LoadingBtn } from './btn/loading-btn'
+export { default as MarkPaidBtn } from './btn/mark-paid-btn'
 // ⎿ card
 export { default as AdminOverviewCard } from './card/admin-overview-card'
 export { default as CheckoutPage } from './card/checkout-card'
