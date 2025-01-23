@@ -1,7 +1,8 @@
 'use client'
 
-import { FC, useTransition, useState } from 'react'
+import { FC, Fragment, useTransition, useState } from 'react'
 import { useToast, useAppColors } from 'hook'
+import { en } from 'public/locale'
 import { Minus } from 'lucide-react'
 import {
   Button,
@@ -14,8 +15,8 @@ import {
   AlertDialogCancel,
   AlertDialogAction
 } from 'component/ui'
-import { en } from 'public/locale'
 import { delay } from 'lib'
+import { EllipsisLoader } from 'component/shared/loader'
 
 interface DeleteDialg {
   id: string
@@ -55,7 +56,7 @@ const DeleteDialg: FC<DeleteDialg> = ({ id, action }) => {
         {/* <AlertDialogFooter> */}
             <AlertDialogCancel>{en.cancel.label}</AlertDialogCancel>
             <AlertDialogAction disabled={isPending} onClick={handleDeleteOrder} style={{ backgroundColor: palette.action.destructive }}>
-                {isPending ? <i>{en.loading.delete_order}</i> : en.delete.label}
+                {isPending ? ( <Fragment> <i>{en.loading.delete_order}</i> <EllipsisLoader /></Fragment> )  : en.delete.label}
             </AlertDialogAction>
         {/* </AlertDialogFooter> */}
       </AlertDialogContent>
