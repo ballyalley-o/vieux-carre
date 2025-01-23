@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
 import { en } from 'public/locale'
-import { getMyOrders, formatCurrency, formatDateTime, formatId } from 'lib'
+import { getMyOrders, formatCurrency, formatDateTime, formatId, deleteOrder } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
-import { Pagination } from 'component/shared'
+import { Pagination, DeleteDialg } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: 'My Orders' }
@@ -17,14 +17,15 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
   const { page } = await searchParams
   const orders = await getMyOrders({ page: Number(page) || 1 })
 
-  type FiveCellType = TblCells<5>
+  type FiveCellType = TblCells<6>
   const HEADER: FiveCellType = {
     cells: [
       { id: 'id', value: 'Order id', align: 'left' },
       { id: 'date', value: 'Date', align: 'center' },
       { id: 'total', value: 'Total', align: 'left' },
       { id: 'paid', value: 'Paid', align: 'center' },
-      { id: 'delivered', value: 'Delivered', align: 'center' }
+      { id: 'delivered', value: 'Delivered', align: 'center' },
+      { id: 'action', value: '', align: 'center' },
     ]
   }
 
@@ -53,6 +54,11 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
             {item.isDelivered ? formatDateTime(item.deliveredAt!).dateTime : 'Not delivered'}
           </Badge>
         ),
+        align: 'center'
+      },
+      {
+        id: 'action',
+        value: <DeleteDialg id={item.id} action={deleteOrder} />,
         align: 'center'
       }
     ]
