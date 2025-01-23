@@ -9,6 +9,16 @@
     "admin": {
         "label": "Admin"
     },
+    "already_have_account": {
+        "label": "Already have an account?"
+    },
+    "bag": {
+        "label": "Bag",
+        "description": "Complete the form with your bag information",
+        "bag": {
+            "label": "Bag"
+        }
+    },
     "bag_empty": "Bag is empty",
     "cancel": {
         "label": "Cancel"
@@ -43,6 +53,9 @@
         "label": "Delivered At"
     },
     "description": "This is an example of i18n with Next.js",
+    "dont_have_account": {
+        "label": "Don't have an account?"
+    },
     "edit": {
         "label": "Edit"
     },
@@ -112,8 +125,8 @@
         }
     },
     "loading":{
-        "delete_order": "Deleting Order...",
-        "processing": "Processing..."
+        "delete_order": "Deleting Order",
+        "processing": "Processing"
     },
     "mark_paid": {
         "label": "Mark as Paid"
@@ -221,6 +234,10 @@
     },
     "sign_in": {
         "label": "Sign in",
+        "description": "Complete the form with your information"
+    },
+    "sign_up": {
+        "label": "Sign up",
         "description": "Complete the form with your information"
     },
     "sign_out": {
