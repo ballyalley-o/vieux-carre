@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![App Icon](/public/image/svg/vieux-carre-red.svg) &nbsp;
 
-## Getting Started
+Vieux Carre
+#
+- [](#)
+  - [Introduction](#introduction)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-First, run the development server:
+## Introduction
+**Vieux Carre** is a showcase application built with Next.js and Tailwind CSS. It is a shopping platform that allows users to browse products, add them to their cart, and make purchases. The application is fully responsive and includes features like user authentication, notifications, and dark mode.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
+- **Task Management**: Create, update, and delete tasks.
+- **User Authentication**: Secure login and registration.
+- **Responsive Design**: Works on both desktop and mobile devices.
+- **Notifications**: Get notified about upcoming deadlines.
+- **Dark Mode**: Switch between light and dark themes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
+To get started with **My Awesome App**, follow these steps:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/ballyoop/vieux-carre.git
+    cd vieux-carre
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Install dependencies**:
+    ```sh
+    npm install
+    ```
 
-## Learn More
+3. **Set up environment variables**:
+    Create a `.env` file in the root directory and add the necessary environment variables:
+    ```env
+    NEXT_PUBLIC_API_URL=https://api.example.com
+    NEXT_PUBLIC_PAYMENT_METHODS="PayPal;Stripe;Cash"
+    NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD="PayPal"
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Run the application**:
+    ```sh
+    npm run dev
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
+Once the application is running, you can access it at `http://localhost:3000`. Register for an account or log in if you already have one. Start creating and managing your tasks right away!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Configuration
+The application can be configured using environment variables. Here are some of the key variables you can set:
 
-## Deploy on Vercel
+- `NEXT_PUBLIC_API_URL`: The base URL for the API.
+- `NEXT_PUBLIC_PAYMENT_METHODS`: A semicolon-separated list of payment methods.
+- `NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD`: The default payment method.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
+We welcome contributions from the community! If you'd like to contribute, please follow these steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes and commit them with a clear message.
+4. Push your changes to your fork.
+5. Create a pull request to the main repository.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
