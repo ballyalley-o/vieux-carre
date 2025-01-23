@@ -2,13 +2,12 @@ import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'auth'
-import { getAllOrders, formatCurrency, formatDateTime, formatId, KEY } from 'lib'
+import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, KEY } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
-import { Pagination } from 'component/shared'
+import { Pagination, DeleteDialg } from 'component/shared'
 import { PATH_DIR } from 'config'
-
 
 export const metadata: Metadata = { title: 'Orders | Admin' }
 
@@ -23,14 +22,15 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
 
   const orders = await getAllOrders({ page: Number(page), limit: GLOBAL.LIMIT.ADMIN_ORDERS })
 
-  type FiveCellType = TblCells<5>
+  type FiveCellType = TblCells<6>
   const HEADER: FiveCellType = {
     cells: [
       { id: 'id', value: 'Order id', align: 'left' },
       { id: 'date', value: 'Date', align: 'center' },
       { id: 'total', value: 'Total', align: 'left' },
       { id: 'paid', value: 'Paid', align: 'center' },
-      { id: 'delivered', value: 'Delivered', align: 'center' }
+      { id: 'delivered', value: 'Delivered', align: 'center' },
+      { id: 'action', value: '', align: 'center' }
     ]
   }
 
@@ -40,7 +40,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
         id: 'id',
         value: (
           <div className={'flex flex-row items-center'}>
-           <TooltpGoBadge trigger={formatId(item.id)} href={PATH_DIR.ORDER_VIEW(item.id)} content={`${en.go_to.label} this order`} />
+            <TooltpGoBadge trigger={formatId(item.id)} href={PATH_DIR.ORDER_VIEW(item.id)} content={`${en.go_to.label} this order`} />
           </div>
         ),
         align: 'left'
@@ -60,10 +60,14 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
           </Badge>
         ),
         align: 'center'
+      },
+      {
+        id: 'action',
+        value: <DeleteDialg id={item.id} action={deleteOrder} />,
+        align: 'center'
       }
     ]
   })
-
 
   return (
     <div className={'space-y-2'}>
