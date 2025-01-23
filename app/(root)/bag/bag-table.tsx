@@ -6,8 +6,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
-import { ArrowRight, Loader } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Table, Card, CardContent, Button, Badge } from 'component/ui'
+import { EllipsisLoader } from 'component/shared/loader'
 import { PATH_DIR } from 'config'
 import { formatCurrency } from 'lib/util'
 import { BagTableHead, BagTableBody } from 'component/shared/bag'
@@ -48,7 +49,7 @@ const BagTable: FC<BagTableProps> = ({ bag }) => {
   const renderNavigateCheckoutButton = () => {
     return (
       <Button className="w-full" disabled={isPending} onClick={handleNavigateCheckout}>
-        {isPending ? <Loader className={'loader'} /> : (<Fragment> <ArrowRight className='w-4 h-4' /> {'Proceed to Checkout'}</Fragment>)}
+        {isPending ? <EllipsisLoader /> : (<Fragment> <ArrowRight className='w-4 h-4' /> {'Proceed to Checkout'}</Fragment>)}
       </Button>
     )
   }

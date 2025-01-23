@@ -106,6 +106,20 @@ export async function getMyBag() {
   return myBag
 }
 
+/**
+ * Retrieves the count of items in the user's bag.
+ *
+ * This function asynchronously fetches the user's bag and calculates the total quantity
+ * of items present in the bag. If the bag is not found, it returns 0.
+ *
+ * @returns {Promise<number>} A promise that resolves to the total count of items in the bag.
+ */
+export async function getMyBagCount() {
+  const bag = await getMyBag()
+  if (!bag) return 0
+  return (bag.items as BagItem[]).reduce((acc, item) => acc + item.qty, 0)
+}
+
 export async function removeItemFromBag(productId: string) {
   try {
     const sessionBagId = (await cookies()).get(KEY.SESSION_BAG_ID)?.value

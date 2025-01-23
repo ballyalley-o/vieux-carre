@@ -78,13 +78,19 @@ const config = {
         shuffle4: {
           '0%, 100%': { transform: 'translate(80px, 80px) rotate(0deg)' },
           '50%': { transform: 'translate(0, 0) rotate(180deg)' }
+        },
+        wave: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-15deg)' },
+          '75%': { transform: 'rotate(15deg)' },
         }
       },
       animation: {
         shuffle1: 'shuffle1 2s ease-in-out infinite',
         shuffle2: 'shuffle2 2s ease-in-out infinite',
         shuffle3: 'shuffle3 2s ease-in-out infinite',
-        shuffle4: 'shuffle4 2s ease-in-out infinite'
+        shuffle4: 'shuffle4 2s ease-in-out infinite',
+        wave    : 'wave 1.5s ease-in-out infinite',
       }
     }
   },

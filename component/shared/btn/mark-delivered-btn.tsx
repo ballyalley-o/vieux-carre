@@ -1,10 +1,11 @@
 'use client'
 
-import { FC, useTransition } from 'react'
+import { FC, Fragment, useTransition } from 'react'
 import { useToast } from 'hook'
 import { Button } from 'component/ui'
 import { updateOrderToDelivered } from 'lib'
 import { en } from 'public/locale'
+import { EllipsisLoader } from '../loader'
 
 
 interface MarkDeliveredBtnProps {
@@ -22,7 +23,7 @@ const MarkDeliveredBtn: FC<MarkDeliveredBtnProps> = ({ orderId }) => {
   }
   return (
     <Button type={'button'} disabled={isPending} onClick={handleMarkDelivered} className={'w-full'}>
-      {isPending ? <i>{en.loading.processing}</i> : en.mark_delivered.label}
+      {isPending ? ( <Fragment> <i>{en.loading.processing}</i> <EllipsisLoader /></Fragment> ) : en.mark_delivered.label}
     </Button>
   )
 }

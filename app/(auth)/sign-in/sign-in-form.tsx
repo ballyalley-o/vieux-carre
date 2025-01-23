@@ -4,13 +4,15 @@ import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
 import { signInWithCredentials } from 'lib/action'
-import { Loader } from 'lucide-react'
+// import { Shell } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from 'component/ui/button'
 import { Input } from 'component/ui/input'
 import { Label } from 'component/ui/label'
+import { EllipsisLoader } from 'component/shared/loader'
 import { PATH_DIR } from 'config'
 import { KEY, RESPONSE, signInDefaultValue } from 'lib'
+import { en } from 'public/locale'
 
 const SignInForm = () => {
   const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
@@ -22,7 +24,7 @@ const SignInForm = () => {
     return (
       <div className="mb-5">
         <Button disabled={pending} className="w-full" variant={'default'}>
-          {pending ? <Loader className="loader mr-2" /> : 'Sign In'}
+          {pending ? <EllipsisLoader /> : en.sign_in.label}
         </Button>
       </div>
     )
@@ -61,9 +63,9 @@ const SignInForm = () => {
           <SignInButton />
         </div>
         <div className="text-sm text-center text-muted-foreground">
-          {`Don't have an account? `}
+          {en.dont_have_account.label}
           <Link href={PATH_DIR.SIGN_UP} target="_self" className="link font-bold">
-            {'Sign Up'}
+            {en.sign_up.label}
           </Link>
         </div>
       </div>

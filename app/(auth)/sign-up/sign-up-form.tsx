@@ -2,13 +2,14 @@
 
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { en } from 'public/locale'
 import { useSearchParams } from 'next/navigation'
 import { signUpUser } from 'lib/action/user.action'
-import { Loader } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from 'component/ui/button'
 import { Input } from 'component/ui/input'
 import { Label } from 'component/ui/label'
+import { EllipsisLoader } from 'component/shared/loader'
 import { PATH_DIR } from 'config'
 import { KEY, RESPONSE, signUpDefaultValue } from 'lib'
 
@@ -17,12 +18,12 @@ const SignUpForm = () => {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
 
-  const SignInButton = () => {
+  const SignUpButton = () => {
     const { pending } = useFormStatus()
     return (
       <div className="mb-5">
         <Button disabled={pending} className="w-full" variant={'default'}>
-          {pending ? <Loader className="loader mr-2" /> : 'Sign In'}
+          {pending ? <EllipsisLoader /> : en.sign_up.label}
         </Button>
       </div>
     )
@@ -82,12 +83,12 @@ const SignUpForm = () => {
           />
         </div>
         <div className="">
-          <SignInButton />
+          <SignUpButton />
         </div>
         <div className="text-sm text-center text-muted-foreground">
-          {`Already have an account? `}
+          {en.already_have_account.label}
           <Link href={PATH_DIR.SIGN_IN} target="_self" className="link font-bold">
-            {'Sign In'}
+            {en.sign_in.label}
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { FC, Fragment, JSX } from 'react'
-import { Loader, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Button } from 'component/ui'
+import { EllipsisLoader } from 'component/shared/loader'
 import { KEY } from 'lib'
 
 interface LoadingBtnProps {
@@ -22,7 +23,7 @@ const LoadingBtn: FC<LoadingBtnProps> = ({
     <div className="flex gap-2">
       <Button type={type} disabled={isPending || disabled} className="w-full mt-5">
         {isPending ? (
-          <Loader className={'loader'} />
+          <EllipsisLoader />
         ) : (
           <Fragment>
             {label} {icon}

@@ -1,18 +1,13 @@
-import Link from 'next/link'
-import { ShoppingBagIcon } from 'lucide-react'
-import { ThemeToggle, Button, MobileMenu, UserMenu } from 'component'
-import { PATH_DIR } from 'config'
+import { getMyBagCount } from 'lib/action'
+import { ThemeToggle, MobileMenu, UserMenu, BagIconWithBadge } from 'component/shared'
 
-const Toolbar = () => {
+const Toolbar = async () => {
+  const count = await getMyBagCount()
   return (
     <div className="flex justify-end gap-3">
       <nav className="hidden md:flex w-full max-w-xs gap-1">
         <ThemeToggle />
-        <Button asChild variant="ghost">
-          <Link href={PATH_DIR.BAG}>
-            <ShoppingBagIcon /> {'Bag'}
-          </Link>
-        </Button>
+        <BagIconWithBadge itemCount={count}/>
         <UserMenu />
       </nav>
       <MobileMenu />
