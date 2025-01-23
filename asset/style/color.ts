@@ -22,31 +22,47 @@ export const colors = {
     700: '#105294',
     800: '#0B4178',
     900: '#072F5C'
+  },
+  red: {
+    50 : '#FEEEEE',
+    100: '#FCC7C7',
+    200: '#FA9F9F',
+    300: '#F87777',
+    400: '#F64F4F',
+    500: '#F42727',
+    600: '#D02323',
+    700: '#AD1F1F',
+    800: '#891B1B',
+    900: '#651717'
   }
 } as const
 
 export const palette = {
   light: {
     background: {
-      primary  : colors.grey[50],
-      secondary: colors.grey[100],
-      tertiary : colors.grey[200]
+      primary    : colors.grey[50],
+      secondary  : colors.grey[100],
+      tertiary   : colors.grey[200],
+      destructive: colors.red[50]
     },
     text: {
-      primary  : colors.grey[900],
-      secondary: colors.grey[700],
-      tertiary : colors.grey[500]
+      primary    : colors.grey[900],
+      secondary  : colors.grey[700],
+      tertiary   : colors.grey[500],
+      destructive: colors.red[500]
     },
     border: {
-      default: colors.grey[200],
-      hover  : colors.grey[300],
-      focus  : colors.blue[400]
+      default    : colors.grey[200],
+      hover      : colors.grey[300],
+      focus      : colors.blue[400],
+      destructive: colors.red[500]
     },
     action: {
-      primary : colors.blue[500],
-      hover   : colors.blue[600],
-      active  : colors.blue[700],
-      disabled: colors.grey[300]
+      primary    : colors.blue[500],
+      hover      : colors.blue[600],
+      active     : colors.blue[700],
+      disabled   : colors.grey[300],
+      destructive: colors.red[500]
     },
     chart: {
       stroke : colors.grey[400],
@@ -57,25 +73,29 @@ export const palette = {
   },
   dark: {
     background: {
-      primary  : colors.grey[900],
-      secondary: colors.grey[800],
-      tertiary : colors.grey[700]
+      primary    : colors.grey[900],
+      secondary  : colors.grey[800],
+      tertiary   : colors.grey[700],
+      destructive: colors.red[900]
     },
     text: {
-      primary  : colors.grey[50],
-      secondary: colors.grey[200],
-      tertiary : colors.grey[400]
+      primary    : colors.grey[50],
+      secondary  : colors.grey[200],
+      tertiary   : colors.grey[400],
+      destructive: colors.red[500]
     },
     border: {
-      default: colors.grey[700],
-      hover  : colors.grey[600],
-      focus  : colors.blue[400]
+      default    : colors.grey[700],
+      hover      : colors.grey[600],
+      focus      : colors.blue[400],
+      destructive: colors.red[500]
     },
     action: {
-      primary : colors.blue[500],
-      hover   : colors.blue[400],
-      active  : colors.blue[300],
-      disabled: colors.grey[700]
+      primary    : colors.blue[500],
+      hover      : colors.blue[400],
+      active     : colors.blue[300],
+      disabled   : colors.grey[700],
+      destructive: colors.red[500]
     },
     chart: {
       stroke : colors.grey[200],
