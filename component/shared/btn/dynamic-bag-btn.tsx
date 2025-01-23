@@ -1,5 +1,5 @@
 import { FC, Fragment } from 'react'
-import { Minus, Plus, Shell } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import { Button } from 'component/ui'
 
 interface DynamicBagBtnProps {
@@ -9,14 +9,15 @@ interface DynamicBagBtnProps {
   amount: number
 }
 const DynamicBagBtn: FC<DynamicBagBtnProps> = ({ isPending, handleMinus, handlePlus, amount }) => {
+
   return (
     <Fragment>
       <Button disabled={isPending} type={'button'} variant={'outline'} onClick={handleMinus} className="shadow-none px-2 rounded-sm">
-        {isPending ? <Shell className="loader" /> : <Minus className="h-4 w-4 -" />}
+        {<Minus className={"default-size_icon"} />}
       </Button>
       <span className="px-4">{amount}</span>
       <Button disabled={isPending} type={'button'} variant={'outline'} onClick={handlePlus} className="shadow-none px-2 rounded-sm">
-        {isPending ? <Shell className="loader" /> : <Plus className="h-4 w-4" />}
+        {<Plus className={"default-size_icon"} />}
       </Button>
     </Fragment>
   )
