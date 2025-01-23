@@ -4,7 +4,7 @@ import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
 import { signInWithCredentials } from 'lib/action'
-import { Loader } from 'lucide-react'
+import { Shell } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from 'component/ui/button'
 import { Input } from 'component/ui/input'
@@ -22,7 +22,7 @@ const SignInForm = () => {
     return (
       <div className="mb-5">
         <Button disabled={pending} className="w-full" variant={'default'}>
-          {pending ? <Loader className="loader mr-2" /> : 'Sign In'}
+          {pending ? <Shell className="loader mr-2" /> : 'Sign In'}
         </Button>
       </div>
     )

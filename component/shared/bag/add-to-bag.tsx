@@ -3,7 +3,7 @@
 import { Fragment, useTransition, FC } from 'react'
 import { useRouter } from 'next/navigation'
 import { en } from 'public/locale'
-import { Plus, Loader } from 'lucide-react'
+import { Plus, Shell } from 'lucide-react'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
 import { Button, ToastAction } from 'component/ui'
@@ -52,7 +52,7 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   ) : (
     <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
       {isPending ? (
-        <Loader className="loader" />
+        <Shell className="loader" />
       ) : (
         <Fragment>
           <Plus /> {en.add_to_bag}
