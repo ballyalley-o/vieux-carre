@@ -9,10 +9,10 @@ export const LOCALE = {
 }
 
 export const METHOD = {
-  GET: 'get',
-  POST: 'post',
-  PATCH: 'patch',
-  PUT: 'put',
+  GET   : 'get',
+  POST  : 'post',
+  PATCH : 'patch',
+  PUT   : 'put',
   DELETE: 'delete',
   OPTION: 'option'
 }
@@ -22,31 +22,32 @@ export const VARIANT = {
 }
 
 export const FORM = {
-  EMAIL: 'email',
+  EMAIL           : 'email',
   CONFIRM_PASSWORD: 'confirmPassword',
-  NAME: 'name',
-  PASSWORD: 'password'
+  NAME            : 'name',
+  PASSWORD        : 'password'
 }
 
 export const PAYMENT_METHOD = {
-  PAYPAL: 'PayPal',
-  STRIPE: 'Stripe',
+  PAYPAL          : 'PayPal',
+  STRIPE          : 'Stripe',
+  CASH_ON_DELIVERY: 'CashOnDelivery'
 }
 
 export const ROLE = {
-  USER: 'user',
+  USER : 'user',
   ADMIN: 'admin'
 }
 
 export const KEY = {
-  BAG: 'bag',
-  CALLBACK_URL: 'callbackUrl',
+  BAG           : 'bag',
+  CALLBACK_URL  : 'callbackUrl',
   SESSION_BAG_ID: 'sessionBagId',
-  CLASS: 'class',
-  DARK: 'dark',
-  LIGHT: 'light',
-  SYSTEM: 'system',
-  TEXT: 'text',
+  CLASS         : 'class',
+  DARK          : 'dark',
+  LIGHT         : 'light',
+  SYSTEM        : 'system',
+  TEXT          : 'text',
   ...BUTTON_TYPE,
   ...FORM,
   ...LOCALE,
