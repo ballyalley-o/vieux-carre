@@ -11,6 +11,8 @@ export { default as CheckoutPage } from './card/checkout-card'
 export { default as GridCard } from './card/grid-card'
 // ⎿ custom
 export { default as ProcessFlow } from './custom/purchase-flow'
+// ⎿ dialg
+export { default as DeleteDialg } from './dialg/delete-dialg'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header

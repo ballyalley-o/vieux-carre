@@ -1,0 +1,1 @@
+export { default as DeleteDialg } from './delete-dialg'
