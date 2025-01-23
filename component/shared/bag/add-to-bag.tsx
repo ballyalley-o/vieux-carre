@@ -3,11 +3,12 @@
 import { Fragment, useTransition, FC } from 'react'
 import { useRouter } from 'next/navigation'
 import { en } from 'public/locale'
-import { Plus, Shell } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
 import { Button, ToastAction } from 'component/ui'
 import { DynamicBagBtn } from 'component/shared/btn'
+import { EllipsisLoader } from 'component/shared/loader'
 import { PATH_DIR } from 'config'
 
 interface AddToBagProps {
@@ -52,7 +53,8 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   ) : (
     <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
       {isPending ? (
-        <Shell className="loader" />
+        // <Shell className="loader" />
+        <EllipsisLoader />
       ) : (
         <Fragment>
           <Plus /> {en.add_to_bag}
