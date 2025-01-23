@@ -10,9 +10,15 @@
         "label": "Admin"
     },
     "bag_empty": "Bag is empty",
+    "cancel": {
+        "label": "Cancel"
+    },
     "checkout": {
         "label": "Checkout",
         "description": "Complete the form with your information"
+    },
+    "confirm": {
+        "label": "Confirm"
     },
     "continue": {
         "label": "Continue",
@@ -29,6 +35,9 @@
     },
     "date": {
         "label": "Date"
+    },
+    "delete": {
+        "label": "Delete"
     },
     "delivered_at": {
         "label": "Delivered At"
@@ -101,6 +110,9 @@
         "items": {
             "label": "Items"
         }
+    },
+    "loading":{
+        "delete_order": "Deleting Order..."
     },
     "navigation": {
         "account": {
@@ -239,8 +251,19 @@
         "description": "Complete the form with your user information"
     },
     "welcome": "Welcome to our site",
+    "message" :{
+        "default":{
+            "title": "Are you sure?",
+            "description": "This is a message"
+        },
+        "confirm_delete_order": {
+            "title": "Confirm Delete Order",
+            "description": "This action cannot be undone and is irreversible."
+        }
+    },
     "success": {
         "order_created": "Order created",
+        "order_deleted": "Order deleted",
         "order_paid": "Your order has been paid",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
