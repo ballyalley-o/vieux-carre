@@ -1,5 +1,6 @@
 // ⎿ bag
 export { default as AddToBag } from './bag/add-to-bag'
+export { default as BagIconWithBadge } from './bag/bag-icon-with-badge'
 // ⎿ btn
 export { default as DynamicBagBtn } from './btn/dynamic-bag-btn'
 export { default as EditBtn } from './btn/edit-btn'
