@@ -238,3 +238,21 @@ export async function getAllOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPagina
 
  return summary
 }
+
+
+/**
+ * Deletes an order by its ID.
+ *
+ * @param {string} orderId - The ID of the order to delete.
+ * @returns {Promise<any>} - A promise that resolves to the response of the deletion operation.
+ * @throws {AppError} - Throws an error if the deletion operation fails.
+ */
+export async function deleteOrder(orderId: string) {
+  try {
+    await prisma.order.delete({ where: { id: orderId }})
+    revalidatePath(PATH_DIR.ADMIN.ORDER)
+    return SystemLogger.response(en.success.order_deleted, CODE.OK, TAG)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
