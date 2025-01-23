@@ -4,8 +4,9 @@ import { en } from 'public/locale'
 import { useRouter } from 'next/navigation'
 import { useFormStatus } from 'react-dom'
 import { createOrder } from 'lib/action'
-import { Shell, Barcode } from 'lucide-react'
+import { Barcode } from 'lucide-react'
 import { Button } from 'component/ui'
+import { EllipsisLoader } from 'component/shared/loader'
 
 const CheckoutForm = () => {
   const router = useRouter()
@@ -19,7 +20,7 @@ const CheckoutForm = () => {
     const { pending } = useFormStatus()
     return (
       <Button disabled={pending} className={'w-full'}>
-        {pending ? <Shell className={'loader'} /> : <Barcode className={'default-size_icon'} />}
+        {pending ? <EllipsisLoader /> : <Barcode className={'default-size_icon'} />}
         {pending ? <i>{en.place_order.pending}</i> : en.place_order.label}
       </Button>
     )
