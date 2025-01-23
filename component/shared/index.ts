@@ -24,6 +24,7 @@ export { default as MobileMenu } from './header/mobile-menu'
 export { default as UserMenu } from './header/user-menu'
 // ⎿ loader
 export { default as Loader } from './loader/loader'
+export { default as EllipsisLoader } from './loader/ellipsis-loader'
 // ⎿ pagination
 export { default as Pagination } from './pagination/pagination'
 // ⎿ product
