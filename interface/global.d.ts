@@ -78,6 +78,14 @@ declare global {
     page  : number
   }
 
+  export interface AppResponse {
+    success    : boolean
+    code       : CODE
+    message    : string
+    redirectTo?: string
+    data      ?: unknown
+  }
+
   export type AppError =
     | ZodError
     | Prisma.PrismaClientKnownRequestError
