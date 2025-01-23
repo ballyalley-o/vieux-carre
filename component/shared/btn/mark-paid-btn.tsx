@@ -1,10 +1,11 @@
 'use client'
 
-import { FC, useTransition } from 'react'
-import { useToast } from 'hook'
-import { Button } from 'component/ui'
-import { updateCODOrderToPaid } from 'lib'
+import { FC, Fragment, useTransition } from 'react'
 import { en } from 'public/locale'
+import { useToast } from 'hook'
+import { updateCODOrderToPaid } from 'lib'
+import { Button } from 'component/ui'
+import { EllipsisLoader } from '../loader'
 
 
 interface MarkPaidBtnProps {
@@ -22,7 +23,7 @@ const MarkPaidBtn: FC<MarkPaidBtnProps> = ({ orderId }) => {
   }
   return (
     <Button type={'button'} disabled={isPending} onClick={handleMarkPaid} className={'w-full'}>
-      {isPending ? <i>{en.loading.processing}</i> : en.mark_paid.label}
+      {isPending ? ( <Fragment> <i>{en.loading.processing}</i> <EllipsisLoader /></Fragment> ) : en.mark_paid.label}
     </Button>
   )
 }
