@@ -11,7 +11,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogCancel,
   AlertDialogAction
 } from 'component/ui'
@@ -53,11 +52,12 @@ const DeleteDialg: FC<DeleteDialg> = ({ id, action }) => {
           <AlertDialogTitle>{en.message.default.title}</AlertDialogTitle>
           <AlertDialogDescription>{en.message.confirm_delete_order.description}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        {/* <AlertDialogFooter> */}
             <AlertDialogCancel>{en.cancel.label}</AlertDialogCancel>
-            <AlertDialogAction  disabled={isPending} onClick={handleDeleteOrder} style={{ backgroundColor: palette.action.destructive }}>
-                {isPending ? <i>{en.loading.delete_order}</i> : en.delete.label}</AlertDialogAction>
-        </AlertDialogFooter>
+            <AlertDialogAction disabled={isPending} onClick={handleDeleteOrder} style={{ backgroundColor: palette.action.destructive }}>
+                {isPending ? <i>{en.loading.delete_order}</i> : en.delete.label}
+            </AlertDialogAction>
+        {/* </AlertDialogFooter> */}
       </AlertDialogContent>
     </AlertDialog>
   )
