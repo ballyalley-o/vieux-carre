@@ -1,10 +1,10 @@
-import { FC, Fragment, JSX } from 'react'
+import { FC, Fragment, JSX, ReactNode } from 'react'
 import Link from 'next/link'
 import { RectangleEllipsis } from 'lucide-react'
 import { Button,  DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator } from "component/ui"
 
 interface DDMenuItem {
-    label         : string
+    label         : string | JSX.Element | ReactNode
     href         ?: string
     icon         ?: JSX.Element
     className    ?: string
@@ -13,7 +13,7 @@ interface DDMenuItem {
 }
 interface DDMenuProps {
     menuItems      : DDMenuItem[]
-    title          : string
+    title          : string | JSX.Element | ReactNode
     menuIcon      ?: JSX.Element
     buttonLabel   ?: string
     buttonIconSize?: number
