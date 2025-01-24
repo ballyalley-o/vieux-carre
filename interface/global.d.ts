@@ -39,7 +39,6 @@ declare global {
     align: string
   }
 
-
   export interface TblCells<T extends number> {
     cells: TblCell[] & { length: T }
   }
@@ -85,6 +84,11 @@ declare global {
     redirectTo?: string
     data      ?: unknown
   }
+
+  export interface AppPage<T> { page: T }
+  export interface AppOrdersAction<T> extends AppPage<T> { limit?: number }
+  export interface AppProductsPage<T> extends AppPage<T> { query: string, category: string }
+  export interface AppProductsAction<T> extends AppPage<T> { query: string, category: string, limit?: number }
 
   export type AppError =
     | ZodError
