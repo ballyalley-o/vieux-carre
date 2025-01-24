@@ -1,11 +1,11 @@
 import { FC } from 'react'
+import { en } from 'public/locale'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { formatCurrency, formatId, getAllProducts } from 'lib'
-import { en } from 'public/locale'
-import { FilePenLine, ListMinus, SquareArrowOutUpRight } from 'lucide-react'
+import { formatCurrency, formatId, getAllProducts, deleteProduct } from 'lib'
+import { FilePenLine, ListMinus, SquareArrowOutUpRight, Ellipsis } from 'lucide-react'
 import { Button, Table } from 'component/ui'
-import { TblHead, TblBody, Pagination, DDMenu } from 'component/shared'
+import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: 'Products | Admin' }
@@ -20,9 +20,9 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
 
     const MENU_ITEMS = (item: Product) =>  {
        return ([
-            { label: en.view.label, icon: <SquareArrowOutUpRight />, href: PATH_DIR.ADMIN.PRODUCT_VIEW(item.id.toString()), withSeparator: true },
+            { label: en.view.label, icon: <SquareArrowOutUpRight />, href: PATH_DIR.ADMIN.PRODUCT_VIEW(item.id.toString()) },
             { label: en.edit.label, icon: <FilePenLine />, href: PATH_DIR.ADMIN.PRODUCT_VIEW(item.id.toString()) },
-            { label: en.delete.label, icon: <ListMinus />, href: PATH_DIR.ADMIN.PRODUCT }
+            { label: <DeleteDialg id={item.id.toString()} action={deleteProduct}><p className={'text-sm'}>{en.delete.label}</p></DeleteDialg>, icon: <ListMinus />, href: PATH_DIR.ADMIN.PRODUCT }
         ])
     }
 
@@ -41,13 +41,13 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
 
     const BODY = (item: Product): SevenCellType => ({
         cells: [
-            { id: 'productId',  value: formatId(String(item.id)), align: 'left' },
+            { id: 'productId',  value: <TooltpGoBadge trigger={formatId(item.id.toString())} href={PATH_DIR.ORDER_VIEW(item.id.toString())} content={`${en.go_to.label} this Product`} />, align: 'left' },
             { id: 'name',  value: item.name, align: 'left' },
             { id: 'price',  value: formatCurrency(item.price), align: 'left' },
             { id: 'category',  value: item.category, align: 'center' },
             { id: 'stock',  value: item.stock, align: 'center' },
             { id: 'rating',  value: item.rating, align: 'center' },
-            { id: 'action',  value: (<DDMenu title={en.action.label} menuItems={MENU_ITEMS(item)}/>), align: 'right' }
+            { id: 'action',  value: (<DDMenu title={<Ellipsis size={10} />} menuItems={MENU_ITEMS(item)}/>), align: 'right' }
         ]
     })
 
