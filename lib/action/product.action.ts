@@ -3,8 +3,6 @@ import { prisma } from 'db/prisma'
 import { GLOBAL } from 'vieux-carre'
 import { convertToPlainObject } from 'lib'
 
-
-
 export async function getLatestProducts() {
   const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
   return convertToPlainObject(data)
