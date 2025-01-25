@@ -47,7 +47,7 @@ export async function getProductBySlug(slug: string) {
  * @property {number} totalPages - The total number of pages.
  */
 export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category }: AppProductsAction<number>) {
-  const data = await prisma.product.findMany({ skip: (page - 1) * limit, take: limit })
+  const data  = await prisma.product.findMany({ orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
   const count = await prisma.product.count()
 
   const summary = { data, totalPages: Math.ceil(count / limit) }
