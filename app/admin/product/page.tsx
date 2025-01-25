@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { formatCurrency, formatId, getAllProducts, deleteProduct } from 'lib'
 import { FilePenLine, ListMinus, SquareArrowOutUpRight, Ellipsis } from 'lucide-react'
 import { Button, Table } from 'component/ui'
-import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge } from 'component/shared'
+import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge, Tooltp } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: 'Products | Admin' }
@@ -47,7 +47,7 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
             { id: 'category',  value: item.category, align: 'center' },
             { id: 'stock',  value: item.stock, align: 'center' },
             { id: 'rating',  value: item.rating, align: 'center' },
-            { id: 'action',  value: (<DDMenu title={<Ellipsis size={10} />} menuItems={MENU_ITEMS(item)}/>), align: 'right' }
+            { id: 'action',  value: (<Tooltp content={en.action.label}><DDMenu title={<Ellipsis size={10} />} menuItems={MENU_ITEMS(item)}/></Tooltp>), align: 'right' }
         ]
     })
 
@@ -55,7 +55,7 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
     <div className={'space-y-2'}>
         <div className={'flex-between'}>
             <h1 className={'h2-bold'}>{en.product.products.label}</h1>
-            <Button asChild variant={'ghost'}>
+            <Button asChild variant={'outline'}>
                 <Link href={PATH_DIR.ADMIN.PRODUCT_CREATE}>{en.create_product.label}</Link>
             </Button>
         </div>
