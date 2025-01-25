@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { en } from 'public/locale'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,10 +15,10 @@ import { RHFFormField } from 'component/shared/rhf'
 import { PATH_DIR } from 'config'
 
 const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
-  const router = useRouter()
+  const router    = useRouter()
   const { toast } = useToast()
-  const form = useForm<Product>({
-    resolver: type === 'update' ? zodResolver(UpdateProductSchema) : zodResolver(ProductSchema),
+  const form      = useForm<Product>({
+    resolver     : type === 'update' ? zodResolver(UpdateProductSchema) : zodResolver(ProductSchema),
     defaultValues: product && type === 'update' ? product : productDefaultValue
   })
 
@@ -55,6 +55,34 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
       router.push(PATH_DIR.ADMIN.PRODUCT)
     }
   }
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (formState.isDirty) {
+        e.preventDefault()
+        e.returnValue = ''
+      }
+    }
+    const handleRouteChange = () => {
+      if (formState.isDirty && !window.confirm(en.message.unsaved_changes.description)) {
+        return false
+      }
+      return true
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    const originalPush = router.push
+    router.push = async (path, options) => {
+      if (handleRouteChange()) {
+        originalPush(path, options)
+      }
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+      router.push = originalPush
+    }
+  }, [formState.isDirty, router])
+
   return (
     <Form {...form}>
       <form method={'POST'} onSubmit={handleSubmit(onSubmit)} className="space-y-8">
