@@ -299,6 +299,7 @@
         "order_paid": "Your order has been paid",
         "product_created": "Product created",
         "product_deleted": "Product deleted",
+        "product_updated": "Product updated",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
         "user_signed_in": "User signed in"
