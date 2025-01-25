@@ -1,49 +1,100 @@
 'use client'
 
-import { FC, Fragment } from 'react'
+import { FC } from 'react'
+import { en } from 'public/locale'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Plus } from 'lucide-react'
 import { useToast } from 'hook'
-import { productDefaultValue, ProductSchema, UpdateProductSchema } from 'lib'
+import slugify from 'slugify'
+import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay } from 'lib'
 import { Form } from 'component/ui'
+import { LoadingBtn } from 'component/shared/btn'
+import { RHFFormField } from 'component/shared/rhf'
+import { PATH_DIR } from 'config'
 
-const ProductForm: FC<ProductForm> = ({ type, product, productId}) => {
-    const router    = useRouter()
-    const { toast } = useToast()
-    const form = useForm<Product>({
-        resolver: zodResolver(type === 'update' ? UpdateProductSchema :  ProductSchema),
-        defaultValues: product && type === 'update' ? product : productDefaultValue
-    })
+const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
+  const router = useRouter()
+  const { toast } = useToast()
+  const form = useForm<Product>({
+    resolver: type === 'update' ? zodResolver(UpdateProductSchema) : zodResolver(ProductSchema),
+    defaultValues: product && type === 'update' ? product : productDefaultValue
+  })
 
-  return <Form {...form}>
-    <form className='space-y-8'>
+  const { control, formState, handleSubmit } = form
+
+  const handleSlugify = () => {
+    form.setValue('slug', slugify(form.getValues('name'), { lower: true }))
+  }
+
+  const onSubmit: SubmitHandler<CreateProduct> = async (data) => {
+    await delay(500)
+    if (type === 'create') {
+      const response = await createProduct(data)
+      if (!response.success) {
+        toast({ variant: 'destructive', description: response.message })
+      } else {
+        toast({ description: response.message })
+      }
+      router.push(PATH_DIR.ADMIN.PRODUCT)
+    }
+
+    if (type === 'update') {
+      if (!productId) {
+        toast({ variant: 'destructive', description: en.error.product_not_found })
+        router.push(PATH_DIR.ADMIN.PRODUCT)
+        return
+      }
+      const response = await updateProduct({ ...data, id: productId })
+      if (!response.success) {
+        toast({ variant: 'destructive', description: response.message })
+      } else {
+        toast({ description: response.message })
+      }
+      router.push(PATH_DIR.ADMIN.PRODUCT)
+    }
+  }
+  return (
+    <Form {...form}>
+      <form method={'POST'} onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div className="flex flex-col md:flex-row gap-4">
-            {/* name */}
-            {/* slug */}
+          <RHFFormField control={control} name={'name'} formKey={'name'} withWrapper={false} />
+          <RHFFormField
+            control={control}
+            name={'slug'}
+            formKey={'slug'}
+            type={'inputWithButton'}
+            withWrapper={false}
+            buttonLabel={en.generate.label}
+            onClick={handleSlugify}
+          />
         </div>
         <div className="flex flex-col md:flex-row gap-4">
-            {/* category */}
-            {/* brand */}
+          <RHFFormField control={control} name={'category'} formKey={'category'} withWrapper={false} />
+          <RHFFormField control={control} name={'brand'} formKey={'brand'} withWrapper={false} />
         </div>
         <div className="flex flex-col md:flex-row gap-4">
-            {/* price */}
-            {/* stock */}
+          <RHFFormField control={control} name={'price'} formKey={'price'} withWrapper={false} />
+          <RHFFormField control={control} name={'stock'} formKey={'stock'} withWrapper={false} />
         </div>
-        <div className="upload-field flex flex-col md:flex-row gap-4">
-            {/* images */}
-        </div>
-        <div className="upload-field">
-            {/* isfeatured */}
+        <div className="upload-field flex flex-col md:flex-row gap-4">{/* images */}</div>
+        <div className="upload-field">{/* isfeatured */}</div>
+        <div>
+          <RHFFormField control={control} name={'description'} formKey={'description'} type={'textarea'} withWrapper={false} />
         </div>
         <div>
-            {/* description */}
+          <LoadingBtn
+            isPending={formState.isSubmitting}
+            label={`${capitalize(type)} Product`}
+            disabled={formState.isSubmitting}
+            className={'ml-auto max-w-sm sm:w-full'}
+            icon={<Plus size={20} />}
+          />
         </div>
-        <div>
-            {/* submit */}
-        </div>
-    </form>
-    {'Form'}</Form>
+      </form>
+    </Form>
+  )
 }
 
 export default ProductForm
