@@ -20,8 +20,8 @@ import { delay } from 'lib'
 import { EllipsisLoader } from 'component/shared/loader'
 
 interface DeleteDialg {
-  id: string
-  action: (orderId: string) => Promise<AppResponse>
+  id       : string
+  action   : (orderId: string) => Promise<AppResponse>
   children?: React.ReactNode
 }
 const DeleteDialg: FC<DeleteDialg> = ({ id, action, children }) => {
