@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use server'
 import { en } from 'public/locale'
 import { prisma } from 'db/prisma'
 import { GLOBAL } from 'vieux-carre'
-import { CODE, convertToPlainObject, SystemLogger } from 'lib'
+import { CODE, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
 import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
 
@@ -69,6 +70,48 @@ export async function deleteProduct(productId: string) {
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
 
    return SystemLogger.response(en.success.product_deleted, CODE.OK, TAG)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
+
+
+/**
+ * Creates a new product using the provided data.
+ *
+ * @param {CreateProduct} data - The data for the new product.
+ * @returns {Promise<any>} The created product or an error response.
+ *
+ * @throws {AppError} If there is an error during product creation.
+ */
+export async function createProduct(data: CreateProduct) {
+  try {
+    const product = ProductSchema.parse(data)
+    await prisma.product.create({ data: product })
+    revalidatePath(PATH_DIR.ADMIN.PRODUCT)
+    return SystemLogger.response(en.success.product_created, CODE.CREATED, TAG, '', product)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
+
+
+/**
+ * Updates an existing product in the database.
+ *
+ * @param {UpdateProduct} data - The data to update the product with.
+ * @returns {Promise<SystemLogger>} - A promise that resolves to a SystemLogger response.
+ * @throws {Error} - Throws an error if the product is not found or if there is a validation error.
+ */
+export async function updateProduct(data:UpdateProduct) {
+  try {
+    const product = UpdateProductSchema.parse(data)
+    const productExists = await prisma.product.findFirst({ where: { id: product.id }})
+    if (!productExists) throw new Error(en.error.product_not_found)
+
+    await prisma.product.update({ where: {id: product.id }, data: product })
+    revalidatePath(PATH_DIR.ADMIN.PRODUCT)
+    return SystemLogger.response(en.success.product_created, CODE.CREATED, TAG, '', product)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
