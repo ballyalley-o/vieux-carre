@@ -9,6 +9,8 @@ declare global {
     email: string
   }
 
+  export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
+
   export interface Product extends z.infer<typeof ProductSchema> {
     id       : number
     rating   : string
