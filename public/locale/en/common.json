@@ -27,6 +27,9 @@
         "label": "Checkout",
         "description": "Complete the form with your information"
     },
+    "create": {
+        "label": "Create"
+    },
     "create_product": {
         "label": "Create Product",
         "description": "Complete the form with your product information"
@@ -66,7 +69,39 @@
     "form": {
         "name": {
             "label": "Name",
-            "placeholder": "Enter your name"
+            "placeholder": "Enter name"
+        },
+        "slug": {
+            "label": "Slug",
+            "placeholder": "Enter the slug or generate"
+        },
+        "category": {
+            "label": "Category",
+            "placeholder": "Enter the category"
+        },
+        "brand": {
+            "label": "Brand",
+            "placeholder": "Enter the brand"
+        },
+        "price": {
+            "label": "Price",
+            "placeholder": "Enter the price"
+        },
+        "stock": {
+            "label": "Stock",
+            "placeholder": "Enter the stock count"
+        },
+        "images": {
+            "label": "Images",
+            "placeholder": "Upload the images"
+        },
+        "Featured": {
+            "label": "Featured",
+            "placeholder": "Toggle to feature"
+        },
+        "description": {
+            "label": "Description",
+            "placeholder": "Enter the description"
         },
         "first_name": {
             "label": "First Name",
@@ -112,6 +147,9 @@
             "label": "Country",
             "placeholder": "Enter your country"
         }
+    },
+    "generate": {
+        "label": "Generate"
     },
     "go_back": "Go Back",
     "go_to": {
@@ -268,6 +306,9 @@
     },
     "total_revenue": {
         "label": "Total Revenue"
+    },
+    "update": {
+        "label": "Update"
     },
     "update_account": {
         "label": "Update Account",
