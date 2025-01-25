@@ -7,16 +7,44 @@ import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
 
 const TAG = 'PRODUCT.ACTION'
+
+
+/**
+ * Fetches the latest products from the database.
+ *
+ * This function retrieves a specified number of the most recently created products
+ * from the database, ordered by their creation date in descending order.
+ *
+ * @returns {Promise<object[]>} A promise that resolves to an array of plain objects
+ * representing the latest products.
+ */
 export async function getLatestProducts() {
   const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
   return convertToPlainObject(data)
 }
 
+/**
+ * Retrieves a product by its slug.
+ *
+ * @param {string} slug - The slug of the product to retrieve.
+ * @returns {Promise<Product | null>} A promise that resolves to the product if found, or null if not found.
+ */
 export async function getProductBySlug(slug: string) {
   return await prisma.product.findFirst({ where: { slug } })
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/**
+ * Retrieves a paginated list of products from the database.
+ *
+ * @param {Object} params - The parameters for retrieving products.
+ * @param {string} params.query - The search query for filtering products.
+ * @param {number} [params.limit=GLOBAL.PAGE_SIZE] - The number of products to retrieve per page.
+ * @param {number} params.page - The current page number.
+ * @param {string} params.category - The category to filter products by.
+ * @returns {Promise<Object>} A promise that resolves to an object containing the product data and total pages.
+ * @property {Array} data - The list of products.
+ * @property {number} totalPages - The total number of pages.
+ */
 export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category }: AppProductsAction<number>) {
   const data = await prisma.product.findMany({ skip: (page - 1) * limit, take: limit })
   const count = await prisma.product.count()
@@ -25,6 +53,13 @@ export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, ca
   return summary
 }
 
+/**
+ * Deletes a product by its ID.
+ *
+ * @param {string} productId - The ID of the product to delete.
+ * @returns {Promise<SystemLogger>} - The result of the deletion operation.
+ * @throws {Error} - Throws an error if the product is not found.
+ */
 export async function deleteProduct(productId: string) {
   try {
     const productExist = await prisma.product.delete({ where: { id: productId } })
