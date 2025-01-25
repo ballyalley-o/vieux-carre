@@ -10,7 +10,7 @@ export interface TooltpProps {
 const Tooltp: FC<TooltpProps> = ({ content, children }) => {
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         {children}
       </TooltipTrigger>
       <TooltipContent side='right'>
