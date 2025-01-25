@@ -47,7 +47,7 @@ const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
         <Form {...form}>
           <form method={'post'} onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <RHFRadioGroup control={control} name={'type'} group={PAYMENT_METHODS} />
-            <LoadingBtn isPending={isPending} label={en.continue.label} />
+            <LoadingBtn isPending={isPending} label={en.continue.label} className={'w-full'} />
           </form>
         </Form>
       </div>
