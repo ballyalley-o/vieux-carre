@@ -31,6 +31,7 @@ declare global {
   export type OrderItem       = z.infer<typeof OrderItemSchema>
   export type PaymentResult   = z.infer<typeof PaymentResultSchema>
   export type UpdateUser      = z.infer<typeof UpdateUserSchema>
+  export type CreateProduct   = z.infer<typeof ProductSchema>
   export type SalesData       = { month: string, totalSales: number }[]
 
   export interface TblCell {
