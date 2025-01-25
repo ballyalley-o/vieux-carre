@@ -6,7 +6,7 @@ import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, KE
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
-import { Pagination, DeleteDialg } from 'component/shared'
+import { Pagination, DeleteDialg, Tooltp } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: 'Orders | Admin' }
@@ -63,7 +63,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
       },
       {
         id: 'action',
-        value: <DeleteDialg id={item.id} action={deleteOrder} />,
+        value:  <Tooltp content={en.delete.label}><DeleteDialg id={item.id} action={deleteOrder} /></Tooltp> ,
         align: 'center'
       }
     ]
