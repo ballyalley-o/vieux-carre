@@ -331,6 +331,10 @@
         "confirm_delete_order": {
             "title": "Confirm Delete Order",
             "description": "This action cannot be undone and is irreversible."
+        },
+        "unsaved_changes": {
+            "title": "Are you sure?",
+            "description": "You have unsaved changes. Are you sure you want to leave?"
         }
     },
     "success": {
