@@ -51,7 +51,7 @@ const ShippingAddressForm: FC<ShippingAddressFormProps> = ({ address }) => {
             <RHFFormField control={control} name={'city'} formKey={'city'} />
             <RHFFormField control={control} name={'postalCode'} formKey={'postal_code'} />
             <RHFFormField control={control} name={'country'} formKey={'country'} />
-            <LoadingBtn isPending={isPending} label={en.continue.label} />
+            <LoadingBtn isPending={isPending} label={en.continue.label} className={'w-full'} />
           </form>
         </Form>
       </div>

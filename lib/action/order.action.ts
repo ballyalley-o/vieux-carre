@@ -231,7 +231,7 @@ export async function getOrderSummary() {
  * @param {number} param0.page - The current page number.
  * @returns {Promise<{ data: Order[], totalPages: number }>} A promise that resolves to an object containing the list of orders and the total number of pages.
  */
-export async function getAllOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPagination) {
+export async function getAllOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppOrdersAction<number>) {
  const data      = await prisma.order.findMany({ orderBy: { createdAt: 'desc' }, take: limit, skip: (page - 1) * limit, include: { user: { select: { name: true }}} })
  const dataCount = await prisma.order.count()
  const summary   = { data, totalPages: Math.ceil( dataCount / limit ) }

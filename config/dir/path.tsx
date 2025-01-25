@@ -9,10 +9,12 @@ const protect = () => {
 export const PROTECTED_ROUTES = protect()
 export const PATH_DIR = {
   ADMIN       : {
-                  ORDER   : join('admin', 'order'),
-                  OVERVIEW: join('admin', 'overview'),
-                  PRODUCT : join('admin', 'product'),
-                  USER    : join('admin', 'user'),
+                  ORDER         : join('admin', 'order'),
+                  OVERVIEW      : join('admin', 'overview'),
+                  PRODUCT       : join('admin', 'product'),
+                  PRODUCT_VIEW  : (productId: string) =>  join('admin', 'product', productId),
+                  PRODUCT_CREATE: join('admin', 'product', 'create'),
+                  USER          : join('admin', 'user'),
   },
   BAG         : join('bag'),
   CHECKOUT    : join('order', 'checkout'),

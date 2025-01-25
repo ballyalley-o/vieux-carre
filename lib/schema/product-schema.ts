@@ -17,3 +17,7 @@ export const ProductSchema = z.object({
   banner     : z.string().nullable(),
   price      : currency
 })
+
+export const UpdateProductSchema = ProductSchema.extend({
+  id: z.string().min(1, 'Id is required')
+})

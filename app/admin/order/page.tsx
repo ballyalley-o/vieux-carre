@@ -6,13 +6,13 @@ import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, KE
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
-import { Pagination, DeleteDialg } from 'component/shared'
+import { Pagination, DeleteDialg, Tooltp } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: 'Orders | Admin' }
 
 interface AdminOrdersPageProps {
-  searchParams: Promise<{ page: string }>
+  searchParams: Promise<AppPage<number>>
 }
 
 const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
@@ -22,8 +22,8 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
 
   const orders = await getAllOrders({ page: Number(page), limit: GLOBAL.LIMIT.ADMIN_ORDERS })
 
-  type FiveCellType = TblCells<6>
-  const HEADER: FiveCellType = {
+  type SixCellType = TblCells<6>
+  const HEADER: SixCellType = {
     cells: [
       { id: 'id', value: 'Order id', align: 'left' },
       { id: 'date', value: 'Date', align: 'center' },
@@ -34,7 +34,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
     ]
   }
 
-  const BODY = (item: Order): FiveCellType => ({
+  const BODY = (item: Order): SixCellType => ({
     cells: [
       {
         id: 'id',
@@ -63,7 +63,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
       },
       {
         id: 'action',
-        value: <DeleteDialg id={item.id} action={deleteOrder} />,
+        value:  <Tooltp content={en.delete.label}><DeleteDialg id={item.id} action={deleteOrder} /></Tooltp> ,
         align: 'center'
       }
     ]

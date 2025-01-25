@@ -8,6 +8,18 @@ interface TooltpGoBadgeProps extends TooltpProps {
   href    : string
   variant?: BadgeVariant
 }
+
+/**
+ * TooltpGoBadge component renders a badge with a tooltip and a link.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.trigger - The content to trigger the tooltip.
+ * @param {string} props.content - The content to be displayed inside the tooltip.
+ * @param {string} props.href - The URL to be linked to when the badge is clicked.
+ * @param {string} [props.variant='secondary'] - The variant of the badge, defaults to 'secondary'.
+ *
+ * @returns {JSX.Element} The rendered TooltpGoBadge component.
+ */
 const TooltpGoBadge: FC<TooltpGoBadgeProps> = ({ trigger, content, href, variant = 'secondary' }) => {
   return (
     <Tooltp content={content}>

@@ -2,6 +2,7 @@
 export { default as AddToBag } from './bag/add-to-bag'
 export { default as BagIconWithBadge } from './bag/bag-icon-with-badge'
 // ⎿ btn
+export { default as BackBtn } from './btn/back-btn'
 export { default as DynamicBagBtn } from './btn/dynamic-bag-btn'
 export { default as EditBtn } from './btn/edit-btn'
 export { default as LinkBtn } from './btn/link-btn'
@@ -13,6 +14,8 @@ export { default as CheckoutPage } from './card/checkout-card'
 export { default as GridCard } from './card/grid-card'
 // ⎿ custom
 export { default as ProcessFlow } from './custom/purchase-flow'
+// ⎿ dd-menu
+export { default as DDMenu } from './dd-menu/dd-menu'
 // ⎿ dialg
 export { default as DeleteDialg } from './dialg/delete-dialg'
 // ⎿ footer
