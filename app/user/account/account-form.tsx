@@ -37,7 +37,7 @@ const AccountForm = () => {
         <div className="flex flex-col gap-5">
             <RHFFormField control={control} name={FORM_KEY.email} formKey={FORM_KEY.email} disabled />
             <RHFFormField control={control} name={FORM_KEY.name} formKey={FORM_KEY.name} />
-            <LoadingBtn isPending={form.formState.isSubmitting} label={en.update_account.label} />
+            <LoadingBtn isPending={form.formState.isSubmitting} label={en.update_account.label} className={'w-full'} />
         </div>
     </form>
   </Form>
