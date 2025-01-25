@@ -10,7 +10,7 @@ const AdminCreateProductPage = () => {
     <Fragment>
       <h2 className="h2-bold">{en.create_product.label}</h2>
       <div className="my-8">
-        <ProductForm type={'create'}/>
+        <ProductForm type={'create'} />
       </div>
     </Fragment>
   )
