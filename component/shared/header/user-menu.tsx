@@ -4,7 +4,8 @@ import { en } from 'public/locale'
 import { auth } from 'auth'
 import { signOutUser, charAtName, KEY } from 'lib'
 import { User2Icon, LogOut } from 'lucide-react'
-import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, Separator } from 'component'
+import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, Separator } from 'component/ui'
+import { ProtectedNavLink } from 'component/shared/protect'
 import { PATH_DIR } from 'config'
 
 const UserMenu = async () => {
@@ -40,17 +41,17 @@ const UserMenu = async () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuItem className="p-2">
-            <Link href={PATH_DIR.USER.ACCOUNT}>{en.navigation.account.label}</Link>
+            <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT}>{en.navigation.account.label}</ProtectedNavLink>
           </DropdownMenuItem>
           <DropdownMenuItem className="p-2">
-            <Link href={PATH_DIR.USER.ORDER}>{en.order_history.label}</Link>
+            <ProtectedNavLink href={PATH_DIR.USER.ORDER}>{en.order_history.label}</ProtectedNavLink>
           </DropdownMenuItem>
 
           <Separator className="my-2" />
           {isAdmin && (
             <Fragment>
               <DropdownMenuItem className="p-2">
-                <Link href={PATH_DIR.ADMIN.OVERVIEW}>{en.admin.label}</Link>
+                <ProtectedNavLink href={PATH_DIR.ADMIN.OVERVIEW}>{en.admin.label}</ProtectedNavLink>
               </DropdownMenuItem>
               <Separator className="my-2" />
             </Fragment>

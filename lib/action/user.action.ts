@@ -1,12 +1,14 @@
 'use server'
 import { en } from 'public/locale'
 import { z } from 'zod'
+import { revalidatePath } from 'next/cache'
 import { hashSync } from 'bcrypt-ts-edge'
 import { ShippingAddressSchema, SignInSchema, SignUpSchema, PaymentMethodSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'
 import { auth, signIn, signOut } from 'auth'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
 import { SystemLogger } from 'lib/app-logger'
+import { PATH_DIR } from 'config'
 import { CODE } from 'lib/constant'
 
 const TAG = 'USER.ACTION'
@@ -53,7 +55,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
 }
 
 export async function getUserById(userId: string) {
-  const user = await prisma.user.findFirst({where: {id: userId}})
+  const user = await prisma.user.findFirst({ where: {id: userId }})
   if (!user) throw new Error(en.error.user_not_found)
   return user
 }
@@ -92,6 +94,7 @@ export async function updateUserAccount(user: UserBase) {
     const currentUser = await prisma.user.findFirst({ where: { id: userId }})
     if (!currentUser) throw new Error(en.error.user_not_found)
     const updatedUser = await prisma.user.update({ where:{ id: currentUser.id }, data: { name: user.name, email: user.email }})
+    revalidatePath(PATH_DIR.USER.ACCOUNT)
     return SystemLogger.response(en.success.user_updated, CODE.OK, TAG, '', updatedUser)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)

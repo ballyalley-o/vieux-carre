@@ -66,7 +66,7 @@ const RHFFormField = <TSchema extends ZodSchema, TName extends Path<z.infer<TSch
 
   return withWrapper ?  (
     <div className={cn("flex flex-col md:flex-row gap-5", className)}>
-      FormFieldComponent
+      {FormFieldComponent}
     </div>
   ) : FormFieldComponent
 }
