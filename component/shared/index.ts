@@ -5,6 +5,7 @@ export { default as BagIconWithBadge } from './bag/bag-icon-with-badge'
 export { default as BackBtn } from './btn/back-btn'
 export { default as DynamicBagBtn } from './btn/dynamic-bag-btn'
 export { default as EditBtn } from './btn/edit-btn'
+export { default as FormBackBtn } from './btn/form-back-btn'
 export { default as LinkBtn } from './btn/link-btn'
 export { default as LoadingBtn } from './btn/loading-btn'
 export { default as MarkPaidBtn } from './btn/mark-paid-btn'
@@ -18,6 +19,7 @@ export { default as ProcessFlow } from './custom/purchase-flow'
 export { default as DDMenu } from './dd-menu/dd-menu'
 // ⎿ dialg
 export { default as DeleteDialg } from './dialg/delete-dialg'
+export { default as ProtectedNavDialg } from './protect/protected-nav-dialg'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header
