@@ -47,3 +47,4 @@ export { default as TblBody } from './tbl/tbl-body'
 // ⎿ rhf
 export { default as RHFFormField } from './rhf/rhf-form-field'
 export { default as RHFRadioGroup } from './rhf/rhf-radio-group'
+export { default as RHFFormDropzoneProps } from './rhf/rhf-form-dropzone'
