@@ -63,7 +63,8 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
             <TblHead cells={HEAD.cells} />
             <TblBody cells={BODY} items={products.data as unknown as Product[]}/>
         </Table>
-        {products?.totalPages && products?.totalPages > 1 && (
+        {products.totalPages === 0 && (<div className={'flex justify-center'}> <p className={'text-center text-lg'}>{en.no_data.label}</p> </div>)}
+        {products.totalPages > 1 && (
             <div className="mt-5 flex justify-end">
                 <Pagination page={Number(page) || 1} totalPages={products.totalPages}/>
             </div>
