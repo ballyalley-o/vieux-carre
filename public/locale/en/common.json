@@ -166,9 +166,17 @@
             "label": "Items"
         }
     },
+    "leave": {
+        "label": "Leave"
+    },
     "loading":{
         "delete_order": "Deleting Order",
-        "processing": "Processing"
+        "processing": "Processing",
+        "leaving": "Leaving",
+        "loading": "Loading",
+        "saving": "Saving",
+        "updating": "Updating"
+
     },
     "mark_paid": {
         "label": "Mark as Paid"
@@ -288,6 +296,9 @@
     },
     "status": {
         "label": "Status"
+    },
+    "stay": {
+        "label": "Stay"
     },
     "submit": {
         "label": "Submit"
