@@ -160,6 +160,12 @@
     "home": {
         "label": "Home"
     },
+    "image": {
+        "label": "Image",
+        "images": {
+            "label": "Images"
+        }
+    },
     "item": {
         "label": "Item",
         "items": {
@@ -200,6 +206,9 @@
     },
     "next": {
         "label": "Next"
+    },
+    "no_data": {
+        "label": "No Data"
     },
     "not_delivered": {
         "label": "Not Delivered"
