@@ -12,7 +12,7 @@ import { Plus } from 'lucide-react'
 import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay } from 'lib'
 import { Form } from 'component/ui'
 import { LoadingBtn } from 'component/shared/btn'
-import { RHFFormField } from 'component/shared/rhf'
+import { RHFFormField, RHFFormDropzone } from 'component/shared/rhf'
 import { PATH_DIR } from 'config'
 
 const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
@@ -25,6 +25,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
   })
 
   const { control, formState, handleSubmit } = form
+  const images = form.watch('images')
 
   usePreventNavigation(isDirty)
 
@@ -88,7 +89,9 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
             <RHFFormField control={control} name={'price'} formKey={'price'} withWrapper={false} />
             <RHFFormField control={control} name={'stock'} formKey={'stock'} withWrapper={false} />
           </div>
-          <div className="upload-field flex flex-col md:flex-row gap-4">{/* images */}</div>
+          <div className="upload-field flex flex-col md:flex-row gap-4">
+            <RHFFormDropzone control={control} name={'images'} formKey={'images'} images={images} form={form} />
+          </div>
           <div className="upload-field">{/* isfeatured */}</div>
           <div>
             <RHFFormField control={control} name={'description'} formKey={'description'} type={'textarea'} withWrapper={false} />

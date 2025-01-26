@@ -9,5 +9,10 @@ export const LOGO = {
     NAV_H        : 24,
     NAV_W        : 24,
     HEADER_LOGO_H: 24,
-    HEADER_LOGO_W: 24
+    HEADER_LOGO_W: 24,
+}
+
+export const IMAGE = {
+    UPLOAD_THUMBNAIL_H: 100,
+    UPLOAD_THUMBNAIL_W: 100,
 }
