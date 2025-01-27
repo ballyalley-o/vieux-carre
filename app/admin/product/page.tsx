@@ -41,7 +41,7 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
 
     const BODY = (item: Product): SevenCellType => ({
         cells: [
-            { id: 'productId',  value: <TooltpGoBadge trigger={formatId(item.id.toString())} href={PATH_DIR.ORDER_VIEW(item.id.toString())} content={`${en.go_to.label} this Product`} />, align: 'left' },
+            { id: 'productId',  value: <TooltpGoBadge trigger={formatId(item.id.toString())} href={PATH_DIR.PRODUCT_VIEW(item.slug.toString())} content={`${en.go_to.label} this Product`} />, align: 'left' },
             { id: 'name',  value: item.name, align: 'left' },
             { id: 'price',  value: formatCurrency(item.price), align: 'left' },
             { id: 'category',  value: item.category, align: 'center' },

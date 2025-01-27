@@ -79,6 +79,10 @@
             "label": "Category",
             "placeholder": "Enter the category"
         },
+        "banner": {
+            "label": "Banner",
+            "placeholder": "Upload the banner"
+        },
         "brand": {
             "label": "Brand",
             "placeholder": "Enter the brand"
@@ -95,9 +99,9 @@
             "label": "Images",
             "placeholder": "Upload the images"
         },
-        "Featured": {
-            "label": "Featured",
-            "placeholder": "Toggle to feature"
+        "featured": {
+            "label": "Featured Product",
+            "placeholder": "Set as a featured product"
         },
         "description": {
             "label": "Description",

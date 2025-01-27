@@ -122,6 +122,76 @@ const _mockData = {
       stock: 8,
       isFeatured: true,
       banner: null
+    },
+    {
+      name: 'Nike Alphafly 3 Premium',
+      slug: 'polo-classic-pink-hoodie',
+      category: "Men's Road Racing Shoes",
+      description: 'Fine-tuned for marathon speed, the Alphafly 3 Premium helps push you beyond what you thought possible. Three innovative technologies power your run: a double dose of Air Zoom units helps launch you into your next step, a full-length carbon-fibre plate helps propel you forwards with ease and a heel-to-toe ZoomX foam midsole helps keep you fresh as you conquer your next race.',
+      images: ['/__mock/product/p6-1.jpg', '/__mock/product/p6-2.jpg'],
+      price: 380.20,
+      brand: 'Nike',
+      rating: 4.6,
+      numReviews: 12,
+      stock: 6,
+      isFeatured: true,
+      banner: null
+    },
+    {
+      name: 'Nike Mercurial Superfly 10 Elite',
+      slug: 'polo-classic-pink-hoodie',
+      category: "FG High-Top Football Boot",
+      description: "Obsessed with speed? So are the game's biggest stars. That's why we made this Elite boot with an improved 3/4-length Air Zoom unit. It gives you and the sport's fastest players the propulsive feel needed to break through the back line. The result is the most responsive Mercurial we've ever made, because you demand greatness from yourself and your footwear.",
+      images: ['/__mock/product/p6-1.jpg', '/__mock/product/p6-2.jpg'],
+      price: 274.99,
+      brand: 'Nike',
+      rating: 4.6,
+      numReviews: 12,
+      stock: 11,
+      isFeatured: true,
+      banner: null
+    },
+    {
+      name: 'Nike Air Max Portal',
+      slug: 'polo-classic-pink-hoodie',
+      category: "Men's Shoes",
+      description: "Transport your style with a new Air Max. The Portal is the perfect blend of chunky and sleek, combining the platform sole of 2000s with the minimalist upper of contemporary designs. We added an oval-shaped midsole with cloud-like cushioning for an elevated look you can wear every day. It's so comfortable it's out of this world.",
+      images: ['/__mock/product/p6-1.jpg', '/__mock/product/p6-2.jpg'],
+      price: 132.99,
+      brand: 'Nike',
+      rating: 4.6,
+      numReviews: 12,
+      stock: 7,
+      isFeatured: true,
+      banner: null
+    },
+    {
+      name: 'Jordan Flight Court',
+      slug: 'polo-classic-pink-hoodie',
+      category: "Men's Shoes",
+      description: "Inspired by the past, built for tomorrow. We remixed elements from the AJ3, AJ4 and AJ5 to create a fresh take on the classics. Smooth leather and soft suede give you style and durability while textile panels add breathability. Plus, embroidered details infuse these kicks with Jordan heritage.",
+      images: ['/__mock/product/p6-1.jpg', '/__mock/product/p6-2.jpg'],
+      price: 150,
+      brand: 'Jordan',
+      rating: 4.6,
+      numReviews: 12,
+      stock: 4,
+      isFeatured: true,
+      banner: null
+    },
+    {
+      name: 'Nike Premium',
+      slug: 'polo-classic-pink-hoodie',
+      category: "Duffel Bag (45L)",
+      description: "Made for weekend trips or extensive gym sessions, this duffel can do it all. The large main compartment features small pockets to help keep your items organised. A zip pocket on the outside lets you put small essentials within easy reach. Carry it however you want—whether that's with the detachable and adjustable shoulder strap or the padded dual handles. Like we said, this one can do it all.",
+      images: ['/__mock/product/p6-1.jpg', '/__mock/product/p6-2.jpg'],
+      price: 90,
+      brand: 'Jordan',
+      rating: 4.6,
+      numReviews: 12,
+      stock: 7,
+      isFeatured: true,
+      banner: null
     }
   ]
 }

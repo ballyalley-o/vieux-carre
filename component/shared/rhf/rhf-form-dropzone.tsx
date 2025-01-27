@@ -8,7 +8,7 @@ import { useToast } from 'hook'
 import { FormField, FormLabel, FormMessage, FormItem, FormControl } from 'component/ui/form'
 import { Card, CardContent } from 'component/ui/card'
 import { IMAGE } from 'config/layout'
-import { UploadButton } from 'lib/uploadthing'
+import { UploadDropzone } from 'lib/uploadthing'
 
 type FormKeyLocale = keyof typeof en.form
 
@@ -41,7 +41,7 @@ const RHFFormDropzone = <TSchema extends ZodSchema>({ control, name, images, for
                                 <Image key={index} src={image} height={IMAGE.UPLOAD_THUMBNAIL_H} width={IMAGE.UPLOAD_THUMBNAIL_W} alt={'product-name'} className={'w-20 h-20 object-cover rounded-sm'}  />
                             ))}
                             <FormControl>
-                                <UploadButton endpoint={'imageUploader'} onClientUploadComplete={handleUploadComplete} onUploadError={(error: Error) => { toast({ variant: 'destructive', description: error.message })}}  />
+                              <UploadDropzone endpoint={'imageUploader'} onClientUploadComplete={handleUploadComplete} onUploadError={(error: Error) => { toast({ variant: 'destructive', description: error.message })}} className={'border-none w-full'} />
                             </FormControl>
                         </div>
                     </CardContent>
