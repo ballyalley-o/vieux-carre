@@ -339,6 +339,10 @@
         "description": "Complete the form with your information",
         "toast": "User name updated"
     },
+    "update_product": {
+        "label": "Update Product",
+        "description": "Complete the form with your product information"
+    },
     "user":{
         "label": "User",
         "description": "Complete the form with your user information"
