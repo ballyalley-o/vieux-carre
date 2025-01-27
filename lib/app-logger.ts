@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { errorHandler } from 'lib'
 import { CODE, RESPONSE } from 'lib/constant'
 
@@ -29,13 +30,11 @@ class AppLogger {
   }
 
   public response(message: string, code?: CODE, tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
-    console.info(TAG_FORMAT(tag), message)
     return RESPONSE.SUCCESS(message, code, redirectTo, data)
   }
 
-  public errorResponse(message: AppError | string, code: CODE, tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
-    console.error(`ERROR: ${message as Error}`, `TAG: ${TAG_FORMAT(tag)}`, `CODE:${code.toString()}`, message)
-    return RESPONSE.ERROR(errorHandler(message as AppError), code, redirectTo, data)
+  public errorResponse(error: AppError | string, code: CODE, tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
+    return RESPONSE.ERROR(errorHandler(error as AppError), code, redirectTo, data)
   }
 
   public info(content: string, tag: string = TAG_DEFAULT) {
