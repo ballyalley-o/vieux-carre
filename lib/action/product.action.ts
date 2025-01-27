@@ -34,6 +34,11 @@ export async function getProductBySlug(slug: string) {
   return await prisma.product.findFirst({ where: { slug } })
 }
 
+export async function getProductById(productId: string) {
+  const data = await prisma.product.findFirst({ where: { id: productId } })
+  return convertToPlainObject(data)
+}
+
 /**
  * Retrieves a paginated list of products from the database.
  *
