@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useFormState } from 'store'
 import { useToast, usePreventNavigation } from 'hook'
 import slugify from 'slugify'
-import { Plus } from 'lucide-react'
+import { Plus, MoveUpRight } from 'lucide-react'
 import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay, cn } from 'lib'
 import Image from 'next/image'
 import { FormLabel } from 'component/ui/form'
@@ -122,7 +122,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
               label={`${capitalize(type)} Product`}
               disabled={formState.isSubmitting}
               className={'min-w-24 sm:w-full'}
-              icon={<Plus size={20} />}
+              icon={type === 'create' ? <Plus size={20} /> : <MoveUpRight size={20} />}
             />
           </div>
         </form>
