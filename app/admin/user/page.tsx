@@ -1,12 +1,15 @@
 import { FC } from 'react'
 import { en } from 'public/locale'
-import { getAllUsers, KEY } from 'lib'
+import { Metadata } from 'next'
+import { generateTitle, getAllUsers, KEY } from 'lib'
 import { notFound } from 'next/navigation'
 import { formatId, deleteUser, cn } from 'lib'
-import { FilePenLine, SquareArrowOutUpRight, Ellipsis, ListMinus, Crown } from 'lucide-react'
+import { FilePenLine, Ellipsis, ListMinus, Crown } from 'lucide-react'
 import { Table, Badge } from 'component/ui'
 import { TblBody, TblHead, DeleteDialg, TooltpGoBadge, DDMenu, Tooltp, Pagination } from 'component/shared'
 import { PATH_DIR } from 'config'
+
+export const metadata: Metadata= { title: generateTitle(en.user.users.label, 'Admin') }
 
 interface AdminUsersPageProps {
     searchParams: Promise<AppPage<number>>
@@ -20,7 +23,6 @@ const AdminUsersPage: FC<AdminUsersPageProps> = async ({ searchParams }) => {
 
     const MENU_ITEMS = (item: User) =>  {
         return ([
-                { label: en.view.label, icon: <SquareArrowOutUpRight />, href: PATH_DIR.ADMIN.USER_VIEW(item.id.toString()) },
                 { label: en.edit.label, icon: <FilePenLine />, href: PATH_DIR.ADMIN.USER_VIEW(item.id.toString()) },
                 { label: <DeleteDialg id={item.id} action={deleteUser}><p className={'text-sm'}>{en.delete.label}</p></DeleteDialg>, icon: <ListMinus />, href: PATH_DIR.ADMIN.USER }
             ])
