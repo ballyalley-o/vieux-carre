@@ -170,6 +170,26 @@ export async function updateUserAccount(user: UserBase) {
 }
 
 /**
+ * Updates a user account with the provided data.
+ *
+ * @param {UpdateUserAccount} data - The data to update the user account with.
+ * @returns {Promise<SystemLogger>} - The result of the update operation.
+ * @throws {Error} - Throws an error if the user is not found.
+ */
+export async function updateUser(data: UpdateUserAccount) {
+  try {
+    const user = await prisma.user.findFirst({ where: { id: data.id }})
+    if (!user) throw new Error(en.error.user_not_found)
+
+    const updatedUser = await prisma.user.update({ where:{ id: user.id }, data: { name: data.name, role: data.role }})
+    revalidatePath(PATH_DIR.ADMIN.USER_VIEW(user.id))
+    return SystemLogger.response(en.success.user_updated, CODE.OK, TAG, '', updatedUser)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
+
+/**
  * Deletes a user by their user ID.
  *
  * This function first checks if the user exists by attempting to delete a product with the given user ID.
