@@ -2,8 +2,9 @@ import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'auth'
-import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, generateTitle, KEY } from 'lib'
+import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, generateTitle, limiter, KEY } from 'lib'
 import { Table, Badge } from 'component/ui'
+import { Pagination, DeleteDialg, Tooltp, NoResult } from 'component/shared'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
 import { Pagination, DeleteDialg, Tooltp } from 'component/shared'
@@ -22,11 +23,12 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
 
   const orders = await getAllOrders({ page: Number(page), limit: GLOBAL.LIMIT.ADMIN_ORDERS })
 
-  type SixCellType = TblCells<6>
-  const HEADER: SixCellType = {
+  type SevenCellType = TblCells<7>
+  const HEADER: SevenCellType = {
     cells: [
       { id: 'id', value: 'Order id', align: 'left' },
       { id: 'date', value: 'Date', align: 'center' },
+      { id: 'customer', value: 'Customer', align: 'left' },
       { id: 'total', value: 'Total', align: 'left' },
       { id: 'paid', value: 'Paid', align: 'center' },
       { id: 'delivered', value: 'Delivered', align: 'center' },
@@ -46,6 +48,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
         align: 'left'
       },
       { id: 'date', value: formatDateTime(item.createdAt).dateTime, align: 'center' },
+      { id: 'customer', value: limiter(item.user.name), align: 'left' },
       { id: 'total', value: formatCurrency(item.totalPrice), align: 'left' },
       {
         id: 'paid',
