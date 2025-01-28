@@ -36,7 +36,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
     ]
   }
 
-  const BODY = (item: Order): SixCellType => ({
+  const BODY = (item: Order): SevenCellType => ({
     cells: [
       {
         id: 'id',
@@ -52,13 +52,13 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
       { id: 'total', value: formatCurrency(item.totalPrice), align: 'left' },
       {
         id: 'paid',
-        value: <Badge variant={item.isPaid ? 'default' : 'destructive'}>{item.isPaid ? formatDateTime(item.paidAt!).dateTime : 'Not paid'}</Badge>,
+        value: <Badge variant={item.isPaid ? 'secondary' : 'destructive'}>{item.isPaid ? formatDateTime(item.paidAt!).dateTime : 'Not paid'}</Badge>,
         align: 'center'
       },
       {
         id: 'delivered',
         value: (
-          <Badge variant={item.isDelivered ? 'default' : 'destructive'}>
+          <Badge variant={item.isDelivered ? 'secondary' : 'destructive'}>
             {item.isDelivered ? formatDateTime(item.deliveredAt!).dateTime : 'Not delivered'}
           </Badge>
         ),
