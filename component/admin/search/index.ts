@@ -1,0 +1,1 @@
+export { default as AdminSearch } from './admin-search'
