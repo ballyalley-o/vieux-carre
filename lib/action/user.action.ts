@@ -167,3 +167,28 @@ export async function updateUserAccount(user: UserBase) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
+
+/**
+ * Deletes a user by their user ID.
+ *
+ * This function first checks if the user exists by attempting to delete a product with the given user ID.
+ * If the user does not exist, it throws an error indicating that the user was not found.
+ * If the user exists, it proceeds to delete the user from the database.
+ * After deleting the user, it revalidates the admin user path.
+ *
+ * @param {string} userId - The ID of the user to be deleted.
+ * @returns {Promise<SystemLogger>} - A promise that resolves to a success response if the user is deleted,
+ * or an error response if an error occurs.
+ *
+ * @throws {Error} If the user does not exist.
+ */
+export async function deleteUser(userId: string) {
+  try {
+    await prisma.user.delete({ where: { id: userId } })
+
+    revalidatePath(PATH_DIR.ADMIN.USER)
+    return SystemLogger.response(en.success.user_deleted, CODE.OK, TAG)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
