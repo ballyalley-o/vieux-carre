@@ -33,6 +33,8 @@ export { default as Loader } from './loader/loader'
 export { default as EllipsisLoader } from './loader/ellipsis-loader'
 // ⎿ form
 export { default as AccountForm } from './form/account-form'
+// ⎿ no
+export { default as NoResult } from './no/no-result'
 // ⎿ pagination
 export { default as Pagination } from './pagination/pagination'
 // ⎿ product
