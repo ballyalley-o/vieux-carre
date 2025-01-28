@@ -68,13 +68,10 @@ export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, ca
  */
 export async function deleteProduct(productId: string) {
   try {
-    const productExist = await prisma.product.delete({ where: { id: productId } })
-    if (!productExist) throw new Error(en.error.product_not_found)
     await prisma.product.delete({ where: { id: productId } })
 
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-
-   return SystemLogger.response(en.success.product_deleted, CODE.OK, TAG)
+    return SystemLogger.response(en.success.product_deleted, CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
