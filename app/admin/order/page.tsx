@@ -7,21 +7,21 @@ import { Table, Badge } from 'component/ui'
 import { Pagination, DeleteDialg, Tooltp, NoResult } from 'component/shared'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
-import { Pagination, DeleteDialg, Tooltp } from 'component/shared'
+import { PageTitle } from 'component/admin'
 import { PATH_DIR } from 'config'
 
-export const metadata: Metadata = { title: generateTitle(en.order.orders, 'Admin') }
+export const metadata: Metadata = { title: generateTitle(en.order.orders.label, 'Admin') }
 
 interface AdminOrdersPageProps {
-  searchParams: Promise<AppPage<number>>
+  searchParams: Promise<AppOrdersAction<number>>
 }
 
 const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
-  const { page = '1' } = await searchParams
+  const { page = '1', query } = await searchParams
   const session        = await auth()
   if (session?.user?.role !== KEY.ADMIN) throw new Error(en.error.user_not_authorized)
 
-  const orders = await getAllOrders({ page: Number(page), limit: GLOBAL.LIMIT.ADMIN_ORDERS })
+  const orders = await getAllOrders({ page: Number(page), limit: GLOBAL.LIMIT.ADMIN_ORDERS, query })
 
   type SevenCellType = TblCells<7>
   const HEADER: SevenCellType = {
@@ -73,13 +73,14 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
   })
 
   return (
-    <div className={'space-y-2'}>
-      <h2 className="h2-bold">{en.order.orders}</h2>
+    <div className={'space-y-2'} suppressHydrationWarning>
+      <PageTitle query={query} title={en.order.orders.label} href={PATH_DIR.ADMIN.ORDER} />
       <div className="overflow-x-auto">
         <Table>
           <TblHead cells={HEADER.cells} />
           <TblBody cells={BODY} items={orders.data as unknown as Order[]} />
         </Table>
+        <NoResult data={orders.totalPages} />
         {orders.totalPages > 1 && (
           <div className={'mt-5 flex justify-end'}>
             <Pagination page={Number(page) || 1} totalPages={orders?.totalPages} />
