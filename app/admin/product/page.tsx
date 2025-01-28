@@ -3,9 +3,10 @@ import { en } from 'public/locale'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { formatCurrency, formatId, getAllProducts, deleteProduct, generateTitle } from 'lib'
-import { FilePenLine, ListMinus, SquareArrowOutUpRight, Ellipsis, XIcon } from 'lucide-react'
-import { Button, Table, Badge } from 'component/ui'
-import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge, Tooltp, LinkBtn } from 'component/shared'
+import { FilePenLine, ListMinus, SquareArrowOutUpRight, Ellipsis } from 'lucide-react'
+import { Button, Table } from 'component/ui'
+import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge, Tooltp, NoResult } from 'component/shared'
+import { PageTitle } from 'component/admin'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: generateTitle(en.product.products.label, 'Admin') }
@@ -51,16 +52,9 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
     })
 
     return (
-    <div className={'space-y-2'}>
+    <div className={'space-y-2'} suppressHydrationWarning>
         <div className={'flex-between'}>
-            <div className="space-y-4 gap-3">
-                <h1 className={'h2-bold'}>{en.product.products.label}</h1>
-                {query && (
-                    <div className={'flex items-center align-center space-x-2'}>
-                        <p className={'text-sm'}> &nbsp;{en.filtered_by.label}:</p> <span><div className={'align-center'}> <Badge variant={'secondary'}><i>{query}</i></Badge> <LinkBtn href={PATH_DIR.ADMIN.PRODUCT} variant={'ghost'} size={'sm'} className={'py-0 px-2'}><XIcon size={15}/></LinkBtn></div></span>
-                    </div>
-                )}
-            </div>
+            <PageTitle query={query} title={en.product.products.label} href={PATH_DIR.ADMIN.PRODUCT} />
             <Button asChild variant={'outline'}>
                 <Link href={PATH_DIR.ADMIN.PRODUCT_CREATE}>{en.create_product.label}</Link>
             </Button>
@@ -69,7 +63,7 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
             <TblHead cells={HEAD.cells} />
             <TblBody cells={BODY} items={products.data as unknown as Product[]}/>
         </Table>
-        {products.totalPages === 0 && (<div className={'flex justify-center space-y-6'}> <p className={'text-center text-2xl text-muted-foreground'}>{en.zero_results.label}</p></div>)}
+        <NoResult data={products.totalPages} />
         {products.totalPages > 1 && (
             <div className="mt-5 flex justify-end">
                 <Pagination page={Number(page) || 1} totalPages={products.totalPages}/>
