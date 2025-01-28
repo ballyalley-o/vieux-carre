@@ -15,6 +15,7 @@ export const PATH_DIR = {
                   PRODUCT_VIEW  : (productId: string) =>  join('admin', 'product', productId),
                   PRODUCT_CREATE: join('admin', 'product', 'create'),
                   USER          : join('admin', 'user'),
+                  USER_VIEW     : (userId: string) => join('admin', 'user', userId),
   },
   BAG         : join('bag'),
   CHECKOUT    : join('order', 'checkout'),
