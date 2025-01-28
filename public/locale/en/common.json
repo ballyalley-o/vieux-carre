@@ -27,6 +27,9 @@
         "label": "Checkout",
         "description": "Complete the form with your information"
     },
+    "clear": {
+        "label": "Clear"
+    },
     "create": {
         "label": "Create"
     },
@@ -65,6 +68,9 @@
     },
     "edit": {
         "label": "Edit"
+    },
+    "filtered_by": {
+        "label": "Filtered by"
     },
     "form": {
         "name": {
@@ -365,6 +371,9 @@
         "label": "View"
     },
     "welcome": "Welcome to our site",
+    "zero_results": {
+        "label": "No results found"
+    },
     "message" :{
         "default":{
             "title": "Are you sure?",
