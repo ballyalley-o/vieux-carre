@@ -54,10 +54,23 @@ export async function signInWithCredentials(prevState: unknown, formData: FormDa
   }
 }
 
+/**
+ * Signs out the current user by calling the `signOut` function.
+ *
+ * @returns {Promise<void>} A promise that resolves when the sign-out process is complete.
+ */
 export async function signOutUser() {
   await signOut()
 }
 
+/**
+ * Signs up a new user with the provided form data.
+ *
+ * @param prevState - The previous state, which is not used in this function.
+ * @param formData - The form data containing user information.
+ * @returns A promise that resolves to a system logger response indicating the result of the sign-up process.
+ * @throws Will throw an error if the sign-up process encounters a redirect error.
+ */
 export async function signUpUser(prevState: unknown, formData: FormData) {
   try {
     const user = SignUpSchema.parse({
@@ -79,12 +92,26 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
   }
 }
 
+/**
+ * Retrieves a user by their unique identifier.
+ *
+ * @param userId - The unique identifier of the user to retrieve.
+ * @returns The user object if found.
+ * @throws Will throw an error if the user is not found.
+ */
 export async function getUserById(userId: string) {
   const user = await prisma.user.findFirst({ where: {id: userId }})
   if (!user) throw new Error(en.error.user_not_found)
   return user
 }
 
+/**
+ * Updates the address of the current user.
+ *
+ * @param {ShippingAddress} address - The new shipping address to be updated.
+ * @returns {Promise<void>} - A promise that resolves when the address is successfully updated.
+ * @throws {Error} - Throws an error if the user is not found or if there is an issue with updating the address.
+ */
 export async function updateUserAddress(address: ShippingAddress) {
   try {
     const session = await auth()
@@ -99,6 +126,13 @@ export async function updateUserAddress(address: ShippingAddress) {
   }
 }
 
+/**
+ * Updates the payment method of the current user.
+ *
+ * @param paymentType - The payment method type to be updated, validated against the PaymentMethodSchema.
+ * @returns A promise that resolves to a success response if the update is successful, or an error response if it fails.
+ * @throws Will throw an error if the current user is not found or if there is an issue with the update process.
+ */
 export async function updateUserPaymentMethod(paymentType: z.infer<typeof PaymentMethodSchema>) {
   try {
     const session =  await auth()
@@ -112,6 +146,14 @@ export async function updateUserPaymentMethod(paymentType: z.infer<typeof Paymen
   }
 }
 
+/**
+ * Updates the user account with the provided user information.
+ *
+ * @param {UserBase} user - The user information to update.
+ * @returns {Promise<any>} The updated user information or an error response.
+ *
+ * @throws {Error} If the current user is not found.
+ */
 export async function updateUserAccount(user: UserBase) {
   try {
     const session     = await auth()
