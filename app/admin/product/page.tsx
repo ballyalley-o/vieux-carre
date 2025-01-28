@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { formatCurrency, formatId, getAllProducts, deleteProduct, generateTitle } from 'lib'
 import { FilePenLine, ListMinus, SquareArrowOutUpRight, Ellipsis } from 'lucide-react'
 import { Button, Table } from 'component/ui'
-import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge, Tooltp } from 'component/shared'
+import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge, Tooltp, NoResult } from 'component/shared'
+import { PageTitle } from 'component/admin'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata = { title: generateTitle(en.product.products.label, 'Admin') }
@@ -16,7 +17,6 @@ interface AdminProductsPageProps {
 const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) => {
     const { page, query, category } = await searchParams
     const products                  = await getAllProducts({ query, page: Number(page) || 1, category })
-
 
     const MENU_ITEMS = (item: Product) =>  {
        return ([
@@ -52,9 +52,9 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
     })
 
     return (
-    <div className={'space-y-2'}>
+    <div className={'space-y-2'} suppressHydrationWarning>
         <div className={'flex-between'}>
-            <h1 className={'h2-bold'}>{en.product.products.label}</h1>
+            <PageTitle query={query} title={en.product.products.label} href={PATH_DIR.ADMIN.PRODUCT} />
             <Button asChild variant={'outline'}>
                 <Link href={PATH_DIR.ADMIN.PRODUCT_CREATE}>{en.create_product.label}</Link>
             </Button>
@@ -63,7 +63,7 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
             <TblHead cells={HEAD.cells} />
             <TblBody cells={BODY} items={products.data as unknown as Product[]}/>
         </Table>
-        {products.totalPages === 0 && (<div className={'flex justify-center'}> <p className={'text-center text-lg'}>{en.no_data.label}</p> </div>)}
+        <NoResult data={products.totalPages} />
         {products.totalPages > 1 && (
             <div className="mt-5 flex justify-end">
                 <Pagination page={Number(page) || 1} totalPages={products.totalPages}/>

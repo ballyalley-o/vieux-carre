@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use server'
 import { en } from 'public/locale'
-import { prisma } from 'db/prisma'
 import { GLOBAL } from 'vieux-carre'
+import { Prisma } from '@prisma/client'
+import { prisma } from 'db/prisma'
 import { CODE, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
 import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
@@ -52,8 +53,13 @@ export async function getProductById(productId: string) {
  * @property {number} totalPages - The total number of pages.
  */
 export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category }: AppProductsAction<number>) {
-  const data  = await prisma.product.findMany({ orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
-  const count = await prisma.product.count()
+  const queryFilter: Prisma.ProductWhereInput =
+  query && query !== 'all'
+    ? { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter }
+    : {}
+
+  const data  = await prisma.product.findMany({ where: { ...queryFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
+  const count = await prisma.product.count({ where: { ...queryFilter }})
 
   const summary = { data, totalPages: Math.ceil(count / limit) }
   return summary

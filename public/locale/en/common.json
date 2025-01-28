@@ -27,6 +27,9 @@
         "label": "Checkout",
         "description": "Complete the form with your information"
     },
+    "clear": {
+        "label": "Clear"
+    },
     "create": {
         "label": "Create"
     },
@@ -65,6 +68,9 @@
     },
     "edit": {
         "label": "Edit"
+    },
+    "filtered_by": {
+        "label": "Filtered by"
     },
     "form": {
         "name": {
@@ -230,7 +236,9 @@
     "order": {
         "label": "Order",
         "description": "Complete the form with your order information",
-        "orders": "Orders"
+        "orders": {
+            "label": "Orders"
+        }
     },
     "order_history": {
         "label": "Order History"
@@ -365,6 +373,9 @@
         "label": "View"
     },
     "welcome": "Welcome to our site",
+    "zero_results": {
+        "label": "No results found"
+    },
     "message" :{
         "default":{
             "title": "Are you sure?",

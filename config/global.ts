@@ -13,7 +13,7 @@ export const GLOBAL = {
                             ADMIN_ORDERS: 10,
                             USER_ORDERS : 10,
                           },
-  PAGE_SIZE              : 4,
+  PAGE_SIZE              : 8,
   PAYMENT_METHODS        : process.env.NEXT_PUBLIC_PAYMENT_METHODS,
   PAYMENT_METHOD_DEFAULT : process.env.NEXT_PUBLIC_DEFAULT_PAYMENT_METHOD || 'PayPal',
   PAYPAL                 : {

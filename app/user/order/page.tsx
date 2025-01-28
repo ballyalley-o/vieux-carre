@@ -66,7 +66,7 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
 
   return (
     <div className={'space-y-2'}>
-      <h2 className="h2-bold">{en.order.orders}</h2>
+      <h2 className="h2-bold">{en.order.orders.label}</h2>
       <div className="overflow-x-auto">
         <Table>
           <TblHead cells={HEADER.cells} />

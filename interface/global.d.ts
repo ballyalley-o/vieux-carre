@@ -100,7 +100,8 @@ declare global {
 
   export interface AppPage<T> { page: T }
   export interface AppPageAction<T> extends AppPage<T> { limit?: number }
-  export interface AppOrdersAction<T> extends AppPage<T> { limit?: number }
+  export interface AppOrdersAction<T> extends AppPage<T> { limit?: number, query: string }
+  export interface AppUser<T> extends AppPage<T> { limit?: number, query: string }
   export interface AppProductsPage<T> extends AppPage<T> { query: string, category: string }
   export interface AppProductsAction<T> extends AppPage<T> { query: string, category: string, limit?: number }
 
@@ -115,6 +116,7 @@ declare global {
 
   export type ButtonVariant = 'ghost' | 'default' | 'destructive' | 'outline' | 'secondary' | 'link' | null | undefined
   export type BadgeVariant  = "default" | "destructive" | "outline" | "secondary" | null | undefined
+  export type ButtonSize    = "default" | "sm" | "lg" | "icon" | null | undefined
   export type ButtonType    = 'submit' | 'button' | 'reset' | undefined
 
   export type ProductFormType = 'create' | 'update'
