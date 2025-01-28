@@ -91,6 +91,10 @@
             "label": "Price",
             "placeholder": "Enter the price"
         },
+        "role": {
+            "label": "Role",
+            "placeholder": "Enter the role"
+        },
         "stock": {
             "label": "Stock",
             "placeholder": "Enter the stock count"
@@ -175,6 +179,9 @@
         "items": {
             "label": "Items"
         }
+    },
+    "last_updated_at": {
+        "label": "Last Updated at: "
     },
     "leave": {
         "label": "Leave"
@@ -342,6 +349,10 @@
     "update_product": {
         "label": "Update Product",
         "description": "Complete the form with your product information"
+    },
+    "update_user": {
+        "label": "Update User",
+        "description": "Complete the form with your user information"
     },
     "user":{
         "label": "User",
