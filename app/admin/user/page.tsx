@@ -6,18 +6,19 @@ import { notFound } from 'next/navigation'
 import { formatId, deleteUser, cn } from 'lib'
 import { FilePenLine, Ellipsis, ListMinus, Crown } from 'lucide-react'
 import { Table, Badge } from 'component/ui'
-import { TblBody, TblHead, DeleteDialg, TooltpGoBadge, DDMenu, Tooltp, Pagination } from 'component/shared'
+import { PageTitle } from 'component/admin'
+import { TblBody, TblHead, DeleteDialg, TooltpGoBadge, DDMenu, Tooltp, Pagination, NoResult } from 'component/shared'
 import { PATH_DIR } from 'config'
 
 export const metadata: Metadata= { title: generateTitle(en.user.users.label, 'Admin') }
 
 interface AdminUsersPageProps {
-    searchParams: Promise<AppPage<number>>
+    searchParams: Promise<AppUser<number>>
 }
 
 const AdminUsersPage: FC<AdminUsersPageProps> = async ({ searchParams }) => {
-    const { page } = await searchParams
-    const users    = await getAllUsers({ page: Number(page) || 1 })
+    const { page, query } = await searchParams
+    const users    = await getAllUsers({ page: Number(page) || 1, query })
     if (!users) return notFound()
     const isAdmin = (role: string) => role === KEY.ADMIN
 
@@ -50,14 +51,13 @@ const AdminUsersPage: FC<AdminUsersPageProps> = async ({ searchParams }) => {
     })
 
     return (
-      <div className="space-y-2">
-        <div className="flex-between">
-          <h1 className="h2-bold">{en.user.users.label}</h1>
-        </div>
+      <div className="space-y-2" suppressHydrationWarning>
+        <PageTitle query={query} title={en.user.users.label} href={PATH_DIR.ADMIN.USER} />
         <Table>
           <TblHead cells={HEAD.cells} />
           <TblBody items={users.data as unknown as User[]} cells={BODY} />
         </Table>
+        <NoResult data={users.totalPages} />
         {users.totalPages > 1 && (
           <div className="mt-5 flex justify-end">
             <Pagination page={Number(page) || 1} totalPages={users.totalPages} />
