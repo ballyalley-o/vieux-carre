@@ -91,6 +91,10 @@
             "label": "Price",
             "placeholder": "Enter the price"
         },
+        "role": {
+            "label": "Role",
+            "placeholder": "Enter the role"
+        },
         "stock": {
             "label": "Stock",
             "placeholder": "Enter the stock count"
@@ -175,6 +179,9 @@
         "items": {
             "label": "Items"
         }
+    },
+    "last_updated_at": {
+        "label": "Last Updated at: "
     },
     "leave": {
         "label": "Leave"
@@ -339,9 +346,20 @@
         "description": "Complete the form with your information",
         "toast": "User name updated"
     },
+    "update_product": {
+        "label": "Update Product",
+        "description": "Complete the form with your product information"
+    },
+    "update_user": {
+        "label": "Update User",
+        "description": "Complete the form with your user information"
+    },
     "user":{
         "label": "User",
-        "description": "Complete the form with your user information"
+        "description": "Complete the form with your user information",
+        "users": {
+            "label": "Users"
+        }
     },
     "view": {
         "label": "View"
@@ -369,6 +387,8 @@
         "product_created": "Product created",
         "product_deleted": "Product deleted",
         "product_updated": "Product updated",
+        "user_created": "User created",
+        "user_deleted": "User deleted",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
         "user_signed_in": "User signed in"

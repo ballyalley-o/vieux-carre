@@ -16,7 +16,7 @@ const interTight = Inter_Tight({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${GLOBAL.APP_NAME}`,
+    template: `%s • ${GLOBAL.APP_NAME}`,
     default: GLOBAL.APP_NAME
   },
   description: GLOBAL.APP_DESCRIPTION,

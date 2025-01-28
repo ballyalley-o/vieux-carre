@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { auth } from 'auth'
 import { getUserById } from 'lib'
-import AccountForm from './account-form'
+import { AccountForm } from 'component/shared'
 
 export const metadata: Metadata = { title: 'Account' }
 

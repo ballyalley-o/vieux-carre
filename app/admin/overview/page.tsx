@@ -3,14 +3,14 @@ import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'auth'
 import Link from 'next/link'
-import { formatCurrency, formatDateTime, formatNumber, getOrderSummary, KEY } from 'lib'
+import { formatCurrency, formatDateTime, formatNumber, getOrderSummary, generateTitle, KEY } from 'lib'
 import { Landmark, Receipt, Users, Package, SquareArrowOutUpRight } from 'lucide-react'
 import { Table } from 'component/ui'
 import { AdminOverviewCard, GridCard, TblHead, TblBody } from 'component/shared'
 import { PATH_DIR } from 'config'
 import Chart from './chart'
 
-export const metadata: Metadata = { title: 'Overview  | Admin' }
+export const metadata: Metadata = { title: generateTitle(en.overview.label, 'Admin') }
 
 type FourCellType = TblCells<4>
 const AdminOverviewPage = async () => {
