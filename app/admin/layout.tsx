@@ -1,10 +1,9 @@
 import { ReactNode } from 'react'
 import { GLOBAL } from 'vieux-carre'
-import { en } from 'public/locale'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Input } from 'component/ui'
 import { Toolbar } from 'component/shared'
+import { AdminSearch } from 'component/admin'
 import { ASSET_DIR, PATH_DIR } from 'config'
 import { LOGO } from 'config/layout'
 import MainNav from './main-nav'
@@ -20,7 +19,7 @@ export default function AdminLayout({ children }: Readonly<{ children: ReactNode
           <MainNav className={'mx-6'} />
           <div className="ml-auto items-center flex">
             <div>
-              <Input type={'search'} placeholder={en.search.placeholder} className={'md:x-[100px] lg:w-[300px]'} />
+              <AdminSearch />
             </div>
             <Toolbar />
           </div>
