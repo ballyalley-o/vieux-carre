@@ -8,6 +8,7 @@ export const GLOBAL = {
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
+  USER_ROLES             : process.env.USER_ROLES && process.env.USER_ROLES.split(';') || ['user', 'admin'],
   LIMIT                  : {
                             ADMIN_ORDERS: 10,
                             USER_ORDERS : 10,
@@ -22,6 +23,7 @@ export const GLOBAL = {
                           },
   PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || '',
   PURCHASE_FLOW          : ['user_sign_in', 'shipping', 'payment', 'place_order'],
+  TITLE_SEPARATOR        : ' | ',
   PRICES                 : {
                             CURRENCY             : process.env.NEXT_PUBLIC_CURRENCY || 'USD',
                             TAX                  : process.env.NEXT_PUBLIC_TAX || 0.15,
