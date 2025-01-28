@@ -345,7 +345,10 @@
     },
     "user":{
         "label": "User",
-        "description": "Complete the form with your user information"
+        "description": "Complete the form with your user information",
+        "users": {
+            "label": "Users"
+        }
     },
     "view": {
         "label": "View"
@@ -373,6 +376,8 @@
         "product_created": "Product created",
         "product_deleted": "Product deleted",
         "product_updated": "Product updated",
+        "user_created": "User created",
+        "user_deleted": "User deleted",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
         "user_signed_in": "User signed in"
