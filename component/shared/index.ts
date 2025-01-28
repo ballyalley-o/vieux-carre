@@ -31,6 +31,8 @@ export { default as UserMenu } from './header/user-menu'
 // ⎿ loader
 export { default as Loader } from './loader/loader'
 export { default as EllipsisLoader } from './loader/ellipsis-loader'
+// ⎿ form
+export { default as AccountForm } from './form/account-form'
 // ⎿ pagination
 export { default as Pagination } from './pagination/pagination'
 // ⎿ product
@@ -48,3 +50,4 @@ export { default as TblBody } from './tbl/tbl-body'
 export { default as RHFFormField } from './rhf/rhf-form-field'
 export { default as RHFRadioGroup } from './rhf/rhf-radio-group'
 export { default as RHFFormDropzoneProps } from './rhf/rhf-form-dropzone'
+export { default as RHFFormSelect } from './rhf/rhf-form-select'
