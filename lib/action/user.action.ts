@@ -13,6 +13,31 @@ import { CODE } from 'lib/constant'
 
 const TAG = 'USER.ACTION'
 
+/**
+ * Retrieves a paginated list of users from the database.
+ *
+ * @param {Object} params - The parameters for the function.
+ * @param {number} [params.limit=GLOBAL.PAGE_SIZE] - The number of users to retrieve per page.
+ * @param {number} params.page - The current page number.
+ * @returns {Promise<{ data: Array<User>, totalPages: number }>} A promise that resolves to an object containing the list of users and the total number of pages.
+ */
+export async function getAllUsers({ limit=  GLOBAL.PAGE_SIZE, page }: AppPageAction<number>) {
+  const users = await prisma.user.findMany({ orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
+  const count = await prisma.user.count()
+
+  const summary = { data: users, totalPages: Math.ceil(count / limit) }
+  return summary
+}
+
+/**
+ * Signs in a user with the provided credentials.
+ *
+ * @param prevState - The previous state, which is currently not used.
+ * @param formData - The form data containing the user's email and password.
+ * @returns A promise that resolves to a success response if the sign-in is successful,
+ * or an error response if the credentials are invalid.
+ * @throws Will throw an error if a redirect error occurs.
+ */
 export async function signInWithCredentials(prevState: unknown, formData: FormData) {
   try {
     const user = SignInSchema.parse({
