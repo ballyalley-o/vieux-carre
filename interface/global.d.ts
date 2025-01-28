@@ -9,6 +9,11 @@ declare global {
     email: string
   }
 
+  export interface User extends UserBase {
+    id  : string
+    role: string
+  }
+
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
 
   export interface Product extends z.infer<typeof ProductSchema> {
@@ -90,6 +95,7 @@ declare global {
   }
 
   export interface AppPage<T> { page: T }
+  export interface AppPageAction<T> extends AppPage<T> { limit?: number }
   export interface AppOrdersAction<T> extends AppPage<T> { limit?: number }
   export interface AppProductsPage<T> extends AppPage<T> { query: string, category: string }
   export interface AppProductsAction<T> extends AppPage<T> { query: string, category: string, limit?: number }
