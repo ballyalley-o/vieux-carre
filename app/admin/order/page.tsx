@@ -2,14 +2,14 @@ import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'auth'
-import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, KEY } from 'lib'
+import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, generateTitle, KEY } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
 import { Pagination, DeleteDialg, Tooltp } from 'component/shared'
 import { PATH_DIR } from 'config'
 
-export const metadata: Metadata = { title: 'Orders | Admin' }
+export const metadata: Metadata = { title: generateTitle(en.order.orders, 'Admin') }
 
 interface AdminOrdersPageProps {
   searchParams: Promise<AppPage<number>>

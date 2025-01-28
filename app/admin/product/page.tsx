@@ -2,13 +2,13 @@ import { FC } from 'react'
 import { en } from 'public/locale'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { formatCurrency, formatId, getAllProducts, deleteProduct } from 'lib'
+import { formatCurrency, formatId, getAllProducts, deleteProduct, generateTitle } from 'lib'
 import { FilePenLine, ListMinus, SquareArrowOutUpRight, Ellipsis } from 'lucide-react'
 import { Button, Table } from 'component/ui'
 import { TblHead, TblBody, Pagination, DDMenu, DeleteDialg, TooltpGoBadge, Tooltp } from 'component/shared'
 import { PATH_DIR } from 'config'
 
-export const metadata: Metadata = { title: 'Products | Admin' }
+export const metadata: Metadata = { title: generateTitle(en.product.products.label, 'Admin') }
 
 interface AdminProductsPageProps {
     searchParams: Promise<AppProductsPage<string>>
