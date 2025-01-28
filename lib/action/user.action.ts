@@ -3,6 +3,7 @@ import { en } from 'public/locale'
 import { z } from 'zod'
 import { GLOBAL } from 'vieux-carre'
 import { revalidatePath } from 'next/cache'
+import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt-ts-edge'
 import { ShippingAddressSchema, SignInSchema, SignUpSchema, PaymentMethodSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'
@@ -22,9 +23,15 @@ const TAG = 'USER.ACTION'
  * @param {number} params.page - The current page number.
  * @returns {Promise<{ data: Array<User>, totalPages: number }>} A promise that resolves to an object containing the list of users and the total number of pages.
  */
-export async function getAllUsers({ limit=  GLOBAL.PAGE_SIZE, page }: AppPageAction<number>) {
-  const users = await prisma.user.findMany({ orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
-  const count = await prisma.user.count()
+export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: AppUser<number>) {
+  const queryFilter: Prisma.UserWhereInput = query && query !== 'all' ? {
+    OR: [
+          { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
+          { email: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
+          { role: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
+        ]} : {}
+  const users = await prisma.user.findMany({ where: { ...queryFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
+  const count = await prisma.user.count({ where: { ...queryFilter } })
 
   const summary = { data: users, totalPages: Math.ceil(count / limit) }
   return summary
