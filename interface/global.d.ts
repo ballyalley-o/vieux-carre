@@ -1,7 +1,7 @@
 import { JSX, ReactNode } from 'react'
 import { z, ZodError } from 'zod'
 import { Prisma } from '@prisma/client'
-import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateProductSchema } from 'lib'
+import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateUserAccountSchema, UpdateProductSchema } from 'lib'
 
 declare global {
   export interface UserBase {
@@ -10,8 +10,10 @@ declare global {
   }
 
   export interface User extends UserBase {
-    id  : string
-    role: string
+    id       : string
+    role     : string
+    updatedAt: Date
+    createdAt: Date
   }
 
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
@@ -21,6 +23,7 @@ declare global {
     rating   : string
     createdAt: Date
   }
+
   export interface Order extends z.infer<typeof OrderSchema>  {
     id         : string
     createdAt  : Date
@@ -32,15 +35,16 @@ declare global {
     user       : { name: string, email: string }
   }
 
-  export type Bag             = z.infer<typeof BagSchema>
-  export type BagItem         = z.infer<typeof BagItemSchema>
-  export type ShippingAddress = z.infer<typeof ShippingAddressSchema>
-  export type OrderItem       = z.infer<typeof OrderItemSchema>
-  export type PaymentResult   = z.infer<typeof PaymentResultSchema>
-  export type UpdateUser      = z.infer<typeof UpdateUserSchema>
-  export type CreateProduct   = z.infer<typeof ProductSchema>
-  export type UpdateProduct   = z.infer<typeof UpdateProductSchema>
-  export type SalesData       = { month: string, totalSales: number }[]
+  export type Bag               = z.infer<typeof BagSchema>
+  export type BagItem           = z.infer<typeof BagItemSchema>
+  export type ShippingAddress   = z.infer<typeof ShippingAddressSchema>
+  export type OrderItem         = z.infer<typeof OrderItemSchema>
+  export type PaymentResult     = z.infer<typeof PaymentResultSchema>
+  export type UpdateUser        = z.infer<typeof UpdateUserSchema>
+  export type UpdateUserAccount = z.infer<typeof UpdateUserAccountSchema>
+  export type CreateProduct     = z.infer<typeof ProductSchema>
+  export type UpdateProduct     = z.infer<typeof UpdateProductSchema>
+  export type SalesData         = { month: string, totalSales: number }[]
 
   export interface TblCell {
     id   : string
