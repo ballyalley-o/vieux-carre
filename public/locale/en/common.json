@@ -302,6 +302,9 @@
         "label": "Search",
         "placeholder": "Looking for something?"
     },
+    "select_by_category": {
+        "label": "Select by Category"
+    },
     "shipping": {
         "label": "Shipping",
         "description": "Complete the form with your shipping information"
