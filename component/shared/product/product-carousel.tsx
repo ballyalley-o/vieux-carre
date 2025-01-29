@@ -28,8 +28,8 @@ const ProductCarousel: FC<ProductCarouselProps> = ({ products }) => {
            </CarouselItem>
         ))}
     </CarouselContent>
-    <CarouselPrevious className={'border-none'} />
-    <CarouselNext className={'border-none'} />
+    <CarouselPrevious className={'border-none rounded-sm'} />
+    <CarouselNext className={'border-none rounded-sm'} />
   </Carousel>
   )
 }
