@@ -23,6 +23,9 @@
     "cancel": {
         "label": "Cancel"
     },
+    "change_file": {
+        "label": "Change File"
+    },
     "checkout": {
         "label": "Checkout",
         "description": "Complete the form with your information"
@@ -198,7 +201,8 @@
         "leaving": "Leaving",
         "loading": "Loading",
         "saving": "Saving",
-        "updating": "Updating"
+        "updating": "Updating",
+        "uploading": "Uploading"
 
     },
     "mark_paid": {
