@@ -365,6 +365,10 @@
         "label": "Update User",
         "description": "Complete the form with your user information"
     },
+    "upload_banner": {
+        "label": "Upload Banner",
+        "description": "Drag and drop an image here or click to upload"
+    },
     "user":{
         "label": "User",
         "description": "Complete the form with your user information",
