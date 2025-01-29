@@ -26,14 +26,15 @@ export const GLOBAL = {
   TITLE_SEPARATOR        : ' | ',
   PRICES                 : {
                             CURRENCY             : process.env.NEXT_PUBLIC_CURRENCY || 'USD',
+                            CURRENCY_SYMBOL      : process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$',
                             TAX                  : process.env.NEXT_PUBLIC_TAX || 0.15,
                             NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
                             DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
                           },
   UPLOADTHING           : {
-                              APP_ID             : process.env.UPLOADTHING_APP_ID,
-                              TOKEN              : process.env.UPLOADTHING_TOKEN,
-                              SECRET             : process.env.UPLOADTHING_SECRET,
-                              ALLLOWED_IMAGE_TYPE: 'image/*'
-                            }
+                            APP_ID             : process.env.UPLOADTHING_APP_ID,
+                            TOKEN              : process.env.UPLOADTHING_TOKEN,
+                            SECRET             : process.env.UPLOADTHING_SECRET,
+                            ALLLOWED_IMAGE_TYPE: 'image/*'
+                          }
 }
