@@ -52,14 +52,17 @@ export async function getProductById(productId: string) {
  * @property {Array} data - The list of products.
  * @property {number} totalPages - The total number of pages.
  */
-export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category }: AppProductsAction<number>) {
+export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category, price, rating, sort }: AppProductsAction<number>) {
   const queryFilter: Prisma.ProductWhereInput =
   query && query !== 'all'
     ? { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter }
     : {}
+  const categoryFilter                       = category && category !== 'all' ? { category } : {}
+  const priceFilter:Prisma.ProductWhereInput = price && price       !== 'all' ? { price: { gte: Number(price.split('-')[0]),  lte: Number(price.split('-')[1]) } } : {}
+  const ratingFilter                         = rating && rating     !== 'all' ? { rating: { gte: Number(rating)} } : {}
 
-  const data  = await prisma.product.findMany({ where: { ...queryFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
-  const count = await prisma.product.count({ where: { ...queryFilter }})
+  const data                                 = await prisma.product.findMany({ where: { ...queryFilter, ...categoryFilter, ...priceFilter, ...ratingFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
+  const count                                = await prisma.product.count({ where: { ...queryFilter }})
 
   const summary = { data, totalPages: Math.ceil(count / limit) }
   return summary
