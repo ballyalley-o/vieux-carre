@@ -5,7 +5,11 @@ import { Card, CardHeader, CardContent } from 'component/ui'
 import { PATH_DIR } from 'config'
 import ProductPrice from './product-price'
 
-const ProductCard: FC<Product> = (product) => {
+interface ProductCardProps {
+  product: Product
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Card className="w-full max-w-sm shadow-none">
       <CardHeader className="p-0 items-center">
