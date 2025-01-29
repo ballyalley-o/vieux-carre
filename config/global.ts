@@ -31,8 +31,9 @@ export const GLOBAL = {
                             DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
                           },
   UPLOADTHING           : {
-                              APP_ID: process.env.UPLOADTHING_APP_ID,
-                              TOKEN : process.env.UPLOADTHING_TOKEN,
-                              SECRET: process.env.UPLOADTHING_SECRET,
+                              APP_ID             : process.env.UPLOADTHING_APP_ID,
+                              TOKEN              : process.env.UPLOADTHING_TOKEN,
+                              SECRET             : process.env.UPLOADTHING_SECRET,
+                              ALLLOWED_IMAGE_TYPE: 'image/*'
                             }
 }
