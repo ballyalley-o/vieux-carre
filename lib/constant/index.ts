@@ -1,4 +1,5 @@
 export * from './code'
 export * from './key'
+export * from './price'
 export * from './regex'
 export * from './response'

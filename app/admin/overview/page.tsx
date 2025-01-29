@@ -63,11 +63,11 @@ const AdminOverviewPage = async () => {
           <div className="text-2xl font-bold">{formatNumber(summary.count.products)}</div>
         </AdminOverviewCard>
       </div>
-      <div className={'grid gap-4 md:grid-cols-2 lg:grid-cols-7'}>
+      <div className={'grid gap-4 md:grid-cols-2 lg:grid-cols-2'}>
         <GridCard label={en.overview.label} span={4}>
             <Chart data={chartData} />
         </GridCard>
-        <GridCard label={en.recent_sales.label} span={3}>
+        <GridCard label={en.recent_sales.label} span={4} className={'border-t-2 border-b-0 border-x-0'}>
             <Table>
                 <TblHead cells={HEADER.cells} />
                 <TblBody cells={BODY} items={summary.latestSales as unknown as Order[]} />

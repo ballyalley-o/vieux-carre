@@ -20,6 +20,8 @@ export { default as DDMenu } from './dd-menu/dd-menu'
 // ⎿ dialg
 export { default as DeleteDialg } from './dialg/delete-dialg'
 export { default as ProtectedNavDialg } from './protect/protected-nav-dialg'
+// ⎿ drwr
+export { default as CategoryDrwr } from './drwr/category-drwr'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header
@@ -27,6 +29,7 @@ export { default as Header } from './header/header'
 export { default as Toolbar } from './header/toolbar'
 export { default as ThemeToggle } from './header/theme-toggle'
 export { default as MobileMenu } from './header/mobile-menu'
+export { default as Search } from './header/search'
 export { default as UserMenu } from './header/user-menu'
 // ⎿ loader
 export { default as Loader } from './loader/loader'
@@ -38,8 +41,10 @@ export { default as NoResult } from './no/no-result'
 // ⎿ pagination
 export { default as Pagination } from './pagination/pagination'
 // ⎿ product
+export { default as ProductBtn } from './product/product-btn'
 export { default as ProductList } from './product/product-list'
 export { default as ProductCard } from './product/product-card'
+export { default as ProductCarousel } from './product/product-carousel'
 export { default as ProductPrice } from './product/product-price'
 export { default as ProductImage } from './product/product-image'
 // ⎿ tooltp

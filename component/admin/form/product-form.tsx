@@ -9,14 +9,12 @@ import { useFormState } from 'store'
 import { useToast, usePreventNavigation } from 'hook'
 import slugify from 'slugify'
 import { Plus, MoveUpRight } from 'lucide-react'
-import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay, cn } from 'lib'
-import Image from 'next/image'
-import { FormLabel } from 'component/ui/form'
-import { Form, Card, CardContent } from 'component/ui'
+import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay } from 'lib'
+import { Form } from 'component/ui'
+import { BannerUploadField } from 'component/admin/custom-field'
 import { LoadingBtn } from 'component/shared/btn'
 import { RHFFormField, RHFFormDropzone, RHFCheckbox } from 'component/shared/rhf'
 import { PATH_DIR } from 'config'
-import { UploadDropzone } from 'lib/uploadthing'
 
 const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
   const { toast }             = useToast()
@@ -103,18 +101,8 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
           <div className="upload-field gap-4 h-auto">
               <RHFCheckbox control={control} name={'isFeatured'} formKey={'featured'} />
           </div>
-          <div className="upload-field w-full gap-4">
-           {isFeatured && <FormLabel>{en.form.banner.label}</FormLabel>}
-            <Card className={cn('min-h-48 mt-2', isFeatured ? 'visible' : 'hidden')}>
-              <CardContent  className={'w-full space-y-2 mt-2 min-h-48'}>
-                {isFeatured && banner && (
-                  <Image src={banner} alt={'featured-image'} width={1920} height={680} className={'w-full object-cover object-center rounded-sm'} />
-                )}
-                {isFeatured && !banner && (
-                  <UploadDropzone endpoint={'imageUploader'} onClientUploadComplete={(res: { url: string }[]) => { form.setValue('banner', res[0].url ) }} onUploadError={(error: Error) => { toast({ variant: 'destructive', description: `[Error]: ${error.message}` })}} className={'border-none'} appearance={{ allowedContent: 'hidden', button: 'px-2', container: 'm-auto' }} />
-                )}
-              </CardContent>
-            </Card>
+          <div className="upload-field gap-4">
+            <BannerUploadField isFeatured={isFeatured} banner={banner!} onClientUploadComplete={(res: { url: string }[]) => { form.setValue('banner', res[0].url ) }}  />
           </div>
           <div className="flex justify-end">
             <LoadingBtn

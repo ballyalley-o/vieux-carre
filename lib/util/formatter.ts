@@ -1,6 +1,56 @@
 import { GLOBAL } from "config/global"
+import { SystemLogger } from "lib/app-logger"
 
-const LOCALE = GLOBAL.LOCALE as Intl.LocalesArgument
+const TAG    = "UTIL_FORMATTER"
+const LOCALE = GLOBAL.LOCALE as Intl.LocalesArgument  // default
+
+const _getUserLocale = () => {
+  try {
+    return  typeof window !== 'undefined' ?  navigator.language : LOCALE
+  } catch {
+    return LOCALE
+  }
+}
+
+const _createFormatter = () => {
+  try {
+   const locale = new Intl.NumberFormat(_getUserLocale(), {
+      currency: GLOBAL.PRICES.CURRENCY,
+      style: 'currency',
+      minimumFractionDigits: 2
+    })
+    return locale
+  } catch (error) {
+    SystemLogger.error(error as AppError, TAG, '_createFormatter', 'Error creating formatter')
+    const defaultLocale = new Intl.NumberFormat(LOCALE, {
+      currency: 'USD',
+      style: 'currency',
+      minimumFractionDigits: 2
+    })
+    return defaultLocale
+  }
+}
+
+export const formatLocale = _createFormatter()
+export function formatSymbol(): string {
+  try {
+    const parts = formatLocale.formatToParts(0);
+    if (!parts) {
+      console.warn('formatToParts returned undefined')
+      return GLOBAL.PRICES.CURRENCY_SYMBOL
+    }
+    const symbol = parts.find(part => part.type === 'currency')?.value
+    if (!symbol) {
+      console.warn('Currency symbol not found in formatToParts')
+      return GLOBAL.PRICES.CURRENCY_SYMBOL
+    }
+    console.log('Currency symbol:', symbol)
+    return symbol
+  } catch (error) {
+    console.warn('Error in formatSymbol:', error)
+    return GLOBAL.PRICES.CURRENCY_SYMBOL
+  }
+}
 
 export const formatNumberWithDecimal = (num: number): string => {
   const [integer, decimal] = num.toString().split('.')
@@ -8,11 +58,6 @@ export const formatNumberWithDecimal = (num: number): string => {
 }
 
 const NUMBER_FORMATTER   = new Intl.NumberFormat(LOCALE)
-const CURRENCY_FORMATTER = new Intl.NumberFormat(LOCALE, {
-  currency             : GLOBAL.PRICES.CURRENCY,
-  style                : 'currency',
-  minimumFractionDigits: 2
-})
 
 export function formatNumber(number: number) {
   return NUMBER_FORMATTER.format(number)
@@ -20,9 +65,9 @@ export function formatNumber(number: number) {
 
 export const formatCurrency = (amount: number | string | null): string => {
   if (typeof amount === 'number') {
-    return CURRENCY_FORMATTER.format(amount)
+    return formatLocale.format(amount)
   } else if (typeof amount === 'string') {
-    return CURRENCY_FORMATTER.format(parseFloat(amount))
+    return formatLocale.format(parseFloat(amount))
   } else {
     return 'NaN'
   }

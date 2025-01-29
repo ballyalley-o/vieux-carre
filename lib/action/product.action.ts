@@ -52,14 +52,17 @@ export async function getProductById(productId: string) {
  * @property {Array} data - The list of products.
  * @property {number} totalPages - The total number of pages.
  */
-export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category }: AppProductsAction<number>) {
+export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category, price, rating, sort }: AppProductsAction<number>) {
   const queryFilter: Prisma.ProductWhereInput =
   query && query !== 'all'
     ? { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter }
     : {}
+  const categoryFilter                       = category && category !== 'all' ? { category } : {}
+  const priceFilter:Prisma.ProductWhereInput = price && price       !== 'all' ? { price: { gte: Number(price.split('-')[0]),  lte: Number(price.split('-')[1]) } } : {}
+  const ratingFilter                         = rating && rating     !== 'all' ? { rating: { gte: Number(rating)} } : {}
 
-  const data  = await prisma.product.findMany({ where: { ...queryFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
-  const count = await prisma.product.count({ where: { ...queryFilter }})
+  const data                                 = await prisma.product.findMany({ where: { ...queryFilter, ...categoryFilter, ...priceFilter, ...ratingFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
+  const count                                = await prisma.product.count({ where: { ...queryFilter }})
 
   const summary = { data, totalPages: Math.ceil(count / limit) }
   return summary
@@ -123,4 +126,28 @@ export async function updateProduct(data:UpdateProduct) {
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
+}
+
+/**
+ * Retrieves all product categories along with the count of products in each category.
+ *
+ * @returns {Promise<Array<{ category: string, _count: number }>>} A promise that resolves to an array of objects,
+ * each containing a category and the count of products in that category.
+ */
+export async function getAllCategories() {
+  const products = await prisma.product.groupBy({ by: ['category'], _count: true })
+  return products
+}
+
+/**
+ * Retrieves all featured products from the database.
+ *
+ * This function fetches up to 4 products that are marked as featured,
+ * ordered by their creation date in descending order.
+ *
+ * @returns {Promise<object[]>} A promise that resolves to an array of plain objects representing the featured products.
+ */
+export async function getAllFeaturedProducts() {
+  const products = await prisma.product.findMany({ where: { isFeatured: true }, orderBy: { createdAt: 'desc' }, take: 4 })
+  return convertToPlainObject(products)
 }

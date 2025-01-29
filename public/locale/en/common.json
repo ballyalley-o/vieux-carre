@@ -2,6 +2,9 @@
     "action": {
         "label": "Action"
     },
+    "all": {
+        "label": "All"
+    },
     "add_to_bag": "Add to Bag",
     "archived_user": {
         "label": "Archived User"
@@ -11,6 +14,9 @@
     },
     "already_have_account": {
         "label": "Already have an account?"
+    },
+    "any": {
+        "label": "Any"
     },
     "bag": {
         "label": "Bag",
@@ -22,6 +28,9 @@
     "bag_empty": "Bag is empty",
     "cancel": {
         "label": "Cancel"
+    },
+    "change_file": {
+        "label": "Change File"
     },
     "checkout": {
         "label": "Checkout",
@@ -61,6 +70,9 @@
     },
     "delivered_at": {
         "label": "Delivered At"
+    },
+    "department": {
+        "label": "Department"
     },
     "description": "This is an example of i18n with Next.js",
     "dont_have_account": {
@@ -198,7 +210,8 @@
         "leaving": "Leaving",
         "loading": "Loading",
         "saving": "Saving",
-        "updating": "Updating"
+        "updating": "Updating",
+        "uploading": "Uploading"
 
     },
     "mark_paid": {
@@ -302,6 +315,9 @@
         "label": "Search",
         "placeholder": "Looking for something?"
     },
+    "select_by_category": {
+        "label": "Select by Category"
+    },
     "shipping": {
         "label": "Shipping",
         "description": "Complete the form with your shipping information"
@@ -362,6 +378,10 @@
         "label": "Update User",
         "description": "Complete the form with your user information"
     },
+    "upload_banner": {
+        "label": "Upload Banner",
+        "description": "Drag and drop an image here or click to upload"
+    },
     "user":{
         "label": "User",
         "description": "Complete the form with your user information",
@@ -371,6 +391,9 @@
     },
     "view": {
         "label": "View"
+    },
+    "view_all_products":{
+        "label": "View All Products"
     },
     "welcome": "Welcome to our site",
     "zero_results": {
