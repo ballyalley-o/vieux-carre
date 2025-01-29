@@ -38,6 +38,8 @@
     "bcrypt-ts-edge": "^3.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-react": "^8.5.2",
     "good-logs": "^1.2.6",
     "i18next": "^24.2.0",
     "lucide-react": "^0.469.0",
