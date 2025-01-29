@@ -2,6 +2,9 @@
     "action": {
         "label": "Action"
     },
+    "all": {
+        "label": "All"
+    },
     "add_to_bag": "Add to Bag",
     "archived_user": {
         "label": "Archived User"
@@ -11,6 +14,9 @@
     },
     "already_have_account": {
         "label": "Already have an account?"
+    },
+    "any": {
+        "label": "Any"
     },
     "bag": {
         "label": "Bag",
@@ -64,6 +70,9 @@
     },
     "delivered_at": {
         "label": "Delivered At"
+    },
+    "department": {
+        "label": "Department"
     },
     "description": "This is an example of i18n with Next.js",
     "dont_have_account": {
@@ -382,6 +391,9 @@
     },
     "view": {
         "label": "View"
+    },
+    "view_all_products":{
+        "label": "View All Products"
     },
     "welcome": "Welcome to our site",
     "zero_results": {
