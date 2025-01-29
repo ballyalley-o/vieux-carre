@@ -25,12 +25,14 @@ export const PATH_DIR = {
   PAYMENT        : join('payment'),
   PRODUCT_VIEW   : (slug: string) => join('product', slug),
   ROOT           : '/',
+  SEARCH         : join('search'),
+  SEARCH_QUERY   : (params: string) => join(`search?${params}`),
   SEARCH_CATEGORY: (category: string) => join(`search?category=${category}`),
   SHIPPING       : join('shipping'),
   SIGN_IN        : join('sign-in'),
   SIGN_UP        : join('sign-up'),
-USER           : {
-                    ACCOUNT: join('user', 'account'),
-                    ORDER  : join('user', 'order'),
-  }
+  USER           : {
+                      ACCOUNT: join('user', 'account'),
+                      ORDER  : join('user', 'order'),
+    }
 }
