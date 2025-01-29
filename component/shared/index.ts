@@ -42,6 +42,7 @@ export { default as Pagination } from './pagination/pagination'
 // ⎿ product
 export { default as ProductList } from './product/product-list'
 export { default as ProductCard } from './product/product-card'
+export { default as ProductCarousel } from './product/product-carousel'
 export { default as ProductPrice } from './product/product-price'
 export { default as ProductImage } from './product/product-image'
 // ⎿ tooltp
