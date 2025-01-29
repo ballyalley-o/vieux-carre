@@ -19,9 +19,10 @@ declare global {
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
 
   export interface Product extends z.infer<typeof ProductSchema> {
-    id       : number
-    rating   : string
-    createdAt: Date
+    id        : string
+    rating    : string
+    numReviews: number
+    createdAt : Date
   }
 
   export interface Order extends z.infer<typeof OrderSchema>  {
@@ -100,10 +101,11 @@ declare global {
 
   export interface AppPage<T> { page: T }
   export interface AppPageAction<T> extends AppPage<T> { limit?: number }
+  export interface AppSearchPage<T> extends AppPage<T> { query?: string, category?: string, price?: string, rating?: string, sort?: string  }
   export interface AppOrdersAction<T> extends AppPage<T> { limit?: number, query: string }
   export interface AppUser<T> extends AppPage<T> { limit?: number, query: string }
   export interface AppProductsPage<T> extends AppPage<T> { query: string, category: string }
-  export interface AppProductsAction<T> extends AppPage<T> { query: string, category: string, limit?: number }
+  export interface AppProductsAction<T> extends AppPage<T> { query: string, limit?: number,  category?: string, price?: string, rating?: string, sort?: string }
 
   export type AppError =
     | ZodError
