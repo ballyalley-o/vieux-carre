@@ -20,6 +20,8 @@ export { default as DDMenu } from './dd-menu/dd-menu'
 // ⎿ dialg
 export { default as DeleteDialg } from './dialg/delete-dialg'
 export { default as ProtectedNavDialg } from './protect/protected-nav-dialg'
+// ⎿ drwr
+export { default as CategoryDrwr } from './drwr/category-drwr'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header
