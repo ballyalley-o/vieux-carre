@@ -49,7 +49,7 @@ export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: App
 export async function signInWithCredentials(prevState: unknown, formData: FormData) {
   try {
     const user = SignInSchema.parse({
-      email: formData.get('email'),
+      email   : formData.get('email'),
       password: formData.get('password')
     })
     await signIn('credentials', user)
@@ -82,9 +82,9 @@ export async function signOutUser() {
 export async function signUpUser(prevState: unknown, formData: FormData) {
   try {
     const user = SignUpSchema.parse({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      password: formData.get('password'),
+      name           : formData.get('name'),
+      email          : formData.get('email'),
+      password       : formData.get('password'),
       confirmPassword: formData.get('confirmPassword')
     })
     const unhashedPassword = user.password
