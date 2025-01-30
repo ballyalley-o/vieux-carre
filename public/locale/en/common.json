@@ -29,6 +29,12 @@
     "cancel": {
         "label": "Cancel"
     },
+    "category": {
+        "label": "Category",
+        "categories": {
+            "label": "Categories"
+        }
+    },
     "change_file": {
         "label": "Change File"
     },
@@ -278,7 +284,10 @@
         "label": "Previous"
     },
     "price": {
-        "label": "Price"
+        "label": "Price",
+        "prices": {
+            "label": "Prices"
+        }
     },
     "product": {
         "label": "Product",
@@ -307,6 +316,9 @@
             "description": "Place your order",
             "completed": "Order Placed"
         }
+    },
+    "rating": {
+        "label": "Rating"
     },
     "sales": {
         "label": "Sales"
