@@ -1,10 +1,9 @@
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import Link from 'next/link'
-import { getAllProducts, getAllCategories, PRICE, RATING, cn } from 'lib'
-import { Separator } from 'component/ui'
+import { getAllProducts, getAllCategories, PRICE, RATING } from 'lib'
 import { NoResult, ProductCard } from 'component/shared'
 import { PATH_DIR } from 'config'
+import FilterList from './filter-list'
 
 interface SearchPageProps {
   searchParams: Promise<AppSearchPage<string>>
@@ -30,49 +29,30 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
     <Fragment>
       <div className="grid md:grid-cols-5 md:gap-5">
         <div className="filter-links">
-          <div className="text-xl mb-5 mt-3">{en.category.label}</div>
-          <div className={'mb-5'}>
-            <ul className={'space-y-4'}>
-              <li>
-                <Link className={`${(category === 'all' || category === '') && 'font-bold'}`} href={getFilterUrl({ _category: 'all' })}>{en.any.label}</Link>
-              </li>
-              {categories.map((_c, index) => (
-                <li key={index}>
-                  <Link href={getFilterUrl({ _category: _c.category })} className={`${category === _c.category && 'font-bold'}`}>{_c.category}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Separator />
-          {/* prices */}
-          <div className="text-xl mb-5 mt-8">{en.price.prices.label}</div>
-          <div className={'mb-5'}>
-            <ul className={'space-y-4'}>
-              <li>
-                <Link className={`${price === 'all' && 'font-bold'}`} href={getFilterUrl({ _category:'all' })}>{en.any.label}</Link>
-              </li>
-              {PRICE.map((_p, index) => (
-                <li key={index}>
-                  <Link href={getFilterUrl({ _price: _p.value })} className={`${price === _p.value && 'font-bold'}`}>{_p.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Separator />
-           {/* rating */}
-           <div className="text-xl mb-5 mt-8">{en.rating.label}</div>
-          <div>
-            <ul className={'space-y-4'}>
-              <li>
-                <Link className={`${rating === 'all' && 'font-bold'}`} href={getFilterUrl({ _rating:'all' })}>{en.any.label}</Link>
-              </li>
-              {RATING.map((_r, index) => (
-                <li key={index}>
-                  <Link href={getFilterUrl({ _rating: _r.toString() })} className={cn(`${rating === _r.toString() && 'font-bold'}`)}>{`${_r} star's and up`}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+         <FilterList
+          title={en.category.label}
+          items={categories}
+          selectedValue={category}
+          getUrl={(value ) => getFilterUrl({ _category: value })}
+          formatLabel={(item) => item.category}
+          extractValue={(item) => item.category}
+         />
+         <FilterList
+          title={en.price.prices.label}
+          items={PRICE}
+          selectedValue={price}
+          getUrl={(value) => getFilterUrl({ _price: value })}
+          formatLabel={(item) => item.name}
+          extractValue={(item) => item.value}
+        />
+        <FilterList
+          title={en.rating.label}
+          items={RATING}
+          selectedValue={rating}
+          getUrl={(value) => getFilterUrl({ _rating: value })}
+          formatLabel={(item) => `${item} stars and up`}
+          extractValue={(item) => item.toString()}
+        />
         </div>
         <div className="md:col-span-4 space-y-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
