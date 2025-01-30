@@ -1,0 +1,1 @@
+export const RATING = [4, 3, 2, 1]
