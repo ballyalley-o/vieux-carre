@@ -4,6 +4,7 @@ import { getAllProducts, getAllCategories, PRICE, RATING } from 'lib'
 import { NoResult, ProductCard } from 'component/shared'
 import { PATH_DIR } from 'config'
 import FilterList from './filter-list'
+import FilterTitle from './filter-title'
 
 interface SearchPageProps {
   searchParams: Promise<AppSearchPage<string>>
@@ -50,11 +51,17 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
           items={RATING}
           selectedValue={rating}
           getUrl={(value) => getFilterUrl({ _rating: value })}
-          formatLabel={(item) => `${item} stars and up`}
+          formatLabel={(item) => `${item} stars +`}
           extractValue={(item) => item.toString()}
         />
         </div>
         <div className="md:col-span-4 space-y-4">
+          <div className="flex-between flex-col md:flex-row my-4">
+            <div className="flex items-center">
+              {/* {query !== 'all' && query !== '' &&} */}
+              <FilterTitle href={PATH_DIR.SEARCH} filter={query} filterTypeLabel={category !== 'all' && (`${en.category.label}:  ${category}`) || ''}  />
+            </div>
+          </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {products.data.length <=0  && <NoResult data={products.data.length} />}
             {products.data.map((product, index) => (
