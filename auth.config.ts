@@ -16,9 +16,8 @@ export const authConfig = {
                   const response = NextResponse.next({ request: { headers: newRequestHeaders } })
                   response.cookies.set(KEY.SESSION_BAG_ID, sessionBagId)
                   return response
-                } else {
-                  return true
                 }
+                return true
             }
     }
 } satisfies NextAuthConfig
