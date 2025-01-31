@@ -8,10 +8,29 @@ import FilterList from './filter-list'
 import FilterTitle from './filter-title'
 
 const DEFAULT_QUERY = KEY.ALL
-
 interface SearchPageProps {
   searchParams: Promise<AppSearchPage<string>>
 }
+
+export async function generateMetadata({ searchParams }: SearchPageProps) {
+  const { query = DEFAULT_QUERY, category = DEFAULT_QUERY, price = DEFAULT_QUERY, rating = DEFAULT_QUERY } = await searchParams
+
+  const isQuery    = query && query       !== DEFAULT_QUERY && query.trim()    !== ''
+  const isCategory = category && category !== DEFAULT_QUERY && category.trim() !== ''
+  const isPrice    = price && price       !== DEFAULT_QUERY && price.trim()    !== ''
+  const isRating   = rating && rating     !== DEFAULT_QUERY && rating.trim()   !== ''
+
+  if (isQuery || isCategory || isPrice || isRating) {
+    return {
+      title: en.search.label + `${isQuery ? query : ''} ${isCategory ? `${en.category.label}: ${category}` : ''} ${isPrice ? `${en.price.label}: ${price}` : ''} ${isRating ? `${en.rating.label}: ${rating}` : ''}`,
+    }
+  } else {
+    return {
+      title: en.search_product.label,
+    }
+  }
+}
+
 const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
   const { query = DEFAULT_QUERY, category = DEFAULT_QUERY, price = DEFAULT_QUERY, rating = DEFAULT_QUERY, sort = KEY.NEWEST, page = '1' } = await searchParams
 
