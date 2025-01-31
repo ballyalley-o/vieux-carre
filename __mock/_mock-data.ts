@@ -1,41 +1,40 @@
-import { hashSync } from 'bcrypt-ts-edge'
 const _mockData = {
   users: [
     {
       name: 'Admin User',
       email: 'admin@vieux-carre.com',
-      password: hashSync('123456', 10),
-      role: 'admin'
+      role: 'admin',
+      password: '123456'
     },
     {
       name: 'Hank Hill',
       email: 'propane.love@strickland.com',
-      password: hashSync('123456', 10),
-      role: 'user'
+      role: 'user',
+      password: '123456'
     },
     {
       name: 'Dale Gribble',
       email: 'dale@dale-tech.com',
-      password: hashSync('123456', 10),
-      role: 'user'
+      role: 'user',
+      password: '123456'
     },
     {
       name: 'Bill Dauterive',
       email: 'bill.d@usarmy.com',
-      password: hashSync('123456', 10),
-      role: 'user'
+      role: 'user',
+      password: '123456'
     },
     {
       name: 'Jeff Boomhauer',
       email: 'boomhauer@yahoo.com',
-      password: hashSync('123456', 10),
-      role: 'user'
+      role: 'user',
+      password: '123456'
     },
     {
       name: 'Rusty Shackleford',
       email: 'rusty@godaddy.com',
-      password: hashSync('123456', 10),
-      role: 'user'
+      role: 'user',
+      password: '123456'
     }
   ],
   products: [

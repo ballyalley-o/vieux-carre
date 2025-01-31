@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import goodlog from 'good-logs'
+import { hash } from 'lib/encrypt'
 import { _mockData } from '__mock'
 
 async function main() {
@@ -10,8 +11,18 @@ async function main() {
   await prisma.verificationToken.deleteMany()
   await prisma.user.deleteMany()
   await prisma.product.createMany({ data: _mockData.products })
-  await prisma.user.createMany({ data: _mockData.users })
-
+  const users = [];
+  for (let i = 0; i < _mockData.users.length; i++) {
+    users.push({
+      ..._mockData.users[i],
+      password: await hash(_mockData.users[i].password),
+    });
+    console.log(
+      _mockData.users[i].password,
+      await hash(_mockData.users[i].password)
+    );
+  }
+  await prisma.user.createMany({ data: users });
   goodlog.log(' 🌱 Data pre-loaded')
 }
 
