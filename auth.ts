@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NextAuth from 'next-auth'
-import { authConfig } from './auth.config'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { compareSync } from 'bcrypt-ts-edge'
 import { cookies } from 'next/headers'
 import { prisma } from 'db/prisma'
 import { KEY } from 'lib/constant'
+import { authConfig } from './auth.config'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
 
