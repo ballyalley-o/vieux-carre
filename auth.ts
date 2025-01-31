@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { compareSync } from 'bcrypt-ts-edge'
 import { cookies } from 'next/headers'
+import { compare } from 'lib/encrypt'
 import { prisma } from 'db/prisma'
 import { KEY } from 'lib/constant'
 import { authConfig } from './auth.config'
@@ -33,7 +33,7 @@ export const config = {
           }
         })
         if (user && user.password) {
-          const isMatch = compareSync(credentials.password as string, user.password)
+          const isMatch = await compare(credentials.password as string, user.password)
           if (isMatch) {
             return {
               id: user.id,
