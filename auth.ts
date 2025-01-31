@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextAuthConfig } from 'next-auth'
 import NextAuth from 'next-auth'
-import { NextResponse } from 'next/server'
-import { PrismaAdapter } from '@auth/prisma-adapter'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { compareSync } from 'bcrypt-ts-edge'
 import { cookies } from 'next/headers'
 import { prisma } from 'db/prisma'
-import { PROTECTED_ROUTES } from 'config'
 import { KEY } from 'lib/constant'
+import { authConfig } from './auth.config'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
 
@@ -19,10 +17,9 @@ export const config = {
     error: '/sign-in'
   },
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as const,
     maxAge: 30 * 24 * 60 * 60
   },
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       credentials: {
@@ -87,19 +84,7 @@ export const config = {
       }
       return token
     },
-    // authorized({ request, auth }: any) {
-    //   const { pathname } = request.nextUrl
-    //   if (!auth && PROTECTED_ROUTES.some(p => p.test(pathname))) return false
-    //   if (!request.cookies.get(KEY.SESSION_BAG_ID)) {
-    //     const sessionBagId = crypto.randomUUID()
-    //     const newRequestHeaders = new Headers(request.headers)
-    //     const response = NextResponse.next({ request: { headers: newRequestHeaders } })
-    //     response.cookies.set(KEY.SESSION_BAG_ID, sessionBagId)
-    //     return response
-    //   } else {
-    //     return true
-    //   }
-    // }
+    ...authConfig.callbacks,
   }
 } satisfies NextAuthConfig
 
