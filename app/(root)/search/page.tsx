@@ -1,18 +1,19 @@
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import { getAllProducts, getAllCategories, PRICE, RATING } from 'lib'
+import Link from 'next/link'
+import { getAllProducts, getAllCategories, PRICE, RATING, KEY, SORT_ORDER } from 'lib'
 import { NoResult, ProductCard, LinkBtn } from 'component/shared'
 import { PATH_DIR } from 'config'
 import FilterList from './filter-list'
 import FilterTitle from './filter-title'
 
-const DEFAULT_QUERY = 'all'
+const DEFAULT_QUERY = KEY.ALL
 
 interface SearchPageProps {
   searchParams: Promise<AppSearchPage<string>>
 }
 const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
-  const { query = DEFAULT_QUERY, category = DEFAULT_QUERY, price = DEFAULT_QUERY, rating = DEFAULT_QUERY, sort = 'newest', page = '1' } = await searchParams
+  const { query = DEFAULT_QUERY, category = DEFAULT_QUERY, price = DEFAULT_QUERY, rating = DEFAULT_QUERY, sort = KEY.NEWEST, page = '1' } = await searchParams
 
   const getFilterUrl = ({ _category , _price, _rating, _sort, _page }:{ _category?: string, _price?: string, _rating?: string, _sort?: string, _page?: string})  => {
     const params = { query, category, price, rating, sort, page }
@@ -65,6 +66,12 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
               {price !== DEFAULT_QUERY && (<FilterTitle href={getFilterUrl({ _price: DEFAULT_QUERY })} filter={price} filterTypeLabel={en.price.label || ''}  /> )}
               {rating !== DEFAULT_QUERY && (<FilterTitle href={getFilterUrl({ _rating: DEFAULT_QUERY })} filter={`${rating} stars +`} filterTypeLabel={en.rating.label || ''}  /> )}
               {(category !== DEFAULT_QUERY || price !== DEFAULT_QUERY || rating !== DEFAULT_QUERY) && <LinkBtn href={PATH_DIR.SEARCH} variant={'ghost'} size={'sm'} className={'py-0 px-2 text-red-500'}>{en.clear.label}</LinkBtn>}
+            </div>
+            <div className="">
+              {en.sort_by.label}:
+              {SORT_ORDER.map((_item, index) => (
+                <Link key={index} href={getFilterUrl({ _sort: _item})}  className={`mx-2 ${sort === _item && 'font-bold'}`}>{_item}</Link>
+              ))}
             </div>
           </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
