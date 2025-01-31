@@ -7,7 +7,6 @@ import { compareSync } from 'bcrypt-ts-edge'
 import { cookies } from 'next/headers'
 import { prisma } from 'db/prisma'
 import { KEY } from 'lib/constant'
-import { authConfig } from './auth.config'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
 
@@ -83,8 +82,7 @@ export const config = {
         token.name = session.user.name
       }
       return token
-    },
-    ...authConfig.callbacks,
+    }
   }
 } satisfies NextAuthConfig
 
