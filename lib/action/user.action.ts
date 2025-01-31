@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { GLOBAL } from 'vieux-carre'
 import { revalidatePath } from 'next/cache'
 import { Prisma } from '@prisma/client'
-import { hashSync } from 'bcrypt-ts-edge'
+import { hash } from 'lib/encrypt'
 import { ShippingAddressSchema, SignInSchema, SignUpSchema, PaymentMethodSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'
 import { auth, signIn, signOut } from 'auth'
@@ -88,7 +88,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       confirmPassword: formData.get('confirmPassword')
     })
     const unhashedPassword = user.password
-    user.password = hashSync(user.password, 10)
+    user.password = await hash(user.password)
     await prisma.user.create({ data: { name: user.name, email: user.email, password: user.password } })
     await signIn('credentials', { email: user.email, password: unhashedPassword })
     return SystemLogger.response(en.success.user_signed_up, CODE.CREATED, TAG)
