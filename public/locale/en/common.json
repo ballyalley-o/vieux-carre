@@ -317,6 +317,9 @@
             "completed": "Order Placed"
         }
     },
+    "query": {
+        "label": "Query"
+    },
     "rating": {
         "label": "Rating"
     },
