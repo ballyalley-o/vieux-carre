@@ -21,7 +21,7 @@ declare global {
   export interface Product extends z.infer<typeof ProductSchema> {
     id        : string
     rating    : string
-    numReviews: number
+    numReviews: string
     createdAt : Date
   }
 
