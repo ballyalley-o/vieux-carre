@@ -1,3 +1,5 @@
+import { SORT } from './sort'
+
 export const BUTTON_TYPE = {
   SUBMIT: 'submit',
   BUTTON: 'button'
@@ -40,6 +42,7 @@ export const ROLE = {
 }
 
 export const KEY = {
+  ALL           : 'all',
   BAG           : 'bag',
   CALLBACK_URL  : 'callbackUrl',
   SESSION_BAG_ID: 'sessionBagId',
@@ -48,6 +51,7 @@ export const KEY = {
   LIGHT         : 'light',
   SYSTEM        : 'system',
   TEXT          : 'text',
+  ...SORT,
   ...BUTTON_TYPE,
   ...FORM,
   ...LOCALE,
