@@ -12,6 +12,12 @@ export const LOGO = {
     HEADER_LOGO_W: 24,
 }
 
+export const ICON = {
+    SMALL : 15,
+    MEDIUM: 20,
+    LARGE : 30,
+}
+
 export const IMAGE = {
     UPLOAD_THUMBNAIL_H: 100,
     UPLOAD_THUMBNAIL_W: 100,
