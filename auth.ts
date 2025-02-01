@@ -83,7 +83,7 @@ export const config = {
       }
       return token
     },
-    ...(authConfig?.callbacks ?? {})
+    ...(authConfig.callbacks ?? {})
   }
 }
 
