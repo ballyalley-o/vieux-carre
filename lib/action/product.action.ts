@@ -4,7 +4,7 @@ import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { Prisma } from '@prisma/client'
 import { prisma } from 'db/prisma'
-import { CODE, convertToPlainObject, KEY, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
+import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
 import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
 
