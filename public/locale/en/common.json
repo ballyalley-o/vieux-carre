@@ -65,6 +65,12 @@
             "label": "Customers"
         }
     },
+    "customer_review":{
+        "label": "Customer Review",
+        "customer_reviews":{
+            "label": "Customer Reviews"
+        }
+    },
     "dashboard": {
         "label": "Dashboard"
     },
@@ -91,6 +97,14 @@
         "label": "Filtered by"
     },
     "form": {
+        "rating": {
+            "label": "Rating",
+            "placeholder": "Enter the rating"
+        },
+        "title": {
+            "label": "Title",
+            "placeholder": "Enter the title"
+        },
         "name": {
             "label": "Name",
             "placeholder": "Enter name"
@@ -280,6 +294,9 @@
         "description": "Place your order",
         "pending": "Placing Order..."
     },
+    "please": {
+        "label": "Please"
+    },
     "previous": {
         "label": "Previous"
     },
@@ -322,6 +339,12 @@
     },
     "rating": {
         "label": "Rating"
+    },
+    "review": {
+        "label": "Review",
+        "reviews": {
+            "label": "Reviews"
+        }
     },
     "sales": {
         "label": "Sales"
@@ -420,6 +443,10 @@
     "zero_results": {
         "label": "No results found"
     },
+    "write_review": {
+        "label": "Write a Review",
+        "description": "Share your thoughts on this product with other customers"
+    },
     "message" :{
         "default":{
             "title": "Are you sure?",
@@ -432,6 +459,14 @@
         "unsaved_changes": {
             "title": "Are you sure?",
             "description": "You have unsaved changes. Are you sure you want to leave?"
+        },
+        "currently_no_reviews": {
+            "title": "No Reviews",
+            "description": "There are currently no reviews for this product."
+        },
+        "to_write_review": {
+            "title": "Write a Review",
+            "description": " to write a review."
         }
     },
     "success": {
@@ -446,7 +481,8 @@
         "user_deleted": "User deleted",
         "user_updated": "User updated",
         "user_signed_up": "User signed up",
-        "user_signed_in": "User signed in"
+        "user_signed_in": "User signed in",
+        "review_updated": "Review updated"
     },
     "error": {
         "bag_empty": "Bag is empty",
