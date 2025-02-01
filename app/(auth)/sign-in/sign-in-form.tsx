@@ -4,7 +4,6 @@ import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
 import { signInWithCredentials } from 'lib/action'
-// import { Shell } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from 'component/ui/button'
 import { Input } from 'component/ui/input'
@@ -17,7 +16,7 @@ import { en } from 'public/locale'
 const SignInForm = () => {
   const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
+  const callbackUrl  = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
 
   const SignInButton = () => {
     const { pending } = useFormStatus()
