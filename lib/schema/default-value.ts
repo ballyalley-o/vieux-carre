@@ -37,3 +37,9 @@ export const productDefaultValue = {
   isFeatured : false,
   banner     : null
 }
+
+export const reviewDefaultValue = {
+  title      : '',
+  description: '',
+  rating     : 0
+}

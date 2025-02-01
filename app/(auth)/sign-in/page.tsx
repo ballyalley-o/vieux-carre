@@ -18,7 +18,7 @@ interface SignInPageProps {
 
 const SignInPage = async ({ searchParams }: SignInPageProps) => {
   const { callbackUrl } = await searchParams
-  const session = await auth()
+  const session         = await auth()
   if (session) {
     redirect(callbackUrl || PATH_DIR.ROOT)
   }

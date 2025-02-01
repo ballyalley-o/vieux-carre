@@ -2,6 +2,7 @@ import { JSX, ReactNode } from 'react'
 import { z, ZodError } from 'zod'
 import { Prisma } from '@prisma/client'
 import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateUserAccountSchema, UpdateProductSchema } from 'lib'
+import { ReviewSchema } from 'lib/schema/review-schema'
 
 declare global {
   export interface UserBase {
@@ -36,6 +37,12 @@ declare global {
     user       : { name: string, email: string }
   }
 
+  export interface Review extends z.infer<typeof ReviewSchema> {
+    id        : string
+    createdAt : Date
+    user     ?: { name: string | null }
+  }
+
   export type Bag               = z.infer<typeof BagSchema>
   export type BagItem           = z.infer<typeof BagItemSchema>
   export type ShippingAddress   = z.infer<typeof ShippingAddressSchema>
@@ -45,6 +52,7 @@ declare global {
   export type UpdateUserAccount = z.infer<typeof UpdateUserAccountSchema>
   export type CreateProduct     = z.infer<typeof ProductSchema>
   export type UpdateProduct     = z.infer<typeof UpdateProductSchema>
+  export type ReviewType        = z.infer<typeof ReviewSchema>
   export type SalesData         = { month: string, totalSales: number }[]
 
   export interface TblCell {

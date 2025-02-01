@@ -44,6 +44,7 @@ export { default as Pagination } from './pagination/pagination'
 export { default as ProductBtn } from './product/product-btn'
 export { default as ProductList } from './product/product-list'
 export { default as ProductCard } from './product/product-card'
+export { default as ProductRating } from './product/product-rating'
 export { default as ProductCarousel } from './product/product-carousel'
 export { default as ProductPrice } from './product/product-price'
 export { default as ProductImage } from './product/product-image'
@@ -53,6 +54,9 @@ export { default as TooltpGoBadge } from './tooltp/tooltp-go-badge'
 // ⎿ tbl
 export { default as TblHead } from './tbl/tbl-head'
 export { default as TblBody } from './tbl/tbl-body'
+// ⎿ review
+export { default as ReviewForm } from './review/review-form'
+export { default as ReviewList } from './review/review-list'
 // ⎿ rhf
 export { default as RHFFormField } from './rhf/rhf-form-field'
 export { default as RHFRadioGroup } from './rhf/rhf-radio-group'

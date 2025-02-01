@@ -5,6 +5,7 @@ export const GLOBAL = {
   APP_DESCRIPTION        : process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Old Square shop application',
   SERVER_URL             : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   DATABASE_URL           : process.env.DATABASE_URL || '',
+  ENCRYPTION_KEY         : process.env.ENCRYPTION_KEY || '',
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',

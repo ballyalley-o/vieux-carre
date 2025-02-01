@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { NextAuthConfig } from 'next-auth'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { compareSync } from 'bcrypt-ts-edge'
 import { cookies } from 'next/headers'
+import { compare } from 'lib/encrypt'
 import { prisma } from 'db/prisma'
 import { KEY } from 'lib/constant'
+import { authConfig } from './auth.config'
 
 export type SessionStrategyType = 'jwt' | 'database' | undefined
 
@@ -33,7 +33,7 @@ export const config = {
           }
         })
         if (user && user.password) {
-          const isMatch = compareSync(credentials.password as string, user.password)
+          const isMatch = await compare(credentials.password as string, user.password)
           if (isMatch) {
             return {
               id: user.id,
@@ -82,7 +82,8 @@ export const config = {
         token.name = session.user.name
       }
       return token
-    }
+    },
+    ...(authConfig.callbacks ?? {})
   }
 }
 
