@@ -37,6 +37,10 @@ class AppLogger {
     return RESPONSE.ERROR(errorHandler(error as AppError), code, redirectTo, data)
   }
 
+  public errorMessage(message: string, code: CODE, tag: string = TAG_DEFAULT) {
+    return RESPONSE.ERROR(message, code)
+  }
+
   public info(content: string, tag: string = TAG_DEFAULT) {
     console.info(TAG_FORMAT(tag), content)
   }
