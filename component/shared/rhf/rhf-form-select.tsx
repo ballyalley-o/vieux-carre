@@ -31,7 +31,7 @@ const RHFFormSelect = <TSchema extends ZodSchema, TName extends Path<z.infer<TSc
     render={({ field }: RHFFormSelectControllerRender<TSchema, TName>) => (
       <FormItem className={"w-full"}>
         <FormLabel>{en.form[formKey].label}</FormLabel>
-        <Select onValueChange={field.onChange} defaultValue={defaultOption}>
+        <Select onValueChange={field.onChange} value={field.value.toString()}  defaultValue={defaultOption}>
           <FormControl>
             <SelectTrigger disabled={disabled}>
             <SelectValue placeholder={en.form[formKey].placeholder} defaultValue={defaultOption}/>
