@@ -93,6 +93,10 @@
     "edit": {
         "label": "Edit"
     },
+    "edit_review": {
+        "label": "Edit Your Review",
+        "description": "Edit your review"
+    },
     "filtered_by": {
         "label": "Filtered by"
     },
