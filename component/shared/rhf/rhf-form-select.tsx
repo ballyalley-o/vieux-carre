@@ -40,7 +40,7 @@ const RHFFormSelect = <TSchema extends ZodSchema, TName extends Path<z.infer<TSc
           <SelectContent>
             {Array.isArray(options) && options.map((option : string, index: number) => (
               <SelectItem key={index} value={option}>
-               {icon && ( <Fragment> &nbsp;{icon}</Fragment>)} {option.toUpperCase()}
+               <div className={'relative py-0 text-center items-center flex'}>{option.toUpperCase()}&nbsp;<span>{icon && ( <Fragment>{icon}</Fragment>)}</span></div>
               </SelectItem>
             ))}
           </SelectContent>
