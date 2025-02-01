@@ -58,7 +58,7 @@ export async function signInWithCredentials(prevState: unknown, formData: FormDa
     if (isRedirectError(error)) {
       throw error
     }
-    return SystemLogger.errorResponse(en.error.invalid_credentials, CODE.BAD_REQUEST, TAG)
+    return SystemLogger.errorMessage(en.error.invalid_credentials, CODE.BAD_REQUEST, TAG)
   }
 }
 
