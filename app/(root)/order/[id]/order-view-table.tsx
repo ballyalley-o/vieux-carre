@@ -34,6 +34,9 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmi
     return status
   }
 
+  const isPayPal         = paymentMethod === KEY.PAYPAL
+  const isStripe         = paymentMethod === KEY.STRIPE
+
   const handleCreatePayPalOrder = async () => {
     const response = await createPayPalOrder(order.id)
     if (!response.success) {
@@ -72,7 +75,7 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmi
             badgeLabel={en.paid_at.label}
             dateAt={paidAt!}
             notBadgeLabel={en.not_paid.label}
-            icon={<FontAwesomeIcon icon={paymentMethod === KEY.PAYPAL ? faPaypal : paymentMethod === KEY.STRIPE ? faStripe : faMoneyBill } />}
+            icon={<FontAwesomeIcon icon={isPayPal ? faPaypal : isStripe ? faStripe : faMoneyBill } className={isPayPal ? 'text-blue-700' : isStripe ? 'text-blue-700' : 'text-green-900'}  />}
           />
 
           {/* payment method card */}
