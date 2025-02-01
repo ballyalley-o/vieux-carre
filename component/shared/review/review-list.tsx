@@ -28,8 +28,8 @@ const ReviewList: FC<ReviewListProps> = ({ userId, productId, productSlug }) => 
     }, [productId])
 
     const reload = async () => {
-        // Fetch reviews
-        console.log('review submitted')
+      const response = await getReviews({ productId })
+      setReviews([...response.data])
     }
   return (
     <Fragment>
