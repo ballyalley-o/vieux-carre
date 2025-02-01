@@ -4,6 +4,9 @@ import { en } from 'public/locale'
 import { auth } from 'auth'
 import { redirect } from 'next/navigation'
 import { WalletCards, Container, ShoppingBag } from 'lucide-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
+import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { Table } from 'component/ui'
 import { CheckoutCard, PriceSummaryCard } from 'component/shared/card'
 import { PurchaseFlow } from 'component/shared/custom'
@@ -12,9 +15,7 @@ import { getMyBag, getUserById, parseAddress } from 'lib'
 import { PATH_DIR } from 'config'
 import CheckoutForm from './checkout-form'
 
-export const metadata: Metadata = {
-  title: 'Checkout'
-}
+export const metadata: Metadata = { title: en.checkout.label }
 
 const CheckoutPage = async () => {
   const bag = await getMyBag()
@@ -29,6 +30,15 @@ const CheckoutPage = async () => {
   if (!user.paymentMethod) redirect(PATH_DIR.PAYMENT)
 
   const userAddress = user.address as ShippingAddress
+
+  const paymentMethodIcon = (method: string) => {
+    switch (method) {
+      case 'PayPal': return <FontAwesomeIcon icon={faPaypal} className={'text-blue-700 default-size_icon'} />
+      case 'Stripe': return <FontAwesomeIcon icon={faStripe} className={'text-purple-600 default-size_icon'} />
+      case 'Cash On Delivery': return <FontAwesomeIcon icon={faMoneyBill} className={'text-green-800 default-size_icon'} />
+      default: return <FontAwesomeIcon icon={faMoneyBill} className={'text-green-800 default-size_icon'} />
+    }
+  }
 
   return (
     <Fragment>
@@ -46,7 +56,7 @@ const CheckoutPage = async () => {
           </CheckoutCard>
 
           <CheckoutCard i18Title={en.payment_method.label} href={PATH_DIR.PAYMENT} icon={<WalletCards className={'default-size_icon'} />} withEditBtn>
-            <p>{user.paymentMethod}</p>
+              <div className={'flex items-center'}>{paymentMethodIcon(user.paymentMethod)} <span><p className={'ml-2'}>{user.paymentMethod}</p></span></div>
           </CheckoutCard>
 
           <CheckoutCard i18Title={en.order_items.label} href={PATH_DIR.PAYMENT} icon={<ShoppingBag className={'default-size_icon'} />}>
