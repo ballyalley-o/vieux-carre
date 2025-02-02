@@ -1,4 +1,4 @@
-import { join, joinServer } from 'lib'
+import { join, joinServer } from 'lib/util/join'
 import { GLOBAL } from 'config'
 
 const protect = () => {
