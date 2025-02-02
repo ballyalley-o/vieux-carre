@@ -1,9 +1,10 @@
 import { en } from '../public/locale'
-import { Body, Column, Container, Head, Heading, Html, Img, Preview, Row, Section, Tailwind, Text } from '@react-email/components'
+import { Body, Column, Container, Head, Heading, Html, Img, Preview, Row, Section, Tailwind, Hr, Text } from '@react-email/components'
 import { formatCurrency } from '../lib/util/formatter'
 import { PATH_DIR } from '../config/dir/path'
 import { IMAGE } from '../config/layout'
 import { _mockData } from '../__mock'
+import { ASSET_DIR } from 'config'
 
 // import * as dotenv from 'dotenv'
 // dotenv.config()
@@ -64,38 +65,40 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
       <Tailwind>
         <Head />
         <Body className={'font-sans bg-white'}>
-          <Container className={'max-w-xl'}>
+          <Container className={'max-w-4xl'}>
+          <Img src={ASSET_DIR.LOGO_PRODUCTION} width={IMAGE.EMAIL_PUCHASE_ITEM} height={IMAGE.EMAIL_PUCHASE_ITEM} className={'rounded-sm'} alt={'logo'} />
             <Heading>{en.purchase_receipt.label}</Heading>
             <Section>
               <Row>
                 <Column>
-                  <Text className={'mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap'}>{en.order_id.label}</Text>
-                  <Text className={'mt-0 mr-4'}>{order.id.toString()}</Text>
+                  <Text className={'text-lg mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap'}>{en.order_id.label}</Text>
+                  <Text className={'text-sm font-bold mt-0 mr-4'}>{order.id.toString()}</Text>
                 </Column>
-                <Column>
-                  <Text className={'mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap'}>{en.purchase_date.label}</Text>
-                  <Text className={'mt-0 mr-4'}>{dateFormatter.format(order.createdAt)}</Text>
+                <Column align={'right'}>
+                  <Text className={'text-lg mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap'}>{en.purchase_date.label}</Text>
+                  <Text className={'text-sm font-bold mt-0 mr-4'}>{dateFormatter.format(order.createdAt)}</Text>
                 </Column>
-                <Column>
-                  <Text className={'mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap'}>{en.price_paid.label}</Text>
-                  <Text className={'mt-0 mr-4'}>{formatCurrency(order.totalPrice)}</Text>
+                <Column align={'right'}>
+                  <Text className={'text-lg mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap '}>{en.price_paid.label}</Text>
+                  <Text className={'text-sm font-bold mt-0 mr-4'}>{formatCurrency(order.totalPrice)}</Text>
                 </Column>
               </Row>
             </Section>
-            <Section className={'border border-solid border-gray-500 rounded-sm p-4 md:p-6 my-4'}>
+            <Section className={'border border-solid border-gray-200 rounded-sm p-4 md:p-6 my-4'}>
                 {order.orderitems.map((_item, index) => (
                     <Row key={index} className={'mt-8'}>
                         <Column className={'w-20'}>
                             <Img src={_item.image.startsWith('/') ? PATH_DIR.EMAIL_IMAGE(_item.image) : _item.image} width={IMAGE.EMAIL_PUCHASE_ITEM} height={IMAGE.EMAIL_PUCHASE_ITEM} className={'rounded-sm'} alt={_item.name} />
                         </Column>
-                        <Column className={'align-top'}>
-                            {_item.name}{'x'}{_item.qty}
+                        <Column className={'align-top items-center'}>
+                            {_item.name}&nbsp;{'x'} &nbsp;{_item.qty}
                         </Column>
                         <Column align={'right'} className={'align-top'}>
                             {formatCurrency(_item.price)}
                         </Column>
                     </Row>
                 ))}
+                <Hr className={'my-4'} />
                 {[
                     {name: en.item.items.label, price: order.itemsPrice},
                     {name: en.tax.label, price: order.taxPrice},
