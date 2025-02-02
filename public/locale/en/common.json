@@ -283,6 +283,9 @@
     "order_items": {
         "label": "Order Items"
     },
+    "order_overview": {
+        "label": "Order Overview"
+    },
     "overview": {
         "label": "Overview"
     },
@@ -315,6 +318,9 @@
         "products": {
             "label": "Products"
         }
+    },
+    "purchase": {
+        "label": "Purchase"
     },
     "purchase_flow": {
         "user_sign_in": {
@@ -392,6 +398,10 @@
     "stay": {
         "label": "Stay"
     },
+    "stripe_checkout": {
+        "label": "Stripe Checkout",
+        "description": "Complete the form with your payment information"
+    },
     "submit": {
         "label": "Submit"
     },
@@ -440,6 +450,9 @@
     "view": {
         "label": "View"
     },
+    "view_order": {
+        "label": "View Order"
+    },
     "view_all_products":{
         "label": "View All Products"
     },
@@ -471,6 +484,11 @@
         "to_write_review": {
             "title": "Write a Review",
             "description": " to write a review."
+        },
+        "thanks_for_purchase": {
+            "title": "Thank you for your purchase",
+            "description": "Your order has been placed successfully.",
+            "we_are_processing": "We are processing your order and will send you a confirmation email shortly."
         }
     },
     "success": {
@@ -481,6 +499,7 @@
         "product_created": "Product created",
         "product_deleted": "Product deleted",
         "product_updated": "Product updated",
+        "update_order_paid": "updateOrderToPaid was successful",
         "user_created": "User created",
         "user_deleted": "User deleted",
         "user_updated": "User updated",
@@ -504,6 +523,8 @@
         "paypal_payment_error": "Error occurred while processing PayPal payment",
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",
+        "unknown_error": "Unknown error occurred",
+        "update_order_paid": "updateOrderToPaid failed",
         "user_not_authenticated": "User not authenticated",
         "user_not_authorized": "User not authorized",
         "user_not_found": "User not found"

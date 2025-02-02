@@ -22,6 +22,11 @@ export const GLOBAL = {
                             PAYPAL_CLIENT_ID : process.env.PAYPAL_CLIENT_ID || 'sb',
                             PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET || '',
                           },
+  STRIPE                 :{
+                            STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '',
+                            STRIPE_SECRET_KEY     : process.env.STRIPE_SECRET_KEY || '',
+                            STRIPE_WEBHOOK_SECRET : process.env.STRIPE_WEBHOOK_SECRET || '',
+                          },
   PROTECTED_ROUTES       : process.env.NEXT_PUBLIC_PROTECTED_ROUTES || '',
   PURCHASE_FLOW          : ['user_sign_in', 'shipping', 'payment', 'place_order'],
   TITLE_SEPARATOR        : ' | ',

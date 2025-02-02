@@ -1,25 +1,28 @@
 'use client'
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import { parseAddress, createPayPalOrder, approvePayPalOrder, KEY, CASH_ON_DELIVERY } from 'lib'
+import { parseAddress, createPayPalOrder, approvePayPalOrder, CASH_ON_DELIVERY, PAYPAL, STRIPE,  toCents } from 'lib'
 import { PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { useToast } from 'hook'
+import { cn } from 'lib'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
-import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
+import { faPaypal, faCcPaypal, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { ArrowLeft } from 'lucide-react'
-import { Badge, Button } from 'component/ui'
+import { Badge, Button, Separator } from 'component/ui'
 import { PriceSummaryCard } from 'component/shared/card'
 import { MarkPaidBtn } from 'component/shared/btn'
 import OrderViewCard from './order-view-card'
 import MarkDeliveredBtn from 'component/shared/btn/mark-delivered-btn'
+import StripePayment from './stripe-payment'
 
 interface OrderViewTableProps {
-  order         : Order
-  paypalClientId: string
-  isAdmin       : boolean
+  order              : Order
+  paypalClientId     : string
+  isAdmin            : boolean
+  stripeClientSecret : string | null
 }
-const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmin }) => {
+const OrderViewTable: FC<OrderViewTableProps> = ({ order, isAdmin,  paypalClientId, stripeClientSecret }) => {
   const { orderitems, shippingAddress, paymentMethod, isDelivered, deliveredAt,  isPaid, paidAt } = order
   const { toast } = useToast()
 
@@ -27,12 +30,16 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmi
     const [{ isPending, isRejected }] = usePayPalScriptReducer()
     let status
     if (isPending) {
-      status = <Button variant={'secondary'} disabled={isPending}><i>{'Loading PayPal...'}</i></Button>
+      status = <Button variant={'secondary'} disabled={isPending}><i>{en.loading.processing}</i></Button>
     } else if (isRejected) {
       status = <Button variant={'destructive'} disabled>{'PayPal: Error Occured'}</Button>
     }
     return status
   }
+
+  const isPayPal         = paymentMethod === PAYPAL
+  const isStripe         = paymentMethod === STRIPE
+  const isCashOnDelivery = paymentMethod === CASH_ON_DELIVERY
 
   const handleCreatePayPalOrder = async () => {
     const response = await createPayPalOrder(order.id)
@@ -72,7 +79,7 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmi
             badgeLabel={en.paid_at.label}
             dateAt={paidAt!}
             notBadgeLabel={en.not_paid.label}
-            icon={<FontAwesomeIcon icon={paymentMethod === KEY.PAYPAL ? faPaypal : paymentMethod === KEY.STRIPE ? faStripe : faMoneyBill } />}
+            icon={<FontAwesomeIcon icon={isPayPal ? faPaypal : isStripe ? faStripe : faMoneyBill } className={isPayPal ? 'text-blue-700' : isStripe ? 'text-blue-700' : 'text-green-900'}  />}
           />
 
           {/* payment method card */}
@@ -92,15 +99,18 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, paypalClientId, isAdmi
         {/* prices summary */}
         <div>
           <PriceSummaryCard prices={order}>
-            {!isPaid && paymentMethod === KEY.PAYPAL && (
-              <div className="">
+          <Separator/>
+          <div className={'text-lg font-bold flex items-center'}><FontAwesomeIcon icon={isPayPal ? faCcPaypal : isStripe ? faStripe : faMoneyBill} className={cn('w-10 h-10 mr-2', isPayPal ? 'text-blue-700' : isStripe ? 'text-blue-700' : 'text-green-900')} /><span>{en.checkout.label}</span></div>
+            {!isPaid && isPayPal && (
+              <div>
                 <PayPalScriptProvider options={{clientId: paypalClientId}}>
                   <PrintPendingState/>
                   <PayPalButtons createOrder={handleCreatePayPalOrder} onApprove={handleApprovePayPalOrder}/>
                 </PayPalScriptProvider>
               </div>
             )}
-            {isAdmin && !isPaid && paymentMethod === CASH_ON_DELIVERY && <MarkPaidBtn orderId={order.id} />}
+            {isStripe && !isPaid && stripeClientSecret && <StripePayment priceInCents={toCents(order.totalPrice)} orderId={order.id} clientSecret={stripeClientSecret} />}
+            {isAdmin && !isPaid && isCashOnDelivery && <MarkPaidBtn orderId={order.id} />}
             {isAdmin && isPaid  && !isDelivered && <MarkDeliveredBtn orderId={order.id} />}
           </PriceSummaryCard>
         </div>

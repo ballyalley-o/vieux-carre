@@ -4,6 +4,7 @@
 export const LAYOUT = {}
 
 export const LOGO = {
+    LARGE        : 48,
     NAV_ADMIN_H  : 30,
     NAV_ADMIN_W  : 30,
     NAV_H        : 24,
