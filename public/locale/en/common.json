@@ -280,6 +280,9 @@
     "order_history": {
         "label": "Order History"
     },
+    "order_id": {
+        "label": "Order ID"
+    },
     "order_items": {
         "label": "Order Items"
     },
@@ -313,6 +316,9 @@
             "label": "Prices"
         }
     },
+    "price_paid": {
+        "label": "Price Paid"
+    },
     "product": {
         "label": "Product",
         "products": {
@@ -321,6 +327,9 @@
     },
     "purchase": {
         "label": "Purchase"
+    },
+    "purchase_date": {
+        "label": "Purchase Date"
     },
     "purchase_flow": {
         "user_sign_in": {
@@ -343,6 +352,12 @@
             "description": "Place your order",
             "completed": "Order Placed"
         }
+    },
+    "purchase_order": {
+        "label": "Purchase Order"
+    },
+    "purchase_receipt": {
+        "label": "Purchase Receipt"
     },
     "query": {
         "label": "Query"
@@ -452,6 +467,9 @@
     },
     "view_order": {
         "label": "View Order"
+    },
+    "view_order_receipt": {
+        "label": "View Order Receipt"
     },
     "view_all_products":{
         "label": "View All Products"
