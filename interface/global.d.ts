@@ -27,14 +27,15 @@ declare global {
   }
 
   export interface Order extends z.infer<typeof OrderSchema>  {
-    id         : string
-    createdAt  : Date
-    isPaid     : boolean
-    paidAt     : Date | null
-    isDelivered: boolean
-    deliveredAt: Date | null
-    orderitems : OrderItem[]
-    user       : { name: string, email: string }
+    id           : string
+    createdAt    : Date
+    isPaid       : boolean
+    paidAt       : Date | null
+    isDelivered  : boolean
+    deliveredAt  : Date | null
+    orderitems   : OrderItem[]
+    user         : { name: string, email: string },
+    paymentResult: PaymentResult
   }
 
   export interface Review extends z.infer<typeof ReviewSchema> {
