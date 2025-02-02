@@ -19,6 +19,7 @@ export const PATH_DIR = {
   },
   BAG             : join('bag'),
   CHECKOUT        : join('order', 'checkout'),
+  EMAIL_IMAGE     : (img: string) => joinServer(GLOBAL.SERVER_URL, img),
   MOCK            : join('__mock', 'sample-data.ts'),
   ORDER           : join('order'),
   ORDER_VIEW      : (id: string) => join('order', id),
