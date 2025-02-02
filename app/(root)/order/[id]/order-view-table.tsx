@@ -17,7 +17,7 @@ import MarkDeliveredBtn from 'component/shared/btn/mark-delivered-btn'
 import StripePayment from './stripe-payment'
 
 interface OrderViewTableProps {
-  order              : Order
+  order              : Omit<Order, 'paymentResult'>
   paypalClientId     : string
   isAdmin            : boolean
   stripeClientSecret : string | null
