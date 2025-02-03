@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { GLOBAL } from "vieux-carre"
 import { en } from "public/locale"
 import Stripe from "stripe"
-import { updateOrderToPaid } from "lib"
+import { updateOrderToPaid } from "lib/action/order.action"
 
 export async function POST(req: NextRequest) {
     const event = await Stripe.webhooks.constructEvent(await req.text(), req.headers.get('stripe-signature') as string, GLOBAL.STRIPE.STRIPE_WEBHOOK_SECRET as string)
