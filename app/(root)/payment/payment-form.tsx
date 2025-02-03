@@ -1,16 +1,18 @@
 'use client'
 
-import { FC, Fragment, useTransition } from 'react'
+import { FC, Fragment, useTransition, useState } from 'react'
 import { en } from 'public/locale'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useToast } from 'hook'
-import { PAYMENT_METHODS, PaymentMethodSchema, updateUserPaymentMethod } from 'lib'
+import { CASH_ON_DELIVERY, PAYMENT_METHODS, PaymentMethodSchema, PAYPAL, STRIPE, updateUserPaymentMethod } from 'lib'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaypal, faStripeS } from '@fortawesome/free-brands-svg-icons'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import { Form } from 'component/ui'
 import { LoadingBtn } from 'component/shared/btn'
-import { RHFRadioGroup } from 'component/shared/rhf'
 import { GLOBAL, PATH_DIR } from 'config'
 
 interface PaymentMethodFormProps {
@@ -18,6 +20,7 @@ interface PaymentMethodFormProps {
 }
 
 const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
+  const [loadingMethod, setLoadingMethod] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const { toast } = useToast()
@@ -26,7 +29,13 @@ const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
     defaultValues: { type: paymentMethod || GLOBAL.PAYMENT_METHOD_DEFAULT }
   })
 
-  const { control, handleSubmit } = form
+  const { handleSubmit } = form
+
+
+  const handleButtonClick = (method: string) => {
+    setLoadingMethod(method)
+    form.setValue('type', method)
+  }
 
   const onSubmit = async (data: z.infer<typeof PaymentMethodSchema>) => {
     startTransition(async () => {
@@ -39,6 +48,19 @@ const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
     })
   }
 
+  const renderPaymentMethodIcon = (method: string) => {
+    switch (method) {
+      case PAYPAL:
+        return <FontAwesomeIcon icon={faPaypal} className={'text-blue-600'} />
+      case STRIPE:
+        return <FontAwesomeIcon icon={faStripeS} className={'text-purple-700'} />
+      case CASH_ON_DELIVERY:
+        return <FontAwesomeIcon icon={faMoneyBill} className={'text-green-700'} />
+      default:
+        return <FontAwesomeIcon icon={faMoneyBill} className={'text-green-700'} />
+    }
+  }
+
   return (
     <Fragment>
       <div className="max-w-md mx-auto space-y-4 items-center">
@@ -46,8 +68,9 @@ const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
         <p className="text-sm text-muted-foreground">{en.payment_method.description}</p>
         <Form {...form}>
           <form method={'post'} onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <RHFRadioGroup control={control} name={'type'} group={PAYMENT_METHODS} />
-            <LoadingBtn isPending={isPending} label={en.continue.label} className={'w-full'} />
+            {PAYMENT_METHODS.map((_method, index) => (
+              <LoadingBtn key={index} isPending={loadingMethod === _method && isPending} type={'submit'}  label={_method} variant={'secondary'} className={`btn btn-primary w-full`}  onClick={() => handleButtonClick(_method)} icon={renderPaymentMethodIcon(_method)} />
+            ))}
           </form>
         </Form>
       </div>
