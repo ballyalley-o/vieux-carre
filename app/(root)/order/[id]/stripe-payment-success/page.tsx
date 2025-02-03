@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
+import { notFound, redirect } from 'next/navigation'
 import Stripe from 'stripe'
 import Image from 'next/image'
-import { notFound, redirect } from 'next/navigation'
 import { getOrderById } from 'lib'
 import { LinkBtn } from 'component/shared'
 import { PATH_DIR, ASSET_DIR } from 'config'
@@ -16,7 +16,7 @@ interface SuccessPageProps {
 }
 
 const SuccessPage: FC<SuccessPageProps> = async ({ params, searchParams }) => {
-    const { id }             = await params
+    const { id }                              = await params
     const { payment_intent: paymentIntentId } = await searchParams
 
     const order = await getOrderById(id)
@@ -32,6 +32,7 @@ const SuccessPage: FC<SuccessPageProps> = async ({ params, searchParams }) => {
     if (!isSuccess) {
         return redirect(PATH_DIR.ORDER_VIEW(id))
     }
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             <Image src={ASSET_DIR.LOGO_RED} width={48} height={48} alt="logo" priority />
@@ -44,4 +45,4 @@ const SuccessPage: FC<SuccessPageProps> = async ({ params, searchParams }) => {
     )
 }
 
-export default SuccessPage;
+export default SuccessPage
