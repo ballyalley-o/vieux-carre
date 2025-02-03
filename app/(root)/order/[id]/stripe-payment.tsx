@@ -16,16 +16,16 @@ interface StripePaymentProps {
 }
 
 const StripePayment: FC<StripePaymentProps> = ({ priceInCents, orderId, clientSecret }) => {
-  const stripePromise = loadStripe(GLOBAL.STRIPE.STRIPE_PUBLISHABLE_KEY)
+  const stripePromise          = loadStripe(GLOBAL.STRIPE.STRIPE_PUBLISHABLE_KEY)
   const { theme, systemTheme } = useTheme()
-  const THEME = themeToggle(theme, systemTheme)
+  const THEME                  = themeToggle(theme, systemTheme)
 
   const StripeForm = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading]           = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-    const [email, setEmail] = useState('')
-    const stripe = useStripe()
-    const elements = useElements()
+    const [email, setEmail]               = useState('')
+    const stripe                          = useStripe()
+    const elements                        = useElements()
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault()
