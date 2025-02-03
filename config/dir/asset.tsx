@@ -8,5 +8,5 @@ export const ASSET_DIR = {
   LOGO_BLK: '/image/svg/vieux-carre-blk.svg',
   LOGO_GRAY: '/image/svg/vieux-carre-grey.svg',
   TEST: '/image/svg/logo.svg',
-  LOGO_PRODUCTION: joinServer(GLOBAL.SERVER_URL, '/image/svg/vieux-carre-red.svg'),
+  LOGO_PRODUCTION: joinServer(GLOBAL.SERVER_URL, 'image/svg/vieux-carre-red.svg'),
 }
