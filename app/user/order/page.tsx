@@ -50,7 +50,7 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
       {
         id: 'delivered',
         value: (
-          <Badge variant={item.isDelivered ? 'default' : 'destructive'}>
+          <Badge variant={item.isDelivered ? 'secondary' : 'destructive'}>
             {item.isDelivered ? formatDateTime(item.deliveredAt!).dateTime : 'Not delivered'}
           </Badge>
         ),

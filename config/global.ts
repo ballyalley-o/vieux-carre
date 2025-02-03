@@ -37,6 +37,10 @@ export const GLOBAL = {
                             NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
                             DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
                           },
+  RESEND                :{
+                          RESEND_API_KEY: process.env.RESEND_API_KEY || '',
+                          SENDER_EMAIL  : process.env.SENDER_EMAIL || 'onboarding@resend.dev'
+                          },
   UPLOADTHING           : {
                             APP_ID             : process.env.UPLOADTHING_APP_ID,
                             TOKEN              : process.env.UPLOADTHING_TOKEN,

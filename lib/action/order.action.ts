@@ -5,6 +5,7 @@ import { GLOBAL } from 'vieux-carre'
 import { revalidatePath } from 'next/cache'
 import { Prisma } from '@prisma/client'
 import { prisma } from 'db/prisma'
+import { sendPurchaseReceipt } from 'email'
 import { paypal } from 'lib/paypal'
 import { CODE } from 'lib/constant'
 import { OrderSchema } from 'lib/schema'
@@ -170,6 +171,7 @@ export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: s
   const order = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true }})
   if (!order) throw new Error(en.error.order_not_found)
   if (order.isPaid) throw new Error(en.error.order_paid)
+
   await prisma.$transaction(async (tx) => {
     for (const item of order.orderitems) {
       await tx.product.update({ where: { id: item.productId }, data: { stock: { increment: -item.qty }}})
@@ -178,6 +180,18 @@ export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: s
   })
   const updatedOrder = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }} }})
   if (!updatedOrder) throw new Error(en.error.order_not_found)
+
+  sendPurchaseReceipt({
+    order: {
+      ...updatedOrder,
+      shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
+      paymentResult  : updatedOrder.paymentResult as PaymentResult,
+      user: {
+        ...updatedOrder.user,
+        name: updatedOrder.user.name ?? '',
+      },
+    },
+  })
 }
 
 export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPagination) {

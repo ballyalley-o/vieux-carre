@@ -23,4 +23,5 @@ export const ICON = {
 export const IMAGE = {
     UPLOAD_THUMBNAIL_H: 100,
     UPLOAD_THUMBNAIL_W: 100,
+    EMAIL_PUCHASE_ITEM: 40
 }

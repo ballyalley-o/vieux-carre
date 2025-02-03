@@ -17,7 +17,7 @@ import MarkDeliveredBtn from 'component/shared/btn/mark-delivered-btn'
 import StripePayment from './stripe-payment'
 
 interface OrderViewTableProps {
-  order              : Order
+  order              : Omit<Order, 'paymentResult'>
   paypalClientId     : string
   isAdmin            : boolean
   stripeClientSecret : string | null
@@ -99,8 +99,12 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, isAdmin,  paypalClient
         {/* prices summary */}
         <div>
           <PriceSummaryCard prices={order}>
-          <Separator/>
-          <div className={'text-lg font-bold flex items-center'}><FontAwesomeIcon icon={isPayPal ? faCcPaypal : isStripe ? faStripe : faMoneyBill} className={cn('w-10 h-10 mr-2', isPayPal ? 'text-blue-700' : isStripe ? 'text-blue-700' : 'text-green-900')} /><span>{en.checkout.label}</span></div>
+          {!isPaid && (
+            <Fragment>
+             <Separator/>
+              <div className={'text-lg font-bold flex items-center'}><FontAwesomeIcon icon={isPayPal ? faCcPaypal : isStripe ? faStripe : faMoneyBill} className={cn('w-10 h-10 mr-2', isPayPal ? 'text-blue-700' : isStripe ? 'text-blue-700' : 'text-green-900')} /><span>{en.checkout.label}</span></div>
+            </Fragment>
+            )}
             {!isPaid && isPayPal && (
               <div>
                 <PayPalScriptProvider options={{clientId: paypalClientId}}>

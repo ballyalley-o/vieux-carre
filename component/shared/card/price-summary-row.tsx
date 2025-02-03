@@ -2,14 +2,15 @@ import { FC } from "react"
 import { formatCurrency } from "lib"
 
 interface PriceSummaryRowProps {
-  label: string
-  price: string | number
+  label     : string
+  price     : string | number
+  className?: string
 }
-const PriceSummaryRow: FC<PriceSummaryRowProps> = ({ label, price }) => {
+const PriceSummaryRow: FC<PriceSummaryRowProps> = ({ label, price, className }) => {
   return (
     <div className="flex justify-between">
-      <div className="">{label}</div>
-      <div>{formatCurrency(price)}</div>
+      <div className={className}>{label}</div>
+      <div className={className}>{formatCurrency(price)}</div>
     </div>
   )
 }
