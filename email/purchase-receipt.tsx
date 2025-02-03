@@ -6,9 +6,6 @@ import { IMAGE } from '../config/layout'
 import { _mockData } from '../__mock'
 import { ASSET_DIR } from 'config'
 
-import * as dotenv from 'dotenv'
-dotenv.config()
-
 PurchaseReceiptEmail.PreviewProps = {
     order: {
         id    : crypto.randomUUID(),
@@ -78,10 +75,6 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                   <Text className={'text-sm mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap'}>{en.purchase_date.label}</Text>
                   <Text className={'text-sm font-bold mt-0 mr-4'}>{dateFormatter.format(order.createdAt)}</Text>
                 </Column>
-                <Column align={'right'}>
-                  <Text className={'text-sm mb-0 mr-4 text-gray-500 whitespace-nowrap text-nowrap '}>{en.price_paid.label}</Text>
-                  <Text className={'text-sm font-bold mt-0 mr-4'}>{formatCurrency(order.totalPrice)}</Text>
-                </Column>
               </Row>
             </Section>
             <Section className={'border border-solid border-gray-200 rounded-sm p-4 md:p-6 my-4'}>
@@ -112,7 +105,6 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                         </Column>
                     </Row>
                 ))}
-
             </Section>
           </Container>
         </Body>
