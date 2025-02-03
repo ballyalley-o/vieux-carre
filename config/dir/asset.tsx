@@ -1,5 +1,5 @@
 import { GLOBAL } from "vieux-carre"
-import { joinServer } from "lib"
+import { joinServer } from "lib/util/join"
 
 export const ASSET_DIR = {
   LOGO: '/image/svg/vieux-carre.svg',
