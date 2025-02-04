@@ -41,13 +41,13 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
 
     const BODY = (item: Product): SevenCellType => ({
         cells: [
-            { id: 'productId',  value: <TooltpGoBadge trigger={formatId(item.id.toString())} href={PATH_DIR.PRODUCT_VIEW(item.slug.toString())} content={`${en.go_to.label} this Product`} />, align: 'left' },
-            { id: 'name',  value: item.name, align: 'left' },
-            { id: 'price',  value: formatCurrency(item.price), align: 'left' },
-            { id: 'category',  value: item.category, align: 'center' },
-            { id: 'stock',  value: item.stock, align: 'center' },
+            { id: 'productId',  value: <TooltpGoBadge trigger={formatId(item.id.toString())} href={PATH_DIR.PRODUCT_VIEW(item.slug.toString())} content={`${en.go_to.label} this Product`} />, align: 'left', className: '' },
+            { id: 'name',  value: item.name, align: 'left', className: '' },
+            { id: 'price',  value: formatCurrency(item.price), align: 'left', className: '' },
+            { id: 'category',  value: item.category, align: 'center', className: '' },
+            { id: 'stock',  value: <p className={`${item.stock <= 0 ? 'text-red-500' : item.stock <= 3 ? 'text-red-500' : '' }` }>{item.stock}</p>, align: 'center' },
             { id: 'rating',  value: item.rating, align: 'center' },
-            { id: 'action',  value: (<Tooltp content={en.action.label}><DDMenu title={<Ellipsis size={10} />} menuItems={MENU_ITEMS(item)}/></Tooltp>), align: 'right' }
+            { id: 'action',  value: (<Tooltp content={en.action.label}><DDMenu title={<Ellipsis size={10} />} menuItems={MENU_ITEMS(item)}/></Tooltp>), align: 'right', className: '' }
         ]
     })
 
