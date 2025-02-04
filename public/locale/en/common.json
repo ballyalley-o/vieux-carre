@@ -12,6 +12,10 @@
     "admin": {
         "label": "Admin"
     },
+    "all_day_support": {
+        "label": "24/7 Support",
+        "description": "Get support whenever you need it"
+    },
     "already_have_account": {
         "label": "Already have an account?"
     },
@@ -77,6 +81,20 @@
     "date": {
         "label": "Date"
     },
+    "day": {
+        "label": "Day",
+        "days": {
+            "label": "Days"
+        }
+    },
+    "deal_has_ended": {
+        "label": "Deal has ended",
+        "description": "This deal has ended. Don't worry, we have more deals for you!"
+    },
+    "deal_of_the_month": {
+        "label": "Deal of the Month",
+        "description": "Every purchase comes with exclusive perks and offers, making this month a celebration of savvy choices and smart deals. Don't miss out!"
+    },
     "delete": {
         "label": "Delete"
     },
@@ -96,6 +114,10 @@
     "edit_review": {
         "label": "Edit Your Review",
         "description": "Edit your review"
+    },
+    "flexible_payment": {
+        "label": "Flexible Payment",
+        "description": "Pay with Credit Card, PayPal or Cash on Delivery"
     },
     "filtered_by": {
         "label": "Filtered by"
@@ -198,6 +220,10 @@
             "placeholder": "Enter your country"
         }
     },
+    "free_shipping": {
+        "label": "Free Shipping",
+        "description": "Free shipping on orders above "
+    },
     "generate": {
         "label": "Generate"
     },
@@ -209,6 +235,12 @@
     "go_shopping": "Go Shopping",
     "home": {
         "label": "Home"
+    },
+    "hour": {
+        "label": "Hour",
+        "hours": {
+            "label": "Hours"
+        }
     },
     "image": {
         "label": "Image",
@@ -233,6 +265,7 @@
         "processing": "Processing",
         "leaving": "Leaving",
         "loading": "Loading",
+        "loading_countdown": "Loading Countdown",
         "saving": "Saving",
         "updating": "Updating",
         "uploading": "Uploading"
@@ -243,6 +276,16 @@
     },
     "mark_delivered": {
         "label": "Mark as Delivered"
+    },
+    "minute":{
+        "label": "Minute",
+        "minutes": {
+            "label": "Minutes"
+        }
+    },
+    "money_back_guarantee": {
+        "label": "Money Back Guarantee",
+        "description": " days money back guarantee"
     },
     "navigation": {
         "account": {
@@ -381,6 +424,12 @@
     "search_product": {
         "label": "Search Product"
     },
+    "second": {
+        "label": "Second",
+        "seconds": {
+            "label": "Seconds"
+        }
+    },
     "select_by_category": {
         "label": "Select by Category"
     },
@@ -470,6 +519,12 @@
     },
     "view_order_receipt": {
         "label": "View Order Receipt"
+    },
+    "view_product": {
+        "label": "View Product",
+        "view_products": {
+            "label": "View Products"
+        }
     },
     "view_all_products":{
         "label": "View All Products"
