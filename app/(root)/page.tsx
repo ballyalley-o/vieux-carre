@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
 import { getLatestProducts, getAllFeaturedProducts } from 'lib'
 import { ProductList, ProductCarousel, ProductBtn } from 'component/shared'
+import { DealCountdown } from 'component/shared/promo'
+import { ServiceCard } from 'component/shared/card'
 import { GLOBAL } from 'config'
 
 const Homepage = async () => {
@@ -11,8 +13,8 @@ const Homepage = async () => {
      {featuredProducts.length > 0  && <ProductCarousel products={featuredProducts} />}
       <ProductList data={latestProducts} title={'Newest Arrivals'} limit={GLOBAL.LATEST_PRODUCT_QUANTITY} />
       <ProductBtn />
-      <h1 className="text-8xl font-bold">{'Shop.Go.'}</h1>
-      <h6 className="mt-4">This is the homepage.</h6>
+      <ServiceCard/>
+      <DealCountdown />
     </Fragment>
   )
 }

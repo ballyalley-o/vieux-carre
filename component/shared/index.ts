@@ -13,6 +13,7 @@ export { default as MarkPaidBtn } from './btn/mark-paid-btn'
 export { default as AdminOverviewCard } from './card/admin-overview-card'
 export { default as CheckoutPage } from './card/checkout-card'
 export { default as GridCard } from './card/grid-card'
+export { default as ServiceCard } from './card/service-card'
 // ⎿ custom
 export { default as ProcessFlow } from './custom/purchase-flow'
 // ⎿ dd-menu
@@ -48,6 +49,8 @@ export { default as ProductRating } from './product/product-rating'
 export { default as ProductCarousel } from './product/product-carousel'
 export { default as ProductPrice } from './product/product-price'
 export { default as ProductImage } from './product/product-image'
+// ⎿ promo
+export { default as DealCountdown } from './promo/deal-countdown'
 // ⎿ tooltp
 export { default as Tooltp } from './tooltp/tooltp'
 export { default as TooltpGoBadge } from './tooltp/tooltp-go-badge'

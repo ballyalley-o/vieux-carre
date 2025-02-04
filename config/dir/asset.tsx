@@ -1,5 +1,7 @@
 import { GLOBAL } from "vieux-carre"
-import { joinServer } from "lib/util/join"
+import { joinServer, join } from "lib/util/join"
+
+
 
 export const ASSET_DIR = {
   LOGO               : '/image/svg/vieux-carre.svg',
@@ -10,4 +12,5 @@ export const ASSET_DIR = {
   TEST               : '/image/svg/logo.svg',
   LOGO_PRODUCTION    : joinServer(GLOBAL.SERVER_URL, 'image/svg/vieux-carre-red.svg'),
   LOGO_PRODUCTION_PNG: joinServer(GLOBAL.SERVER_URL, 'image/png/vieux-carre-red.png'),
+  PROMO              : join('image', 'promo', 'promo.png'),
 }

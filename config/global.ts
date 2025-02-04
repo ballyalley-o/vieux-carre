@@ -37,6 +37,11 @@ export const GLOBAL = {
                             NO_SHIPPING_THRESHOLD: process.env.NEXT_PUBLIC_NO_SHIPPING_THRESHOLD || 100,
                             DEFAULT_SHIPPING_COST: process.env.NEXT_PUBLIC_DEFAULT_SHIPPING_COST || 10
                           },
+  PROMOTION              : {
+                            PROMOTION_CODE : process.env.PROMOTION_CODE || 'PROMO',
+                            PROMOTION_VALUE: process.env.PROMOTION_VALUE || 0.1,
+                            MONEY_BACK_DAYS: process.env.MONEY_BACK_DAYS || 30
+                          },
   RESEND                :{
                           RESEND_API_KEY: process.env.RESEND_API_KEY || '',
                           SENDER_EMAIL  : process.env.SENDER_EMAIL || 'onboarding@resend.dev'
