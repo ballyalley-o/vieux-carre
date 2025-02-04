@@ -1,0 +1,1 @@
+export { default as DealCountdown } from './deal-countdown'
