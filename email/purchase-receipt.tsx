@@ -63,7 +63,7 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
         <Head />
         <Body className={'font-sans bg-white'}>
           <Container className={'max-w-4xl'}>
-          <Img src={ASSET_DIR.LOGO_PRODUCTION} width={IMAGE.EMAIL_PUCHASE_ITEM} height={IMAGE.EMAIL_PUCHASE_ITEM} className={'rounded-sm'} alt={'logo'} />
+          <Img src={ASSET_DIR.LOGO_PRODUCTION_PNG} width={IMAGE.EMAIL_PUCHASE_ITEM} height={IMAGE.EMAIL_PUCHASE_ITEM} className={'rounded-sm'} alt={'logo'} />
             <Heading>{en.purchase_receipt.label}</Heading>
             <Section>
               <Row>
