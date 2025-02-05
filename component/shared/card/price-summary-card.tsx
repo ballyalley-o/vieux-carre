@@ -23,8 +23,7 @@ const PriceSummaryCard: FC<PriceSummaryCardProps> = ({ prices, children }) => {
   ]
 
   return (
-    <div>
-      <Card>
+      <Card className="border-none">
         <CardContent className={'p-4 gap-4 space-y-4'}>
           {PRICE_SUMMARY_CARD.map(({ label, price, className }, index) => (
             <PriceSummaryRowProps key={index} price={price} label={label} className={className} />
@@ -32,7 +31,6 @@ const PriceSummaryCard: FC<PriceSummaryCardProps> = ({ prices, children }) => {
           {children}
         </CardContent>
       </Card>
-    </div>
   )
 }
 
