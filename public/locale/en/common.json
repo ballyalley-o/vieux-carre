@@ -478,6 +478,9 @@
     "tax": {
         "label": "Tax"
     },
+    "toolbar": {
+        "label": "Toolbar"
+    },
     "total": {
         "label": "Total"
     },
