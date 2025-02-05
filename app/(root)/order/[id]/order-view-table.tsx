@@ -69,7 +69,7 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, isAdmin,  paypalClient
           </span>
       </div>
       {/* cards  */}
-      <div className="grid md:grid-cols-3 md:gap-5">
+      <div className="grid md:grid-cols-3 md:gap-5 grid-cols-1 sm:gap-0">
         <div className="col-span-2 space-y-4 overflow-x-auto">
           {/* payment method card */}
           <OrderViewCard
@@ -97,8 +97,8 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, isAdmin,  paypalClient
           <OrderViewCard title={en.order_items.label} orderItems={orderitems} showTable />
         </div>
         {/* prices summary */}
-        <div>
-          <PriceSummaryCard prices={order}>
+        <div className="mt-4">
+          <PriceSummaryCard prices={order} >
           {!isPaid && (
             <Fragment>
              <Separator/>

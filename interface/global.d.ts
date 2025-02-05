@@ -57,9 +57,10 @@ declare global {
   export type SalesData         = { month: string, totalSales: number }[]
 
   export interface TblCell {
-    id   : string
-    value: string | JSX.Element | number | ReactNode
-    align: string
+    id        : string
+    value     : string | JSX.Element | number | ReactNode
+    align     : string
+    className?: string
   }
 
   export interface TblCells<T extends number> {

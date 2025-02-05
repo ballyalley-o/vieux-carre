@@ -12,7 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
-    <Card className="w-full max-w-sm shadow-none">
+    <Card className="w-full max-w-sm sm:max-w-screen-sm shadow-none">
       <CardHeader className="p-0 items-center">
         <Link href={PATH_DIR.PRODUCT_VIEW(product.slug)}>
           <Image src={product.images[0]} alt={product.name} height={300} width={300} priority />

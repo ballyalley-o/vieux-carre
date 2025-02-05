@@ -1,5 +1,5 @@
 import { EllipsisVertical, ShoppingBagIcon, User2Icon } from 'lucide-react'
-import { LinkBtn, Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger, ThemeToggle } from 'component'
+import { LinkBtn, Sheet, SheetContent, SheetDescription, SheetTrigger, ThemeToggle } from 'component'
 import { PATH_DIR } from 'config'
 
 const MobileMenu = () => {
@@ -9,8 +9,7 @@ const MobileMenu = () => {
         <SheetTrigger className="align-middle">
           <EllipsisVertical />
         </SheetTrigger>
-        <SheetContent className="flex flex-col items-start">
-          <SheetTitle>{'Menu'}</SheetTitle>
+        <SheetContent className="flex flex-col items-start w-[100px]">
           <ThemeToggle />
           <LinkBtn href={PATH_DIR.BAG}>
             <ShoppingBagIcon />
