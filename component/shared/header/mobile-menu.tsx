@@ -6,7 +6,7 @@ import { ProtectedNavLink } from 'component/shared/protect'
 import { PATH_DIR } from 'config'
 import { signOutUser, charAtName, KEY } from 'lib'
 
-const MobileMenu = (user: User) => {
+const MobileMenu = ({ user }: { user: User }) => {
   const isAdmin = user?.role === KEY.ADMIN
   const renderUser = !user ? (
     <LinkBtn href={PATH_DIR.SIGN_IN}>
@@ -14,7 +14,7 @@ const MobileMenu = (user: User) => {
     </LinkBtn>
   ) : (
     <div className="flex flex-col space-y-2">
-      <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT}>{charAtName(user.name)}</ProtectedNavLink>
+      <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT}>{charAtName(user?.name ? user.name: 'User' )}</ProtectedNavLink>
       <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT}>{en.navigation.account.label}</ProtectedNavLink>
       <ProtectedNavLink href={PATH_DIR.USER.ORDER}>{en.order_history.label}</ProtectedNavLink>
       <Separator className="my-4" />
@@ -24,14 +24,13 @@ const MobileMenu = (user: User) => {
           <Separator className="my-2" />
         </Fragment>
       )}
-       <form action={signOutUser} className="w-full">
-          <Button className="w-full py-4 px-2 h-4 justify-start" variant={'ghost'}>
-            <LogOut /> {en.sign_out.label}
-          </Button>
-        </form>
+      <form action={signOutUser} className="w-full">
+        <Button className="w-full py-4 px-2 h-4 justify-start" variant={'ghost'}>
+          <LogOut /> {en.sign_out.label}
+        </Button>
+      </form>
     </div>
   )
-
 
   return (
     <nav className="md:hidden">
