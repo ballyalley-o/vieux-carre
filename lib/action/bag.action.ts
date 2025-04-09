@@ -15,11 +15,21 @@ const { TAX, NO_SHIPPING_THRESHOLD, DEFAULT_SHIPPING_COST } = GLOBAL.PRICES
 
 const TAG = 'BAG.ACTION'
 
+/**
+ * Calculates the prices for the items in the bag, including item prices, shipping cost, tax, and total price.
+ *
+ * @param {BagItem[]} items - An array of items in the bag, where each item has a price and quantity.
+ * @returns {Object} An object containing the calculated prices:
+ * - `itemsPrice`: The total price of the items, formatted to two decimal places.
+ * - `shippingPrice`: The shipping cost, formatted to two decimal places.
+ * - `taxPrice`: The tax amount, formatted to two decimal places.
+ * - `totalPrice`: The total price including items, shipping, and tax, formatted to two decimal places.
+ */
 const calculatePrices = (items: BagItem[]) => {
   const itemsPrice = float2(items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)),
     shippingPrice = float2(itemsPrice > Number(NO_SHIPPING_THRESHOLD) ? 0 : DEFAULT_SHIPPING_COST),
-    taxPrice = float2(itemsPrice * Number(TAX)),
-    totalPrice = float2(itemsPrice + shippingPrice + taxPrice)
+    taxPrice      = float2(itemsPrice * Number(TAX)),
+    totalPrice    = float2(itemsPrice + shippingPrice + taxPrice)
 
   const prices = {
     itemsPrice   : itemsPrice.toFixed(2),
@@ -30,6 +40,23 @@ const calculatePrices = (items: BagItem[]) => {
   return prices
 }
 
+/**
+ * Adds an item to the user's bag.
+ *
+ * This function handles adding an item to the user's shopping bag. It performs several checks:
+ * - Ensures a session bag ID exists.
+ * - Retrieves the user's session and ID.
+ * - Validates the provided item data against the `BagItemSchema`.
+ * - Checks if the product exists and is in stock.
+ * - If the bag does not exist, creates a new bag with the item.
+ * - If the bag exists, updates the quantity of the existing item or adds the new item.
+ * - Revalidates the product view path.
+ * - Returns a success response if the item is added or updated successfully.
+ *
+ * @param {BagItem} data - The item data to add to the bag.
+ * @returns {Promise<Response>} - A promise that resolves to a success or error response.
+ * @throws {Error} - Throws an error if the session bag ID is not found, the product is not found, or the product is out of stock.
+ */
 export async function addItemToBag(data: BagItem) {
   try {
     const sessionBagId = (await cookies()).get(KEY.SESSION_BAG_ID)?.value
