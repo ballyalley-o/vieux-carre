@@ -1,8 +1,38 @@
-import { EllipsisVertical, ShoppingBagIcon, User2Icon } from 'lucide-react'
-import { LinkBtn, Sheet, SheetContent, SheetDescription, SheetTrigger, ThemeToggle } from 'component'
+import { Fragment } from 'react'
+import { en } from 'public/locale'
+import { EllipsisVertical, ShoppingBagIcon, User2Icon, LogOut } from 'lucide-react'
+import { LinkBtn, Sheet, Button, SheetContent, Separator, SheetDescription, SheetTrigger, ThemeToggle } from 'component'
+import { ProtectedNavLink } from 'component/shared/protect'
 import { PATH_DIR } from 'config'
+import { signOutUser, charAtName, KEY } from 'lib'
 
-const MobileMenu = () => {
+const MobileMenu = (user: User) => {
+  const isAdmin = user?.role === KEY.ADMIN
+  const renderUser = !user ? (
+    <LinkBtn href={PATH_DIR.SIGN_IN}>
+      <User2Icon />
+    </LinkBtn>
+  ) : (
+    <div className="flex flex-col space-y-2">
+      <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT}>{charAtName(user.name)}</ProtectedNavLink>
+      <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT}>{en.navigation.account.label}</ProtectedNavLink>
+      <ProtectedNavLink href={PATH_DIR.USER.ORDER}>{en.order_history.label}</ProtectedNavLink>
+      <Separator className="my-4" />
+      {isAdmin && (
+        <Fragment>
+          <ProtectedNavLink href={PATH_DIR.ADMIN.OVERVIEW}>{en.admin.label}</ProtectedNavLink>
+          <Separator className="my-2" />
+        </Fragment>
+      )}
+       <form action={signOutUser} className="w-full">
+          <Button className="w-full py-4 px-2 h-4 justify-start" variant={'ghost'}>
+            <LogOut /> {en.sign_out.label}
+          </Button>
+        </form>
+    </div>
+  )
+
+
   return (
     <nav className="md:hidden">
       <Sheet>
@@ -14,9 +44,7 @@ const MobileMenu = () => {
           <LinkBtn href={PATH_DIR.BAG}>
             <ShoppingBagIcon />
           </LinkBtn>
-          <LinkBtn href={PATH_DIR.SIGN_IN}>
-            <User2Icon />
-          </LinkBtn>
+          {renderUser}
           <SheetDescription></SheetDescription>
         </SheetContent>
       </Sheet>
