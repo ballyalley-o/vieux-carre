@@ -11,10 +11,11 @@ declare global {
   }
 
   export interface User extends UserBase {
-    id       : string
-    role     : string
-    updatedAt: Date
-    createdAt: Date
+    id        : string
+    role      : string
+    avatar   ?: string
+    updatedAt : Date
+    createdAt : Date
   }
 
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
