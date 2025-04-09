@@ -1,4 +1,4 @@
-import { GLOBAL } from "config/global"
+import { GLOBAL } from "vieux-carre"
 import { SystemLogger } from "lib/app-logger"
 
 const TAG    = "UTIL_FORMATTER"
