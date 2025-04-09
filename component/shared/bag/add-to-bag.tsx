@@ -53,7 +53,6 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   ) : (
     <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
       {isPending ? (
-        // <Shell className="loader" />
         <EllipsisLoader />
       ) : (
         <Fragment>
