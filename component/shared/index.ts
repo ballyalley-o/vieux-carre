@@ -23,6 +23,8 @@ export { default as DeleteDialg } from './dialg/delete-dialg'
 export { default as ProtectedNavDialg } from './protect/protected-nav-dialg'
 // ⎿ drwr
 export { default as CategoryDrwr } from './drwr/category-drwr'
+// ⎿ form
+export { default as AccountForm } from './form/account-form'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header
@@ -35,8 +37,6 @@ export { default as UserMenu } from './header/user-menu'
 // ⎿ loader
 export { default as Loader } from './loader/loader'
 export { default as EllipsisLoader } from './loader/ellipsis-loader'
-// ⎿ form
-export { default as AccountForm } from './form/account-form'
 // ⎿ no
 export { default as NoResult } from './no/no-result'
 // ⎿ pagination
