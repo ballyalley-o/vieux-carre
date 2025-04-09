@@ -63,7 +63,7 @@ export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, ca
 
   const data = await prisma.product.findMany({
     where  : { ...queryFilter, ...categoryFilter, ...priceFilter, ...ratingFilter },
-    orderBy: sort === KEY.LOWEST ? { price: 'asc' } : sort === KEY.HIGHEST ? { price : 'desc'} : sort === KEY.RATING ? { rating: 'desc' } : { createdAt: 'desc' },
+    orderBy: sort === KEY.LOWEST ? { price: 'asc' } : sort === KEY.HIGHEST ? { price : 'desc' } : sort === KEY.RATING ? { rating: 'desc' } : { createdAt: 'desc' },
     skip   : (page - 1) * limit,
     take   : limit
   })
