@@ -36,10 +36,10 @@ export const config = {
           const isMatch = await compare(credentials.password as string, user.password)
           if (isMatch) {
             return {
-              id: user.id,
-              name: user.name,
+              id   : user.id,
+              name : user.name,
               email: user.email,
-              role: user.role
+              role : user.role
             }
           }
         }
@@ -49,7 +49,7 @@ export const config = {
   ],
   callbacks: {
     async session({ session, user, trigger, token }: any) {
-      session.user.id = token.sub
+      session.user.id   = token.sub
       session.user.role = token.role
       session.user.name = token.name
       if (trigger === 'update') {
