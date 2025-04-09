@@ -1,5 +1,5 @@
 export * from './capitalize'
-export * from './chart-at'
+export * from './char-at'
 export * from './converter'
 export * from './delay'
 export * from './error-handler'
