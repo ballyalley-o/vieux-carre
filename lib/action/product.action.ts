@@ -4,12 +4,50 @@ import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { Prisma } from '@prisma/client'
 import { prisma } from 'db/prisma'
+import { UTApi } from 'uploadthing/server'
 import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
 import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
 
 const TAG = 'PRODUCT.ACTION'
 
+export async function deleteProductImage(currentImages: string[], index: number) {
+  const getFileKeyFromUrl = (url: string) => {
+    try {
+      const urlParts = url.split('/')
+      return urlParts[urlParts.length - 1].split('-')[0]
+    } catch (error) {
+      console.error('Error extracting the file Key: ', error)
+      return null
+    }
+  }
+
+  if (currentImages?.length > 0) {
+    try {
+      const imageToDelete = currentImages[index]
+      const fileKey = getFileKeyFromUrl(imageToDelete)
+      if (fileKey) {
+        const deleteFile = async () => {
+          try {
+            const utapi = new UTApi()
+            await utapi.deleteFiles(fileKey)
+            return { success: true }
+          } catch (error) {
+            console.error('Error deleting file: ', error)
+            return { success: false, error }
+          }
+        }
+        const result = await deleteFile()
+        return result
+      } else {
+        return { success: false, error: 'failed' }
+      }
+    } catch (error) {
+      console.error('Error in handleDelete: ', error)
+      return { success: false, error }
+    }
+  }
+}
 
 /**
  * Fetches the latest products from the database.
