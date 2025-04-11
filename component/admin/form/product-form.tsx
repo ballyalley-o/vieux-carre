@@ -102,7 +102,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
               <RHFCheckbox control={control} name={'isFeatured'} formKey={'featured'} />
           </div>
           <div className="upload-field gap-4">
-            <BannerUploadField isFeatured={isFeatured} banner={banner!} onClientUploadComplete={(res: { url: string }[]) => { form.setValue('banner', res[0].url ) }}  />
+            <BannerUploadField isFeatured={isFeatured} banner={banner!} form={form} onClientUploadComplete={(res: { url: string }[]) => { form.setValue('banner', res[0].url ) }}  />
           </div>
           <div className="flex justify-end">
             <LoadingBtn
