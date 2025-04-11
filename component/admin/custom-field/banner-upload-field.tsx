@@ -1,23 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
-import { FC, Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import Image from 'next/image'
+import { z, ZodSchema } from 'zod'
 import { useToast } from 'hook'
+import { UseFormReturn, PathValue, Path } from 'react-hook-form'
 import { cn } from 'lib'
-import { UploadDropzone } from 'lib/uploadthing'
-import { CloudUpload, File } from 'lucide-react'
-import { Button, Card, CardContent, FormLabel, Progress } from 'component/ui'
+import { deleteProductImage } from 'lib/action'
+import { UploadButton } from 'lib/uploadthing'
+import { CloudUpload, File, X } from 'lucide-react'
+import { Button, Card, CardContent, FormLabel, Progress, FormControl } from 'component/ui'
 import { EllipsisLoader } from 'component/shared/loader'
 
-interface BannerUploadFieldProps {
-    isFeatured            : boolean
-    banner                : string
-    onClientUploadComplete: (res: { url: string }[]) => void
+interface BannerUploadFieldProps<TSchema extends ZodSchema>{
+  isFeatured            : boolean
+  banner                : string
+  onClientUploadComplete: (res: { url: string }[]) => void
+  form                  : UseFormReturn<z.infer<TSchema>>
 }
-const BannerUploadField: FC<BannerUploadFieldProps> = ({ isFeatured, banner, onClientUploadComplete }) => {
+const BannerUploadField = <TSchema extends ZodSchema>({ isFeatured, banner, onClientUploadComplete, form }: BannerUploadFieldProps<TSchema>) => {
     const [uploadProgress, setUploadProgress] = useState<number>(0)
     const [selectedFile, setSelectedFile]     = useState<string>('')
     const { toast }                           = useToast()
@@ -61,40 +65,43 @@ const BannerUploadField: FC<BannerUploadFieldProps> = ({ isFeatured, banner, onC
       ),
         allowedContent: GLOBAL.UPLOADTHING.ALLLOWED_IMAGE_TYPE
     }
+
+    const handleDelete = async (index: number) => {
+      const result = await deleteProductImage(banner, index)
+      if (result?.success) {
+        form.setValue('banner' as Path<z.infer<TSchema>>, '' as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
+        toast({ description: 'File deleted' })
+      } else {
+        toast({ variant: 'destructive', description: 'Failed to delete file from server' })
+      }
+    }
     return (
       <Fragment>
         {isFeatured && <FormLabel>{en.form.banner.label}</FormLabel>}
         <Card className={cn('mt-2', isFeatured ? 'visible' : 'hidden')}>
           <CardContent className={'space-y-2 mt-5 min-h-48'}>
             {isFeatured && banner && (
-              <Image src={banner} alt={'featured-image'} width={1920} height={680} className={'w-full object-cover object-center rounded-sm'} />
+              <div className={'relative'}>
+                <X size={20} color={'red'} className={'absolute top-0 right-0 cursor-pointer'} onClick={() => handleDelete(0)} />
+                <Image src={banner} alt={'featured-image'} width={1920} height={680} className={'w-full object-cover object-center rounded-sm'} />
+              </div>
             )}
             {isFeatured && !banner && (
-              <UploadDropzone
-                content={uploadDropzoneConfig}
-                endpoint={'imageUploader'}
-                onClientUploadComplete={(res) => {
-                  setUploadProgress(0);
-                  setSelectedFile('');
-                  onClientUploadComplete(res);
-                }}
-                onUploadProgress={(progress) => {
-                  setUploadProgress(Math.round(progress))
-                }}
-                onUploadError={(error: Error) => {
-                  setUploadProgress(0)
-                  setSelectedFile('')
-                  toast({ variant: 'destructive', description: error.message })
-                }}
-                onBeforeUploadBegin={(files) => {
-                  if (files.length > 0) {
-                    setSelectedFile(files[0].name);
-                  }
-                return files;
-              }}
-                className={'border-none align-center'}
-                appearance={{ button: 'px-2 bg-transparent' }}
-              />
+              <FormControl>
+                <UploadButton
+                  endpoint={'imageUploader'}
+                  onClientUploadComplete={(res) => {
+                    setUploadProgress(0)
+                    setSelectedFile('')
+                    onClientUploadComplete(res)
+                  }}
+                  onUploadError={(error: Error) => {
+                    toast({ variant: 'destructive', description: error.message })
+                  }}
+                  className={'border-none'}
+                  appearance={{ button: 'px-2 bg-transparent', container: 'm-auto' }}
+                />
+              </FormControl>
             )}
           </CardContent>
         </Card>
