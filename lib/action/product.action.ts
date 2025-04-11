@@ -11,7 +11,7 @@ import { PATH_DIR } from 'config'
 
 const TAG = 'PRODUCT.ACTION'
 
-export async function deleteProductImage(currentImages: string[], index: number) {
+export async function deleteProductImage(currentImages: string[] | string, index: number) {
   const getFileKeyFromUrl = (url: string) => {
     try {
       const urlParts = url.split('/')
@@ -46,6 +46,22 @@ export async function deleteProductImage(currentImages: string[], index: number)
       console.error('Error in handleDelete: ', error)
       return { success: false, error }
     }
+  } else {
+     const fileKey = getFileKeyFromUrl(currentImages as string)
+      if (fileKey) {
+        const deleteFile = async () => {
+          try {
+            const utapi = new UTApi()
+            await utapi.deleteFiles(fileKey)
+            return { success: true }
+          } catch (error) {
+            console.error('Error deleting file: ', error)
+            return { success: false, error }
+          }
+        }
+        const result = await deleteFile()
+        return result
+      }
   }
 }
 
