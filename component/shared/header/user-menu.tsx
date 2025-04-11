@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Link from 'next/link'
 import { en } from 'public/locale'
 import { auth } from 'auth'
-import { signOutUser, charAtName, KEY } from 'lib'
+import { signOutUser, charAtName, KEY, cn } from 'lib'
 import { User2Icon, LogOut } from 'lucide-react'
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, Separator } from 'component/ui'
 import { ProtectedNavLink } from 'component/shared/protect'
@@ -27,7 +27,7 @@ const UserMenu = async () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex items-center">
-            <Button variant="ghost" className="relative w-8 h-8 rounded-sm ml-2 flex items-center hover:font-bold justify-center bg-gray-300">
+            <Button variant="ghost" className={cn("relative w-8 h-8 rounded-sm ml-2 flex items-center hover:font-bold justify-center bg-accent")}>
               {session?.user?.name ? charAtName(session.user.name) : <User2Icon />}
             </Button>
           </div>
