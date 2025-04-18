@@ -13,7 +13,7 @@ export type SessionStrategyType = 'jwt' | 'database' | undefined
 export const config = {
   pages: {
     signIn: '/sign-in',
-    error: '/sign-in'
+    error : '/sign-in'
   },
   session: {
     strategy: 'jwt' as const,
@@ -22,7 +22,7 @@ export const config = {
   providers: [
     CredentialsProvider({
       credentials: {
-        email: { type: 'email' },
+        email   : { type: 'email' },
         password: { type: 'password' }
       },
       async authorize(credentials) {
