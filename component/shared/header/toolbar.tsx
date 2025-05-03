@@ -14,7 +14,7 @@ const Toolbar = async () => {
         <BagIconWithBadge itemCount={count}/>
         <UserMenu />
       </nav>
-      <MobileMenu user={user as User} />
+      <MobileMenu user={user as User} count={count} />
     </div>
   )
 }
