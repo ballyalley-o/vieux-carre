@@ -13,9 +13,9 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Card className="w-full max-w-sm sm:max-w-screen-sm shadow-none">
-      <CardHeader className="p-0 items-center h-96 overflow-hidden">
+      <CardHeader className="p-0 items-center h-60 md:h-96 overflow-hidden">
         <Link href={PATH_DIR.PRODUCT_VIEW(product.slug)}>
-          <Image src={product.images[0]} alt={product.name} height={300} width={300} className={'object-cover object-center h-96'} priority />
+          <Image src={product.images[0]} alt={product.name} height={300} width={300} className={'object-cover object-center h-60 md:h-96'} priority />
         </Link>
       </CardHeader>
       <CardContent className="p-4 grid gap-4">
