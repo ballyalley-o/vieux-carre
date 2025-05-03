@@ -72,12 +72,13 @@ const DealCountdown = () => {
           <h3 className={'text-3xl font-bold'}>{title}</h3>
           <p>{description}</p>
           {children}
+          <div className={cn('my-4 md:text-left text-center')}>
+            <LinkBtn variant={'secondary'} href={PATH_DIR.SEARCH}>
+              {en.view_product.view_products.label}
+            </LinkBtn>
+          </div>
         </div>
-        <div className={cn('my-4', hasEnded ? 'text-center' : 'text-center')}>
-          <LinkBtn variant={'secondary'} href={PATH_DIR.SEARCH}>
-            {en.view_product.view_products.label}
-          </LinkBtn>
-        </div>
+
         <div className={cn('flex justify-center sm:w-full', hasEnded && 'opacity-20')}>
           <Image src={ASSET_DIR.PROMO} alt={'promotion'} width={200} height={300} />
         </div>
