@@ -88,7 +88,7 @@ const SignUpForm = () => {
         <div className="text-sm text-center text-muted-foreground">
           {en.already_have_account.label}
           <Link href={PATH_DIR.SIGN_IN} target="_self" className="link font-bold">
-            {en.sign_in.label}
+            &nbsp;{en.sign_in.label}
           </Link>
         </div>
       </div>
