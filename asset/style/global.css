@@ -23,7 +23,7 @@
   }
 
   .wrapper {
-    @apply max-w-7xl lg:mx-auto p-5 md:px-10 w-full;
+    @apply max-w-[90rem] lg:mx-auto p-5 md:px-10 w-full;
   }
 
   .flex-start {
