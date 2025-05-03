@@ -21,7 +21,9 @@ export default function UserLayout({ children }: Readonly<{ children: ReactNode 
           </div>
         </div>
       </header>
-      <div className="flex-1 space-y-4 p-8 pt-6 container mx-auto">{children}</div>
+      <div className="flex-1 space-y-4 p-8 pt-6 container mx-auto">
+        <div className={'space-y-8 max-w-7xl mx-auto'}>{children}</div>
+      </div>
     </header>
   )
 }
