@@ -93,7 +93,7 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
               ))}
             </div>
           </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {products.data.length <=0  && <NoResult data={products.data.length} />}
             {products.data.map((product, index) => (
                 <ProductCard key={index} product={product} />
