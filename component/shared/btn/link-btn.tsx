@@ -1,6 +1,6 @@
 import { ReactNode, FC } from 'react'
-import Link from 'next/link'
 import { Button } from 'component/ui'
+import { NoScrollBtn } from 'component/shared/btn'
 
 interface LinkBtnProps {
   href      : string
@@ -13,7 +13,7 @@ interface LinkBtnProps {
 const LinkBtn: FC<LinkBtnProps> = ({ href, children, variant = 'ghost', className, size = 'default' }) => {
   return (
     <Button asChild variant={variant} className={className} size={size}>
-      <Link href={href}>{children}</Link>
+      <NoScrollBtn href={href}>{children}</NoScrollBtn>
     </Button>
   )
 }
