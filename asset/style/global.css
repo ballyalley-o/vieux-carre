@@ -26,6 +26,10 @@
     @apply max-w-[90rem] lg:mx-auto p-5 md:px-10 w-full;
   }
 
+  .layout-wrapper {
+    @apply max-w-[90rem] mx-auto space-y-8;
+  }
+
   .flex-start {
     @apply flex justify-start items-center;
   }
