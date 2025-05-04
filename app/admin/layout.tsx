@@ -17,9 +17,9 @@ export default function AdminLayout({ children }: Readonly<{ children: ReactNode
           <Link href={PATH_DIR.ROOT} className={'w-22'}>
             <Image src={ASSET_DIR.LOGO_BLK} height={LOGO.NAV_H} width={LOGO.NAV_W} alt={GLOBAL.APP_NAME} />
           </Link>
-          <MainNav className={'mx-6'} />
+          <MainNav className={'mx-6 hidden md:block'} />
           <div className="ml-auto items-center flex">
-            <div>
+            <div className={'mx-4'}>
               <AdminSearch />
             </div>
             <Toolbar moduleType={MODULE} />
