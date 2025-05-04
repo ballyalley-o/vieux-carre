@@ -8,6 +8,7 @@ import { ASSET_DIR, PATH_DIR } from 'config'
 import { LOGO } from 'config/layout'
 import MainNav from './main-nav'
 
+const MODULE = 'admin'
 export default function AdminLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <header className="flex  h-screen flex-col">
@@ -21,7 +22,7 @@ export default function AdminLayout({ children }: Readonly<{ children: ReactNode
             <div>
               <AdminSearch />
             </div>
-            <Toolbar />
+            <Toolbar moduleType={MODULE} />
           </div>
         </div>
       </header>

@@ -7,6 +7,7 @@ import { ASSET_DIR, PATH_DIR } from 'config'
 import { LOGO } from 'config/layout'
 import MainNav from './main-nav'
 
+const MODULE = 'user'
 export default function UserLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <header className="flex  h-screen flex-col">
@@ -17,7 +18,7 @@ export default function UserLayout({ children }: Readonly<{ children: ReactNode 
           </Link>
           <MainNav className={'mx-6'} />
           <div className="ml-auto items-center flex">
-            <Toolbar />
+            <Toolbar moduleType={MODULE} />
           </div>
         </div>
       </header>
