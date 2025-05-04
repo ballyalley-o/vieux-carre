@@ -335,6 +335,9 @@
     "order_overview": {
         "label": "Order Overview"
     },
+    "out_of_stock": {
+        "label": "Out of Stock"
+    },
     "overview": {
         "label": "Overview"
     },

@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { en } from 'public/locale'
-import { NAV_CONFIG } from 'config/nav-config'
+import { NAV_CONFIG, NAV_CONFIG_ADMIN } from 'config/nav-config'
 import { PATH_DIR } from 'config/dir'
 import { EllipsisVertical, User2Icon, LogOut } from 'lucide-react'
 import { LinkBtn, Sheet, Button, SheetContent, Separator, SheetDescription, SheetTrigger } from 'component'
@@ -8,8 +8,16 @@ import { ProtectedNavLink } from 'component/shared/protect'
 import { BagNavLink } from 'component/shared/bag'
 import { signOutUser, KEY } from 'lib'
 
-const MobileMenu = ({ user, count }: { user: User, count: number }) => {
+const MobileMenu = ({ user, count, moduleType }: { user: User, count: number, moduleType: ModuleType }) => {
   const isAdmin = user?.role === KEY.ADMIN
+
+  const NAV_CONFIG_MAP = {
+    admin: NAV_CONFIG_ADMIN,
+    user : NAV_CONFIG
+  }
+
+  const navConfig = NAV_CONFIG_MAP[moduleType] || NAV_CONFIG
+
   const renderUser = !user ? (
     <LinkBtn href={PATH_DIR.SIGN_IN}>
       <User2Icon /> {en.sign_in.label}
@@ -40,7 +48,7 @@ const MobileMenu = ({ user, count }: { user: User, count: number }) => {
         <SheetContent className={"w-[200px] special-elite"}>
           <div className={'flex flex-col h-full justify-between'}>
             <div className={'flex flex-col space-y-4 mt-5'}>
-                {NAV_CONFIG.map(({ title, href }, index) => (
+                {navConfig.map(({ title, href }, index) => (
                   <ProtectedNavLink key={index}href={href}>{title}</ProtectedNavLink>
                 ))}
                  <Separator className="my-4" />

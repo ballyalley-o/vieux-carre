@@ -19,7 +19,7 @@ const Header = () => {
         <div className="hidden md:block">
           <Search/>
         </div>
-        <Toolbar />
+        <Toolbar moduleType={'user'} />
       </div>
     </header>
   )

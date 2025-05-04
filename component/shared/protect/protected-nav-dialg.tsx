@@ -12,7 +12,7 @@ const ProtectedNavDialg: FC<ProtectedNavDialgProps> = ({ open, setOpen, confirme
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
-      <AlertDialogTitle>{'TRIGGERD in LINK'  + en.message.default.title}</AlertDialogTitle>
+      <AlertDialogTitle>{en.message.default.title}</AlertDialogTitle>
         <p>{en.message.unsaved_changes.description}</p>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => setOpen(false)}>{en.stay.label}</AlertDialogCancel>
