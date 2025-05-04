@@ -20,6 +20,8 @@ declare global {
 
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
 
+  export type ModuleType = 'admin' | 'user'
+
   export interface Product extends z.infer<typeof ProductSchema> {
     id        : string
     rating    : string
