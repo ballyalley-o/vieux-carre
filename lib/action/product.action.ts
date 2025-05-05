@@ -181,7 +181,7 @@ export async function updateProduct(data:UpdateProduct) {
 
     await prisma.product.update({ where: {id: product.id }, data: product })
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_created, CODE.CREATED, TAG, '', product)
+    return SystemLogger.response(en.success.product_updated, CODE.OK, TAG, '', product)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
