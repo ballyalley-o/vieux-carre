@@ -20,6 +20,8 @@
 # production
 /build
 
+vieux-carre-user_accessKeys.csv
+
 # misc
 .DS_Store
 *.pem
