@@ -79,7 +79,19 @@ const DealCountdown = () => {
           </div>
         </div>
 
-        <div className={cn('flex justify-center sm:w-full', hasEnded && 'opacity-20')}>
+        <div className={cn('flex justify-center sm:w-full h-auto', hasEnded && 'opacity-20')}>
+          {/* TODO: #37 instead of a static image here, get the deal of the month image.
+              its starts with creating an action to fetch the product who has the deal of the month flag. (only one product should be the deal of the month.),
+              use te index image of that product.
+                if theres more than one deal of the month flag,
+                  throw a dialog to ask if admin wants to replace the deal of the month
+                    if yes,
+                      look for the previous deal of the month and toggle off the deal of the month flag, and toggle the new deal of the month
+                    if no
+                      return
+                else
+                  toggle the deal of the month flag
+              it should ask for how much discount the price would be. */}
           <Image src={ASSET_DIR.PROMO} alt={'promotion'} width={200} height={300} />
         </div>
       </section>

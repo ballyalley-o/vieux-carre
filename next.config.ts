@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'utfs.io',
-        port    : ''
+        hostname: 'vieux-carre-ups-prod.s3.ap-southeast-2.amazonaws.com',
+        pathname: '/**'
       }
     ]
   }
