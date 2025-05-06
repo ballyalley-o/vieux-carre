@@ -10,7 +10,7 @@ import { X } from 'lucide-react'
 import { FormField, FormLabel, FormMessage, FormItem, FormControl } from 'component/ui/form'
 import { Card, CardContent } from 'component/ui/card'
 import { IMAGE } from 'config/layout'
-import { UploadButton } from 'lib/uploadthing'
+import { PATH_DIR } from 'config'
 
 type FormKeyLocale = keyof typeof en.form
 
@@ -27,45 +27,76 @@ const RHFFormDropzone = <TSchema extends ZodSchema>({ control, name, images, for
 
   const handleUploadComplete = (res: { url: string }[]) => {
     const currentImages = form.getValues(name) as string[]
-    form.setValue(name, [...currentImages, res[0].url] as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
+    form.setValue(name, [...currentImages, ...res.map((r) => r.url)] as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
   }
 
   const handleDelete = async (index: number) => {
     const currentImages = form.getValues(name) as string[]
-    const result = await deleteProductImage(currentImages, index)
+    const result        = await deleteProductImage({ currentImages, index })
     if (result?.success) {
       const updatedImages = currentImages.filter((_, _i) => _i != index)
       form.setValue(name, updatedImages as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
-      toast({ description: 'File deleted' })
+      toast({ description: en.success.image_deleted })
     } else {
-      toast({ variant: 'destructive', description: 'Failed to delete file from server' })
+      toast({ variant: 'destructive', description: en.error.unable_delete })
     }
   }
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+     const files = e.target.files
+     if (!files) return
+     const urls: { url: string }[] = []
+     for (const file of files) {
+       const formData = new FormData()
+       formData.append('file', file)
+       try {
+         const res = await fetch(PATH_DIR.UPLOAD, {
+           method: 'POST',
+           body  : formData
+         })
+         if (!res.ok) throw new Error(en.error.unable_delete)
+         const data = await res.json()
+         urls.push({ url: data.url })
+       } catch (error: unknown) {
+         toast({ variant: 'destructive', description: (error as AppError).message })
+       }
+     }
+     if (urls.length) handleUploadComplete(urls)
+  }
+
   return (
     <FormField
-        control={control}
-        name={name}
-        render={() => (
-        <FormItem className={"w-full"}>
-            <FormLabel>{en.form[formKey].label}</FormLabel>
-                <Card>
-                    <CardContent className={'space-y-2 mt-2 min-h-48'}>
-                        <div className="flex-start space-x-2">
-                            {images.map((image, index) => (
-                                <div key={index} className={'relative'}>
-                                  <X size={20} color={'red'} className={'absolute top-0 right-0 cursor-pointer'} onClick={() => handleDelete(index)}/>
-                                  <Image key={index} src={image} height={IMAGE.UPLOAD_THUMBNAIL_H} width={IMAGE.UPLOAD_THUMBNAIL_W} alt={'product-name'} className={'w-20 h-20 object-cover rounded-sm'}  />
-                                </div>
-                            ))}
-                            <FormControl>
-                              <UploadButton endpoint={'imageUploader'} onClientUploadComplete={handleUploadComplete} onUploadError={(error: Error) => { toast({ variant: 'destructive', description: error.message })}} className={'border-none'} appearance={{  button: 'px-2 bg-transparent', container: 'm-auto' }} />
-                            </FormControl>
-                        </div>
-                    </CardContent>
-                </Card>
-            <FormMessage />
+      control={control}
+      name={name}
+      render={() => (
+        <FormItem className={'w-full'}>
+          <FormLabel>{en.form[formKey].label}</FormLabel>
+          <Card>
+            <CardContent className={'space-y-2 mt-2 min-h-48'}>
+              <div className="flex-start space-x-2">
+                {images.map((image, index) => (
+                  <div key={index} className={'relative'}>
+                    <X size={20} color={'red'} className={'absolute top-0 right-0 cursor-pointer'} onClick={() => handleDelete(index)} />
+                    <Image
+                      key={index}
+                      src={image}
+                      height={IMAGE.UPLOAD_THUMBNAIL_H}
+                      width={IMAGE.UPLOAD_THUMBNAIL_W}
+                      alt={'product-name'}
+                      className={'w-20 h-20 object-cover rounded-sm'}
+                    />
+                  </div>
+                ))}
+                <FormControl>
+                  <input type="file" accept="image/*" multiple onChange={(e) => handleUpload(e)} className={'cursor-pointer'} />
+                </FormControl>
+              </div>
+            </CardContent>
+          </Card>
+          <FormMessage />
         </FormItem>
-    )}/>
+      )}
+    />
   )
 }
 
