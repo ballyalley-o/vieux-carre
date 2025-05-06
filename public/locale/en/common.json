@@ -574,6 +574,7 @@
         }
     },
     "success": {
+        "image_deleted": "Image deleted",
         "order_created": "Order created",
         "order_deleted": "Order deleted",
         "order_delivered": "Order delivered",
@@ -605,6 +606,7 @@
         "paypal_payment_error": "Error occurred while processing PayPal payment",
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",
+        "unable_delete": "Unable to delete image",
         "unknown_error": "Unknown error occurred",
         "update_order_paid": "updateOrderToPaid failed",
         "user_not_authenticated": "User not authenticated",
