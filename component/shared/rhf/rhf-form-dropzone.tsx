@@ -2,7 +2,7 @@
 
 import { z, ZodSchema } from 'zod'
 import { en } from 'public/locale'
-import { Control, Path, PathValue, UseFormReturn } from 'react-hook-form'
+import { Control, UseFormReturn } from 'react-hook-form'
 import Image from 'next/image'
 import { useToast } from 'hook'
 import { deleteProductImage } from 'lib/action'
@@ -18,7 +18,7 @@ interface RHFFormDropzoneProps<TSchema extends ZodSchema> {
   control: Control<z.infer<TSchema>>
   formKey: FormKeyLocale
   images : string[]
-  name   : Path<z.infer<TSchema>>
+  name   : FieldName
   form   : UseFormReturn<z.infer<TSchema>>
 }
 
@@ -27,7 +27,7 @@ const RHFFormDropzone = <TSchema extends ZodSchema>({ control, name, images, for
 
   const handleUploadComplete = (res: { url: string }[]) => {
     const currentImages = form.getValues(name) as string[]
-    form.setValue(name, [...currentImages, ...res.map((r) => r.url)] as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
+    form.setValue(name, [...currentImages, ...res.map((r) => r.url)] as SetFieldName)
   }
 
   const handleDelete = async (index: number) => {
@@ -35,7 +35,7 @@ const RHFFormDropzone = <TSchema extends ZodSchema>({ control, name, images, for
     const result        = await deleteProductImage({ currentImages, index })
     if (result?.success) {
       const updatedImages = currentImages.filter((_, _i) => _i != index)
-      form.setValue(name, updatedImages as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
+      form.setValue(name, updatedImages as SetFieldName)
       toast({ description: en.success.image_deleted })
     } else {
       toast({ variant: 'destructive', description: en.error.unable_delete })

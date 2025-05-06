@@ -18,6 +18,9 @@ declare global {
     createdAt : Date
   }
 
+  export type FieldName    = Path<z.infer<TSchema>>
+  export type SetFieldName = PathValue<TypeOf<TSchema>, Path<TSchema>>
+
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
 
   export type ModuleType = 'admin' | 'user'

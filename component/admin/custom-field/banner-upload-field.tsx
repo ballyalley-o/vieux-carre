@@ -7,7 +7,7 @@ import { PATH_DIR } from 'config'
 import Image from 'next/image'
 import { z, ZodSchema } from 'zod'
 import { useToast } from 'hook'
-import { UseFormReturn, PathValue, Path } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 import { cn } from 'lib'
 import { deleteProductImage } from 'lib/action'
 import { X } from 'lucide-react'
@@ -22,7 +22,7 @@ const BannerUploadField = <TSchema extends ZodSchema>({ isFeatured, banner, form
     const { toast }                           = useToast()
 
     const handleUploadComplete = (res: { url: string }) => {
-      form.setValue('banner' as FieldName, res.url as PathValue<z.infer<TSchema>, Path<z.infer<TSchema>>>)
+      form.setValue('banner' as FieldName, res.url as SetFieldName)
     }
 
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
