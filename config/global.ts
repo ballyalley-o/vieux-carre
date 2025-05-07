@@ -46,12 +46,6 @@ export const GLOBAL = {
                             RESEND_API_KEY: process.env.RESEND_API_KEY || '',
                             SENDER_EMAIL  : process.env.SENDER_EMAIL || 'onboarding@resend.dev'
                             },
-  UPLOADTHING           : {
-                            APP_ID             : process.env.UPLOADTHING_APP_ID,
-                            TOKEN              : process.env.UPLOADTHING_TOKEN,
-                            SECRET             : process.env.UPLOADTHING_SECRET,
-                            ALLLOWED_IMAGE_TYPE: 'image/*'
-                          },
   AWS                   : {
                             AWS_ACCESS_KEY_ID    : process.env.AWS_ACCESS_KEY_ID || "",
                             AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY || "",
