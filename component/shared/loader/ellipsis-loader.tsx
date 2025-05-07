@@ -1,25 +1,20 @@
-import { FC } from 'react';
-import { Ellipsis } from 'lucide-react';
-import { cn } from "lib/util"
+import { FC } from 'react'
+import { cn } from 'lib/util'
 
 interface EllipsisLoaderProps {
-    className?: string
+  className?: string
+  dotSize?: string
+  dotColor?: string
 }
 
-const EllipsisLoader: FC<EllipsisLoaderProps> = ({ className, ...props }) => {
+const EllipsisLoader: FC<EllipsisLoaderProps> = ({ className, dotSize = 'text-xl', dotColor = 'text-black', ...props }) => {
   return (
-    <div className="flex items-center justify-center">
-      <Ellipsis
-        className={cn(
-          "animate-wave text-gray-600",
-          "transform origin-bottom",
-          "hover:animate-none",
-          className
-        )}
-        {...props}
-      />
+    <div className={cn('flex text-center justify-center gap-1', className)} {...props}>
+      <span className={cn('dot-animation', dotSize, dotColor)}>{'.'}</span>
+      <span className={cn('dot-animation delay-200', dotSize, dotColor)}>{'.'}</span>
+      <span className={cn('dot-animation delay-400', dotSize, dotColor)}>{'.'}</span>
     </div>
-  );
-};
+  )
+}
 
 export default EllipsisLoader

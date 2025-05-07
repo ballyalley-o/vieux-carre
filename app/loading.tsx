@@ -28,7 +28,7 @@ const Loading = () => {
   }
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm z-50">
-      <div className="relative w-16 h-16">
+      <div className="relative md:w-16 md:h-16 h-10 w-10">
         {render()}
       </div>
     </div>
