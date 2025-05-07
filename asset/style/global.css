@@ -131,6 +131,28 @@
   }
 }
 
+@keyframes dotFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.dot-animation {
+  animation: dotFade 1.5s infinite;
+}
+
+.dot-animation.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.dot-animation.delay-400 {
+  animation-delay: 0.4s;
+}
+
+
 /* Uploadthing button text override */
 html.dark .upload-field .text-white {
   color: #F2EED8 !important;
