@@ -72,21 +72,23 @@ const RHFFormDropzone = <TSchema extends ZodSchema>({ control, name, images, for
         <FormItem className={'w-full'}>
           <FormLabel>{en.form[formKey].label}</FormLabel>
           <Card>
-            <CardContent className={'space-y-2 mt-2 min-h-48'}>
-              <div className="flex-start space-x-2">
-                {images.map((image, index) => (
-                  <div key={index} className={'relative'}>
-                    <X size={20} color={'red'} className={'absolute top-0 right-0 cursor-pointer'} onClick={() => handleDelete(index)} />
-                    <Image
-                      key={index}
-                      src={image}
-                      height={IMAGE.UPLOAD_THUMBNAIL_H}
-                      width={IMAGE.UPLOAD_THUMBNAIL_W}
-                      alt={'product-name'}
-                      className={'w-20 h-20 object-cover rounded-sm'}
-                    />
-                  </div>
-                ))}
+            <CardContent className={'space-y-2 mt-2 min-h-32'}>
+              <div className="flex flex-col md:flex-row flex-start space-x-2">
+                <div className='flex-between gap-2 p-2'>
+                  {images.map((image, index) => (
+                    <div key={index} className={'relative'}>
+                      <X size={20} color={'red'} className={'absolute top-0 right-0 cursor-pointer'} onClick={() => handleDelete(index)} />
+                      <Image
+                        key={index}
+                        src={image}
+                        height={IMAGE.UPLOAD_THUMBNAIL_H}
+                        width={IMAGE.UPLOAD_THUMBNAIL_W}
+                        alt={'product-name'}
+                        className={'w-20 h-20 object-cover rounded-sm'}
+                      />
+                    </div>
+                  ))}
+                </div>
                 <FormControl>
                   <input type="file" accept="image/*" multiple onChange={(e) => handleUpload(e)} className={'cursor-pointer'} />
                 </FormControl>
