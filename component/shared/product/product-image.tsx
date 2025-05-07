@@ -23,7 +23,7 @@ const ProductImage: FC<ProductImageProps> = ({ images }) => {
               width={80}
               height={80}
               className={cn(
-                current !== index ? 'border-t-4 hover:border-gray-700 scale-75 ease-in-out transition': 'border-gray-400 opacity-30'
+                current !== index ? 'scale-75 ease-in-out transition' : 'opacity-30'
               )}
             />
           </div>
