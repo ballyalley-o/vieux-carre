@@ -2,10 +2,11 @@ import { Fragment } from 'react'
 import { en } from 'public/locale'
 import { NAV_CONFIG, NAV_CONFIG_ADMIN } from 'config/nav-config'
 import { PATH_DIR } from 'config/dir'
-import { EllipsisVertical, User2Icon, LogOut } from 'lucide-react'
+import { EllipsisVertical, User2Icon } from 'lucide-react'
 import { LinkBtn, Sheet, Button, SheetContent, Separator, SheetDescription, SheetTrigger } from 'component'
 import { ProtectedNavLink } from 'component/shared/protect'
 import { BagNavLink } from 'component/shared/bag'
+import { ThemeToggle } from 'component/shared/header'
 import { signOutUser, KEY } from 'lib'
 
 const MobileMenu = ({ user, count, moduleType }: { user: User, count: number, moduleType: ModuleType }) => {
@@ -30,9 +31,10 @@ const MobileMenu = ({ user, count, moduleType }: { user: User, count: number, mo
           <Separator className="my-2" />
         </Fragment>
       )}
+      <ThemeToggle className={'flex justify-start'} />
       <form action={signOutUser} className="w-full">
-        <Button className="w-full py-4 px-2 h-4 justify-start" variant={'ghost'}>
-          <LogOut /> {en.sign_out.label}
+        <Button className="w-full py-4 px-0 h-4 justify-start text-muted-foreground" variant={'ghost'}>
+          {en.sign_out.label}
         </Button>
       </form>
     </div>

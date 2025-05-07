@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
+import { en } from 'public/locale'
 import { SunIcon, MoonIcon, SunMoon } from 'lucide-react'
 import {
   DropdownMenu,
@@ -8,12 +9,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuContent,
-  DropdownMenuCheckboxItem,
-  Button
+  DropdownMenuCheckboxItem
 } from 'component/ui'
-import { capitalize, KEY } from 'lib'
+import { capitalize, KEY, cn } from 'lib'
 
-const ThemeToggle = () => {
+interface ThemeToggleProps {
+  className?: string
+}
+
+const ThemeToggle = ({ className }: ThemeToggleProps) => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -22,24 +26,24 @@ const ThemeToggle = () => {
   if (!mounted) return null
 
   const renderIcon = () => {
-    if (theme === 'dark') {
-      return <MoonIcon />
+    if (theme === KEY.DARK) {
+      return <div className={'flex items-center gap-1'}><MoonIcon className={cn(`w-4 h-4 md:w-5 md:h-5 hidden md:block`)} /> <span className={'md:hidden'}>{capitalize(KEY.DARK)}</span></div>
     }
-    if (theme === 'light') {
-      return <SunIcon />
+    if (theme === KEY.LIGHT) {
+      return <div className={'flex items-center gap-1'}><SunIcon className={cn(`w-4 h-4 md:w-5 md:h-5 hidden md:block`)} /> <span className={'md:hidden'}>{capitalize(KEY.LIGHT)}</span></div>
     }
-    return <SunMoon />
+    return <div className={'flex items-center gap-1'}><SunMoon className={cn(`w-4 h-4 md:w-5 md:h-5 hidden md:block`)} /> <span className={'md:hidden'}>{capitalize(KEY.SYSTEM)}</span></div>
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={'ghost'} className="focus-visible:ring-0 focus-visible:ring-offset-0">
+        <button className={cn('py-2 text-sm font-medium transition-colors hover:text-primary ease-in-out text-muted-foreground', className)}>
           {renderIcon()}
-        </Button>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>{'Appearance'}</DropdownMenuLabel>
+        <DropdownMenuLabel>{capitalize(en.appearance.label)}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem checked={theme === KEY.SYSTEM} onClick={() => setTheme(KEY.SYSTEM)}>
           {capitalize(KEY.SYSTEM)}
