@@ -59,7 +59,7 @@ const BannerUploadField = <TSchema extends ZodSchema>({ isFeatured, banner, form
       <Fragment>
         {isFeatured && <FormLabel>{en.form.banner.label}</FormLabel>}
         <Card className={cn('mt-2', isFeatured ? 'visible' : 'hidden')}>
-          <CardContent className={'space-y-2 mt-5 min-h-48'}>
+          <CardContent className={'space-y-2 mt-5 h-auto'}>
             {isFeatured && banner && (
               <div className={'relative'}>
                 <X size={20} color={'red'} className={'absolute top-0 right-0 cursor-pointer'} onClick={() => handleDelete()} />
