@@ -5,10 +5,10 @@ import { en } from 'public/locale'
 import Image from 'next/image'
 import { LinkBtn } from 'component/shared/btn'
 import { EllipsisLoader } from 'component/shared/loader'
-import { PATH_DIR, ASSET_DIR, oneDay, oneHr, oneMin, oneSec } from 'config'
+import { PATH_DIR, ASSET_DIR, oneDay, oneHr, oneMin, oneSec, lastDayOfTheMonth } from 'config'
 import { cn } from 'lib'
 
-const TARGET_DATE = new Date('2025-02-14:00:00')
+const TARGET_DATE = lastDayOfTheMonth
 
 const calculateTimeRemaining = (targetDate: Date) => {
   const currentDate = new Date()
@@ -32,7 +32,7 @@ const StatBox =({ label, value }: { label: string, value: number}) => (
 )
 
 const DealCountdown = () => {
-  const [time, setTime ] = useState<TimeType>()
+  const [time, setTime] = useState<TimeType>()
 
   useEffect(() => {
     setTime(calculateTimeRemaining(TARGET_DATE))
@@ -58,10 +58,10 @@ const DealCountdown = () => {
 
   const renderUlStatBoxex = ({ _time }: { _time: TimeType }) => (
     <ul className={'grid grid-cols-4'}>
-      <StatBox label={en.day.days.label} value={_time.days} />
-      <StatBox label={en.hour.hours.label} value={_time.hours} />
-      <StatBox label={en.minute.minutes.label} value={_time.minutes} />
-      <StatBox label={en.second.seconds.label} value={_time.seconds} />
+      <StatBox label={en.day.days.label} value={Number(_time.days)} />
+      <StatBox label={en.hour.hours.label} value={Number(_time.hours)} />
+      <StatBox label={en.minute.minutes.label} value={Number(_time.minutes)} />
+      <StatBox label={en.second.seconds.label} value={Number(_time.seconds)} />
     </ul>
   )
 
