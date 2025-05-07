@@ -251,6 +251,9 @@
             "label": "Images"
         }
     },
+    "in_stock": {
+        "label": "In Stock"
+    },
     "item": {
         "label": "Item",
         "items": {
