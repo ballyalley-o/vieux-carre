@@ -25,6 +25,9 @@
     "any": {
         "label": "Any"
     },
+    "appearance":{
+        "label": "Appearance"
+    },
     "bag": {
         "label": "Bag",
         "description": "Complete the form with your bag information",
