@@ -79,7 +79,7 @@ const DealCountdown = () => {
           </div>
         </div>
 
-        <div className={cn('flex justify-center sm:w-full h-auto', hasEnded && 'opacity-20')}>
+        <div className={cn('flex justify-center sm:w-full sm:h-auto', hasEnded && 'opacity-20')}>
           {/* TODO: #37 instead of a static image here, get the deal of the month image.
               its starts with creating an action to fetch the product who has the deal of the month flag. (only one product should be the deal of the month.),
               use te index image of that product.
