@@ -1,13 +1,13 @@
 import { Fragment } from 'react'
-import { getLatestProducts, getAllFeaturedProducts } from 'lib'
-import { ProductList, ProductCarousel, ProductBtn } from 'component/shared'
+import { GLOBAL } from 'vieux-carre'
+import { en } from 'public/locale'
+import { getLatestProducts } from 'lib'
+import { ProductList, ProductBtn } from 'component/shared/product'
 import { DealCountdown } from 'component/shared/promo'
 import { ServiceCard } from 'component/shared/card'
-import { GLOBAL } from 'config'
 
 const Homepage = async () => {
   const latestProducts   = await getLatestProducts()
-  const featuredProducts = await getAllFeaturedProducts()
   return (
     <Fragment>
       <ProductList data={latestProducts} title={en.newest_arrivals.label} limit={GLOBAL.LATEST_PRODUCT_QUANTITY} />
