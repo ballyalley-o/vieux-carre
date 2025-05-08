@@ -10,10 +10,9 @@ const Homepage = async () => {
   const featuredProducts = await getAllFeaturedProducts()
   return (
     <Fragment>
-     {featuredProducts.length > 0  && <ProductCarousel products={featuredProducts} />}
-      <ProductList data={latestProducts} title={'Newest Arrivals'} limit={GLOBAL.LATEST_PRODUCT_QUANTITY} />
+      <ProductList data={latestProducts} title={en.newest_arrivals.label} limit={GLOBAL.LATEST_PRODUCT_QUANTITY} />
       <ProductBtn />
-      <ServiceCard/>
+      <ServiceCard />
       <DealCountdown />
     </Fragment>
   )

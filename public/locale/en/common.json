@@ -313,6 +313,9 @@
     "next": {
         "label": "Next"
     },
+    "newest_arrivals": {
+        "label": "New Arrivals"
+    },
     "no_data": {
         "label": "No Data"
     },
