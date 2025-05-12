@@ -36,7 +36,7 @@ export async function deleteProductImage(args: ImageInput) {
   }
 
   const imageToDelete = 'index' in args ? args.currentImages[args.index] : args.currentImages
-  const fileKey = getFileKeyFromUrl(imageToDelete)
+  const fileKey       = getFileKeyFromUrl(imageToDelete)
 
   if (!fileKey) return { succes: false, error: 'Invalid file key' }
   try {
@@ -46,7 +46,6 @@ export async function deleteProductImage(args: ImageInput) {
         Key: fileKey
       })
     )
-    // console.log('SystemLogger.response(en.success.image_deleted, CODE.OK, TAG)', SystemLogger.response(en.success.image_deleted, CODE.OK, TAG))
     return { success: true }
   } catch (error) {
     console.error(en.error.unable_delete, error)
