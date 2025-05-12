@@ -54,7 +54,7 @@ const RHFFormDropzone = <TSchema extends ZodSchema>({ control, name, images, for
            method: 'POST',
            body  : formData
          })
-         if (!res.ok) throw new Error(en.error.unable_delete)
+         if (!res.ok) throw new Error(en.error.unable_upload)
          const data = await res.json()
          urls.push({ url: data.url })
        } catch (error: unknown) {
