@@ -602,6 +602,7 @@
     "error": {
         "bag_empty": "Bag is empty",
         "bag_not_found": "Bag not found",
+        "file_not_found": "File not found",
         "invalid_credentials": "Invalid credentials",
         "invalid_payment_method": "Invalid payment method",
         "item_not_found": "Item not found",
@@ -616,6 +617,7 @@
         "product_not_found": "Product not found",
         "sesssion_not_found": "Session bag id not found",
         "unable_delete": "Unable to delete image",
+        "unable_upload": "Unable to upload file",
         "unknown_error": "Unknown error occurred",
         "update_order_paid": "updateOrderToPaid failed",
         "user_not_authenticated": "User not authenticated",
