@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
 import { ReactNode } from 'react'
+import type { Metadata } from 'next'
+import { GLOBAL } from 'vieux-carre'
 import { Inter_Tight } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import { Toaster, TooltipProvider } from 'component/ui'
 import { KEY } from 'lib'
-import { GLOBAL } from 'config'
 import 'asset/style/global.css'
 
 const interTight = Inter_Tight({
