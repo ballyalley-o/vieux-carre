@@ -325,6 +325,10 @@
     "not_paid": {
         "label": "Not Paid"
     },
+    "or": {
+        "label": "or",
+        "description": ""
+    },
     "order": {
         "label": "Order",
         "description": "Complete the form with your order information",
@@ -457,8 +461,10 @@
         "description": "Complete the form with your shipping address"
     },
     "sign_in": {
-        "label": "Sign in",
-        "description": "Complete the form with your information"
+        "label"      : "Sign in",
+        "description": "Sign in to your account",
+        "google"     : "Sign in with Google"
+
     },
     "sign_up": {
         "label": "Sign up",
