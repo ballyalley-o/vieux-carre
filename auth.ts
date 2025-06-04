@@ -22,7 +22,7 @@ export const config = {
     maxAge  : 24 * 60 * 60
   },
   providers: [
-      GoogleProvider({
+    GoogleProvider({
       clientId    : GLOBAL.GOOGLE.CLIENT_ID,
       clientSecret: GLOBAL.GOOGLE.CLIENT_SECRET
     }),
