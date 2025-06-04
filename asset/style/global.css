@@ -5,7 +5,6 @@
 @layer utilities {
 
   /* config  */
-
   .default-size_icon {
     @apply w-4 h-4;
   }
@@ -56,6 +55,10 @@
   .loader {
     @apply loader-default-size animate-spin;
   }
+
+  .mono-contrast-button-text {
+    @apply text-white dark:text-black
+  }
 }
 
 @layer base {
@@ -87,6 +90,7 @@
     --radius                : 0.5rem;
     --black                 : #0D0E0E;
     --white                 : #F2EED8;
+    --mono                  : #0D0E0E;
   }
   .dark {
     --background            : 222.2 84% 4.9%;
@@ -115,6 +119,7 @@
     --chart-5               : 340 75% 55%;
     --white                 : #F2EED8;
     --black                 : #0D0E0E;
+    --mono                  : #F2EED8;
   }
 
   .red-bg {
