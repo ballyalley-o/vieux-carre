@@ -66,15 +66,28 @@ export const config = {
 
     async jwt({ token, user, trigger, session }: any) {
       if (user) {
-        token.id = user.id
+        token.id   = user.id
         token.role = user.role
         if (user.name === 'NO_NAME') {
           token.name = user.email!.split('@')[0]
           await prisma.user.update({ where: { id: user.id }, data: { name: token.name } })
         }
-        if (trigger === 'signIn' || trigger === 'signUp') {
+        if ((trigger === 'signIn' || trigger === 'signUp') && user?.id) {
           const cookiesObject = await cookies()
           const sessionBagId = cookiesObject.get(KEY.SESSION_BAG_ID)?.value
+
+          const dbUser = await prisma.user.findUnique({ where: { id: user.id }})
+          if (!dbUser) {
+            await prisma.user.create({
+              data: {
+                id   : user.id,
+                name : user.name,
+                email: user.email,
+                role : user.role
+              }
+            })
+          }
+
           if (sessionBagId) {
             const sessionBag = await prisma.bag.findFirst({ where: { sessionBagId } })
             if (sessionBag) {
