@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { GLOBAL } from 'vieux-carre'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from 'next-auth/providers/google'
 import { cookies } from 'next/headers'
 import { compare } from 'lib/encrypt'
 import { prisma } from 'db/prisma'
@@ -20,6 +22,10 @@ export const config = {
     maxAge  : 24 * 60 * 60
   },
   providers: [
+      GoogleProvider({
+      clientId    : GLOBAL.GOOGLE.CLIENT_ID,
+      clientSecret: GLOBAL.GOOGLE.CLIENT_SECRET
+    }),
     CredentialsProvider({
       credentials: {
         email   : { type: 'email' },
