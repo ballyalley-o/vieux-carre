@@ -7,7 +7,7 @@ interface EllipsisLoaderProps {
   dotColor?: string
 }
 
-const EllipsisLoader: FC<EllipsisLoaderProps> = ({ className, dotSize = 'text-xl', dotColor = 'text-black', ...props }) => {
+const EllipsisLoader: FC<EllipsisLoaderProps> = ({ className, dotSize = 'text-xl', dotColor = 'mono-contrast-button-text', ...props }) => {
   return (
     <div className={cn('flex text-center justify-center gap-1', className)} {...props}>
       <span className={cn('dot-animation', dotSize, dotColor)}>{'.'}</span>
