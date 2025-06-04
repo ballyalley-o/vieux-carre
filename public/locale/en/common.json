@@ -58,6 +58,10 @@
     "create": {
         "label": "Create"
     },
+    "create_account": {
+        "label": "Create Account",
+        "description": "Create an account"
+    },
     "create_product": {
         "label": "Create Product",
         "description": "Complete the form with your product information"
@@ -472,7 +476,7 @@
     },
     "sign_out": {
         "label": "Sign out",
-        "description": "Complete the form with your information"
+        "description": "Sign out from the app"
     },
     "sort_by": {
         "label": "Sort by"
