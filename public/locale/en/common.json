@@ -58,6 +58,10 @@
     "create": {
         "label": "Create"
     },
+    "create_account": {
+        "label": "Create Account",
+        "description": "Create an account"
+    },
     "create_product": {
         "label": "Create Product",
         "description": "Complete the form with your product information"
@@ -325,6 +329,10 @@
     "not_paid": {
         "label": "Not Paid"
     },
+    "or": {
+        "label": "or",
+        "description": ""
+    },
     "order": {
         "label": "Order",
         "description": "Complete the form with your order information",
@@ -457,8 +465,10 @@
         "description": "Complete the form with your shipping address"
     },
     "sign_in": {
-        "label": "Sign in",
-        "description": "Complete the form with your information"
+        "label"      : "Sign in",
+        "description": "Sign in to your account",
+        "google"     : "Sign in with Google"
+
     },
     "sign_up": {
         "label": "Sign up",
@@ -466,7 +476,7 @@
     },
     "sign_out": {
         "label": "Sign out",
-        "description": "Complete the form with your information"
+        "description": "Sign out from the app"
     },
     "sort_by": {
         "label": "Sort by"

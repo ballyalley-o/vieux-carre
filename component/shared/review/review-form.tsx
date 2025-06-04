@@ -73,7 +73,7 @@ const ReviewForm: FC<ReviewFormProps> = ({ userId, productId, onReviewSubmitted 
                         <div className="grid gap-4 py-4">
                             <RHFFormField control={control} name={'title'} formKey={'title'} />
                             <RHFFormField control={control} name={'description'} formKey={'description'} />
-                            <RHFFormSelect control={control} name={'rating'} formKey={'rating'} options={RATING_OPTIONS} icon={<StarIcon size={ICON.EXTRA_SMALL} className={'text-muted-foreground'}/>}  disabled={formState.isSubmitting} />
+                            <RHFFormSelect control={control} name={'rating'} formKey={'rating'} options={RATING_OPTIONS} icon={<StarIcon size={ICON.XTRA_SMALL} className={'text-muted-foreground'}/>}  disabled={formState.isSubmitting} />
                         </div>
                         <DialogFooter>
                             <Button type={'submit'} size={'sm'} className={'w-full'} disabled={formState.isSubmitting}>

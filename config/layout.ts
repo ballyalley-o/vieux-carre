@@ -14,10 +14,13 @@ export const LOGO = {
 }
 
 export const ICON = {
-    EXTRA_SMALL: 10,
-    SMALL      : 15,
-    MEDIUM     : 20,
-    LARGE      : 30,
+    XTRA_SMALL  : 10,
+    SMALL       : 15,
+    MEDIUM      : 20,
+    LARGE       : 30,
+    EXTRA_LARGE : 50,
+    XXTRA_LARGE : 60,
+    XXXTRA_LARGE: 70,
 }
 
 export const IMAGE = {

@@ -1,6 +1,7 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
+import { en } from 'public/locale'
 import { useFormStatus } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
 import { signInWithCredentials } from 'lib/action'
@@ -8,13 +9,15 @@ import Link from 'next/link'
 import { Button } from 'component/ui/button'
 import { Input } from 'component/ui/input'
 import { Label } from 'component/ui/label'
+import { GoogleSignInBtn } from 'component/shared/btn'
 import { EllipsisLoader } from 'component/shared/loader'
-import { PATH_DIR } from 'config'
+import { Separatr } from 'component/shared/separatr'
+import { PATH_DIR } from 'config/dir'
 import { KEY, RESPONSE, signInDefaultValue } from 'lib'
-import { en } from 'public/locale'
 
 const SignInForm = () => {
   const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
+  const [oAuth, setOAuth] = useState(false)
   const searchParams = useSearchParams()
   const callbackUrl  = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
 
@@ -42,7 +45,8 @@ const SignInForm = () => {
             type={KEY.EMAIL}
             autoComplete={KEY.EMAIL}
             defaultValue={signInDefaultValue.email}
-            className="rounded-sm"
+            disabled={oAuth}
+            className={'rounded-sm'}
             required
           />
         </div>
@@ -54,17 +58,20 @@ const SignInForm = () => {
             type={KEY.PASSWORD}
             autoComplete={KEY.PASSWORD}
             defaultValue={signInDefaultValue.password}
-            className="rounded-sm"
+            disabled={oAuth}
+            className={'rounded-sm'}
             required
           />
         </div>
-        <div className="">
+        <div>
           <SignInButton />
+          <Separatr label={en.or.label} />
+          <GoogleSignInBtn setOAuth={setOAuth} />
         </div>
         <div className="text-sm text-center text-muted-foreground">
           {en.dont_have_account.label}
           <Link href={PATH_DIR.SIGN_UP} target="_self" className="link font-bold">
-           &nbsp;{en.sign_up.label}
+            &nbsp;{en.sign_up.label}
           </Link>
         </div>
       </div>

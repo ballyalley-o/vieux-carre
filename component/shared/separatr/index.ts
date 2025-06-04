@@ -1,0 +1,1 @@
+export { default as Separatr } from './separatr'
