@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
         pathname: '/**'
       }
     ]
-  }
+  },
+  basePath   : '/support',
+  assetPrefix: '/support'
 }
 
 export default nextConfig
