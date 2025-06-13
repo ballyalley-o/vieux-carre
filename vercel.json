@@ -2,11 +2,11 @@
     "rewrites": [
         {
             "source": "/support",
-            "destination": "https://vieux-carre-support.vercel.app/support"
+            "destination": "https://vieux-carre-support.vercel.app"
         },
         {
             "source": "/support/:path*",
-            "destination": "https://vieux-carre-support.vercel.app/support/:path*"
+            "destination": "https://vieux-carre-support.vercel.app/:path*"
         }
     ]
 }
