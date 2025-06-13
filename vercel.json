@@ -9,8 +9,8 @@
             "destination": "https://vieux-carre-support.vercel.app"
         },
         {
-            "source": "/support/.next/static/:path*",
-            "destination": "https://vieux-carre-support.vercel.app/.next/static/:path*"
+            "source": "/support/_next/static/:path*",
+            "destination": "https://vieux-carre-support.vercel.app/_next/static/:path*"
         }
     ]
 }
