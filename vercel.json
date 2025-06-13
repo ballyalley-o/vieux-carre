@@ -1,8 +1,8 @@
 {
     "rewrites": [
         {
-            "source"     : "/support/_next/:path*",
-            "destination": "https://vieux-carre-support.vercel.app/support/_next/:path*"
+            "source"     : "/support/.next/:path*",
+            "destination": "https://vieux-carre-support.vercel.app/support/.next/:path*"
         },
         {
             "source"     : "/support/:path*",
