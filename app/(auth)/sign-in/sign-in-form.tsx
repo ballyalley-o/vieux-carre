@@ -16,10 +16,10 @@ import { PATH_DIR } from 'config/dir'
 import { KEY, RESPONSE, signInDefaultValue } from 'lib'
 
 const SignInForm = () => {
-  const [data, action] = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
+  const [data, action]    = useActionState(signInWithCredentials, RESPONSE.DEFAULT)
   const [oAuth, setOAuth] = useState(false)
-  const searchParams = useSearchParams()
-  const callbackUrl  = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
+  const searchParams      = useSearchParams()
+  const callbackUrl       = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
 
   const SignInButton = () => {
     const { pending } = useFormStatus()
