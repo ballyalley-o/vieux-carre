@@ -314,6 +314,9 @@
             }
         }
     },
+    "need_help": {
+        "label": "Need help?"
+    },
     "next": {
         "label": "Next"
     },
