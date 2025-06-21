@@ -34,7 +34,7 @@ export const PATH_DIR = {
   SIGN_IN         : join('sign-in'),
   SIGN_UP         : join('sign-up'),
   STRIPE_CALLBACK : (id: string) => joinServer(GLOBAL.SERVER_URL, 'order', id, 'stripe-payment-success'),
-  SUPPORT         : join('support'),
+  SUPPORT         : joinServer(GLOBAL.SERVER_SUPPORT_URL),
   UPLOAD          : join('api', 'upload'),
   USER            : {
                       ACCOUNT: join('user', 'account'),
