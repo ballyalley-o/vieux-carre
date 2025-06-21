@@ -3,7 +3,7 @@
 import { en } from 'public/locale'
 import { z } from 'zod'
 import { prisma } from 'db/prisma'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { revalidatePath } from 'next/cache'
 import { CODE, ReviewSchema, SystemLogger } from 'lib'
 import { PATH_DIR } from 'config'

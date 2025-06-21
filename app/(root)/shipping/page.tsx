@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
 import { en } from 'public/locale'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { getMyBag, getUserById } from 'lib/action'
 import { redirect } from 'next/navigation'
 import { PurchaseFlow } from 'component/shared/custom'

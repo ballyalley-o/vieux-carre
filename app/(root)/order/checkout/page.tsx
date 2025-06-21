@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
 import { en } from 'public/locale'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { redirect } from 'next/navigation'
 import { WalletCards, Container, ShoppingBag } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

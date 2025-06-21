@@ -1,7 +1,7 @@
 'use server'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { prisma } from 'db/prisma'
 import { GLOBAL, PATH_DIR } from 'config'
 import { SystemLogger } from 'lib/app-logger'

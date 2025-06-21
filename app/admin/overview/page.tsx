@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import Link from 'next/link'
 import { formatCurrency, formatDateTime, formatNumber, getOrderSummary, generateTitle, KEY } from 'lib'
 import { Landmark, Receipt, Users, Package, SquareArrowOutUpRight } from 'lucide-react'

@@ -1,5 +1,5 @@
 'use server'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { revalidatePath } from 'next/cache'

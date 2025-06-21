@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import Link from 'next/link'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { signOutUser, charAtName, KEY, cn } from 'lib'
 import { User2Icon, LogOut } from 'lucide-react'
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, Separator } from 'component/ui'

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, generateTitle, limiter, KEY } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { Pagination, DeleteDialg, Tooltp, NoResult } from 'component/shared'
