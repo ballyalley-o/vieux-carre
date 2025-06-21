@@ -1,5 +1,5 @@
 ---
-name: General question
+name: General issue / question
 about: If you have a general question.
 ---
 <!--
