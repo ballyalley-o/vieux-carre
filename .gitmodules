@@ -1,3 +1,3 @@
 [submodule "vieux-carre.authenticate"]
 	path = vieux-carre.authenticate
-	url  = https://github.com/ballyalley-o/vieux-carre.authenticate.git
+	url = https://github.com/ballyalley-o/vieux-carre.authenticate.git
