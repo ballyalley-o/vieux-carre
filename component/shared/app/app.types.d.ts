@@ -1,0 +1,1 @@
+export type RedirType = 'sign-up' | 'sign-in'
