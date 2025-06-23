@@ -7,15 +7,15 @@ const protect = () => {
 }
 
 export const PROTECTED_ROUTES = protect()
-export const PATH_DIR = {
+export const PATH_DIR         = {
   ADMIN           : {
-                      ORDER           : join('admin', 'order'),
-                      OVERVIEW        : join('admin', 'overview'),
-                      PRODUCT         : join('admin', 'product'),
-                      PRODUCT_CREATE  : join('admin', 'product', 'create'),
-                      PRODUCT_VIEW    : (productId: string) =>  join('admin', 'product', productId),
-                      USER            : join('admin', 'user'),
-                      USER_VIEW       : (userId: string) => join('admin', 'user', userId),
+                      ORDER         : join('admin', 'order'),
+                      OVERVIEW      : join('admin', 'overview'),
+                      PRODUCT       : join('admin', 'product'),
+                      PRODUCT_CREATE: join('admin', 'product', 'create'),
+                      PRODUCT_VIEW  : (productId: string) =>  join('admin', 'product', productId),
+                      USER          : join('admin', 'user'),
+                      USER_VIEW     : (userId: string) => join('admin', 'user', userId),
   },
   BAG             : join('bag'),
   CHECKOUT        : join('order', 'checkout'),
