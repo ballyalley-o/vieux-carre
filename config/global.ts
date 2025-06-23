@@ -1,4 +1,4 @@
-    // prettier-ignore
+// prettier-ignore
 export const GLOBAL = {
   APP_NAME          : process.env.NEXT_PUBLIC_APP_NAME || 'Vieux Carré',
   APP_VERSION       : process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
@@ -6,7 +6,7 @@ export const GLOBAL = {
   SERVER_URL        : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   SERVER_SUPPORT_URL: process.env.NEXT_PUBLIC_SERVER_SUPPORT_URL || 'http://localhost:3000',
   NODE_ENV          : process.env.NODE_ENV || 'development',
-  DATABASE_URL      : process.env.DATABASE_URL || '',
+  DB_URI            : process.env.DB_URI || '',
   ENCRYPTION_KEY    : process.env.ENCRYPTION_KEY || '',
   GOOGLE            : {
        CLIENT_ID    : process.env.GOOGLE_CLIENT_ID,
