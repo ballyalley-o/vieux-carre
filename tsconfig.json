@@ -19,8 +19,10 @@
       }
     ],
     "paths": {
-      "*": ["./*"],
+      "*"          : ["./*"],
       "vieux-carre": ["./config/global.ts"],
+      "vc.dir"     : ["./config/dir"],
+      "vc.locale"  : ["./public/locale"],
     }
     // "types": ["next", "next/types/global", "next-i18next"]
     // "target": "ES2017"
