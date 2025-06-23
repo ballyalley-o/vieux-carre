@@ -1,6 +1,6 @@
 
 import { z, ZodSchema } from 'zod'
-import { en } from 'public/locale'
+import { en } from 'vc.locale'
 import { Control, ControllerRenderProps, Path } from 'react-hook-form'
 import { FormField, FormControl, FormLabel, FormMessage, FormItem } from 'component/ui/form'
 import { Input } from 'component/ui/input'
