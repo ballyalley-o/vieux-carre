@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { auth } from 'vieux-carre.authenticate'
 import { signOutUser, charAtName, KEY, cn } from 'lib'
 import { User2Icon, LogOut } from 'lucide-react'
@@ -28,7 +29,7 @@ const UserMenu = async () => {
         <DropdownMenuTrigger asChild>
           <div className="flex items-center">
             <Button variant="ghost" className={cn('relative w-8 h-8 rounded-sm ml-2 flex items-center hover:font-bold justify-center bg-accent')}>
-              {session?.user?.name ? charAtName(session.user.name) : <User2Icon />}
+              {session?.user?.image ? <Image src={session.user.image} fill alt={'user image'} /> : session?.user?.name ? charAtName(session.user.name) : <User2Icon/>}
             </Button>
           </div>
         </DropdownMenuTrigger>
