@@ -16,9 +16,9 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!request.cookies.get('sessionBagId')) {
-    const sessionBagId = crypto.randomUUID()
+    const sessionBagId      = crypto.randomUUID()
     const newRequestHeaders = new Headers(request.headers)
-    const response = NextResponse.next({ request: { headers: newRequestHeaders } })
+    const response          = NextResponse.next({ request: { headers: newRequestHeaders } })
     response.cookies.set('sessionBagId', sessionBagId)
     return response
   }
