@@ -23,9 +23,8 @@
       "vieux-carre": ["./config/global.ts"],
       "vc.dir"     : ["./config/dir"],
       "vc.locale"  : ["./public/locale"],
-    }
-    // "types": ["next", "next/types/global", "next-i18next"]
-    // "target": "ES2017"
+    },
+    "types": ["next", "next/types/global", "next-i18next"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
