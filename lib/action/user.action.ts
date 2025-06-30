@@ -151,8 +151,8 @@ export async function updateUserAddress(address: ShippingAddress) {
     if(!currentUser) throw new Error(transl('error.user_not_found'))
 
     const parsedAddress = ShippingAddressSchema.parse(address)
-    await prisma.user.update({where: {id: currentUser.id},data: {address: parsedAddress}})
-    return SystemLogger.response(`${currentUser.name} address updated`, CODE.OK, TAG)
+    await prisma.user.update({where: { id: currentUser.id },data: { address: parsedAddress }})
+    return SystemLogger.response(true, transl('success.user_address_updated', { user: currentUser.name ?? 'User' }), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -172,7 +172,7 @@ export async function updateUserPaymentMethod(paymentType: z.infer<typeof Paymen
     if (!currentUser) throw new Error(transl('error.user_not_found'))
     const { type } = PaymentMethodSchema.parse(paymentType)
     await prisma.user.update({ where: { id: currentUser.id }, data: { paymentMethod: type } })
-    return SystemLogger.response(transl('success.user_updated'), CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.user_updated'), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -194,7 +194,7 @@ export async function updateUserAccount(user: UserBase) {
     if (!currentUser) throw new Error(transl('error.user_not_found'))
     const updatedUser = await prisma.user.update({ where:{ id: currentUser.id }, data: { name: user.name, email: user.email }})
     revalidatePath(PATH_DIR.USER.ACCOUNT)
-    return SystemLogger.response(transl('success.user_updated'), CODE.OK, TAG, '', updatedUser)
+    return SystemLogger.response(true, transl('success.user_updated'), CODE.OK, updatedUser)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -214,7 +214,7 @@ export async function updateUser(data: UpdateUserAccount) {
 
     const updatedUser = await prisma.user.update({ where:{ id: user.id }, data: { name: data.name, role: data.role }})
     revalidatePath(PATH_DIR.ADMIN.USER_VIEW(user.id))
-    return SystemLogger.response(transl('success.user_updated'), CODE.OK, TAG, '', updatedUser)
+    return SystemLogger.response(true, transl('success.user_updated') , CODE.OK, updatedUser)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -239,7 +239,7 @@ export async function deleteUser(userId: string) {
     await prisma.user.delete({ where: { id: userId } })
 
     revalidatePath(PATH_DIR.ADMIN.USER)
-    return SystemLogger.response(transl('success.user_deleted'), CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.user_deleted'), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
