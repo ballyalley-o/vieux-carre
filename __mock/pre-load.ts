@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
+import { GLOBAL } from 'vieux-carre'
 import goodlog from 'good-logs'
-import { hash } from 'lib/encrypt'
+import bcrypt from 'bcryptjs'
 import { _mockData } from '__mock'
 
 async function main() {
@@ -15,12 +16,8 @@ async function main() {
   for (let i = 0; i < _mockData.users.length; i++) {
     users.push({
       ..._mockData.users[i],
-      password: await hash(_mockData.users[i].password),
+      password: await bcrypt.hash(_mockData.users[i].password, GLOBAL.HASH.SALT_ROUNDS),
     });
-    console.log(
-      _mockData.users[i].password,
-      await hash(_mockData.users[i].password)
-    );
   }
   await prisma.user.createMany({ data: users });
   goodlog.log(' 🌱 Data pre-loaded')
