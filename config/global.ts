@@ -58,5 +58,12 @@ export const GLOBAL = {
                             AWS_REGION           : process.env.AWS_REGION || "",
                             S3_BUCKET_NAME       : process.env.S3_BUCKET_NAME || "",
                             PUBLIC_URL           : `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/`
-                          }
+                          },
+  HASH                  : {
+                            TYPE       : process.env.HASH_TYPE,
+                            MEMORY_COST: process.env.HASH_MEMORY_COST || '19456',
+                            TIME_COST  : process.env.HASH_TIME_COST || '2',
+                            PARALLELISM: process.env.HASH_PARALLELISM || '1',
+                            SALT_ROUNDS: process.env.SALT_ROUNDS || 10
+  }
 }
