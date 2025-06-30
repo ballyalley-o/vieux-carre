@@ -52,7 +52,7 @@ const SignInForm = () => {
 
   return (
     <FormProvider {...form}>
-      <form method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" name={KEY.CALLBACK_URL} value={callbackUrl} />
         <div className={"space-y-6"}>
           <RHFFormField control={control} name={'email'} formKey={'email'} disabled={oAuth} withWrapper />
@@ -63,12 +63,6 @@ const SignInForm = () => {
             <GoogleSignInBtn loading={isOAuthIsLoading} onClick={() => { setOAuth(true);  setIsOAuthIsLoading(true) }} />
           </div>
           <AppAuthRedir type={'sign-in'} />
-          {/* <div className={"text-sm text-center text-muted-foreground"}>
-            {transl('dont_have_account.label')}
-            <Link href={PATH_DIR.SIGN_UP} target="_self" className={"link font-bold"}>
-              &nbsp;{transl('sign_up.label')}
-            </Link>
-          </div> */}
         </div>
       </form>
     </FormProvider>

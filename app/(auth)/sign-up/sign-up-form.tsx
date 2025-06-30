@@ -48,7 +48,7 @@ const SignUpForm = () => {
   }
   return (
     <FormProvider {...form}>
-      <form method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" name={KEY.CALLBACK_URL} value={callbackUrl} />
         <div className={'space-y-6'}>
           <RHFFormField control={control} name={'name'} formKey={'name'} disabled={isSubmitting} withWrapper />
