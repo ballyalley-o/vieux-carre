@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { GLOBAL } from 'vieux-carre'
 import { revalidatePath } from 'next/cache'
 import { Prisma } from '@prisma/client'
-import { hash } from 'lib/encrypt'
+import bcrypt from 'bcryptjs'
 import { ShippingAddressSchema, PaymentMethodSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'
 import { auth, signIn, signOut } from 'vieux-carre.authenticate'
@@ -48,21 +48,32 @@ export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: App
  * @throws Will throw an error if a redirect error occurs.
  */
 export async function signInWithCredentials(data: SignIn) {
-  try {
+    try {
     const { email, password } = data
-    const user                = await prisma.user.findUnique({ where: { email }})
 
-    if (!user) {
-      return SystemLogger.errorMessage(transl('error.invalid_credentials'), CODE.NOT_FOUND, TAG)
+    if (!email || !password) {
+      const _errorMessage = transl('error.validation_error', { error: 'missing sign-in fields' })
+      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+    }
+    const user = await prisma.user.findUnique({ where: { email } })
+    if (!user || !user.password) {
+      return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
     }
 
+    const isMatch = await bcrypt.compare(user.password, password)
+
+    if (!isMatch) {
+      return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _, ...safeUser } = user
     await signIn('credentials', { email, password, redirect: false })
-    return SystemLogger.response(transl('success.user_signed_in'), CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.user_welcomeback', { user: safeUser.name ?? 'User' }), CODE.OK, safeUser)
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error
-    }
-    return SystemLogger.errorMessage(transl('error.invalid_credentials'), CODE.BAD_REQUEST, TAG)
+    console.log('error', error)
+    const _errorMessage = transl('error.unexpected_error')
+    return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
   }
 }
 
@@ -87,16 +98,29 @@ export async function signUpUser(data: SignUp) {
   try {
     const { name, email, password } = data
 
-    const unhashedPassword = password
-    const hashedPassword   = await hash(password)
-    await prisma.user.create({ data: { name, email, password: hashedPassword } })
-    await signIn('credentials', { email, password: unhashedPassword, redirect: false })
-    return SystemLogger.response(transl('success.user_signed_up'), CODE.CREATED, TAG)
-  } catch (error) {
-    if (isRedirectError(error)) {
-      throw error
+    if (!name || !email || !password) {
+      const _errorMessage = transl('error.validation_error', { error: 'missing fields' })
+      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
     }
-    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+
+    const existingUser = await prisma.user.findUnique({ where: { email } })
+    if (existingUser) {
+      const _errorMessage = transl('error.exists_default', { document: email })
+      return SystemLogger.response(false, _errorMessage, CODE.CONFLICT, {})
+    }
+
+    const hashedPassword = await bcrypt.hash(password, GLOBAL.HASH.SALT_ROUNDS)
+    const user = await prisma.user.create({ data: { name, email, password: hashedPassword } })
+
+    await signIn('credentials', { email, password, redirect: false })
+
+    const _message = transl('success.user_welcome', { user: name })
+    return SystemLogger.response(true, _message, CODE.CREATED, user)
+  } catch (error) {
+      if (isRedirectError(error)) {
+        throw error
+      }
+      return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
 
