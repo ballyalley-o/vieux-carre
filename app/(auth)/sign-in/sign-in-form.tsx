@@ -39,8 +39,12 @@ const SignInForm = () => {
   const onSubmit: SubmitHandler<SignIn> = async (data) => {
     try {
       const response = await signInWithCredentials(data)
-      toast({ description: response.message })
-      router.push(PATH_DIR.ROOT)
+      if (response.success) {
+        toast({ description: response.message })
+        router.push(PATH_DIR.ROOT)
+      } else {
+        toast({ variant: 'destructive',description: response.message })
+      }
     } catch (error) {
       toast({ variant: 'destructive', description: (error as AppError).message })
     }
