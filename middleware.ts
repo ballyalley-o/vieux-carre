@@ -7,6 +7,7 @@ export async function middleware(request: NextRequest) {
   const pathname        = request.nextUrl.pathname
   const isProtected     = protectedPaths.some((p) => p.test(pathname))
   const session         = await auth()
+  const cookiesObject   = request.cookies
   const isAuthenticated = !!session?.user
 
   if (isProtected && !isAuthenticated) {
@@ -15,7 +16,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(signInUrl)
   }
 
-  if (!request.cookies.get('sessionBagId')) {
+  if (!cookiesObject.get('sessionBagId')) {
     const sessionBagId      = crypto.randomUUID()
     const newRequestHeaders = new Headers(request.headers)
     const response          = NextResponse.next({ request: { headers: newRequestHeaders } })
