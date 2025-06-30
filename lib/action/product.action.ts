@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use server'
-import { en } from 'public/locale'
+
 import { GLOBAL } from 'vieux-carre'
 import { Prisma } from '@prisma/client'
 import { prisma } from 'db/prisma'
 import { DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3'
-import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
+import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema, transl } from 'lib'
 import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
 
 const TAG = 'PRODUCT.ACTION'
-
 const s3 = new S3Client({
     region: GLOBAL.AWS.AWS_REGION!,
     credentials: {
@@ -48,7 +47,7 @@ export async function deleteProductImage(args: ImageInput) {
     )
     return { success: true }
   } catch (error) {
-    console.error(en.error.unable_delete, error)
+    console.error(transl('error.unable_delete'), error)
     return { success: false, error }
   }
 }
@@ -127,7 +126,7 @@ export async function deleteProduct(productId: string) {
     await prisma.product.delete({ where: { id: productId } })
 
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_deleted, CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.product_deleted'), CODE.OK)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -147,7 +146,7 @@ export async function createProduct(data: CreateProduct) {
     const product = ProductSchema.parse(data)
     await prisma.product.create({ data: product })
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_created, CODE.CREATED, TAG, '', product)
+    return SystemLogger.response(true, transl('success.product_created'), CODE.CREATED, product)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -165,11 +164,11 @@ export async function updateProduct(data:UpdateProduct) {
   try {
     const product = UpdateProductSchema.parse(data)
     const productExists = await prisma.product.findFirst({ where: { id: product.id }})
-    if (!productExists) throw new Error(en.error.product_not_found)
+    if (!productExists) throw new Error(transl('error.product_not_found'))
 
     await prisma.product.update({ where: {id: product.id }, data: product })
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_updated, CODE.OK, TAG, '', product)
+    return SystemLogger.response(true, transl('success.product_updated'), CODE.OK, product)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
