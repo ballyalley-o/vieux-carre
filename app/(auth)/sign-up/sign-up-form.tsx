@@ -34,9 +34,14 @@ const SignUpForm = () => {
   const onSubmit: SubmitHandler<SignUp> = async (data) => {
     try {
       const response = await signUpUser(data)
-      await delay(500)
-      toast({ description: response.message })
-      router.push(PATH_DIR.ROOT)
+      console.log('response in form: ', response)
+      if (response.success === true) {
+        await delay(500)
+        toast({ description: response.message })
+        router.push(PATH_DIR.ROOT)
+      } else {
+        toast({ variant: 'destructive', description: response.message })
+      }
     } catch (error) {
       toast({ variant: 'destructive', description: (error as AppError).message })
     }
