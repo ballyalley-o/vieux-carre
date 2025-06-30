@@ -4,9 +4,9 @@ type NestedKeys<T> = {
   [K in keyof T & string]: T[K] extends string ? K : T[K] extends Record<string, unknown> ? `${K}.${NestedKeys<T[K]>}` : never
 }[keyof T & string]
 
-type LocaleLang = 'en' | 'fr' | 'es'
-type LocaleKey = NestedKeys<typeof en>
-const locales = { en, fr, es }
+type  LocaleLang = 'en' | 'fr' | 'es'
+type  LocaleKey  = NestedKeys<typeof en>
+const locales    = { en, fr, es }
 
 /**
  * Retrieves a localized message based on the provided key and optional parameters.
@@ -24,7 +24,7 @@ const locales = { en, fr, es }
  * @returns The localized message with placeholders replaced, or the original key if
  *          the message is not found or is not a string.
  */
-export const transl = (key: LocaleKey, params?: Record<string, object>, locale: LocaleLang = 'en'): string => {
+export const transl = (key: LocaleKey, params?: Record<string, string | number | boolean>, locale: LocaleLang = 'en'): string => {
   const messages = locales[locale] || locales['en']
   const message = key
     .split('.')
