@@ -108,11 +108,10 @@ declare global {
   }
 
   export interface AppResponse {
-    success    : boolean
-    code       : CODE
-    message    : string
-    redirectTo?: string
-    data      ?: unknown
+    success : boolean
+    status  : CODE | undefined
+    message : string
+    data   ?: unknown
   }
 
   export interface AppPage<T> { page: T }

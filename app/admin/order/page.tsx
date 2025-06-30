@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'vieux-carre.authenticate'
-import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, generateTitle, limiter, KEY } from 'lib'
+import { getAllOrders, deleteOrder, formatCurrency, formatDateTime, formatId, generateTitle, limiter, KEY, transl } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { Pagination, DeleteDialg, Tooltp, NoResult } from 'component/shared'
 import { TblHead, TblBody } from 'component/shared/tbl'
@@ -66,7 +66,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
       },
       {
         id: 'action',
-        value:  <Tooltp content={en.delete.label}><DeleteDialg id={item.id} action={deleteOrder} /></Tooltp> ,
+        value:  <Tooltp content={transl('delete.label')}><DeleteDialg id={item.id} action={deleteOrder} /></Tooltp> ,
         align: 'center'
       }
     ]
@@ -74,7 +74,7 @@ const AdminOrdersPage = async ({ searchParams }: AdminOrdersPageProps) => {
 
   return (
     <div className={'space-y-2'} suppressHydrationWarning>
-      <PageTitle query={query} title={en.order.orders.label} href={PATH_DIR.ADMIN.ORDER} />
+      <PageTitle query={query} title={transl('order.orders.label')} href={PATH_DIR.ADMIN.ORDER} />
       <div className="overflow-x-auto">
         <Table>
           <TblHead cells={HEADER.cells} />
