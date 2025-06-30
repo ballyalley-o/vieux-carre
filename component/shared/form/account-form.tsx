@@ -1,11 +1,11 @@
 'use client'
-import { en } from 'public/locale'
+
 import { useSession } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useToast } from 'hook'
 import { Check } from 'lucide-react'
-import { formatDateTime, updateUserAccount, UpdateUserSchema } from 'lib'
+import { formatDateTime, transl, updateUserAccount, UpdateUserSchema } from 'lib'
 import { Form, Badge } from 'component/ui'
 import { RHFFormField } from 'component/shared/rhf'
 import { LoadingBtn } from 'component/shared/btn'
@@ -31,8 +31,7 @@ const AccountForm = ({ user }: { user: { updatedAt: Date }  }) => {
     }
     const newSession = {...session, user: { ...session?.user, name: values.name }}
     await update(newSession)
-    toast({ description: en.update_account.toast })
-
+    toast({ description: transl('update_account.toast') })
   }
 
   return (
@@ -42,9 +41,9 @@ const AccountForm = ({ user }: { user: { updatedAt: Date }  }) => {
                 <RHFFormField control={control} name={FORM_KEY.email} type={'input'} formKey={FORM_KEY.email} disabled />
                 <RHFFormField control={control} name={FORM_KEY.name} type={'input'} formKey={FORM_KEY.name} />
               <div className={'relative'}>
-                <LoadingBtn isPending={form.formState.isSubmitting} label={en.update_account.label} className={'w-full'} icon={<Check size={15}/>} />
+                <LoadingBtn isPending={form.formState.isSubmitting} label={transl('update_account.label')} className={'w-full'} icon={<Check size={15}/>} />
               <div className="flex justify-end align-center items-center gap-2 mt-5">
-                <p className={'text-muted-foreground'}>{en.last_updated_at.label}</p><span><Badge variant={'secondary'} className={'w-auto'}>{formatDateTime(user?.updatedAt).dateTime}</Badge></span>
+                <p className={'text-muted-foreground'}>{transl('last_updated_at.label')}</p><span><Badge variant={'secondary'} className={'w-auto'}>{formatDateTime(user?.updatedAt).dateTime}</Badge></span>
               </div>
               </div>
           </div>
