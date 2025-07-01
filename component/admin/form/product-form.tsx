@@ -96,13 +96,13 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
             <RHFFormDropzone control={control} name={'images'} formKey={'images'} images={images} form={form} />
           </div>
           <div className="upload-field gap-4 h-auto">
-              <RHFFormField control={control} name={'description'} formKey={'description'} type={'textarea'} withWrapper={false} />
+            <RHFFormField control={control} name={'description'} formKey={'description'} type={'textarea'} withWrapper={false} />
           </div>
           <div className="upload-field gap-4 h-auto">
-              <RHFCheckbox control={control} name={'isFeatured'} formKey={'featured'} />
+            <RHFCheckbox control={control} name={'isFeatured'} formKey={'featured'} />
           </div>
           <div className="upload-field gap-4">
-            <BannerUploadField isFeatured={isFeatured} banner={banner!} onClientUploadComplete={(res: { url: string }[]) => { form.setValue('banner', res[0].url ) }}  />
+            <BannerUploadField isFeatured={isFeatured} banner={banner!} form={form}  />
           </div>
           <div className="flex justify-end">
             <LoadingBtn

@@ -1,17 +1,19 @@
 'use client'
-import { FC } from 'react'
-import { en } from 'public/locale'
+
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { Button } from 'component/ui'
 import { formUrlQuery } from 'lib'
+import { transl } from 'lib/util/translate'
 
 interface PaginationProps {
-  page: number | string
-  totalPages: number
+  page         : number | string
+  totalPages   : number
   urlParamName?: string
 }
-const Pagination: FC<PaginationProps> = ({ page, totalPages, urlParamName }) => {
+
+const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -29,8 +31,8 @@ const Pagination: FC<PaginationProps> = ({ page, totalPages, urlParamName }) => 
         disabled={Number(page) <= 1}
         onClick={() => handleClick('prev')}>
         <ArrowLeft className={'default-size_icon -right-5 opacity-100 translate-x-[100%] ease-in-out group-hover:translate-x-5 group-hover:opacity-0'} />
-        <p className="ml-2 absolute right-0 translate-x-[100%] opacity-0 whitespace-nowrap rounded px-2 py-1 text-black text-sm transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100">
-          {en.previous.label}
+        <p className="ml-2 absolute right-0 translate-x-[100%] opacity-0 whitespace-nowrap rounded px-2 py-1 text-sm transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100">
+          {transl('previous.label')}
         </p>
       </Button>
       <Button
@@ -40,8 +42,8 @@ const Pagination: FC<PaginationProps> = ({ page, totalPages, urlParamName }) => 
         disabled={Number(page) >= totalPages}
         onClick={() => handleClick('next')}>
         <ArrowRight className={'default-size_icon opacity-100 translate-x-[-100%] ease-in-out group-hover:translate-x-5 group-hover:opacity-0'} />
-        <p className="ml-2 absolute left-0 translate-x-[-100%] opacity-0 whitespace-nowrap rounded px-2 py-1 text-black text-sm transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100">
-          {en.next.label}
+        <p className="ml-2 absolute left-0 translate-x-[-100%] opacity-0 whitespace-nowrap rounded px-2 py-1 text-sm transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100">
+          {transl('next.label')}
         </p>
       </Button>
     </div>

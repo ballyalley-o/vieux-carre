@@ -20,6 +20,9 @@
 # production
 /build
 
+vieux-carre-user_accessKeys.csv
+client_secret_828221742025-61r8bkjg6vtrvhih0jk1cbompdfoulu3.apps.googleusercontent.com.json
+
 # misc
 .DS_Store
 *.pem

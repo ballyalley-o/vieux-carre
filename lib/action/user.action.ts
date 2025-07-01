@@ -1,17 +1,18 @@
 'use server'
-import { en } from 'public/locale'
+
 import { z } from 'zod'
 import { GLOBAL } from 'vieux-carre'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { revalidatePath } from 'next/cache'
-import { Prisma } from '@prisma/client'
-import { hash } from 'lib/encrypt'
-import { ShippingAddressSchema, SignInSchema, SignUpSchema, PaymentMethodSchema } from 'lib/schema'
+import bcrypt from 'bcryptjs'
+import { ShippingAddressSchema, PaymentMethodSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'
-import { auth, signIn, signOut } from 'auth'
+import { auth, signIn, signOut } from 'vieux-carre.authenticate'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
 import { SystemLogger } from 'lib/app-logger'
 import { PATH_DIR } from 'config'
 import { CODE } from 'lib/constant'
+import { transl } from 'lib/util'
 
 const TAG = 'USER.ACTION'
 
@@ -28,7 +29,7 @@ export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: App
     OR: [
           { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
           { email: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
-          { role: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
+          // { role: { contains: query, mode: 'insensitive' } as Prisma.StringFilter },
         ]} : {}
   const users = await prisma.user.findMany({ where: { ...queryFilter }, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit })
   const count = await prisma.user.count({ where: { ...queryFilter } })
@@ -46,19 +47,33 @@ export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: App
  * or an error response if the credentials are invalid.
  * @throws Will throw an error if a redirect error occurs.
  */
-export async function signInWithCredentials(prevState: unknown, formData: FormData) {
-  try {
-    const user = SignInSchema.parse({
-      email   : formData.get('email'),
-      password: formData.get('password')
-    })
-    await signIn('credentials', user)
-    return SystemLogger.response(en.success.user_signed_in, CODE.OK, TAG)
-  } catch (error) {
-    if (isRedirectError(error)) {
-      throw error
+export async function signInWithCredentials(data: SignIn) {
+    try {
+    const { email, password } = data
+
+    if (!email || !password) {
+      const _errorMessage = transl('error.validation_error', { error: 'missing sign-in fields' })
+      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
     }
-    return SystemLogger.errorMessage(en.error.invalid_credentials, CODE.BAD_REQUEST, TAG)
+    const user = await prisma.user.findUnique({ where: { email } })
+    if (!user || !user.password) {
+      return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
+    }
+
+    const isMatch = await bcrypt.compare(user.password, password)
+
+    if (!isMatch) {
+      return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _, ...safeUser } = user
+    await signIn('credentials', { email, password, redirect: false })
+    return SystemLogger.response(true, transl('success.user_welcomeback', { user: safeUser.name ?? 'User' }), CODE.OK, safeUser)
+  } catch (error) {
+    console.log('error', error)
+    const _errorMessage = transl('error.unexpected_error')
+    return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
   }
 }
 
@@ -79,24 +94,33 @@ export async function signOutUser() {
  * @returns A promise that resolves to a system logger response indicating the result of the sign-up process.
  * @throws Will throw an error if the sign-up process encounters a redirect error.
  */
-export async function signUpUser(prevState: unknown, formData: FormData) {
+export async function signUpUser(data: SignUp) {
   try {
-    const user = SignUpSchema.parse({
-      name           : formData.get('name'),
-      email          : formData.get('email'),
-      password       : formData.get('password'),
-      confirmPassword: formData.get('confirmPassword')
-    })
-    const unhashedPassword = user.password
-    user.password = await hash(user.password)
-    await prisma.user.create({ data: { name: user.name, email: user.email, password: user.password } })
-    await signIn('credentials', { email: user.email, password: unhashedPassword })
-    return SystemLogger.response(en.success.user_signed_up, CODE.CREATED, TAG)
-  } catch (error) {
-    if (isRedirectError(error)) {
-      throw error
+    const { name, email, password } = data
+
+    if (!name || !email || !password) {
+      const _errorMessage = transl('error.validation_error', { error: 'missing fields' })
+      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
     }
-    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+
+    const existingUser = await prisma.user.findUnique({ where: { email } })
+    if (existingUser) {
+      const _errorMessage = transl('error.exists_default', { document: email })
+      return SystemLogger.response(false, _errorMessage, CODE.CONFLICT, {})
+    }
+
+    const hashedPassword = await bcrypt.hash(password, GLOBAL.HASH.SALT_ROUNDS)
+    const user = await prisma.user.create({ data: { name, email, password: hashedPassword } })
+
+    await signIn('credentials', { email, password, redirect: false })
+
+    const _message = transl('success.user_welcome', { user: name })
+    return SystemLogger.response(true, _message, CODE.CREATED, user)
+  } catch (error) {
+      if (isRedirectError(error)) {
+        throw error
+      }
+      return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
 }
 
@@ -109,7 +133,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
  */
 export async function getUserById(userId: string) {
   const user = await prisma.user.findFirst({ where: {id: userId }})
-  if (!user) throw new Error(en.error.user_not_found)
+  if (!user) throw new Error(transl('error.user_not_found'))
   return user
 }
 
@@ -124,11 +148,11 @@ export async function updateUserAddress(address: ShippingAddress) {
   try {
     const session = await auth()
     const currentUser = await prisma.user.findFirst({where: {id:session?.user?.id}})
-    if(!currentUser) throw new Error(en.error.user_not_found)
+    if(!currentUser) throw new Error(transl('error.user_not_found'))
 
     const parsedAddress = ShippingAddressSchema.parse(address)
-    await prisma.user.update({where: {id: currentUser.id},data: {address: parsedAddress}})
-    return SystemLogger.response(`${currentUser.name} address updated`, CODE.OK, TAG)
+    await prisma.user.update({where: { id: currentUser.id },data: { address: parsedAddress }})
+    return SystemLogger.response(true, transl('success.user_address_updated', { user: currentUser.name ?? 'User' }), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -145,10 +169,10 @@ export async function updateUserPaymentMethod(paymentType: z.infer<typeof Paymen
   try {
     const session =  await auth()
     const currentUser = await prisma.user.findFirst({ where:{ id:session?.user?.id }})
-    if (!currentUser) throw new Error(en.error.user_not_found)
+    if (!currentUser) throw new Error(transl('error.user_not_found'))
     const { type } = PaymentMethodSchema.parse(paymentType)
     await prisma.user.update({ where: { id: currentUser.id }, data: { paymentMethod: type } })
-    return SystemLogger.response(en.success.user_updated, CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.user_updated'), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -167,10 +191,10 @@ export async function updateUserAccount(user: UserBase) {
     const session     = await auth()
     const userId      = session?.user?.id
     const currentUser = await prisma.user.findFirst({ where: { id: userId }})
-    if (!currentUser) throw new Error(en.error.user_not_found)
+    if (!currentUser) throw new Error(transl('error.user_not_found'))
     const updatedUser = await prisma.user.update({ where:{ id: currentUser.id }, data: { name: user.name, email: user.email }})
     revalidatePath(PATH_DIR.USER.ACCOUNT)
-    return SystemLogger.response(en.success.user_updated, CODE.OK, TAG, '', updatedUser)
+    return SystemLogger.response(true, transl('success.user_updated'), CODE.OK, updatedUser)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -186,11 +210,11 @@ export async function updateUserAccount(user: UserBase) {
 export async function updateUser(data: UpdateUserAccount) {
   try {
     const user = await prisma.user.findFirst({ where: { id: data.id }})
-    if (!user) throw new Error(en.error.user_not_found)
+    if (!user) throw new Error(transl('error.user_not_found'))
 
     const updatedUser = await prisma.user.update({ where:{ id: user.id }, data: { name: data.name, role: data.role }})
     revalidatePath(PATH_DIR.ADMIN.USER_VIEW(user.id))
-    return SystemLogger.response(en.success.user_updated, CODE.OK, TAG, '', updatedUser)
+    return SystemLogger.response(true, transl('success.user_updated') , CODE.OK, updatedUser)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -215,7 +239,7 @@ export async function deleteUser(userId: string) {
     await prisma.user.delete({ where: { id: userId } })
 
     revalidatePath(PATH_DIR.ADMIN.USER)
-    return SystemLogger.response(en.success.user_deleted, CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.user_deleted'), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }

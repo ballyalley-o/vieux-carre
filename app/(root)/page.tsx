@@ -1,19 +1,19 @@
+export const dynamic = 'force-dynamic'
 import { Fragment } from 'react'
-import { getLatestProducts, getAllFeaturedProducts } from 'lib'
-import { ProductList, ProductCarousel, ProductBtn } from 'component/shared'
+import { GLOBAL } from 'vieux-carre'
+import { en } from 'public/locale'
+import { getLatestProducts } from 'lib'
+import { ProductList, ProductBtn } from 'component/shared/product'
 import { DealCountdown } from 'component/shared/promo'
 import { ServiceCard } from 'component/shared/card'
-import { GLOBAL } from 'config'
 
 const Homepage = async () => {
-  const latestProducts   = await getLatestProducts()
-  const featuredProducts = await getAllFeaturedProducts()
+  const latestProducts = await getLatestProducts()
   return (
     <Fragment>
-     {featuredProducts.length > 0  && <ProductCarousel products={featuredProducts} />}
-      <ProductList data={latestProducts} title={'Newest Arrivals'} limit={GLOBAL.LATEST_PRODUCT_QUANTITY} />
+      <ProductList data={latestProducts} title={en.newest_arrivals.label} limit={GLOBAL.LATEST_PRODUCT_QUANTITY} />
       <ProductBtn />
-      <ServiceCard/>
+      <ServiceCard />
       <DealCountdown />
     </Fragment>
   )

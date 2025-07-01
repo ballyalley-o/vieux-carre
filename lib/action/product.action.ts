@@ -1,15 +1,56 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use server'
-import { en } from 'public/locale'
+
 import { GLOBAL } from 'vieux-carre'
-import { Prisma } from '@prisma/client'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { prisma } from 'db/prisma'
-import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema } from 'lib'
+import { DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema, transl } from 'lib'
 import { revalidatePath } from 'next/cache'
 import { PATH_DIR } from 'config'
 
 const TAG = 'PRODUCT.ACTION'
+const s3 = new S3Client({
+    region: GLOBAL.AWS.AWS_REGION!,
+    credentials: {
+        accessKeyId    : GLOBAL.AWS.AWS_ACCESS_KEY_ID,
+        secretAccessKey: GLOBAL.AWS.AWS_SECRET_ACCESS_KEY
+    }
+})
 
+type ImageArr   = { currentImages: string[]; index: number }
+type ImageSolo  = { currentImages: string }
+type ImageInput = ImageArr | ImageSolo
+
+export async function deleteProductImage(args: ImageInput) {
+  const getFileKeyFromUrl = (url: string) => {
+    try {
+      const urlParts = url?.split('/')
+      const keyParts = urlParts.slice(3)
+      return keyParts.join('/')
+    } catch (error) {
+      console.error('Error extracting the file Key: ', error)
+      return null
+    }
+  }
+
+  const imageToDelete = 'index' in args ? args.currentImages[args.index] : args.currentImages
+  const fileKey       = getFileKeyFromUrl(imageToDelete)
+
+  if (!fileKey) return { succes: false, error: 'Invalid file key' }
+  try {
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: GLOBAL.AWS.S3_BUCKET_NAME,
+        Key: fileKey
+      })
+    )
+    return { success: true }
+  } catch (error) {
+    console.error(transl('error.unable_delete'), error)
+    return { success: false, error }
+  }
+}
 
 /**
  * Fetches the latest products from the database.
@@ -85,7 +126,7 @@ export async function deleteProduct(productId: string) {
     await prisma.product.delete({ where: { id: productId } })
 
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_deleted, CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.product_deleted'), CODE.OK)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -105,7 +146,7 @@ export async function createProduct(data: CreateProduct) {
     const product = ProductSchema.parse(data)
     await prisma.product.create({ data: product })
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_created, CODE.CREATED, TAG, '', product)
+    return SystemLogger.response(true, transl('success.product_created'), CODE.CREATED, product)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -123,11 +164,11 @@ export async function updateProduct(data:UpdateProduct) {
   try {
     const product = UpdateProductSchema.parse(data)
     const productExists = await prisma.product.findFirst({ where: { id: product.id }})
-    if (!productExists) throw new Error(en.error.product_not_found)
+    if (!productExists) throw new Error(transl('error.product_not_found'))
 
     await prisma.product.update({ where: {id: product.id }, data: product })
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
-    return SystemLogger.response(en.success.product_created, CODE.CREATED, TAG, '', product)
+    return SystemLogger.response(true, transl('success.product_updated'), CODE.OK, product)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }

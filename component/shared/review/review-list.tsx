@@ -62,11 +62,11 @@ const ReviewList: FC<ReviewListProps> = ({ userId, productId, productSlug }) => 
                 <div className="flex space-x-4 text-sm text-muted-foreground">
                     <ProductRating value={_review.rating} />
                     <div className="flex items-center">
-                        <UserIcon size={ICON.EXTRA_SMALL} className={'mr-1'} />
+                        <UserIcon size={ICON.XTRA_SMALL} className={'mr-1'} />
                         {_review.user ? _review.user.name : en.user.label}
                     </div>
                     <div className={'flex items-center'}>
-                        <Calendar size={ICON.EXTRA_SMALL} className={'mr-1'} />
+                        <Calendar size={ICON.XTRA_SMALL} className={'mr-1'} />
                         {formatDateTime(_review.createdAt).dateTime}
                     </div>
                 </div>

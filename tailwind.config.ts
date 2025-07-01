@@ -3,53 +3,53 @@ import tailwindAnimate from 'tailwindcss-animate'
 
 const config = {
   darkMode: 'class',
-  content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './component/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
-  prefix: '',
-  theme: {
+  content : ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './component/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
+  prefix  : '',
+  theme   : {
     extend: {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        card: {
-          DEFAULT: 'hsl(var(--card))',
+        card      : {
+          DEFAULT   : 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
+          DEFAULT   : 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))'
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT   : 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
+          DEFAULT   : 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))'
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
+          DEFAULT   : 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))'
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
+          DEFAULT   : 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))'
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
+          DEFAULT   : 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
         },
         white: {
-           DEFAULT: '#F2EED8',
+           DEFAULT   : '#F2EED8',
            foreground: 'hsl(var(--white-foreground))'
         },
         black: {
-          DEFAULT: '#0D0E0E',
+          DEFAULT   : '#0D0E0E',
           foreground: 'hsl(var(--black-foreground))'
         },
         border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        chart: {
+        input : 'hsl(var(--input))',
+        ring  : 'hsl(var(--ring))',
+        chart : {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',
           '3': 'hsl(var(--chart-3))',
@@ -65,24 +65,24 @@ const config = {
       keyframes: {
         shuffle1: {
           '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' },
-          '50%': { transform: 'translate(80px, 80px) rotate(180deg)' }
+          '50%'     : { transform: 'translate(80px, 80px) rotate(180deg)' }
         },
         shuffle2: {
           '0%, 100%': { transform: 'translate(80px, 0) rotate(0deg)' },
-          '50%': { transform: 'translate(0, 80px) rotate(-180deg)' }
+          '50%'     : { transform: 'translate(0, 80px) rotate(-180deg)' }
         },
         shuffle3: {
           '0%, 100%': { transform: 'translate(0, 80px) rotate(0deg)' },
-          '50%': { transform: 'translate(80px, 0) rotate(-180deg)' }
+          '50%'     : { transform: 'translate(80px, 0) rotate(-180deg)' }
         },
         shuffle4: {
           '0%, 100%': { transform: 'translate(80px, 80px) rotate(0deg)' },
-          '50%': { transform: 'translate(0, 0) rotate(180deg)' }
+          '50%'     : { transform: 'translate(0, 0) rotate(180deg)' }
         },
         wave: {
           '0%, 100%': { transform: 'rotate(0deg)' },
-          '25%': { transform: 'rotate(-15deg)' },
-          '75%': { transform: 'rotate(15deg)' },
+          '25%'     : { transform: 'rotate(-15deg)' },
+          '75%'     : { transform: 'rotate(15deg)' },
         }
       },
       animation: {

@@ -1,6 +1,6 @@
 import { JSX, ReactNode } from 'react'
 import { z, ZodError } from 'zod'
-import { Prisma } from '@prisma/client'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateUserAccountSchema, UpdateProductSchema } from 'lib'
 import { ReviewSchema } from 'lib/schema/review-schema'
 
@@ -18,7 +18,12 @@ declare global {
     createdAt : Date
   }
 
+  export type FieldName    = Path<z.infer<TSchema>>
+  export type SetFieldName = PathValue<TypeOf<TSchema>, Path<TSchema>>
+
   export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'
+
+  export type ModuleType = 'admin' | 'user'
 
   export interface Product extends z.infer<typeof ProductSchema> {
     id        : string
@@ -103,11 +108,10 @@ declare global {
   }
 
   export interface AppResponse {
-    success    : boolean
-    code       : CODE
-    message    : string
-    redirectTo?: string
-    data      ?: unknown
+    success : boolean
+    status  : CODE | undefined
+    message : string
+    data   ?: unknown
   }
 
   export interface AppPage<T> { page: T }

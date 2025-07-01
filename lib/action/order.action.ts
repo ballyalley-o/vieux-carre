@@ -1,16 +1,16 @@
 'use server'
-import { auth } from 'auth'
-import { en } from 'public/locale'
 import { GLOBAL } from 'vieux-carre'
+import { auth } from 'vieux-carre.authenticate'
+import { Prisma } from 'vieux-carre.authenticate/generated'
+import { en } from 'public/locale'
 import { revalidatePath } from 'next/cache'
-import { Prisma } from '@prisma/client'
 import { prisma } from 'db/prisma'
 import { sendPurchaseReceipt } from 'email'
 import { paypal } from 'lib/paypal'
 import { CODE } from 'lib/constant'
 import { OrderSchema } from 'lib/schema'
 import { SystemLogger } from 'lib/app-logger'
-import { convertToPlainObject } from 'lib/util'
+import { convertToPlainObject, transl } from 'lib/util'
 import { PATH_DIR } from 'config'
 import { getUserById } from './user.action'
 import { getMyBag } from './bag.action'
@@ -77,7 +77,7 @@ export async function createOrder() {
         return createdOrder.id
     })
     if (!createdOrderId) throw new Error(en.error.order_not_created)
-    return SystemLogger.response(`${en.success.order_created} - ${createdOrderId}`, CODE.CREATED, TAG, PATH_DIR.ORDER_VIEW(createdOrderId))
+    return SystemLogger.redirectResponse(`${en.success.order_created} - ${createdOrderId}`, CODE.CREATED, TAG, PATH_DIR.ORDER_VIEW(createdOrderId))
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -112,7 +112,7 @@ export async function createPayPalOrder(orderId: string) {
     if (order) {
       const paypalOrder = await paypal.createOrder(Number(order.totalPrice));
       await prisma.order.update({ where: { id: orderId }, data: { paymentResult: { id: paypalOrder.id, email_address: '', status: '', pricePaid: 0 }}})
-      return SystemLogger.response(en.success.order_created, CODE.CREATED, TAG, undefined, paypalOrder.id)
+      return SystemLogger.response(true, transl('success.order_created'), CODE.CREATED, paypalOrder.id)
     } else {
       throw new Error(en.error.order_not_found)
     }
@@ -149,7 +149,7 @@ export async function approvePayPalOrder(orderId: string, data: { orderID: strin
     },
   });
    revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
-   return SystemLogger.response(en.success.order_paid)
+   return SystemLogger.response(true, transl('success.order_paid'))
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -270,7 +270,7 @@ export async function deleteOrder(orderId: string) {
   try {
     await prisma.order.delete({ where: { id: orderId }})
     revalidatePath(PATH_DIR.ADMIN.ORDER)
-    return SystemLogger.response(en.success.order_deleted, CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.order_deleted'), CODE.OK)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -291,7 +291,7 @@ export async function updateCODOrderToPaid(orderId: string) {
   try {
     await updateOrderToPaid({ orderId })
     revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
-    return SystemLogger.response(en.success.order_paid)
+    return SystemLogger.response(true, transl('success.order_paid'))
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -319,7 +319,7 @@ export async function updateOrderToDelivered(orderId: string) {
     if (!order.isPaid) throw new Error(en.error.order_not_paid)
     await prisma.order.update({ where: { id: orderId}, data: { isDelivered: true, deliveredAt: new Date() }})
     revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
-    return SystemLogger.response(en.success.order_delivered)
+    return SystemLogger.response(true, transl('success.order_delivered'))
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }

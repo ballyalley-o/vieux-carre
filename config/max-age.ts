@@ -64,7 +64,11 @@ const twoDaysFromNow     = fromNow(twoDays)
 const fifteenDaysFromNow = fromNow(fifteenDays)
 const thirtyDaysFromNow  = fromNow(thirtyDays)
 
+const now               = new Date()
+const lastDayOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59)
+
 export {
+  now,
   expire,
   oneSec,
   fiveSecFromNow,
@@ -82,5 +86,6 @@ export {
   oneDayFromNow,
   twoDaysFromNow,
   fifteenDaysFromNow,
-  thirtyDaysFromNow
+  thirtyDaysFromNow,
+  lastDayOfTheMonth
 }

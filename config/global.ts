@@ -1,11 +1,17 @@
-    // prettier-ignore
+// prettier-ignore
 export const GLOBAL = {
-  APP_NAME               : process.env.NEXT_PUBLIC_APP_NAME || 'Vieux Carré',
-  APP_VERSION            : process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
-  APP_DESCRIPTION        : process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Old Square shop application',
-  SERVER_URL             : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-  DATABASE_URL           : process.env.DATABASE_URL || '',
-  ENCRYPTION_KEY         : process.env.ENCRYPTION_KEY || '',
+  APP_NAME          : process.env.NEXT_PUBLIC_APP_NAME || 'Vieux Carré',
+  APP_VERSION       : process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
+  APP_DESCRIPTION   : process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Old Square shop application',
+  SERVER_URL        : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  SERVER_SUPPORT_URL: process.env.NEXT_PUBLIC_SERVER_SUPPORT_URL || 'http://localhost:3000',
+  NODE_ENV          : process.env.NODE_ENV || 'development',
+  DB_URI            : process.env.DB_URI || '',
+  ENCRYPTION_KEY    : process.env.ENCRYPTION_KEY || '',
+  GOOGLE            : {
+       CLIENT_ID    : process.env.GOOGLE_CLIENT_ID,
+       CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
+  },
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
@@ -43,13 +49,21 @@ export const GLOBAL = {
                             MONEY_BACK_DAYS: process.env.MONEY_BACK_DAYS || 30
                           },
   RESEND                :{
-                          RESEND_API_KEY: process.env.RESEND_API_KEY || '',
-                          SENDER_EMAIL  : process.env.SENDER_EMAIL || 'onboarding@resend.dev'
+                            RESEND_API_KEY: process.env.RESEND_API_KEY || '',
+                            SENDER_EMAIL  : process.env.SENDER_EMAIL || 'onboarding@resend.dev'
+                            },
+  AWS                   : {
+                            AWS_ACCESS_KEY_ID    : process.env.AWS_ACCESS_KEY_ID || "",
+                            AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY || "",
+                            AWS_REGION           : process.env.AWS_REGION || "",
+                            S3_BUCKET_NAME       : process.env.S3_BUCKET_NAME || "",
+                            PUBLIC_URL           : `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/`
                           },
-  UPLOADTHING           : {
-                            APP_ID             : process.env.UPLOADTHING_APP_ID,
-                            TOKEN              : process.env.UPLOADTHING_TOKEN,
-                            SECRET             : process.env.UPLOADTHING_SECRET,
-                            ALLLOWED_IMAGE_TYPE: 'image/*'
-                          }
+  HASH                  : {
+                            TYPE       : process.env.HASH_TYPE,
+                            MEMORY_COST: process.env.HASH_MEMORY_COST || '19456',
+                            TIME_COST  : process.env.HASH_TIME_COST || '2',
+                            PARALLELISM: process.env.HASH_PARALLELISM || '1',
+                            SALT_ROUNDS: process.env.SALT_ROUNDS || 10
+  }
 }

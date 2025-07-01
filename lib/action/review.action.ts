@@ -3,9 +3,9 @@
 import { en } from 'public/locale'
 import { z } from 'zod'
 import { prisma } from 'db/prisma'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { revalidatePath } from 'next/cache'
-import { CODE, ReviewSchema, SystemLogger } from 'lib'
+import { CODE, ReviewSchema, SystemLogger, transl } from 'lib'
 import { PATH_DIR } from 'config'
 
 const TAG = 'REVIEW.ACTION'
@@ -49,7 +49,7 @@ export async function createUpdateReview(data: z.infer<typeof ReviewSchema>) {
 
     revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
 
-    return SystemLogger.response(en.success.review_updated, CODE.OK, TAG)
+    return SystemLogger.response(true, transl('success.review_updated'), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.INTERNAL_SERVER_ERROR, TAG)
   }

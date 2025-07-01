@@ -19,11 +19,13 @@
       }
     ],
     "paths": {
-      "*": ["./*"],
-      "vieux-carre": ["./config/global.ts"],
-    }
+      "*"                       : ["./*"],
+      "vieux-carre"             : ["./config/global.ts"],
+      "vieux-carre.authenticate": ["./vieux-carre.authenticate"],
+      "vc.dir"                  : ["./config/dir"],
+      "vc.locale"               : ["./public/locale"],
+    },
     // "types": ["next", "next/types/global", "next-i18next"]
-    // "target": "ES2017"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

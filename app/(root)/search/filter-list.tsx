@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { en } from 'public/locale'
 import Link from 'next/link'
+import { NoScrollBtn } from 'component/shared/btn'
 import { Separator } from 'component/ui'
 
 interface FilterListProps<T> {
@@ -42,9 +43,9 @@ const FilterList = <T,>({ title, items, selectedValue, getUrl, formatLabel, extr
             const value = extractValue(_i)
             return (
               <li key={index}>
-                <Link href={getUrl(value)} className={getActiveClass(selectedValue === value)}>
+                <NoScrollBtn href={getUrl(value)} className={getActiveClass(selectedValue === value)}>
                  {formatLabel(_i)}
-                </Link>
+                </NoScrollBtn>
               </li>
             )
           })}

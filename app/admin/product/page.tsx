@@ -55,7 +55,7 @@ const AdminProductsPage: FC<AdminProductsPageProps> = async ({ searchParams }) =
     <div className={'space-y-2'} suppressHydrationWarning>
         <div className={'flex-between'}>
             <PageTitle query={query} title={en.product.products.label} href={PATH_DIR.ADMIN.PRODUCT} />
-            <Button asChild className={'bg-white'}>
+            <Button asChild  variant={'outline'}>
                 <Link href={PATH_DIR.ADMIN.PRODUCT_CREATE}>{en.create_product.label}</Link>
             </Button>
         </div>

@@ -8,7 +8,7 @@ interface BaseLocale  {
 
 type ProcessFlowLocaleKey<T extends BaseLocale> = keyof T['purchase_flow']
 interface PurchaseFlowProps<T extends BaseLocale> {
-  locale: T
+  locale  : T
   current?: number
 }
 

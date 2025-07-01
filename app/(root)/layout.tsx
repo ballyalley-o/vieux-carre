@@ -1,11 +1,19 @@
 import { ReactNode } from 'react'
+import { getAllFeaturedProducts } from 'lib'
 import { Header, Footer } from 'component/shared'
+import { ProductCarousel } from 'component/shared/product'
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const featuredProducts = await getAllFeaturedProducts()
   return (
-    <div className="flex h-screen flex-col">
+    <div className={'flex min-h-screen flex-col'}>
       <Header />
-      <main className="flex-1 wrapper">{children}</main>
+      {featuredProducts.length > 0 && (
+        <div className="w-screen overflow-hidden">
+          <ProductCarousel products={featuredProducts} />
+        </div>
+      )}
+      <main className={'flex-1 wrapper'}>{children}</main>
       <Footer />
     </div>
   )

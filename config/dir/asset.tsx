@@ -4,6 +4,9 @@ import { joinServer, join } from "lib/util/join"
 
 
 export const ASSET_DIR = {
+  ICON               : {
+    GOOGLE: '/image/svg/google.svg'
+  },
   LOGO               : '/image/svg/vieux-carre.svg',
   LOGO_DARK          : '/image/svg/vieux-carre-white.svg',
   LOGO_RED           : '/image/svg/vieux-carre-red.svg',

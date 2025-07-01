@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic'
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
-import Link from 'next/link'
 import { getAllProducts, getAllCategories, PRICE, RATING, KEY, SORT_ORDER } from 'lib'
 import { NoResult, ProductCard, LinkBtn } from 'component/shared'
+import { NoScrollBtn } from 'component/shared/btn'
 import { PATH_DIR } from 'config'
 import FilterList from './filter-list'
 import FilterTitle from './filter-title'
@@ -89,11 +90,11 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
             <div className="">
               {en.sort_by.label}:
               {SORT_ORDER.map((_item, index) => (
-                <Link key={index} href={getFilterUrl({ _sort: _item})}  className={`mx-2 ${sort === _item && 'font-bold'}`}>{_item}</Link>
+                <NoScrollBtn key={index} href={getFilterUrl({ _sort: _item})}  className={`mx-2 ${sort === _item && 'font-bold'}`}>{_item}</NoScrollBtn>
               ))}
             </div>
           </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {products.data.length <=0  && <NoResult data={products.data.length} />}
             {products.data.map((product, index) => (
                 <ProductCard key={index} product={product} />
