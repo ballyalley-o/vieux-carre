@@ -1,4 +1,3 @@
-import { auth } from 'vieux-carre.authenticate'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -6,9 +5,10 @@ export async function middleware(request: NextRequest) {
   const protectedPaths  = [/\/shipping/, /\/payment/, /\/place-order/, /\/account/, /\/user\/(.*)/, /\/order\/(.*)/, /\/admin\/(.*)/]
   const pathname        = request.nextUrl.pathname
   const isProtected     = protectedPaths.some((p) => p.test(pathname))
-  const session         = await auth()
+  // const session         = await auth()
   const cookiesObject   = request.cookies
-  const isAuthenticated = !!session?.user
+  const sessionCookie   = cookiesObject.get(process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token')
+  const isAuthenticated = !!sessionCookie
 
   if (isProtected && !isAuthenticated) {
     const signInUrl = new URL('/sign-in', request.url)
