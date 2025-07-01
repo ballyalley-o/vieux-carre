@@ -2,8 +2,8 @@
 
 import { z } from 'zod'
 import { GLOBAL } from 'vieux-carre'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { revalidatePath } from 'next/cache'
-import { Prisma } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import { ShippingAddressSchema, PaymentMethodSchema } from 'lib/schema'
 import { prisma } from 'db/prisma'

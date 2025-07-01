@@ -2,7 +2,7 @@
 'use server'
 
 import { GLOBAL } from 'vieux-carre'
-import { Prisma } from '@prisma/client'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { prisma } from 'db/prisma'
 import { DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema, transl } from 'lib'
