@@ -1,12 +1,13 @@
 'use client'
+
 import { FormEvent } from 'react'
-import { en } from 'public/locale'
 import { useRouter } from 'next/navigation'
 import { useFormStatus } from 'react-dom'
 import { createOrder } from 'lib/action'
 import { Barcode } from 'lucide-react'
 import { Button } from 'component/ui'
 import { EllipsisLoader } from 'component/shared/loader'
+import { transl } from 'lib'
 
 const CheckoutForm = () => {
   const router = useRouter()
@@ -21,7 +22,7 @@ const CheckoutForm = () => {
     return (
       <Button disabled={pending} className={'w-full'}>
         {pending ? <EllipsisLoader /> : <Barcode className={'default-size_icon'} />}
-        {pending ? <i>{en.place_order.pending}</i> : en.place_order.label}
+        {pending ? <i>{transl('place_order.pending')}</i> : transl('place_order.label')}
       </Button>
     )
   }
