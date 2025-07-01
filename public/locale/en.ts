@@ -372,6 +372,9 @@ export const en = {
   paid_at: {
     label: 'Paid At'
   },
+  payment: {
+    label: 'Payment'
+  },
   payment_method: {
     label      : 'Payment Method',
     description: 'Select your preferred payment method'
