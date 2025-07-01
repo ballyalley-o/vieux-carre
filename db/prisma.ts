@@ -2,7 +2,7 @@ import { GLOBAL } from 'vieux-carre'
 import ws from 'ws'
 import { neonConfig } from '@neondatabase/serverless'
 import { PrismaNeon } from '@prisma/adapter-neon'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from 'vieux-carre.authenticate/generated'
 
       neonConfig.webSocketConstructor = ws
 const connectionString                = String(GLOBAL.DB_URI)

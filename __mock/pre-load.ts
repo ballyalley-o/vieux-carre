@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from 'vieux-carre.authenticate/generated'
 import { GLOBAL } from 'vieux-carre'
 import goodlog from 'good-logs'
 import bcrypt from 'bcryptjs'
