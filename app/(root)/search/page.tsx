@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
 import { getAllProducts, getAllCategories, PRICE, RATING, KEY, SORT_ORDER } from 'lib'
