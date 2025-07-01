@@ -1,5 +1,5 @@
 import { getMyBagCount } from 'lib/action'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { ThemeToggle, MobileMenu, UserMenu, BagIconWithBadge } from 'component/shared'
 
 interface ToolbarProps {

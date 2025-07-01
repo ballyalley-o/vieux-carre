@@ -29,16 +29,20 @@ class AppLogger {
     console.error(`ERROR: ${errorRaw}`, `TAG: ${TAG_FORMAT(tag)}`, targetLineInfo, content)
   }
 
-  public response(message: string, code?: CODE, tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
-    return RESPONSE.SUCCESS(message, code, redirectTo, data)
+  public response(success: boolean, message: string, code?: CODE, data?: unknown) {
+    return { success, status: code, message, data }
   }
 
-  public errorResponse(error: AppError | string, code: CODE, tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
-    return RESPONSE.ERROR(errorHandler(error as AppError), code, redirectTo, data)
+  public redirectResponse(message: string, code?: CODE, redirectTo?: string, data?: unknown) {
+    return { status: code, success: true, message, redirectTo, data }
   }
 
-  public errorMessage(message: string, code: CODE, tag: string = TAG_DEFAULT) {
-    return RESPONSE.ERROR(message, code)
+  public errorResponse(error: AppError | string, code: CODE, _tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
+    return { success: false, status: code, message: errorHandler(error as AppError), redirectTo, data }
+  }
+
+  public errorMessage(message: string, code: CODE, _tag: string = TAG_DEFAULT) {
+    return { success: false, status: code, message }
   }
 
   public info(content: string, tag: string = TAG_DEFAULT) {

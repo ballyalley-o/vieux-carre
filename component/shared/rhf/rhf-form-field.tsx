@@ -1,11 +1,11 @@
 
 import { z, ZodSchema } from 'zod'
-import { en } from 'public/locale'
+import { en } from 'vc.locale'
 import { Control, ControllerRenderProps, Path } from 'react-hook-form'
 import { FormField, FormControl, FormLabel, FormMessage, FormItem } from 'component/ui/form'
 import { Input } from 'component/ui/input'
 import { Button } from 'component/ui/button'
-import { cn } from 'lib/util'
+import { cn, transl } from 'lib/util'
 import { Textarea } from 'component/ui'
 
 type FormKeyLocale = keyof typeof en.form
@@ -38,26 +38,26 @@ const RHFFormField = <TSchema extends ZodSchema, TName extends Path<z.infer<TSch
     render={({ field }: RHFFormFieldControllerRender<TSchema, TName>) => (
       <FormItem className={"w-full"}>
         <FormControl>
-          <FormLabel>{en.form[formKey].label}</FormLabel>
+          <FormLabel>{transl(`form.${formKey}.label`)}</FormLabel>
         </FormControl>
         {
         type === 'inputWithButton' ? (
           <div className={'flex flex-row items-center gap-2'}>
-            <Input disabled={disabled} placeholder={en.form[formKey].placeholder} {...field} />
+            <Input disabled={disabled} placeholder={transl(`form.${formKey}.placeholder`)} {...field} />
            <span><Button type={'button'} variant={'outline'} className={'bg-punk shadow-none'} onClick={onClick}>{buttonLabel}</Button></span>
           </div>
         )
         :
         type === 'textarea' ? (
-          <Textarea disabled={disabled} placeholder={en.form[formKey].placeholder} {...field} className={'resize-none'} />
+          <Textarea disabled={disabled} placeholder={transl(`form.${formKey}.placeholder`)} {...field} className={'resize-none'} />
         )
         :
         type === 'input' ?
         (
-          <Input disabled={disabled} placeholder={en.form[formKey].placeholder} {...field} />
+          <Input disabled={disabled} placeholder={transl(`form.${formKey}.placeholder`)} {...field} />
         ):
         (
-          <Input disabled={disabled} placeholder={en.form[formKey].placeholder} {...field} />
+          <Input disabled={disabled} placeholder={transl(`form.${formKey}.placeholder`)} {...field} />
         )}
         <FormMessage />
       </FormItem>

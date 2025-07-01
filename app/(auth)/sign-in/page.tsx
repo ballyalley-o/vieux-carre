@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { redirect } from 'next/navigation'
 import { Card, CardHeader, CardDescription, CardContent } from 'component'
 import { AppLogo } from 'component/shared/app'

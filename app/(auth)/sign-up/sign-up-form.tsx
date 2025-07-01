@@ -1,98 +1,72 @@
 'use client'
 
-import { useActionState } from 'react'
-import { useFormStatus } from 'react-dom'
-import { en } from 'public/locale'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useToast } from 'hook'
 import { signUpUser } from 'lib/action/user.action'
-import Link from 'next/link'
 import { Button } from 'component/ui/button'
-import { Input } from 'component/ui/input'
-import { Label } from 'component/ui/label'
+import { AppAuthRedir } from 'component/shared/app'
+import { RHFFormField, RHFPasswordField } from 'component/shared/rhf'
 import { EllipsisLoader } from 'component/shared/loader'
 import { PATH_DIR } from 'config'
-import { KEY, RESPONSE, signUpDefaultValue } from 'lib'
+import { delay, KEY, signUpDefaultValue, SignUpSchema, transl } from 'lib'
 
 const SignUpForm = () => {
-  const [data, action] = useActionState(signUpUser, RESPONSE.DEFAULT)
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
+  const searchParams   = useSearchParams()
+  const callbackUrl    = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
+  const { toast }      = useToast()
+  const router         = useRouter()
+  const form           = useForm<SignUp>({ resolver: zodResolver(SignUpSchema), defaultValues: signUpDefaultValue })
+
+  const { register, control, formState: { isSubmitting }, handleSubmit } = form
 
   const SignUpButton = () => {
-    const { pending } = useFormStatus()
     return (
-      <div className="mb-5">
-        <Button disabled={pending} className="w-full" variant={'default'}>
-          {pending ? <EllipsisLoader /> : en.sign_up.label}
+      <div className={'mb-5'}>
+        <Button disabled={isSubmitting} className="w-full" variant={'default'}>
+          {isSubmitting ? <EllipsisLoader /> : transl('sign_up.label')}
         </Button>
       </div>
     )
   }
-  const renderDataMessage = data && !data.success && <div className="text-center text-destructive">{data.message}</div>
+
+  const onSubmit: SubmitHandler<SignUp> = async (data) => {
+    try {
+      const response = await signUpUser(data)
+      console.log('response in form: ', response)
+      if (response.success === true) {
+        await delay(500)
+        toast({ description: response.message })
+        router.push(PATH_DIR.ROOT)
+      } else {
+        toast({ variant: 'destructive', description: response.message })
+      }
+    } catch (error) {
+      toast({ variant: 'destructive', description: (error as AppError).message })
+    }
+  }
   return (
-    <form action={action}>
-      <input type="hidden" name={KEY.CALLBACK_URL} value={callbackUrl} />
-      {renderDataMessage}
-      <div className="space-y-6">
-        <div>
-          <Label htmlFor={KEY.NAME}>{'Name'}</Label>
-          <Input
-            id={KEY.NAME}
-            name={KEY.NAME}
-            type={KEY.TEXT}
-            autoComplete={KEY.NAME}
-            defaultValue={signUpDefaultValue.name}
-            className="rounded-sm"
-            required
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="hidden" name={KEY.CALLBACK_URL} value={callbackUrl} />
+        <div className={'space-y-6'}>
+          <RHFFormField control={control} name={'name'} formKey={'name'} disabled={isSubmitting} withWrapper />
+          <RHFFormField control={control} name={'email'} formKey={'email'} disabled={isSubmitting} withWrapper />
+          <RHFPasswordField control={control} register={register} name={'password'} formKey={'password'} disabled={isSubmitting} withWrapper />
+          <RHFPasswordField
+            control={control}
+            register={register}
+            name={'confirmPassword'}
+            formKey={'confirm_password'}
+            disabled={isSubmitting}
+            withWrapper
           />
-        </div>
-        <div>
-          <Label htmlFor="email">{'Email'}</Label>
-          <Input
-            id={KEY.EMAIL}
-            name={KEY.EMAIL}
-            type={KEY.EMAIL}
-            autoComplete={KEY.EMAIL}
-            defaultValue={signUpDefaultValue.email}
-            className="rounded-sm"
-            required
-          />
-        </div>
-        <div>
-          <Label htmlFor="password">{'Password'}</Label>
-          <Input
-            id={KEY.PASSWORD}
-            name={KEY.PASSWORD}
-            type={KEY.PASSWORD}
-            autoComplete={KEY.PASSWORD}
-            defaultValue={signUpDefaultValue.password}
-            className="rounded-sm"
-            required
-          />
-        </div>
-        <div>
-          <Label htmlFor={KEY.CONFIRM_PASSWORD}>{'Confirm Password'}</Label>
-          <Input
-            id={KEY.CONFIRM_PASSWORD}
-            name={KEY.CONFIRM_PASSWORD}
-            type={KEY.PASSWORD}
-            autoComplete={KEY.PASSWORD}
-            defaultValue={signUpDefaultValue.confirmPassword}
-            className="rounded-sm"
-            required
-          />
-        </div>
-        <div className="">
           <SignUpButton />
+          <AppAuthRedir type={'sign-up'} />
         </div>
-        <div className="text-sm text-center text-muted-foreground">
-          {en.already_have_account.label}
-          <Link href={PATH_DIR.SIGN_IN} target="_self" className="link font-bold">
-            &nbsp;{en.sign_in.label}
-          </Link>
-        </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   )
 }
 

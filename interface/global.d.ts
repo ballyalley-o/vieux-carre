@@ -1,6 +1,6 @@
 import { JSX, ReactNode } from 'react'
 import { z, ZodError } from 'zod'
-import { Prisma } from '@prisma/client'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateUserAccountSchema, UpdateProductSchema } from 'lib'
 import { ReviewSchema } from 'lib/schema/review-schema'
 
@@ -108,11 +108,10 @@ declare global {
   }
 
   export interface AppResponse {
-    success    : boolean
-    code       : CODE
-    message    : string
-    redirectTo?: string
-    data      ?: unknown
+    success : boolean
+    status  : CODE | undefined
+    message : string
+    data   ?: unknown
   }
 
   export interface AppPage<T> { page: T }

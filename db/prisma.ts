@@ -1,13 +1,13 @@
+import { GLOBAL } from 'vieux-carre'
 import ws from 'ws'
-import { Pool, neonConfig } from '@neondatabase/serverless'
+import { neonConfig } from '@neondatabase/serverless'
 import { PrismaNeon } from '@prisma/adapter-neon'
-import { PrismaClient } from '@prisma/client'
-import { GLOBAL } from 'config'
+import { PrismaClient } from 'vieux-carre.authenticate/generated'
 
-neonConfig.webSocketConstructor = ws
-const connectionString = `${GLOBAL.DATABASE_URL}`
-const pool = new Pool({ connectionString })
-const adapter = new PrismaNeon(pool)
+      neonConfig.webSocketConstructor = ws
+const connectionString                = String(GLOBAL.DB_URI)
+const poolConfig                      = { connectionString }
+const adapter                         = new PrismaNeon(poolConfig)
 
 export const prisma = new PrismaClient({ adapter }).$extends({
   result: {

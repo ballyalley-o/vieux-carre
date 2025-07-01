@@ -1,0 +1,4 @@
+[submodule "vieux-carre.authenticate"]
+	path = vieux-carre.authenticate
+	branch = main
+	url = https://github.com/ballyalley-o/vieux-carre.authenticate.git

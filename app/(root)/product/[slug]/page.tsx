@@ -1,7 +1,7 @@
 import { FC, Fragment } from 'react'
 import { en } from 'public/locale'
 import { notFound } from 'next/navigation'
-import { auth } from 'auth'
+import { auth } from 'vieux-carre.authenticate'
 import { getProductBySlug, getMyBag } from 'lib'
 import { Card, CardContent, Badge, ProductPrice, ProductImage } from 'component'
 import { AddToBag, ProductRating } from 'component/shared'

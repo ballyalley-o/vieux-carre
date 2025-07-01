@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Prisma } from '@prisma/client'
+import { Prisma } from 'vieux-carre.authenticate/generated'
 import { ZodError } from 'zod'
 
 
