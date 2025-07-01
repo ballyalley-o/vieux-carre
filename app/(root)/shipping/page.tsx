@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { Fragment } from 'react'
 import { Metadata } from 'next'
 import { en } from 'public/locale'
