@@ -1,15 +1,13 @@
+export const dynamic = 'force-dynamic'
 import { Fragment } from 'react'
 import { auth } from 'vieux-carre.authenticate'
 import { en } from 'public/locale'
+import { Metadata } from 'next'
 import { getUserById, transl } from 'lib'
 import { PurchaseFlow } from 'component/shared/custom'
 import PaymentForm from './payment-form'
 
-export async function generateMetadata() {
-  return {
-    title: transl('payment.label')
-  }
-}
+export const metadata: Metadata = { title: transl('payment.label') }
 
 const PaymentPage = async () => {
   const session = await auth()
