@@ -62,8 +62,13 @@ export async function deleteProductImage(args: ImageInput) {
  * representing the latest products.
  */
 export async function getLatestProducts() {
+ try {
   const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
   return convertToPlainObject(data)
+ } catch (error) {
+   console.error('Error: ', error)
+   throw new Error((error as AppError).message)
+ }
 }
 
 /**
