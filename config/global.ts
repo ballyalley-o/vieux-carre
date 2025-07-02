@@ -64,6 +64,6 @@ export const GLOBAL = {
                             MEMORY_COST: process.env.HASH_MEMORY_COST || '19456',
                             TIME_COST  : process.env.HASH_TIME_COST || '2',
                             PARALLELISM: process.env.HASH_PARALLELISM || '1',
-                            SALT_ROUNDS: process.env.SALT_ROUNDS || 10
+                            SALT_ROUNDS: Number(process.env.SALT_ROUNDS) || 10
   }
 }
