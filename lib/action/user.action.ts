@@ -60,7 +60,7 @@ export async function signInWithCredentials(data: SignIn) {
       return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
     }
 
-    const isMatch = await bcrypt.compare(user.password, password)
+    const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch) {
       return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
