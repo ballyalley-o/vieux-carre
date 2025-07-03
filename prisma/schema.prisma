@@ -2,7 +2,7 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
   output          = "../vieux-carre.authenticate/generated"
-  binaryTargets   = ["native", "darwin", "rhel-openssl-3.0.x"]
+  binaryTargets   = ["rhel-openssl-3.0.x", "native"]
 }
 
 datasource db {
