@@ -71,7 +71,7 @@ export async function signInWithCredentials(data: SignIn) {
     await signIn('credentials', { email, password, redirect: false })
     return SystemLogger.response(true, transl('success.user_welcomeback', { user: safeUser.name ?? 'User' }), CODE.OK, safeUser)
   } catch (error) {
-    console.log('error', error)
+    console.error('error', error)
     const _errorMessage = transl('error.unexpected_error')
     return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
   }

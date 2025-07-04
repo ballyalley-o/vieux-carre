@@ -34,7 +34,6 @@ const SignUpForm = () => {
   const onSubmit: SubmitHandler<SignUp> = async (data) => {
     try {
       const response = await signUpUser(data)
-      console.log('response in form: ', response)
       if (response.success === true) {
         await delay(500)
         toast({ description: response.message })

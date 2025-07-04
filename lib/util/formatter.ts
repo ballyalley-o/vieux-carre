@@ -44,7 +44,6 @@ export function formatSymbol(): string {
       console.warn('Currency symbol not found in formatToParts')
       return GLOBAL.PRICES.CURRENCY_SYMBOL
     }
-    console.log('Currency symbol:', symbol)
     return symbol
   } catch (error) {
     console.warn('Error in formatSymbol:', error)
