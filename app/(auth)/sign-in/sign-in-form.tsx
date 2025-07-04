@@ -19,9 +19,9 @@ const SignInForm = () => {
   const [oAuth, setOAuth]                       = useState(false)
   const [isOAuthIsLoading, setIsOAuthIsLoading] = useState(false)
   const searchParams                            = useSearchParams()
-  const callbackUrl                             = searchParams.get(KEY.CALLBACK_URL) || PATH_DIR.ROOT
+  const rawCallbackUrl                          = searchParams.get(KEY.CALLBACK_URL)
+  const callbackUrl                             = rawCallbackUrl ? decodeURIComponent(rawCallbackUrl) : PATH_DIR.ROOT
   const { toast }                               = useToast()
-  const router                                  = useRouter()
   const form                                    = useForm<SignIn>({ resolver: zodResolver(SignInSchema), defaultValues: { email: '', password: '' } })
 
   const { register, control, formState: { isSubmitting }, handleSubmit } = form
@@ -41,7 +41,7 @@ const SignInForm = () => {
       const response = await signInWithCredentials(data)
       if (response.success) {
         toast({ description: response.message })
-        router.push(PATH_DIR.ROOT)
+        window.location.href = callbackUrl
       } else {
         toast({ variant: 'destructive',description: response.message })
       }
