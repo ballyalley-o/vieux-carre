@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { auth } from 'vieux-carre.authenticate'
 import { signOutUser, charAtName, KEY, cn } from 'lib'
-import { User2Icon, LogOut } from 'lucide-react'
+import { User2Icon, LogOut, ExternalLink } from 'lucide-react'
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, Separator } from 'component/ui'
 import { ProtectedNavLink } from 'component/shared/protect'
 import { PATH_DIR } from 'config'
@@ -59,10 +59,13 @@ const UserMenu = async () => {
           )}
 
           <DropdownMenuItem className={'p-2'}>
-            <ProtectedNavLink href={PATH_DIR.SUPPORT}>{transl('need_help.label')}</ProtectedNavLink>
+            <div className={'flex justify-evenly items-center gap-2 h-4'}>
+              <ProtectedNavLink href={PATH_DIR.SUPPORT}>{transl('need_help.label')}</ProtectedNavLink>
+              <ExternalLink size={15} className={'opacity-35'} />
+            </div>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="p-1">
+          <DropdownMenuItem className={"p-1"}>
             <form action={signOutUser} className="w-full">
               <Button className={'w-full py-4 px-2 h-4 justify-start'} variant={'ghost'}>
                 <LogOut /> {transl('sign_out.label')}
