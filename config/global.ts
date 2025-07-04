@@ -12,6 +12,7 @@ export const GLOBAL = {
        CLIENT_ID    : process.env.GOOGLE_CLIENT_ID,
        CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
   },
+  NEXTAUTH_SECRET        : process.env.NEXTAUTH_SECRET || '',
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
