@@ -41,6 +41,7 @@ const SignInForm = () => {
       const response = await signInWithCredentials(data)
       if (response.success) {
         toast({ description: response.message })
+        console.log('Redirecting to callbackUrl:', callbackUrl)
         window.location.href = callbackUrl
       } else {
         toast({ variant: 'destructive',description: response.message })
@@ -53,7 +54,6 @@ const SignInForm = () => {
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="hidden" name={KEY.CALLBACK_URL} value={callbackUrl} />
         <div className={"space-y-6"}>
           <RHFFormField control={control} name={'email'} formKey={'email'} disabled={oAuth} withWrapper />
           <RHFPasswordField control={control} register={register} name={'password'} formKey={'password'} disabled={oAuth} />
