@@ -8,8 +8,9 @@ export async function middleware(request: NextRequest) {
   const cookiesObject   = request.cookies
   const sessionCookie   = cookiesObject.get(process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token')
   const isAuthenticated = !!sessionCookie
+  const isOnSignInPage  = pathname === '/sign-in'
 
-  if (isProtected && !isAuthenticated) {
+  if (isProtected && !isAuthenticated  && !isOnSignInPage) {
     const signInUrl        = new URL('/sign-in', request.url)
     const existingCallback = request.nextUrl.searchParams.get('callbackUrl')
     signInUrl.searchParams.set('callbackUrl', existingCallback ?? request.nextUrl.href)

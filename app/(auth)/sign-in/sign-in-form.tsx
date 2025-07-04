@@ -41,7 +41,6 @@ const SignInForm = () => {
       const response = await signInWithCredentials(data)
       if (response.success) {
         toast({ description: response.message })
-        console.log('Redirecting to callbackUrl:', callbackUrl)
         window.location.href = callbackUrl
       } else {
         toast({ variant: 'destructive',description: response.message })
