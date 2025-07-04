@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { PATH_DIR } from 'vc.dir'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from 'hook'
