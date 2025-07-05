@@ -531,7 +531,7 @@ export const en = {
   update_account: {
     label      : 'Update Account',
     description: 'Complete the form with your information',
-    toast      : 'User name updated'
+    toast      : 'Account updated'
   },
   update_product: {
     label      : 'Update Product',
