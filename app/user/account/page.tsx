@@ -18,7 +18,7 @@ const UserAccountPage = async () => {
       <h2 className="h2-bold">
       {transl('navigation.account.label')}
       </h2>
-      <AccountForm user={user} />
+      <AccountForm user={user as User} />
     </div>
   </SessionProvider>
 }
