@@ -192,7 +192,7 @@ export async function updateUserAccount(user: UserBase) {
     const userId      = session?.user?.id
     const currentUser = await prisma.user.findFirst({ where: { id: userId }})
     if (!currentUser) throw new Error(transl('error.user_not_found'))
-    const updatedUser = await prisma.user.update({ where:{ id: currentUser.id }, data: { name: user.name, email: user.email }})
+    const updatedUser = await prisma.user.update({ where:{ id: currentUser.id }, data: { name: user.name, email: user.email, address: user.address }})
     revalidatePath(PATH_DIR.USER.ACCOUNT)
     return SystemLogger.response(true, transl('success.user_updated'), CODE.OK, updatedUser)
   } catch (error) {
