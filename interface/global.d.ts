@@ -6,8 +6,9 @@ import { ReviewSchema } from 'lib/schema/review-schema'
 
 declare global {
   export interface UserBase {
-    name : string
-    email: string
+    name    : string
+    email   : string
+    address?: address
   }
 
   export interface User extends UserBase {
@@ -16,6 +17,16 @@ declare global {
     avatar   ?: string
     updatedAt : Date
     createdAt : Date
+  }
+
+  export interface UserShippingAddress {
+    fullName     ?: string
+    streetAddress : string
+    city          : string
+    postalCode    : string
+    country       : string
+    latitude     ?: string
+    longitude    ?: string
   }
 
   export type FieldName    = Path<z.infer<TSchema>>
