@@ -110,7 +110,7 @@ export async function signUpUser(data: SignUp) {
     }
 
     const hashedPassword = await bcrypt.hash(password, GLOBAL.HASH.SALT_ROUNDS)
-    const user = await prisma.user.create({ data: { name, email, password: hashedPassword } })
+    const user           = await prisma.user.create({ data: { name, email, password: hashedPassword } })
 
     await signIn('credentials', { email, password, redirect: false })
 
@@ -198,7 +198,7 @@ export async function updateUserPassword(data: UpdateUserPassword) {
  */
 export async function updateUserPaymentMethod(paymentType: z.infer<typeof PaymentMethodSchema>) {
   try {
-    const session =  await auth()
+    const session     = await auth()
     const currentUser = await prisma.user.findFirst({ where:{ id:session?.user?.id }})
     if (!currentUser) throw new Error(transl('error.user_not_found'))
     const { type } = PaymentMethodSchema.parse(paymentType)

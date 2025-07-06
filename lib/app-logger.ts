@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { errorHandler } from 'lib'
-import { CODE, RESPONSE } from 'lib/constant'
+import { CODE } from 'lib/constant'
 
 const TAG_FORMAT = (tag: string) => `[${tag}]`
 const TAG_DEFAULT = 'NO_TAG'
