@@ -146,12 +146,13 @@ export async function getUserById(userId: string) {
  */
 export async function updateUserAddress(address: ShippingAddress) {
   try {
-    const session = await auth()
+    const session     = await auth()
     const currentUser = await prisma.user.findFirst({where: {id:session?.user?.id}})
     if(!currentUser) throw new Error(transl('error.user_not_found'))
 
     const parsedAddress = ShippingAddressSchema.parse(address)
     await prisma.user.update({where: { id: currentUser.id },data: { address: parsedAddress }})
+    revalidatePath(PATH_DIR.USER.ACCOUNT)
     return SystemLogger.response(true, transl('success.user_address_updated', { user: currentUser.name ?? 'User' }), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
