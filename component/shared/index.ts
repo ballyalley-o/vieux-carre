@@ -23,8 +23,6 @@ export { default as DeleteDialg } from './dialg/delete-dialg'
 export { default as ProtectedNavDialg } from './protect/protected-nav-dialg'
 // ⎿ drwr
 export { default as CategoryDrwr } from './drwr/category-drwr'
-// ⎿ form
-export { default as AccountForm } from './form/account-form'
 // ⎿ footer
 export { default as Footer } from './footer/footer'
 // ⎿header

@@ -10,6 +10,12 @@ export const signUpDefaultValue = {
   confirmPassword: ''
 }
 
+export const userUpdatePasswordDefaultValue = {
+oldPassword    : '',
+password       : '',
+confirmPassword: ''
+}
+
 export const shippingAddressDefaultValue = {
   fullName     : '',
   streetAddress: '',

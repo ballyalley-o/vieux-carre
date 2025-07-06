@@ -48,6 +48,9 @@ export const en = {
   change_file: {
     label: 'Change File'
   },
+  change_password: {
+    label: 'Change Password'
+  },
   checkout: {
     label      : 'Checkout',
     description: 'Complete the form with your information'
@@ -134,6 +137,14 @@ export const en = {
     label: 'Filtered by'
   },
   form: {
+    old_password: {
+      label: 'Old Password',
+      placeholder: 'Enter your Old Password'
+    },
+    new_password: {
+      label: 'New Password',
+      placeholder: 'Enter your New Password'
+    },
     confirm_password: {
       label      : 'Confirm Password',
       placeholder: 'Confirm your Password'
@@ -526,12 +537,13 @@ export const en = {
     label: 'Total Revenue'
   },
   update: {
-    label: 'Update'
+    label  : 'Update',
+    loading: 'Updating'
   },
   update_account: {
     label      : 'Update Account',
     description: 'Complete the form with your information',
-    toast      : 'User name updated'
+    toast      : 'Account updated'
   },
   update_product: {
     label      : 'Update Product',
@@ -612,6 +624,7 @@ export const en = {
     order_deleted       : 'Order deleted',
     order_delivered     : 'Order delivered',
     order_paid          : 'Your order has been paid',
+    password_updated    : 'Password updated',
     product_added       : `{product} added to bag`,
     product_created     : 'Product created',
     product_deleted     : 'Product deleted',
@@ -661,5 +674,19 @@ export const en = {
     user_not_found             : 'User not found',
     validation_error           : `[VALIDATION]: {error}`,
     validation_required_default: `[VALIDATION]: {field} is required`
-  }
+  },
+  validation: {
+    default: {
+      required  : '{field} is required',
+      length    : '{field} length ({value}) must be between {min} and {max} characters',
+      min_length: '{field} must be at least {min} characters',
+      max_length: '{field} length ({value}) exceeds the limit of characters',
+      invalid   : 'Invalid {field}',
+      unique    : '{field} already exists',
+    },
+    password: {
+      invalid_old: 'Invalid old password',
+      not_match  : 'Password do not match'
+    }
+  },
 }
