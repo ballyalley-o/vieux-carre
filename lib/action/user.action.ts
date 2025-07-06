@@ -159,6 +159,36 @@ export async function updateUserAddress(address: ShippingAddress) {
   }
 }
 
+  /**
+ * Updates the password of the current user.
+ *
+ * @param {UpdateUserPassword} data - Object containing the passwords.
+ * @returns {Promise<{AppResponse}>} - A promise that resolves when the password is successfully updated.
+ * @throws {Error} - Throws an error if the user is not found or if there is an issue with updating the password.
+ */
+export async function updateUserPassword(data: UpdateUserPassword) {
+  try {
+    const session     = await auth()
+    const userId      = session?.user?.id
+    const currentUser = await prisma.user.findFirst({ where: { id: userId } })
+    if (!currentUser) throw new Error(transl('error.user_not_found'))
+
+    const isMatch = await bcrypt.compare(data.oldPassword || '', currentUser.password || '')
+    if (!isMatch) {
+      return SystemLogger.response(false, transl('validation.password.invalid_old'))
+    }
+
+    const newPassword = await bcrypt.hash(data.password || '', GLOBAL.HASH.SALT_ROUNDS)
+    await prisma.user.update({ where: { id: currentUser.id }, data: { password: newPassword } })
+    revalidatePath(PATH_DIR.USER.ACCOUNT)
+    return SystemLogger.response(true, transl('success.password_updated'), CODE.OK, TAG)
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
+
+  /**
+
 /**
  * Updates the payment method of the current user.
  *
