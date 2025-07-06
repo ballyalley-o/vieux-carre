@@ -85,7 +85,7 @@ const OrderViewTable: FC<OrderViewTableProps> = ({ order, isAdmin,  paypalClient
           {/* payment method card */}
           <OrderViewCard
             title={en.shipping_address.label}
-            subtitle={shippingAddress.fullName}
+            subtitle={shippingAddress?.fullName}
             subtitle2={parseAddress(shippingAddress)}
             badgeCondition={isDelivered}
             badgeLabel={en.delivered_at.label}

@@ -24,7 +24,7 @@ interface UpdateAccountFormProps {
 
 const UserAccountForm: FC<UpdateAccountFormProps> = ({ user }) => {
   const { toast } = useToast()
-  const form                      = useForm<UpdateUserAccount>({
+  const form      = useForm<UpdateUserAccount>({
     resolver     : zodResolver(UpdateUserAccountSchema),
     defaultValues: user
   })

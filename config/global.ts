@@ -10,7 +10,8 @@ export const GLOBAL = {
   ENCRYPTION_KEY    : process.env.ENCRYPTION_KEY || '',
   GOOGLE            : {
        CLIENT_ID    : process.env.GOOGLE_CLIENT_ID,
-       CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
+       CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+       MAPS_API_KEY : `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
   },
   NEXTAUTH_SECRET        : process.env.NEXTAUTH_SECRET || '',
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',

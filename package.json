@@ -79,6 +79,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@prisma/client": "6.10.1",
+    "@types/google.maps": "^3.58.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.14",
     "@types/react": "^19",
