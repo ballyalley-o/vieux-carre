@@ -1,7 +1,7 @@
 import { JSX, ReactNode } from 'react'
 import { z, ZodError } from 'zod'
 import { Prisma } from 'vieux-carre.authenticate/generated'
-import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateUserAccountSchema, UpdateProductSchema, UpdateUserPasswordSchema } from 'lib'
+import { CODE, ProductSchema, BagSchema, BagItemSchema, BagSchema, ShippingAddressSchema, OrderSchema, OrderItemSchema, PaymentResultSchema, UpdateUserSchema, UpdateUserAccountSchema, UpdateProductSchema } from 'lib'
 import { ReviewSchema } from 'lib/schema/review-schema'
 
 declare global {
@@ -68,7 +68,6 @@ declare global {
   export type PaymentResult      = z.infer<typeof PaymentResultSchema>
   export type UpdateUser         = z.infer<typeof UpdateUserSchema>
   export type UpdateUserAccount  = z.infer<typeof UpdateUserAccountSchema>
-  export type UpdateUserPassword = z.infer<typeof UpdateUserPasswordSchema>
   export type CreateProduct      = z.infer<typeof ProductSchema>
   export type UpdateProduct      = z.infer<typeof UpdateProductSchema>
   export type ReviewType         = z.infer<typeof ReviewSchema>
