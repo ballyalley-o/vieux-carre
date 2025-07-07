@@ -91,6 +91,8 @@
     --black                 : #0D0E0E;
     --white                 : #F2EED8;
     --mono                  : #0D0E0E;
+    --vc-green              : #4F11FF;
+    --vc-green-foreground   : #F2EED8;
   }
   .dark {
     --background            : 222.2 84% 4.9%;
@@ -120,6 +122,8 @@
     --white                 : #F2EED8;
     --black                 : #0D0E0E;
     --mono                  : #F2EED8;
+    --vc-green              : #C1FF11;
+    --vc-green-foreground   : #0D0E0E;
   }
 
   .red-bg {
