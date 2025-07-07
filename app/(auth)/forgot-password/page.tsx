@@ -25,7 +25,7 @@ const ForgotPasswordPage = async ({ searchParams }: ForgotPasswordPageProps) => 
         <Card className={'shadow-none border-none'}>
           <CardHeader className={'flex justify-center items-center space-y-4'}>
             <AppLogo />
-            <Label className={'text-xl'}>{transl('reset_password.label')}</Label>
+            <Label className={'text-xl text-gray-500'}>{transl('reset_password.label')}</Label>
           </CardHeader>
           <CardContent className={'space-y-4 my-4'}>
             <ForgotPasswordForm />
