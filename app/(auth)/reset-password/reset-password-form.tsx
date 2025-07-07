@@ -3,12 +3,12 @@
 import { useEffect, useTransition } from 'react'
 import { PATH_DIR } from 'vc.dir'
 import { redirect, useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { resetPasswordWithToken } from 'lib/action'
 import { ResetPasswordSchema } from 'lib/schema'
 import { useToast } from 'hook'
-import { Form, Button, Input } from 'component/ui'
+import { Button, Input } from 'component/ui'
 import { EllipsisLoader } from 'component/shared/loader'
 import { RHFPasswordField, RHFFormField } from 'component/shared/rhf'
 import { delay, transl } from 'lib/util'
@@ -60,8 +60,8 @@ const ResetPasswordForm = ({ token, verifiedUserEmail }: { token: string, verifi
   }
 
   return (
-  <Form {...form}>
-    <form method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+  <FormProvider {...form}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className={'space-y-6'}>
         <div>
           <RHFFormField control={control} name={'email'} formKey={'email'} disabled={true} />
@@ -74,7 +74,7 @@ const ResetPasswordForm = ({ token, verifiedUserEmail }: { token: string, verifi
         <Input type="hidden" {...register('token')} required />
       </div>
     </form>
-  </Form>
+  </FormProvider>
   )
 }
 

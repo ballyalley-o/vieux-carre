@@ -51,7 +51,7 @@ const ForgotPasswordForm = () => {
         <div className={'space-y-6'}>
           {isSent ? (
             <div className={'flex items-center justify-center'}>
-              <CircleCheckBigIcon />
+              <CircleCheckBigIcon className={'text-green-500'} />
             </div>
           ) : (
             <div>
@@ -61,7 +61,7 @@ const ForgotPasswordForm = () => {
           <div>
             {isSent ? (
               <div className={'mb-5 flex items-center justify-center'}>
-                <p className={'text-md md:text-xl text-punk dark:text-tape'}>{transl('message.password_reset_sent.description')}</p>
+                <p className={'text-md md:text-lg text-punk text-center dark:text-tape'}>{transl('message.password_reset_sent.description')}</p>
               </div>
             ) : (
               <ResetPasswordButton />
