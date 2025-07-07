@@ -70,5 +70,14 @@ export const GLOBAL = {
                             TIME_COST  : process.env.HASH_TIME_COST || '2',
                             PARALLELISM: process.env.HASH_PARALLELISM || '1',
                             SALT_ROUNDS: Number(process.env.SALT_ROUNDS) || 10
-  }
+                          },
+  REDIS                   : {
+                          URL    : process.env.REDIS_URL || 'redis://localhost:6379',
+                          KEY    : `signin:attempts:`,
+                          UPSTASH: {
+                            REST_URL  : process.env.UPSTASH_REDIS_REST_URL || '',
+                            REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN || '',
+                            URI       : `redis://default:${process.env.UPSTASH_REDIS_REST_TOKEN}@${process.env.UPSTASH_REDIS_HOST}` || ''
+                          }
+                        }
 }
