@@ -1,8 +1,8 @@
 import { GLOBAL } from 'vieux-carre'
+import { PrismaClient } from 'vieux-carre.authenticate/generated'
 import ws from 'ws'
 import { neonConfig } from '@neondatabase/serverless'
 import { PrismaNeon } from '@prisma/adapter-neon'
-import { PrismaClient } from 'vieux-carre.authenticate/generated'
 
       neonConfig.webSocketConstructor = ws
 const connectionString                = String(GLOBAL.DB_URI)
@@ -14,12 +14,12 @@ export const prisma = new PrismaClient({ adapter }).$extends({
     product: {
       price: {
         compute(product) {
-          return product.price.toString()
+          return product.price?.toString() ?? ''
         }
       },
       rating: {
         compute(product) {
-          return product.rating.toString()
+          return product.rating?.toString() ?? ''
         }
       }
     },
@@ -27,25 +27,25 @@ export const prisma = new PrismaClient({ adapter }).$extends({
       itemsPrice: {
         needs: { itemsPrice: true },
         compute(bag) {
-          return bag.itemsPrice.toString()
+          return bag.itemsPrice?.toString() ?? ''
         }
       },
       taxPrice: {
         needs: { taxPrice: true },
         compute(bag) {
-          return bag.taxPrice.toString()
+          return bag.taxPrice?.toString() ?? ''
         }
       },
       shippingPrice: {
         needs: { shippingPrice: true },
         compute(bag) {
-          return bag.shippingPrice.toString()
+          return bag.shippingPrice?.toString() ?? ''
         }
       },
       totalPrice: {
         needs: { totalPrice: true },
         compute(bag) {
-          return bag.totalPrice.toString()
+          return bag.totalPrice?.toString() ?? ''
         }
       }
     },
@@ -53,32 +53,32 @@ export const prisma = new PrismaClient({ adapter }).$extends({
       itemsPrice: {
         needs: { itemsPrice: true },
         compute(bag) {
-          return bag.itemsPrice.toString()
+          return bag.itemsPrice?.toString() ?? ''
         }
       },
       taxPrice: {
         needs: { taxPrice: true },
         compute(bag) {
-          return bag.taxPrice.toString()
+          return bag.taxPrice?.toString() ?? ''
         }
       },
       shippingPrice: {
         needs: { shippingPrice: true },
         compute(bag) {
-          return bag.shippingPrice.toString()
+          return bag.shippingPrice?.toString() ?? ''
         }
       },
       totalPrice: {
         needs: { totalPrice: true },
         compute(bag) {
-          return bag.totalPrice.toString()
+          return bag.totalPrice?.toString() ?? ''
         }
       }
     },
     orderItem: {
       price: {
         compute(bag) {
-          return bag.price.toString()
+          return bag.price?.toString() ?? ''
         }
       }
     }
