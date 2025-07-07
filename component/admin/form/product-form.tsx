@@ -1,20 +1,20 @@
 'use client'
 
 import { FC, Fragment, useEffect } from 'react'
-import { en } from 'public/locale'
+import { PATH_DIR } from 'vc.dir'
+import { LOCAL_STORAGE_KEY } from 'config/cache.config'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useFormState } from 'store'
-import { useToast, usePreventNavigation } from 'hook'
+import { useToast, usePreventNavigation, useFormDraft } from 'hook'
 import slugify from 'slugify'
 import { Plus, MoveUpRight } from 'lucide-react'
-import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay } from 'lib'
+import { productDefaultValue, ProductSchema, UpdateProductSchema, capitalize, createProduct, updateProduct, delay, transl } from 'lib'
 import { Form } from 'component/ui'
 import { BannerUploadField } from 'component/admin/custom-field'
 import { LoadingBtn } from 'component/shared/btn'
 import { RHFFormField, RHFFormDropzone, RHFCheckbox } from 'component/shared/rhf'
-import { PATH_DIR } from 'config'
 
 const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
   const { toast }             = useToast()
@@ -25,7 +25,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
     defaultValues: product && type === 'update' ? product : productDefaultValue
   })
 
-  const { control, formState, handleSubmit } = form
+  const { control, formState, handleSubmit, watch, setValue } = form
   const images                               = form.watch('images')
   const isFeatured                           = form.watch('isFeatured')
   const banner                               = form.watch('banner')
@@ -35,6 +35,8 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
   useEffect(() => {
     setDirty(formState.isDirty)
   }, [formState.isDirty, setDirty])
+
+  useFormDraft(watch, setValue, LOCAL_STORAGE_KEY[type === 'create' ? 'productCreate' : 'productUpdate'])
 
   const handleSlugify = () => {
     form.setValue('slug', slugify(form.getValues('name'), { lower: true }))
@@ -54,7 +56,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
 
     if (type === 'update') {
       if (!productId) {
-        toast({ variant: 'destructive', description: en.error.product_not_found })
+        toast({ variant: 'destructive', description: transl('error.product_not_found') })
         router.push(PATH_DIR.ADMIN.PRODUCT)
         return
       }
@@ -80,7 +82,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
               formKey={'slug'}
               type={'inputWithButton'}
               withWrapper={false}
-              buttonLabel={en.generate.label}
+              buttonLabel={transl('generate.label')}
               onClick={handleSlugify}
             />
           </div>
