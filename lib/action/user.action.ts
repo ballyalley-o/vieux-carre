@@ -5,6 +5,7 @@ import { GLOBAL } from 'vieux-carre'
 import { Prisma } from 'vieux-carre.authenticate/generated'
 import { auth, signIn, signOut } from 'vieux-carre.authenticate'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
 import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
@@ -12,6 +13,7 @@ import { sendResetPasswordLink } from 'mailer'
 import { prisma } from 'db/prisma'
 import { cache, invalidateCache } from 'lib/cache'
 import { CACHE_KEY, CACHE_TTL } from 'config/cache.config'
+import { checkSignInThrottle, resetSignInAttempts, incrementSignInAttempts } from 'lib/throttle'
 import { ShippingAddressSchema, PaymentMethodSchema } from 'lib/schema'
 import { SystemLogger } from 'lib/app-logger'
 import { PATH_DIR } from 'config'
@@ -58,33 +60,75 @@ export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: App
  * @throws Will throw an error if a redirect error occurs.
  */
 export async function signInWithCredentials(data: SignIn) {
-    try {
-    const { email, password } = data
 
-    if (!email || !password) {
-      const _errorMessage = transl('error.validation_error', { error: 'missing sign-in fields' })
-      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
-    }
-    const user = await prisma.user.findUnique({ where: { email } })
+    const { email, password } = data
+    const user                = await prisma.user.findUnique({ where: { email }})
+
     if (!user || !user.password) {
       return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
     }
 
-    const isMatch = await bcrypt.compare(password, user.password)
+    const clientCookies       = cookies()
+    const rawIp               = (await clientCookies).get('client-ip')?.value || 'unknown'
+    const ipHash              = crypto.createHash('sha256').update(rawIp).digest('hex')
+    const REDIS_KEY           = `${GLOBAL.REDIS.KEY}${email}:${ipHash}`
 
-    if (!isMatch) {
-      return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
+    await bcrypt.compare(password, user.password)
+
+    const { SIGNIN_TTL, SIGNIN_ATTEMPT_MAX } = GLOBAL.LIMIT
+    const now                                = new Date()
+    const blockThreshold                     = SIGNIN_ATTEMPT_MAX * 4
+
+    if (user.isBlocked) {
+      return SystemLogger.errorMessage(transl('error.account_locked'), CODE.FORBIDDEN, TAG)
+    }
+
+    const { isBlocked, secondsLeft } = await checkSignInThrottle(REDIS_KEY)
+    if (isBlocked) {
+      const minutes = Math.floor(secondsLeft / 60)
+      const seconds = secondsLeft % 60
+
+      if (!user.isBlocked && user.failedSignInAttempts >= blockThreshold) {
+        await prisma.user.update({ where: { email }, data: { isBlocked: true } })
+        return SystemLogger.errorMessage(transl('error.account_locked'), CODE.TOO_MANY_REQUESTS, TAG)
+      }
+      await prisma.user.update({
+        where: { email },
+        data : { failedSignInAttempts: { increment: 1 }, lastFailedAttempt: new Date() }
+      })
+      return SystemLogger.errorMessage(transl('error.too_many_attempt', { min: minutes, sec: seconds }), CODE.TOO_MANY_REQUESTS, TAG)
+    }
+
+    const withinDBWindow = user.failedSignInAttempts >= SIGNIN_ATTEMPT_MAX && user.lastFailedAttempt && now.getTime() - user.lastFailedAttempt.getTime() < SIGNIN_TTL
+
+    if (withinDBWindow) {
+      if (!user.isBlocked) {
+        await prisma.user.update({ where: { email }, data: { isBlocked: true } })
+      }
+      return SystemLogger.errorMessage(transl('error.account_locked'), CODE.TOO_MANY_REQUESTS, TAG)
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...safeUser } = user
-    await signIn('credentials', { email, password, redirect: false })
-    return SystemLogger.response(true, transl('success.user_welcomeback', { user: safeUser.name ?? 'User' }), CODE.OK, safeUser)
-  } catch (error) {
-    console.error('error', error)
-    const _errorMessage = transl('error.unexpected_error')
-    return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
-  }
+    try {
+      await signIn('credentials', { email, password, redirect: false })
+      await resetSignInAttempts(REDIS_KEY)
+      if (user) {
+        await prisma.user.update({ where: { email }, data: { failedSignInAttempts: 0, lastFailedAttempt: null } })
+      }
+      return SystemLogger.response(true, transl('success.user_welcomeback', { user: safeUser.name ?? 'User' }), CODE.OK, safeUser)
+    } catch (error) {
+      console.error(error)
+      await incrementSignInAttempts(REDIS_KEY)
+      if (user) {
+        await prisma.user.update({
+          where: { email },
+          data : { failedSignInAttempts: { increment: 1 }, lastFailedAttempt: new Date() }
+        })
+      }
+      const _errorMessage = transl('error.invalid_credentials')
+      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+    }
 }
 
 /**
