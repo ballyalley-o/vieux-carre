@@ -29,29 +29,25 @@ model Product {
   Review      Review[]
 }
 
-// enum UserRole {
-//   admin
-//   user
-// }
-
 model User {
-  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String?   @default("NO_NAME")
-  email         String    @unique(map: "user_email_idx")
-  emailVerified DateTime? @db.Timestamp(6)
-  image         String?
-  password      String?
-  role          String    @default("user")
-  address       Json?     @db.Json
-  paymentMethod String?
-  createdAt     DateTime  @default(now()) @db.Timestamp(6)
-  updatedAt     DateTime  @updatedAt
-  account       Account[]
-  Session       Session[]
-  Bag           Bag[]
-  Order         Order[]
-  Review        Review[]
-  Ticket        Ticket[]
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String?              @default("NO_NAME")
+  email              String               @unique(map: "user_email_idx")
+  emailVerified      DateTime?            @db.Timestamp(6)
+  image              String?
+  password           String?
+  role               String               @default("user")
+  address            Json?                @db.Json
+  paymentMethod      String?
+  createdAt          DateTime             @default(now()) @db.Timestamp(6)
+  updatedAt          DateTime             @updatedAt
+  account            Account[]
+  Session            Session[]
+  Bag                Bag[]
+  Order              Order[]
+  Review             Review[]
+  Ticket             Ticket[]
+  PasswordResetToken PasswordResetToken[]
 }
 
 model Account {
@@ -88,6 +84,17 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  token     String   @unique
+  userId    String   @db.Uuid
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
 }
 
 model Bag {
