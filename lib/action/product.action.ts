@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use server'
 
 import { GLOBAL } from 'vieux-carre'
 import { Prisma } from 'vieux-carre.authenticate/generated'
-import { prisma } from 'db/prisma'
-import { DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3'
-import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema, transl } from 'lib'
 import { revalidatePath } from 'next/cache'
+import { DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { prisma } from 'db/prisma'
+import { cache, invalidateCache } from 'lib/cache'
+import { CACHE_KEY, CACHE_TTL } from 'config/cache.config'
+import { CODE, KEY, convertToPlainObject, ProductSchema, SystemLogger, UpdateProductSchema, transl } from 'lib'
 import { PATH_DIR } from 'config'
 
 const TAG = 'PRODUCT.ACTION'
@@ -63,8 +64,14 @@ export async function deleteProductImage(args: ImageInput) {
  */
 export async function getLatestProducts() {
  try {
-  const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
-  return convertToPlainObject(data)
+  return cache({
+    key    : CACHE_KEY.featuredProducts,
+    ttl    : CACHE_TTL.featuredProducts,
+    fetcher: async () => {
+      const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
+      return convertToPlainObject(data)
+    }
+  })
  } catch (error) {
    console.error('Error: ', error)
    throw new Error((error as AppError).message)
@@ -78,12 +85,24 @@ export async function getLatestProducts() {
  * @returns {Promise<Product | null>} A promise that resolves to the product if found, or null if not found.
  */
 export async function getProductBySlug(slug: string) {
-  return await prisma.product.findFirst({ where: { slug } })
+ return cache({
+  key    : CACHE_KEY.productBySlug(slug),
+  ttl    : CACHE_TTL.productBySlug,
+  fetcher: async () => {
+    return await prisma.product.findFirst({ where: { slug } })
+  }
+ })
 }
 
 export async function getProductById(productId: string) {
-  const data = await prisma.product.findFirst({ where: { id: productId } })
-  return convertToPlainObject(data)
+ return cache({
+  key    : CACHE_KEY.productById(productId),
+  ttl    : CACHE_TTL.productById,
+  fetcher: async () => {
+    const data = await prisma.product.findFirst({ where: { id: productId } })
+    return convertToPlainObject(data)
+  }
+ })
 }
 
 /**
@@ -99,24 +118,36 @@ export async function getProductById(productId: string) {
  * @property {number} totalPages - The total number of pages.
  */
 export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, category, price, rating, sort }: AppProductsAction<number>) {
-  const queryFilter: Prisma.ProductWhereInput =
-  query && query !== KEY.ALL
-    ? { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter }
-    : {}
-  const categoryFilter                       = category && category !== KEY.ALL ? { category } : {}
-  const priceFilter:Prisma.ProductWhereInput = price && price       !== KEY.ALL ? { price: { gte: Number(price.split('-')[0]),  lte: Number(price.split('-')[1]) } } : {}
-  const ratingFilter                         = rating && rating     !== KEY.ALL ? { rating: { gte: Number(rating)} } : {}
+  return cache({
+    key    : CACHE_KEY.products(page),
+    ttl    : CACHE_TTL.products,
+    fetcher: async () => {
+      const queryFilter: Prisma.ProductWhereInput =
+        query && query !== KEY.ALL ? { name: { contains: query, mode: 'insensitive' } as Prisma.StringFilter } : {}
+      const categoryFilter = category && category !== KEY.ALL ? { category } : {}
+      const priceFilter: Prisma.ProductWhereInput =
+        price && price !== KEY.ALL ? { price: { gte: Number(price.split('-')[0]), lte: Number(price.split('-')[1]) } } : {}
+      const ratingFilter = rating && rating !== KEY.ALL ? { rating: { gte: Number(rating) } } : {}
 
-  const data = await prisma.product.findMany({
-    where  : { ...queryFilter, ...categoryFilter, ...priceFilter, ...ratingFilter },
-    orderBy: sort === KEY.LOWEST ? { price: 'asc' } : sort === KEY.HIGHEST ? { price : 'desc' } : sort === KEY.RATING ? { rating: 'desc' } : { createdAt: 'desc' },
-    skip   : (page - 1) * limit,
-    take   : limit
+      const data = await prisma.product.findMany({
+        where: { ...queryFilter, ...categoryFilter, ...priceFilter, ...ratingFilter },
+        orderBy:
+          sort === KEY.LOWEST
+            ? { price: 'asc' }
+            : sort === KEY.HIGHEST
+              ? { price: 'desc' }
+              : sort === KEY.RATING
+                ? { rating: 'desc' }
+                : { createdAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit
+      })
+      const count = await prisma.product.count({ where: { ...queryFilter } })
+
+      const summary = { data, totalPages: Math.ceil(count / limit) }
+      return summary
+    }
   })
-  const count = await prisma.product.count({ where: { ...queryFilter }})
-
-  const summary = { data, totalPages: Math.ceil(count / limit) }
-  return summary
 }
 
 /**
@@ -129,7 +160,7 @@ export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, ca
 export async function deleteProduct(productId: string) {
   try {
     await prisma.product.delete({ where: { id: productId } })
-
+    await invalidateCache(CACHE_KEY.productById(productId))
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
     return SystemLogger.response(true, transl('success.product_deleted'), CODE.OK)
   } catch (error) {
@@ -148,8 +179,9 @@ export async function deleteProduct(productId: string) {
  */
 export async function createProduct(data: CreateProduct) {
   try {
-    const product = ProductSchema.parse(data)
-    await prisma.product.create({ data: product })
+    const product    = ProductSchema.parse(data)
+    const newProduct = await prisma.product.create({ data: product })
+    await invalidateCache(CACHE_KEY.productById(newProduct.id))
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
     return SystemLogger.response(true, transl('success.product_created'), CODE.CREATED, product)
   } catch (error) {
@@ -167,11 +199,11 @@ export async function createProduct(data: CreateProduct) {
  */
 export async function updateProduct(data:UpdateProduct) {
   try {
-    const product = UpdateProductSchema.parse(data)
+    const product       = UpdateProductSchema.parse(data)
     const productExists = await prisma.product.findFirst({ where: { id: product.id }})
     if (!productExists) throw new Error(transl('error.product_not_found'))
-
-    await prisma.product.update({ where: {id: product.id }, data: product })
+    const updatedProduct = await prisma.product.update({ where: {id: product.id }, data: product })
+    await invalidateCache(CACHE_KEY.productById(updatedProduct.id))
     revalidatePath(PATH_DIR.ADMIN.PRODUCT)
     return SystemLogger.response(true, transl('success.product_updated'), CODE.OK, product)
   } catch (error) {
@@ -186,8 +218,14 @@ export async function updateProduct(data:UpdateProduct) {
  * each containing a category and the count of products in that category.
  */
 export async function getAllCategories() {
-  const products = await prisma.product.groupBy({ by: ['category'], _count: true })
-  return products
+  return cache({
+    key    : CACHE_KEY.categories,
+    ttl    : CACHE_TTL.categories,
+    fetcher: async () => {
+      const products = await prisma.product.groupBy({ by: ['category'], _count: true })
+      return products
+    }
+  })
 }
 
 /**
@@ -199,6 +237,12 @@ export async function getAllCategories() {
  * @returns {Promise<object[]>} A promise that resolves to an array of plain objects representing the featured products.
  */
 export async function getAllFeaturedProducts() {
-  const products = await prisma.product.findMany({ where: { isFeatured: true }, orderBy: { createdAt: 'desc' }, take: 4 })
-  return convertToPlainObject(products)
+  return cache({
+    key    : CACHE_KEY.featuredProducts,
+    ttl    : CACHE_TTL.featuredProducts,
+    fetcher: async () => {
+      const products = await prisma.product.findMany({ where: { isFeatured: true }, orderBy: { createdAt: 'desc' }, take: 4 })
+      return convertToPlainObject(products)
+    }
+  })
 }

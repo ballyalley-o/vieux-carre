@@ -1,11 +1,14 @@
 'use server'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { GLOBAL } from 'vieux-carre'
+import { PATH_DIR } from 'vc.dir'
 import { auth } from 'vieux-carre.authenticate'
 import { Prisma } from 'vieux-carre.authenticate/generated'
 import { prisma } from 'db/prisma'
-import { GLOBAL, PATH_DIR } from 'config'
+import { CACHE_KEY } from 'config/cache.config'
 import { SystemLogger } from 'lib/app-logger'
+import { invalidateCache } from 'lib/cache'
 import { BagItemSchema, BagSchema } from 'lib/schema'
 import { RESPONSE, CODE, KEY } from 'lib/constant'
 import { convertToPlainObject, float2, transl } from 'lib/util'
@@ -76,6 +79,7 @@ export async function addItemToBag(data: BagItem) {
         ...calculatePrices([item])
       })
       await prisma.bag.create({ data: newBag })
+      await invalidateCache(CACHE_KEY.myBagId(sessionBagId))
       revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
       return RESPONSE.SUCCESS(transl('success.product_added', { product: product.name }))
     } else {
@@ -171,7 +175,7 @@ export async function removeItemFromBag(productId: string) {
       where: { id: bag.id },
       data: { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
     })
-
+    await invalidateCache(CACHE_KEY.myBagId(sessionBagId))
     revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
     return SystemLogger.response(true, transl('success.product_removed', { product: product.name }), CODE.OK, TAG)
   } catch (error) {
