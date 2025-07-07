@@ -19,8 +19,11 @@ export const GLOBAL = {
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
   USER_ROLES             : process.env.USER_ROLES && process.env.USER_ROLES.split(';') || ['user', 'admin'],
   LIMIT                  : {
-                            ADMIN_ORDERS: 10,
-                            USER_ORDERS : 10,
+                            ADMIN_ORDERS              : 10,
+                            USER_ORDERS               : 10,
+                            RESET_PASSWORD_LINK_EXPIRY: new Date(Date.now() + 3 * 60 * 60 * 1000),   // HOUR
+                            SIGNIN_TTL                : 15 * 60,                                     //15 MIN
+                            SIGNIN_ATTEMPT_MAX        : 5
                           },
   PAGE_SIZE              : 8,
   PAYMENT_METHODS        : process.env.NEXT_PUBLIC_PAYMENT_METHODS,

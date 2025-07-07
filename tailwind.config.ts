@@ -46,6 +46,10 @@ const config = {
           DEFAULT   : '#0D0E0E',
           foreground: 'hsl(var(--black-foreground))'
         },
+        'vc-green': {
+          DEFAULT   : 'hsl(var(--vc-green))',
+          foreground: 'hsl(var(--vc-green-foreground))'
+        },
         border: 'hsl(var(--border))',
         input : 'hsl(var(--input))',
         ring  : 'hsl(var(--ring))',
