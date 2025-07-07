@@ -30,24 +30,27 @@ model Product {
 }
 
 model User {
-  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name               String?              @default("NO_NAME")
-  email              String               @unique(map: "user_email_idx")
-  emailVerified      DateTime?            @db.Timestamp(6)
-  image              String?
-  password           String?
-  role               String               @default("user")
-  address            Json?                @db.Json
-  paymentMethod      String?
-  createdAt          DateTime             @default(now()) @db.Timestamp(6)
-  updatedAt          DateTime             @updatedAt
-  account            Account[]
-  Session            Session[]
-  Bag                Bag[]
-  Order              Order[]
-  Review             Review[]
-  Ticket             Ticket[]
-  PasswordResetToken PasswordResetToken[]
+  id                   String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String?              @default("NO_NAME")
+  email                String               @unique(map: "user_email_idx")
+  emailVerified        DateTime?            @db.Timestamp(6)
+  image                String?
+  password             String?
+  role                 String               @default("user")
+  address              Json?                @db.Json
+  paymentMethod        String?
+  createdAt            DateTime             @default(now()) @db.Timestamp(6)
+  updatedAt            DateTime             @updatedAt
+  failedSignInAttempts Int                  @default(0)
+  isBlocked            Boolean              @default(false)
+  lastFailedAttempt    DateTime?
+  account              Account[]
+  Session              Session[]
+  Bag                  Bag[]
+  Order                Order[]
+  Review               Review[]
+  Ticket               Ticket[]
+  PasswordResetToken   PasswordResetToken[]
 }
 
 model Account {

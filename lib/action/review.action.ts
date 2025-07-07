@@ -1,10 +1,11 @@
 'use server'
 
-import { en } from 'public/locale'
-import { z } from 'zod'
-import { prisma } from 'db/prisma'
 import { auth } from 'vieux-carre.authenticate'
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
+import { prisma } from 'db/prisma'
+import { cache, invalidateCache } from 'lib/cache'
+import { CACHE_KEY, CACHE_TTL } from 'config/cache.config'
 import { CODE, ReviewSchema, SystemLogger, transl } from 'lib'
 import { PATH_DIR } from 'config'
 
@@ -26,17 +27,17 @@ const TAG = 'REVIEW.ACTION'
 export async function createUpdateReview(data: z.infer<typeof ReviewSchema>) {
   try {
     const session = await auth()
-    if (!session) throw new Error(en.error.user_not_authenticated)
-    const review = ReviewSchema.parse({ ...data, userId: session?.user?.id })
+    if (!session) throw new Error(transl('error.user_not_authenticated'))
+    const review  = ReviewSchema.parse({ ...data, userId: session?.user?.id })
     const product = await prisma.product.findFirst({ where: { id: review.productId } })
-    if (!product) throw new Error(en.error.product_not_found)
+    if (!product) throw new Error(transl('error.product_not_found'))
     const reviewExist = await prisma.review.findFirst({ where: { productId: review.productId, userId: review.userId } })
 
     await prisma.$transaction(async (tx) => {
       if (reviewExist) {
         await tx.review.update({
           where: { id: reviewExist.id },
-          data: { title: review.title, description: review.description, rating: review.rating }
+          data : { title: review.title, description: review.description, rating: review.rating }
         })
       } else {
         await tx.review.create({ data: review })
@@ -48,7 +49,7 @@ export async function createUpdateReview(data: z.infer<typeof ReviewSchema>) {
     })
 
     revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
-
+    await invalidateCache(CACHE_KEY.reviewByProductId(product.id))
     return SystemLogger.response(true, transl('success.review_updated'), CODE.OK, TAG)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.INTERNAL_SERVER_ERROR, TAG)
@@ -64,8 +65,14 @@ export async function createUpdateReview(data: z.infer<typeof ReviewSchema>) {
  * @returns {Promise<{ data: Array<Object> }>} A promise that resolves to an object containing an array of review data.
  */
 export async function getReviews({ productId }: { productId: string }) {
-  const data = await prisma.review.findMany({ where: { productId }, include: { user: { select: { name: true } }}, orderBy: { createdAt: 'desc' }})
-  return { data }
+  return cache({
+    key    : CACHE_KEY.reviewsByProductId(productId),
+    ttl    : CACHE_TTL.reviewByProductId,
+    fetcher: async () => {
+      const data = await prisma.review.findMany({ where: { productId }, include: { user: { select: { name: true } }}, orderBy: { createdAt: 'desc' }})
+      return { data }
+    }
+  })
 }
 
 /**
@@ -77,8 +84,14 @@ export async function getReviews({ productId }: { productId: string }) {
  * @throws {Error} If the user is not authenticated.
  */
 export async function getReviewByProductId({ productId }: { productId: string }) {
-  const session = await auth()
-  if (!session) throw new Error(en.error.user_not_authenticated)
-  const review = await prisma.review.findFirst({ where: { productId, userId: session?.user?.id }})
-  return review
+  return cache({
+    key    : CACHE_KEY.reviewByProductId(productId),
+    ttl    : CACHE_TTL.reviewByProductId,
+    fetcher: async () => {
+      const session = await auth()
+      if (!session) throw new Error(transl('error.user_not_authenticated'))
+      const review = await prisma.review.findFirst({ where: { productId, userId: session?.user?.id } })
+      return review
+    }
+  })
 }
