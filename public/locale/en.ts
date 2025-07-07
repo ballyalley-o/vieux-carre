@@ -137,6 +137,10 @@ export const en = {
     label: 'Filtered by'
   },
   form: {
+    forgot_password: {
+      label      : 'Forgot Password',
+      placeholder: 'Forgot Password?'
+    },
     old_password: {
       label: 'Old Password',
       placeholder: 'Enter your Old Password'
@@ -456,6 +460,11 @@ export const en = {
   rating: {
     label: 'Rating'
   },
+  reset_password: {
+    label      : 'Reset Password',
+    description: 'We will send you an email to reset your password',
+    button     : 'Send Password Reset Email',
+  },
   review: {
     label  : 'Review',
     reviews: {
@@ -590,6 +599,15 @@ export const en = {
     label      : 'Write a Review',
     description: 'Share your thoughts on this product with other customers'
   },
+  smtp: {
+    reset_password: {
+      subject: `Your Password Reset Request`,
+      title  : `{name} Password Reset`,
+      body_1 : `We received a request to reset your password. Click the button below to choose a new password: `,
+      body_2 : `If you don't use this link within 3 hours, it will expire.`,
+      button : `Reset Password`
+    }
+  },
   message: {
     default: {
       title      : 'Are you sure?',
@@ -615,15 +633,21 @@ export const en = {
       title            : 'Thank you for your purchase',
       description      : 'Your order has been placed successfully.',
       we_are_processing: 'We are processing your order and will send you a confirmation email shortly.'
+    },
+    password_reset_sent: {
+      description: 'Password Reset link has been sent to your Email',
+      check_email: `You have a valid reset link sent in your email account, please check before requesting for a new one.`,
     }
   },
   success: {
     bag_updated         : `{product} updated in bag`,
+    created_default     : `[CREATED]: Successful ({value}: {id})`,
     image_deleted       : 'Image deleted',
     order_created       : 'Order created',
     order_deleted       : 'Order deleted',
     order_delivered     : 'Order delivered',
     order_paid          : 'Your order has been paid',
+    password_reset_sent : 'Password Reset link has been sent to your Email',
     password_updated    : 'Password updated',
     product_added       : `{product} added to bag`,
     product_created     : 'Product created',
@@ -631,8 +655,8 @@ export const en = {
     product_removed     : `{product} was removed from bag`,
     product_outofstock  : `{product} out of stock`,
     product_updated     : 'Product updated',
+    valid_token         : 'Token is valid',
     update_order_paid   : 'updateOrderToPaid was successful',
-    created_default     : `[CREATED]: Successful ({value}: {id})`,
     user_welcome        : `Welcome, {user}`,
     user_welcomeback    : `Welcome back, {user}`,
     user_created        : 'User created',
@@ -646,13 +670,16 @@ export const en = {
   error: {
     bag_empty                  : 'Bag is empty',
     bag_not_found              : 'Bag not found',
+    exists_reset_password      : `Existing Reset password request already in your mailbox`,
     exists_default             : `{document} already exists in our records`,
+    expired_token              : `Token expired`,
     failed_sign_in             : `Sign in failed, user not found -- {email}`,
     failed_signed_up_user      : `Unknown error occured while signing up`,
     file_not_found             : 'File not found',
     incorrect_password         : `Incorrect password`,
     invalid_credentials        : 'Invalid credentials',
     invalid_payment_method     : 'Invalid payment method',
+    invalid_token              : 'Invalid token',
     item_not_found             : 'Item not found',
     no_existing_item           : 'No existing item to add on',
     no_shipping_address        : 'No shipping address',
@@ -662,7 +689,9 @@ export const en = {
     order_not_found            : 'Order not found',
     order_not_paid             : 'Order not paid',
     paypal_payment_error       : 'Error occurred while processing PayPal payment',
+    password_mismatch          : `Password mismatch`,
     product_not_found          : 'Product not found',
+    send_email                 : `Error occured while sending email`,
     sesssion_not_found         : 'Session bag id not found',
     unable_delete              : 'Unable to delete image',
     unable_upload              : 'Unable to upload file',
@@ -689,4 +718,7 @@ export const en = {
       not_match  : 'Password do not match'
     }
   },
+  legal: {
+    copyright_notice: `All rights reserved.`
+  }
 }
