@@ -60,7 +60,6 @@ export async function getAllUsers({ limit = GLOBAL.PAGE_SIZE, page, query }: App
  * @throws Will throw an error if a redirect error occurs.
  */
 export async function signInWithCredentials(data: SignIn) {
-
     const { email, password } = data
     const user                = await prisma.user.findUnique({ where: { email }})
 
