@@ -254,9 +254,7 @@ export async function getOrderSummary() {
        * data
        */
       const totalSales   = await prisma.order.aggregate({ _sum: { totalPrice: true } })
-      const rawSalesData = await prisma.$queryRaw<
-        Array<{ month: string; totalSales: Prisma.Decimal }>
-      >`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
+      const rawSalesData = await prisma.$queryRaw<Array<{ month: string; totalSales: Prisma.Decimal }>>`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
       const salesData: SalesData = rawSalesData.map((entry) => ({ month: entry.month, totalSales: Number(entry.totalSales) }))
       /**
        * latest sales
@@ -292,10 +290,10 @@ export async function getAllOrders({ limit = GLOBAL.PAGE_SIZE, page, query }: Ap
             }
           : {}
       const data = await prisma.order.findMany({
-        where: { ...queryFilter },
+        where  : { ...queryFilter },
         orderBy: { createdAt: 'desc' },
-        take: limit,
-        skip: (page - 1) * limit,
+        take   : limit,
+        skip   : (page - 1) * limit,
         include: { user: { select: { name: true } } }
       })
       const dataCount = await prisma.order.count({ where: { ...queryFilter } })
