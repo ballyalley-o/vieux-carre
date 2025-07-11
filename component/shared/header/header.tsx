@@ -56,7 +56,7 @@ const Header = async () => {
               <span className={'hidden lg:block ml-3'}>{GLOBAL.APP_NAME}</span>
             </ProtectedNavLink>
           </div>
-          <div className="hidden md:block">
+          <div className={"hidden md:block"}>
             <Search />
           </div>
           <Toolbar moduleType={'user'} />
