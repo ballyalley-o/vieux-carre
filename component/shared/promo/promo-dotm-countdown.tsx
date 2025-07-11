@@ -2,12 +2,15 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import { PATH_DIR } from 'vc.dir'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { LinkBtn } from 'component/shared/btn'
 import { EllipsisLoader } from 'component/shared/loader'
 import { oneDay, oneHr, oneMin, oneSec, lastDayOfTheMonth } from 'config'
 import { cn, transl } from 'lib'
+
+const MotionImage = motion(Image)
 
 const TARGET_DATE = lastDayOfTheMonth
 
@@ -112,7 +115,9 @@ const DealCountdown = ({ product }: { product: Product }) => {
 
         <div className={cn('flex justify-center md:justify-end sm:w-full sm:h-auto', hasEnded && 'opacity-20')}>
           <Link href={PATH_DIR.PRODUCT_VIEW(product?.slug)}>
-            <Image src={product?.images[0]} alt={'promotion'} width={400} height={300} className={'rounded-md'} />
+            <div className="inline-block overflow-hidden rounded-md">
+              <MotionImage src={product?.images[0]} alt={'promotion'} width={400} height={300} className={"block"} whileHover={{ scale: 1.05 }} transition={{ duration: 0.3, ease: 'easeInOut' }} />
+            </div>
           </Link>
         </div>
       </section>
