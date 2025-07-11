@@ -90,9 +90,12 @@ export async function getDealOfTheMonthProduct() {
      ttl    : CACHE_TTL.promotionDOTM,
      fetcher: async () => {
        const promotion = await prisma.promotion.findFirst({ where: { type: PromotionType.DOTM, isActive: true } })
-       if (!promotion?.productId) throw new Error(transl('error.no_existing_item'))
+       if (!promotion?.productId) {
+        throw new Error(transl('error.product_id_not_found'))
+       }
 
        const product = await prisma.product.findUnique({ where: { id: promotion?.productId } })
+       if (!product) throw new Error(transl('error.product_not_found'))
        return convertToPlainObject(product)
      }
    })
@@ -109,9 +112,12 @@ export async function getDealOfTheMonthProductSlug() {
      ttl    : CACHE_TTL.promotionDOTM,
      fetcher: async () => {
        const promotion = await prisma.promotion.findFirst({ where: { type: PromotionType.DOTM, isActive: true } })
-       if (!promotion?.productId) throw new Error(transl('error.no_existing_item'))
+       if (!promotion?.productId) {
+        throw new Error(transl('error.product_id_not_found'))
+       }
 
        const product = await prisma.product.findUnique({ where: { id: promotion?.productId }, select: { slug: true } })
+       if (!product) throw new Error(transl('error.product_not_found'))
        return { slug: product?.slug ?? null }
      }
    })
