@@ -2,7 +2,7 @@
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'vieux-carre.authenticate'
 import { Prisma } from 'vieux-carre.authenticate/generated'
-import { en } from 'public/locale'
+import { PATH_DIR } from 'vc.dir'
 import { revalidatePath } from 'next/cache'
 import { prisma } from 'db/prisma'
 import { sendPurchaseReceipt } from 'mailer'
@@ -13,7 +13,6 @@ import { CODE } from 'lib/constant'
 import { OrderSchema } from 'lib/schema'
 import { SystemLogger } from 'lib/app-logger'
 import { convertToPlainObject, transl } from 'lib/util'
-import { PATH_DIR } from 'config'
 import { getUserById } from './user.action'
 import { getMyBag } from './bag.action'
 
@@ -39,22 +38,22 @@ const TAG = 'ORDER.ACTION'
 export async function createOrder() {
   try {
     const session = await auth()
-    if (!session) throw new Error(en.error.user_not_authenticated)
+    if (!session) throw new Error(transl('error.user_not_authenticated'))
     const bag = await getMyBag()
     const userId = session?.user?.id
-    if (!userId) throw new Error(en.error.user_not_found)
+    if (!userId) throw new Error(transl('error.user_not_found'))
     const user = await getUserById(userId)
 
     if (!bag || bag.items.length === 0) {
-      return SystemLogger.errorResponse(en.error.bag_empty, CODE.BAD_REQUEST, TAG, PATH_DIR.BAG)
+      return SystemLogger.errorResponse(transl('error.bag_empty'), CODE.BAD_REQUEST, TAG, PATH_DIR.BAG)
     }
 
     if (!user.address) {
-      return SystemLogger.errorResponse(en.error.no_shipping_address, CODE.BAD_REQUEST, TAG, PATH_DIR.SHIPPING)
+      return SystemLogger.errorResponse(transl('error.no_shipping_address'), CODE.BAD_REQUEST, TAG, PATH_DIR.SHIPPING)
     }
 
     if (!user.paymentMethod) {
-      return SystemLogger.errorResponse(en.error.no_payment_method, CODE.BAD_REQUEST, TAG, PATH_DIR.PAYMENT)
+      return SystemLogger.errorResponse(transl('error.no_payment_method'), CODE.BAD_REQUEST, TAG, PATH_DIR.PAYMENT)
     }
 
     const order = OrderSchema.parse({
@@ -78,9 +77,9 @@ export async function createOrder() {
         await tx.bag.update({ where: { id: bag.id }, data: clearedBag })
         return createdOrder.id
     })
-    if (!createdOrderId) throw new Error(en.error.order_not_created)
+    if (!createdOrderId) throw new Error(transl('error.order_not_created'))
     await invalidateCache(CACHE_KEY.orderById(createdOrderId))
-    return SystemLogger.redirectResponse(`${en.success.order_created} - ${createdOrderId}`, CODE.CREATED, TAG, PATH_DIR.ORDER_VIEW(createdOrderId))
+    return SystemLogger.redirectResponse(`${transl('success.order_created')} - ${createdOrderId}`, CODE.CREATED, PATH_DIR.ORDER_VIEW(createdOrderId), order)
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
   }
@@ -127,7 +126,7 @@ export async function createPayPalOrder(orderId: string) {
       await invalidateCache(CACHE_KEY.orderById(orderId))
       return SystemLogger.response(true, transl('success.order_created'), CODE.CREATED, paypalOrder.id)
     } else {
-      throw new Error(en.error.order_not_found)
+      throw new Error(transl('error.order_not_found'))
     }
   } catch (error) {
     return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
@@ -146,10 +145,10 @@ export async function createPayPalOrder(orderId: string) {
 export async function approvePayPalOrder(orderId: string, data: { orderID: string }) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
-    if (!order) throw new Error(en.error.order_not_found)
+    if (!order) throw new Error(transl('error.order_not_found'))
     const captureData = await paypal.capturePayment(data.orderID)
    if (!captureData || captureData.id !== (order.paymentResult as PaymentResult)?.id || captureData.status !== 'COMPLETED') {
-      throw new Error(en.error.paypal_payment_error)
+      throw new Error(transl('error.paypal_payment_error'))
    }
 
    await updateOrderToPaid({
@@ -183,8 +182,8 @@ export async function approvePayPalOrder(orderId: string, data: { orderID: strin
  */
 export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: string, paymentResult?: PaymentResult }) {
   const order = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true }})
-  if (!order) throw new Error(en.error.order_not_found)
-  if (order.isPaid) throw new Error(en.error.order_paid)
+  if (!order) throw new Error(transl('error.order_not_found'))
+  if (order.isPaid) throw new Error(transl('error.order_paid'))
 
   await prisma.$transaction(async (tx) => {
     for (const item of order.orderitems) {
@@ -193,7 +192,7 @@ export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: s
     await tx.order.update({ where: { id: orderId }, data: { isPaid: true, paidAt: new Date(), paymentResult }})
   })
   const updatedOrder = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }} }})
-  if (!updatedOrder) throw new Error(en.error.order_not_found)
+  if (!updatedOrder) throw new Error(transl('error.order_not_found'))
 
   sendPurchaseReceipt({
     order: {
@@ -214,7 +213,7 @@ export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPaginat
     ttl    : CACHE_TTL.myOrders,
     fetcher: async () => {
       const session = await auth()
-      if (!session) throw new Error(en.error.user_not_authenticated)
+      if (!session) throw new Error(transl('error.user_not_authenticated'))
       const orders = await prisma.order.findMany({
         where  : { userId: session?.user?.id },
         orderBy: { createdAt: 'desc' },
@@ -363,8 +362,8 @@ export async function updateCODOrderToPaid(orderId: string) {
 export async function updateOrderToDelivered(orderId: string) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
-    if (!order) throw new Error(en.error.order_not_found)
-    if (!order.isPaid) throw new Error(en.error.order_not_paid)
+    if (!order) throw new Error(transl('error.order_not_found'))
+    if (!order.isPaid) throw new Error(transl('error.order_not_paid'))
     await prisma.order.update({ where: { id: orderId}, data: { isDelivered: true, deliveredAt: new Date() }})
     await invalidateCache(CACHE_KEY.orderById(orderId))
     revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
