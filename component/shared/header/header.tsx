@@ -62,7 +62,7 @@ const Header = async () => {
           <Toolbar moduleType={'user'} />
         </div>
       </header>
-      <BottomBar promos={promos} promotionProductSlug={promotionProductSlug || ''} />
+      <BottomBar promos={promos} promotionProductSlug={promotionProduct?.slug || ''} />
     </div>
   )
 }
