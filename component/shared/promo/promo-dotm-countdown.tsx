@@ -10,7 +10,7 @@ import { EllipsisLoader } from 'component/shared/loader'
 import { oneDay, oneHr, oneMin, oneSec, lastDayOfTheMonth } from 'config'
 import { cn, transl } from 'lib'
 
-const MotionImage = motion(Image)
+const MotionImage = motion.create(Image)
 
 const TARGET_DATE = lastDayOfTheMonth
 
