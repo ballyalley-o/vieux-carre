@@ -8,7 +8,7 @@ import { PATH_DIR } from 'config'
 import { transl } from 'lib'
 import ProductPrice from './product-price'
 
-const MotionImage = motion(Image)
+const MotionImage = motion.create(Image)
 
 interface ProductCardProps {
   product: Product
