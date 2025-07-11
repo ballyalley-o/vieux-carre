@@ -112,7 +112,7 @@ export async function getDealOfTheMonthProductSlug() {
        if (!promotion?.productId) throw new Error(transl('error.no_existing_item'))
 
        const product = await prisma.product.findUnique({ where: { id: promotion?.productId }, select: { slug: true } })
-       return convertToPlainObject({ slug: product?.slug ?? null })
+       return { slug: product?.slug ?? null }
      }
    })
   } catch (error) {
