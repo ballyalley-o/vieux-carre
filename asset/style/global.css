@@ -86,7 +86,7 @@
   }
 
   .flip-card--divider {
-    @apply absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200/50 dark:bg-black transform -translate-y-px z-10
+    @apply absolute top-1/2 left-0 right-0 h-0.5 bg-gray-100 dark:bg-black transform -translate-y-px z-10
   }
 
   .flip-card--container {
