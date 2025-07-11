@@ -1,3 +1,6 @@
+import { GLOBAL } from "vieux-carre"
+import { PromotionType } from "vieux-carre.authenticate/generated"
+
 const _mockData = {
   users: [
     {
@@ -191,6 +194,51 @@ const _mockData = {
       stock: 7,
       isFeatured: true,
       banner: null
+    }
+  ],
+  promotions: [
+    {
+      title    : 'Free shipping over $175',
+      content  : 'Enjoy free shipping on orders above $175!',
+      type     : PromotionType.SWIPER,
+      startDate: new Date(new Date().setDate(new Date().getDay() * 7)),
+      endDate  : new Date(new Date().setMonth(new Date().getMonth() + 1)),
+      isActive : true,
+      priority : 1,
+      userId   : 'b2b0a9fa-7a70-43ab-aa57-74a3065c5490'
+    },
+    {
+      title    : 'Exclusive Email Signup Deal',
+      content  : 'Sign up to our newsletter and get 10% off.',
+      type     : PromotionType.SWIPER,
+      startDate: new Date(),
+      endDate  : new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+      isActive : true,
+      priority : 2,
+      userId   : 'b2b0a9fa-7a70-43ab-aa57-74a3065c5490'
+    },
+    {
+      title    : 'New Arrivals',
+      content  : 'New Arrivals & World Exclusive Heat Dropping Daily 🔥 Shop Now',
+      type     : PromotionType.SWIPER,
+      startDate: new Date(),
+      endDate  : new Date(new Date().setDate(new Date().getDay() * 7)),
+      isActive : true,
+      priority : 3,
+      userId   : 'b2b0a9fa-7a70-43ab-aa57-74a3065c5490'
+    },
+    {
+      title     : 'Deal of the Month',
+      content   : 'Every purchase comes with exclusive perks and offers, making this month a celebration of savvy choices and smart deals. Don\'t miss out!',
+      image     : `${GLOBAL.SERVER_URL}/_next/image?url=%2Fimage%2Fpromo%2Fpromo.png&w=640&q=75`,
+      type      : PromotionType.DOTM,
+      startDate : new Date(),
+      endDate   : new Date(new Date().setDate(new Date().getMonth() + 1)),
+      isActive  : true,
+      priority  : 1,
+      targetType: 'product',
+      productId : '9d4c3692-827f-4e56-aef7-036a2d67a179',
+      userId    : 'b2b0a9fa-7a70-43ab-aa57-74a3065c5490'
     }
   ]
 }

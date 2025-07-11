@@ -12,8 +12,8 @@ const Toolbar: React.FC<ToolbarProps> = async ({ moduleType }) => {
   const user    = session?.user
 
   return (
-    <div className="flex justify-end gap-3">
-      <nav className="hidden md:flex w-full max-w-xs gap-1">
+    <div className={"flex justify-end gap-3"}>
+      <nav className={"hidden md:flex w-full max-w-xs gap-2"}>
         <ThemeToggle />
         <BagIconWithBadge itemCount={count} />
         <UserMenu />

@@ -267,6 +267,10 @@ export const en = {
   },
   go_to_bag  : 'Go to Bag',
   go_shopping: 'Go Shopping',
+  help_centre: {
+    label      : 'Help Centre',
+    description: ''
+  },
   home       : {
     label: 'Home'
   },
@@ -612,6 +616,10 @@ export const en = {
     default: {
       title      : 'Are you sure?',
       description: 'This is a message'
+    },
+    disclaimer: {
+      title: 'Demo',
+      demo : 'Disclaimer: This website is a demo created for portfolio purposes only. NOT A REAL STORE.'
     },
     confirm_delete_order: {
       title      : 'Confirm Delete Order',
