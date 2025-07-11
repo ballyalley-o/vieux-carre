@@ -1,14 +1,19 @@
+import { cn } from "lib"
+
 type SeparatrProps = {
-  label?: string
+  label           ?: string
+  className       ?: string
+  wrapperClassName?: string
+  borderClassName ?: string
 }
 
-const Separatr = ({ label }: SeparatrProps) => {
+const Separatr = ({ label, className, wrapperClassName, borderClassName }: SeparatrProps) => {
   return (
-    <div className="relative flex items-center justify-center">
-      <div className="absolute inset-0 flex items-center">
-        <span className="w-full border-t border-border" />
+    <div className={cn('relative flex items-center', wrapperClassName ? wrapperClassName : 'justify-center')}>
+      <div className={'absolute inset-0 flex items-center'}>
+        <span className={cn('w-full border-t', borderClassName ? borderClassName : 'border-border')} />
       </div>
-      {label && <span className="relative z-10 bg-background px-2 text-sm text-muted-foreground">{label}</span>}
+      {label && <span className={cn('relative z-10 bg-background px-2 text-muted-foreground', className ? className : 'text-sm')}>{label}</span>}
     </div>
   )
 }
