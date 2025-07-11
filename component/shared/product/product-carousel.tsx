@@ -8,7 +8,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, CarouselContent, CarouselItem } from 'component/ui'
 import { PATH_DIR } from 'config'
 
-const MotionImage = motion(Image)
+const MotionImage = motion.create(Image)
 
 interface ProductCarouselProps {
     products: Product[]
