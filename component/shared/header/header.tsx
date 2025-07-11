@@ -43,9 +43,7 @@ const BottomBar = ({ promos, promotionProductSlug }: { promos: Promotion[], prom
 )
 
 const Header = async () => {
-  const promos           = await getPromotionsByType('SWIPER')
-  const promotionProductSlug = await getDealOfTheMonthProductSlug()
-
+  const [promos, promotionProduct] = await Promise.all([getPromotionsByType('SWIPER'), getDealOfTheMonthProductSlug()])
   return (
     <div className={'sticky top-0 z-40'}>
       <TopBar />
