@@ -48,7 +48,7 @@ export { default as ProductCarousel } from './product/product-carousel'
 export { default as ProductPrice } from './product/product-price'
 export { default as ProductImage } from './product/product-image'
 // ⎿ promo
-export { default as DealCountdown } from './promo/deal-countdown'
+export { default as DealCountdown } from './promo/promo-dotm-countdown'
 // ⎿ tooltp
 export { default as Tooltp } from './tooltp/tooltp'
 export { default as TooltpGoBadge } from './tooltp/tooltp-go-badge'
