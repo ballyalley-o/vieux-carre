@@ -4,13 +4,12 @@ import { transl } from 'lib'
 import ProductCard from './product-card'
 
 interface ProductListProps {
-  data: Product[]
+  data  : Product[]
   title?: string
   limit?: number
 }
 const ProductList: FC<ProductListProps> = ({ data, title, limit }) => {
   const limitedData = limit ? data.slice(0, limit) : data
-
   return (
     <div className={'my-10'}>
       <Separatr label={title} className={'h2-bold mb-4 text-mono pr-4'} wrapperClassName={'justify-start'} borderClassName={'border-black dark:border-white'} />
