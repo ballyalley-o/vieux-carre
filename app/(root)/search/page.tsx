@@ -1,10 +1,9 @@
 export const dynamic = 'force-dynamic'
 import { FC, Fragment } from 'react'
-import { en } from 'public/locale'
-import { getAllProducts, getAllCategories, PRICE, RATING, KEY, SORT_ORDER } from 'lib'
+import { PATH_DIR } from 'vc.dir'
+import { getAllProducts, getAllCategories, PRICE, RATING, KEY, SORT_ORDER, transl } from 'lib'
 import { NoResult, ProductCard, LinkBtn } from 'component/shared'
 import { NoScrollBtn } from 'component/shared/btn'
-import { PATH_DIR } from 'config'
 import FilterList from './filter-list'
 import FilterTitle from './filter-title'
 
@@ -23,11 +22,11 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
 
   if (isQuery || isCategory || isPrice || isRating) {
     return {
-      title: en.search.label + `${isQuery ? query : ''} ${isCategory ? `${en.category.label}: ${category}` : ''} ${isPrice ? `${en.price.label}: ${price}` : ''} ${isRating ? `${en.rating.label}: ${rating}` : ''}`,
+      title: transl('search.label') + `${isQuery ? query : ''} ${isCategory ? `${transl('category.label')}: ${category}` : ''} ${isPrice ? `${transl('price.label')}: ${price}` : ''} ${isRating ? `${transl('rating.label')}: ${rating}` : ''}`,
     }
   } else {
     return {
-      title: en.search_product.label,
+      title: transl('search_product.label'),
     }
   }
 }
@@ -46,15 +45,14 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
     return PATH_DIR.SEARCH_QUERY(new URLSearchParams(params).toString())
   }
 
-  const products   = await getAllProducts({ query, category, price, rating, sort, page: Number(page) })
-  const categories = await getAllCategories()
+  const [products, categories] = await Promise.all([getAllProducts({ query, category, price, rating, sort, page: Number(page) }), getAllCategories()])
 
   return (
     <Fragment>
-      <div className="grid md:grid-cols-5 md:gap-5">
-        <div className="filter-links">
+      <div className={"grid md:grid-cols-5 md:gap-5"}>
+        <div className={"filter-links"}>
          <FilterList
-          title={en.category.label}
+          title={transl('category.label')}
           items={categories}
           selectedValue={category}
           getUrl={(value ) => getFilterUrl({ _category: value })}
@@ -62,7 +60,7 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
           extractValue={(item) => item.category}
          />
          <FilterList
-          title={en.price.prices.label}
+          title={transl('price.prices.label')}
           items={PRICE}
           selectedValue={price}
           getUrl={(value) => getFilterUrl({ _price: value })}
@@ -70,7 +68,7 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
           extractValue={(item) => item.value}
         />
         <FilterList
-          title={en.rating.label}
+          title={transl('rating.label')}
           items={RATING}
           selectedValue={rating}
           getUrl={(value) => getFilterUrl({ _rating: value })}
@@ -78,25 +76,25 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
           extractValue={(item) => item.toString()}
         />
         </div>
-        <div className="md:col-span-4 space-y-4">
-          <div className="flex-between flex-col md:flex-row my-4">
-            <div className="flex items-center">
-              {query !== DEFAULT_QUERY && query !== '' && (<FilterTitle href={PATH_DIR.SEARCH} filter={query} filterTypeLabel={en.query.label || ''}  /> )}
-              {category !== DEFAULT_QUERY && category !== '' && (<FilterTitle href={getFilterUrl({ _category: DEFAULT_QUERY })} filter={category} filterTypeLabel={en.category.label || ''}  /> )}
-              {price !== DEFAULT_QUERY && (<FilterTitle href={getFilterUrl({ _price: DEFAULT_QUERY })} filter={price} filterTypeLabel={en.price.label || ''}  /> )}
-              {rating !== DEFAULT_QUERY && (<FilterTitle href={getFilterUrl({ _rating: DEFAULT_QUERY })} filter={`${rating} stars +`} filterTypeLabel={en.rating.label || ''}  /> )}
-              {(category !== DEFAULT_QUERY || price !== DEFAULT_QUERY || rating !== DEFAULT_QUERY) && <LinkBtn href={PATH_DIR.SEARCH} variant={'ghost'} size={'sm'} className={'py-0 px-2 text-red-500'}>{en.clear.label}</LinkBtn>}
+        <div className={"md:col-span-4 space-y-4"}>
+          <div className={"flex-between flex-col md:flex-row my-4"}>
+            <div className={"flex items-center"}>
+              {query !== DEFAULT_QUERY && query !== '' && (<FilterTitle href={PATH_DIR.SEARCH} filter={query} filterTypeLabel={transl('query.label') || ''}  /> )}
+              {category !== DEFAULT_QUERY && category !== '' && (<FilterTitle href={getFilterUrl({ _category: DEFAULT_QUERY })} filter={category} filterTypeLabel={transl('category.label') || ''}  /> )}
+              {price !== DEFAULT_QUERY && (<FilterTitle href={getFilterUrl({ _price: DEFAULT_QUERY })} filter={price} filterTypeLabel={transl('price.label') || ''}  /> )}
+              {rating !== DEFAULT_QUERY && (<FilterTitle href={getFilterUrl({ _rating: DEFAULT_QUERY })} filter={`${rating} stars +`} filterTypeLabel={transl('rating.label') || ''}  /> )}
+              {(category !== DEFAULT_QUERY || price !== DEFAULT_QUERY || rating !== DEFAULT_QUERY) && <LinkBtn href={PATH_DIR.SEARCH} variant={'ghost'} size={'sm'} className={'py-0 px-2 text-red-500'}>{transl('clear.label')}</LinkBtn>}
             </div>
             <div className="">
-              {en.sort_by.label}:
+              {transl('sort_by.label')}:
               {SORT_ORDER.map((_item, index) => (
                 <NoScrollBtn key={index} href={getFilterUrl({ _sort: _item})}  className={`mx-2 ${sort === _item && 'font-bold'}`}>{_item}</NoScrollBtn>
               ))}
             </div>
           </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <div className={"grid grid-cols-2 gap-4 md:grid-cols-3"}>
             {products.data.length <=0  && <NoResult data={products.data.length} />}
-            {products.data.map((product, index) => (
+            {products.data.map((product: Product, index: number) => (
                 <ProductCard key={index} product={product} />
             ))}
         </div>
