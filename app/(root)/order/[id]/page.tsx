@@ -26,9 +26,10 @@ const OrderViewPage: FC<OrderViewPageProps> = async ({ params }) => {
     const stripe = new Stripe(GLOBAL.STRIPE.STRIPE_SECRET_KEY as string)
     const paymentIntent = await stripe.paymentIntents.create(
       {
-        amount  : Math.round(Number(order.totalPrice) * 100),
-        currency: GLOBAL.PRICES.CURRENCY,
-        metadata: { orderId: order.id }
+        amount       : Math.round(Number(order.totalPrice) * 100),
+        currency     : GLOBAL.PRICES.CURRENCY,
+        receipt_email: order.user?.email,
+        metadata     : { orderId: order.id }
     })
     client_secret = paymentIntent.client_secret
   }
