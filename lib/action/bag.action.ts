@@ -87,7 +87,7 @@ export async function addItemToBag(data: BagItem) {
       if (existItem) {
         //check stock
         if (product.stock < existItem.qty + item.qty) {
-          return RESPONSE.ERROR(transl('success.product_added', { product: product.name }), CODE.BAD_REQUEST)
+          return RESPONSE.ERROR(transl('error.product_os', { product: product.name }), CODE.BAD_REQUEST)
         }
         //increase qty
         const foundItem = (bag.items as BagItem[]).find((x) => x.productId === item.productId)
