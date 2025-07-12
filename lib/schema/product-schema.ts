@@ -14,6 +14,7 @@ export const ProductSchema = z.object({
   stock      : z.coerce.number(),
   images     : z.array(z.string()).min(1, 'Product must be at least 1 image'),
   isFeatured : z.boolean(),
+  isDotm     : z.boolean(),
   banner     : z.string().nullable(),
   price      : currency
 })
