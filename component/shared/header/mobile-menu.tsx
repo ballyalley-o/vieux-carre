@@ -1,13 +1,13 @@
 import { Fragment } from 'react'
-import { en } from 'public/locale'
 import { NAV_CONFIG, NAV_CONFIG_ADMIN } from 'config/nav-config'
-import { PATH_DIR } from 'config/dir'
+import { PATH_DIR } from 'vc.dir'
 import { EllipsisVertical, User2Icon } from 'lucide-react'
-import { LinkBtn, Sheet, Button, SheetContent, Separator, SheetDescription, SheetTrigger } from 'component'
+import { Sheet, Button, SheetContent, Separator, SheetDescription, SheetTrigger } from 'component/ui'
+import { LinkBtn } from 'component/shared/btn'
 import { ProtectedNavLink } from 'component/shared/protect'
 import { BagNavLink } from 'component/shared/bag'
 import { ThemeToggle } from 'component/shared/header'
-import { signOutUser, KEY } from 'lib'
+import { signOutUser, KEY, transl } from 'lib'
 
 const MobileMenu = ({ user, count, moduleType }: { user: User, count: number, moduleType: ModuleType }) => {
   const isAdmin = user?.role === KEY.ADMIN
@@ -21,20 +21,20 @@ const MobileMenu = ({ user, count, moduleType }: { user: User, count: number, mo
 
   const renderUser = !user ? (
     <LinkBtn href={PATH_DIR.SIGN_IN}>
-      <User2Icon /> {en.sign_in.label}
+      <User2Icon /> {transl('sign_in.label')}
     </LinkBtn>
   ) : (
     <div className="flex flex-col space-y-2">
       {isAdmin && (
         <Fragment>
-          <ProtectedNavLink href={PATH_DIR.ADMIN.OVERVIEW}>{en.admin.label}</ProtectedNavLink>
-          <Separator className="my-2" />
+          <ProtectedNavLink href={PATH_DIR.ADMIN.OVERVIEW}>{transl('admin.label')}</ProtectedNavLink>
+          <Separator className={"my-2"} />
         </Fragment>
       )}
       <ThemeToggle className={'flex justify-start'} />
       <form action={signOutUser} className="w-full">
-        <Button className="w-full py-4 px-0 h-4 justify-start text-muted-foreground" variant={'ghost'}>
-          {en.sign_out.label}
+        <Button className={"w-full py-4 px-0 h-4 justify-start text-muted-foreground"} variant={'ghost'}>
+          {transl('sign_out.label')}
         </Button>
       </form>
     </div>
@@ -56,8 +56,8 @@ const MobileMenu = ({ user, count, moduleType }: { user: User, count: number, mo
                  <Separator className="my-4" />
                 {!user ? null : (
                   <Fragment>
-                    <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT} className={'justify-start'}>{en.account.label}</ProtectedNavLink>
-                    <ProtectedNavLink href={PATH_DIR.USER.ORDER}>{en.order_history.label}</ProtectedNavLink>
+                    <ProtectedNavLink href={PATH_DIR.USER.ACCOUNT} className={'justify-start'}>{transl('account.label')}</ProtectedNavLink>
+                    <ProtectedNavLink href={PATH_DIR.USER.ORDER}>{transl('order_history.label')}</ProtectedNavLink>
                   </Fragment>
                 )}
             </div>
