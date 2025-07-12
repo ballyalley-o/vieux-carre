@@ -1,4 +1,5 @@
 'use server'
+
 import { GLOBAL } from 'vieux-carre'
 import { auth } from 'vieux-carre.authenticate'
 import { Prisma } from 'vieux-carre.authenticate/generated'
@@ -121,7 +122,7 @@ export async function createPayPalOrder(orderId: string) {
   try {
     const order = await prisma.order.findFirst({ where: { id: orderId }})
     if (order) {
-      const paypalOrder = await paypal.createOrder(Number(order.totalPrice));
+      const paypalOrder  = await paypal.createOrder(Number(order.totalPrice));
       await prisma.order.update({ where: { id: orderId }, data: { paymentResult: { id: paypalOrder.id, email_address: '', status: '', pricePaid: 0 }}})
       await invalidateCache(CACHE_KEY.orderById(orderId))
       return SystemLogger.response(true, transl('success.order_created'), CODE.CREATED, paypalOrder.id)
@@ -151,7 +152,7 @@ export async function approvePayPalOrder(orderId: string, data: { orderID: strin
       throw new Error(transl('error.paypal_payment_error'))
    }
 
-   await updateOrderToPaid({
+    await updateOrderToPaid({
     orderId,
     paymentResult: {
       id           : captureData.id,
@@ -160,6 +161,7 @@ export async function approvePayPalOrder(orderId: string, data: { orderID: strin
       pricePaid    : captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value,
     },
   })
+
     await invalidateCache(CACHE_KEY.orderById(orderId))
     revalidatePath(PATH_DIR.ORDER_VIEW(orderId))
    return SystemLogger.response(true, transl('success.order_paid'))
@@ -194,7 +196,7 @@ export async function updateOrderToPaid({ orderId, paymentResult }: { orderId: s
   const updatedOrder = await prisma.order.findFirst({ where: { id: orderId }, include: { orderitems: true, user: { select: { name: true, email: true }} }})
   if (!updatedOrder) throw new Error(transl('error.order_not_found'))
 
-  sendPurchaseReceipt({
+  await sendPurchaseReceipt({
     order: {
       ...updatedOrder,
       shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
@@ -231,10 +233,10 @@ export async function getMyOrders({ limit = GLOBAL.PAGE_SIZE, page }: AppPaginat
  * Retrieves a summary of orders, including counts, total sales, sales data by month, and latest sales.
  *
  * @returns {Promise<{
- *   count: { orders: number; products: number; user: number };
- *   totalSales: { _sum: { totalPrice: number | null } };
- *   salesData: Array<{ month: string; totalSales: number }>;
- *   latestSales: Array<{ createdAt: Date; user: { name: string } }>;
+ * count      : { orders: number; products: number; user: number };
+ * totalSales : { _sum: { totalPrice: number | null } };
+ * salesData  : Array<{ month: string; totalSales: number }>;
+ * latestSales: Array<{ createdAt: Date; user: { name: string } }>;
  * }>} A promise that resolves to an object containing the summary report.
  */
 export async function getOrderSummary() {
