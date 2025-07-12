@@ -707,6 +707,7 @@ export const en = {
     password_mismatch          : `Password mismatch`,
     product_not_found          : 'Product not found',
     product_id_not_found       : 'Product id not provided',
+    product_os                 : '{product} is Out of Stock',
     send_email                 : `Error occured while sending email`,
     sesssion_not_found         : 'Session bag id not found',
     too_many_attempt           : `Too many attempts, try again in {min}m {sec}s`,
