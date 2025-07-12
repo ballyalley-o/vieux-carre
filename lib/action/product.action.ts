@@ -68,7 +68,7 @@ export async function getLatestProducts() {
     key    : CACHE_KEY.featuredProducts,
     ttl    : CACHE_TTL.featuredProducts,
     fetcher: async () => {
-      const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
+      const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, where: { stock: { gt: 0 } }, orderBy: { createdAt: 'desc' } })
       return convertToPlainObject(data)
     }
   })
@@ -145,7 +145,7 @@ export async function getAllProducts({ query, limit = GLOBAL.PAGE_SIZE, page, ca
       const count = await prisma.product.count({ where: { ...queryFilter } })
 
       const summary = { data, totalPages: Math.ceil(count / limit) }
-      return summary
+      return convertToPlainObject(summary)
     }
   })
 }
@@ -234,7 +234,7 @@ export async function getAllCategories() {
  * This function fetches up to 4 products that are marked as featured,
  * ordered by their creation date in descending order.
  *
- * @returns {Promise<object[]>} A promise that resolves to an array of plain objects representing the featured products.
+ * @returns {Promise<Product[]>} A promise that resolves to an array of Product representing the featured products.
  */
 export async function getAllFeaturedProducts() {
   return cache({
@@ -245,4 +245,19 @@ export async function getAllFeaturedProducts() {
       return convertToPlainObject(products)
     }
   })
+}
+
+
+export async function setDealOfTheMonth(productId: string) {
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.product.updateMany({ where: { isDotm: true }, data: { isDotm: false }})
+      await tx.product.update({ where: { id: productId }, data: { isDotm: true } })
+    })
+    await invalidateCache(CACHE_KEY.productById(productId))
+    revalidatePath(PATH_DIR.ADMIN.PRODUCT)
+    return SystemLogger.response(true, transl('success.dotm_updated'))
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
 }

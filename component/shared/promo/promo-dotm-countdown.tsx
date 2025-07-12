@@ -52,7 +52,7 @@ const StatBox = ({ label, value }: { label: string; value: number }) => {
           <div className={'flip-card-text--top'}>{prev}</div>
         </div>
 
-        <div className={cn('flip-card--bottom', flip ? 'animate-flip-up' : '')} style={{ transform: flip ? 'rotateX(90deg)' : 'rotateX(0deg)', transitionDelay: flip ? '150ms' : '0ms' }}>
+        <div className={cn('flip-card--bottom', flip ? 'animate-flip-up' : '')} style={{ transform: flip ? 'rotateX(90deg)' : 'rotateX(0deg)', transitionDelay: flip ? '150ms' : '0ms', transitionProperty: 'transform', transitionDuration: '0.3s', transitionTimingFunction: 'ease-in-out' }}>
           <div className={'flip-card-text--bottom'}>{padded}</div>
         </div>
 

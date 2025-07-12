@@ -1,13 +1,12 @@
 'use client'
 
 import { FC, Fragment, useState, useEffect } from 'react'
-import { en } from 'public/locale'
+import { PATH_DIR } from 'vc.dir'
 import Link from 'next/link'
-import { formatDateTime, getReviews } from 'lib'
+import { formatDateTime, getReviews, transl } from 'lib'
 import { UserIcon, Calendar } from 'lucide-react'
 import { Badge, Card, CardHeader, CardDescription, CardTitle, CardContent } from 'component/ui'
 import { ProductRating } from 'component/shared/product'
-import { PATH_DIR } from 'config'
 import { ICON } from 'config/layout'
 import ReviewForm from './review-form'
 
@@ -22,7 +21,7 @@ const ReviewList: FC<ReviewListProps> = ({ userId, productId, productSlug }) => 
     useEffect(() => {
         const loadReviews = async () => {
             const response = await getReviews({ productId })
-            setReviews(response.data)
+            setReviews(response?.data)
         }
         loadReviews()
     }, [productId])
@@ -34,18 +33,18 @@ const ReviewList: FC<ReviewListProps> = ({ userId, productId, productSlug }) => 
   return (
     <Fragment>
       <div className="space-y-4">
-        {reviews.length <= 0 && <div>{en.message.currently_no_reviews.description}</div>}
+        {reviews.length <= 0 && <div>{transl('message.currently_no_reviews.description')}</div>}
         {userId ? (
           <Fragment>
             <ReviewForm userId={userId} productId={productId} onReviewSubmitted={reload} />
           </Fragment>
         ) : (
           <div>
-            {en.please.label}&nbsp;
+            {transl('please.label')}&nbsp;
             <Link href={PATH_DIR.PRODUCT_CALLBACK(productSlug)} className={'text-blue-700 px-2'}>
-              <Badge variant={'secondary'}>{en.sign_in.label}</Badge>
+              <Badge variant={'secondary'}>{transl('sign_in.label')}</Badge>
             </Link>
-            &nbsp;{en.message.to_write_review.description}
+            &nbsp;{transl('message.to_write_review.description')}
           </div>
         )}
 
@@ -63,7 +62,7 @@ const ReviewList: FC<ReviewListProps> = ({ userId, productId, productSlug }) => 
                     <ProductRating value={_review.rating} />
                     <div className="flex items-center">
                         <UserIcon size={ICON.XTRA_SMALL} className={'mr-1'} />
-                        {_review.user ? _review.user.name : en.user.label}
+                        {_review.user ? _review.user.name : transl('user.label')}
                     </div>
                     <div className={'flex items-center'}>
                         <Calendar size={ICON.XTRA_SMALL} className={'mr-1'} />

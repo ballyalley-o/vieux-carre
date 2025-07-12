@@ -87,7 +87,7 @@ export async function addItemToBag(data: BagItem) {
       if (existItem) {
         //check stock
         if (product.stock < existItem.qty + item.qty) {
-          return RESPONSE.ERROR(transl('success.product_added', { product: product.name }), CODE.BAD_REQUEST)
+          return RESPONSE.ERROR(transl('error.product_os', { product: product.name }), CODE.BAD_REQUEST)
         }
         //increase qty
         const foundItem = (bag.items as BagItem[]).find((x) => x.productId === item.productId)
@@ -104,8 +104,9 @@ export async function addItemToBag(data: BagItem) {
       // save to db whether with stock check or not
       await prisma.bag.update({
         where: { id: bag.id },
-        data: { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
+        data : { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
       })
+      await invalidateCache(CACHE_KEY.myBagId(sessionBagId))
       revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
       return SystemLogger.response(true, existItem ? transl('success.bag_updated', { product: product.name }) : transl('success.product_added', { product: product.name }), CODE.OK)
     }

@@ -29,7 +29,7 @@ const UserMenu = async () => {
         <DropdownMenuTrigger asChild>
           <div className="flex items-center">
             <Button variant="ghost" className={cn('relative w-8 h-8 rounded-sm ml-2 flex items-center hover:font-bold justify-center bg-accent')}>
-              {session?.user?.image ? <Image src={session.user.image} fill alt={'user image'} /> : session?.user?.name ? charAtName(session.user.name) : <User2Icon/>}
+              {session?.user?.image ? <Image src={session.user.image} fill alt={'user image'} sizes='auto' /> : session?.user?.name ? charAtName(session.user.name) : <User2Icon/>}
             </Button>
           </div>
         </DropdownMenuTrigger>

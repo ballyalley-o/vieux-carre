@@ -23,6 +23,7 @@ model Product {
   numReviews  Int         @default(0)
   stock       Int
   isFeatured  Boolean     @default(false)
+  isDotm      Boolean     @default(false)
   banner      String?
   createdAt   DateTime    @default(now()) @db.Timestamp(6)
   OrderItem   OrderItem[]
