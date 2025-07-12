@@ -234,7 +234,7 @@ export async function getAllCategories() {
  * This function fetches up to 4 products that are marked as featured,
  * ordered by their creation date in descending order.
  *
- * @returns {Promise<object[]>} A promise that resolves to an array of plain objects representing the featured products.
+ * @returns {Promise<Product[]>} A promise that resolves to an array of Product representing the featured products.
  */
 export async function getAllFeaturedProducts() {
   return cache({
