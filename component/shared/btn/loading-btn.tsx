@@ -14,6 +14,7 @@ interface LoadingBtnProps {
   disabled ?: boolean
   className?: string
   onClick  ?: () => void
+  dotColor ?: string
 }
 
 const LoadingBtn: FC<LoadingBtnProps> = ({
@@ -24,13 +25,14 @@ const LoadingBtn: FC<LoadingBtnProps> = ({
   disabled = false,
   variant  = 'default',
   onClick,
-  className
+  className,
+  dotColor
 }) => {
   return (
-    <div className="flex gap-2">
-      <Button type={type} variant={variant} disabled={isPending || disabled} className={cn("mt-5", className)} onClick={onClick}>
+    <div className={'flex gap-2'}>
+      <Button type={type} variant={variant} disabled={isPending || disabled} className={cn('mt-5', className)} onClick={onClick}>
         {isPending ? (
-          <EllipsisLoader />
+          <EllipsisLoader dotColor={dotColor} />
         ) : (
           <Fragment>
             {label} {icon}
