@@ -1,15 +1,15 @@
 'use client'
 
 import { Fragment, useTransition, FC } from 'react'
+import { PATH_DIR } from 'vc.dir'
 import { useRouter } from 'next/navigation'
-import { en } from 'public/locale'
 import { Plus } from 'lucide-react'
 import { useToast } from 'hook'
 import { addItemToBag, removeItemFromBag } from 'lib/action'
 import { Button, ToastAction } from 'component/ui'
 import { DynamicBagBtn } from 'component/shared/btn'
 import { EllipsisLoader } from 'component/shared/loader'
-import { PATH_DIR } from 'config'
+import { transl } from 'lib/util'
 
 interface AddToBagProps {
   item: BagItem
@@ -32,8 +32,8 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
       toast({
         description: response.message,
         action: (
-          <ToastAction className="bg-primary text-white hover:bg-gray-800" altText="Go to Bag" onClick={() => router.push(PATH_DIR.BAG)}>
-            {en.go_to_bag}
+          <ToastAction altText="go-to-bag-button" onClick={() => router.push(PATH_DIR.BAG)}>
+            {transl('go_to_bag')}
           </ToastAction>
         )
       })
@@ -51,12 +51,12 @@ const AddToBag: FC<AddToBagProps> = ({ bag, item }) => {
   const render = existItem ? (
     <DynamicBagBtn isPending={isPending} handlePlus={handleAddToBag} handleMinus={handleRemoveFromBag} amount={existItem.qty} />
   ) : (
-    <Button className="w-full rounded-sm" type={'button'} onClick={handleAddToBag}>
+    <Button className={"w-full rounded-sm"} type={'button'} onClick={handleAddToBag}>
       {isPending ? (
         <EllipsisLoader />
       ) : (
         <Fragment>
-          <Plus /> {en.add_to_bag}
+          <Plus /> {transl('add_to_bag')}
         </Fragment>
       )}
     </Button>
