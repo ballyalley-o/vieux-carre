@@ -246,3 +246,18 @@ export async function getAllFeaturedProducts() {
     }
   })
 }
+
+
+export async function setDealOfTheMonth(productId: string) {
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.product.updateMany({ where: { isDotm: true }, data: { isDotm: false }})
+      await tx.product.update({ where: { id: productId }, data: { isDotm: true } })
+    })
+    await invalidateCache(CACHE_KEY.productById(productId))
+    revalidatePath(PATH_DIR.ADMIN.PRODUCT)
+    return SystemLogger.response(true, transl('success.dotm_updated'))
+  } catch (error) {
+    return SystemLogger.errorResponse(error as AppError, CODE.BAD_REQUEST, TAG)
+  }
+}
