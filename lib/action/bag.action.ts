@@ -106,6 +106,7 @@ export async function addItemToBag(data: BagItem) {
         where: { id: bag.id },
         data : { items: bag.items as Prisma.BagUpdateitemsInput[], ...calculatePrices(bag.items as BagItem[]) }
       })
+      await invalidateCache(CACHE_KEY.myBagId(sessionBagId))
       revalidatePath(PATH_DIR.PRODUCT_VIEW(product.slug))
       return SystemLogger.response(true, existItem ? transl('success.bag_updated', { product: product.name }) : transl('success.product_added', { product: product.name }), CODE.OK)
     }
