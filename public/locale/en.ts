@@ -401,7 +401,7 @@ export const en = {
   place_order: {
     label      : 'Place Order',
     description: 'Place your order',
-    pending    : 'Placing Order...'
+    pending    : 'Placing Order'
   },
   please: {
     label: 'Please'
@@ -603,6 +603,9 @@ export const en = {
     label      : 'Write a Review',
     description: 'Share your thoughts on this product with other customers'
   },
+  your_bag: {
+    label: 'Your Bag'
+  },
   smtp: {
     reset_password: {
       subject: `Your Password Reset Request`,
@@ -650,6 +653,7 @@ export const en = {
   success: {
     bag_updated         : `{product} updated in bag`,
     created_default     : `[CREATED]: Successful ({value}: {id})`,
+    dotm_updated        : 'Deal of the Month updated',
     image_deleted       : 'Image deleted',
     order_created       : 'Order created',
     order_deleted       : 'Order deleted',
