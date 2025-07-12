@@ -1,19 +1,19 @@
 'use client'
 
 import { FC, Fragment, useTransition, useState } from 'react'
-import { en } from 'public/locale'
+import { GLOBAL } from 'vieux-carre'
+import { PATH_DIR } from 'vc.dir'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useToast } from 'hook'
-import { CASH_ON_DELIVERY, PAYMENT_METHODS, PaymentMethodSchema, PAYPAL, STRIPE, updateUserPaymentMethod } from 'lib'
+import { CASH_ON_DELIVERY, PAYMENT_METHODS, PaymentMethodSchema, PAYPAL, STRIPE, transl, updateUserPaymentMethod } from 'lib'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaypal, faStripeS } from '@fortawesome/free-brands-svg-icons'
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import { Form } from 'component/ui'
 import { LoadingBtn } from 'component/shared/btn'
-import { GLOBAL, PATH_DIR } from 'config'
 
 interface PaymentMethodFormProps {
   paymentMethod: string | null
@@ -21,10 +21,10 @@ interface PaymentMethodFormProps {
 
 const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
   const [loadingMethod, setLoadingMethod] = useState<string | null>(null)
-  const [isPending, startTransition] = useTransition()
-  const router = useRouter()
-  const { toast } = useToast()
-  const form = useForm<z.infer<typeof PaymentMethodSchema>>({
+  const [isPending, startTransition]      = useTransition()
+  const router                            = useRouter()
+  const { toast }                         = useToast()
+  const form                              = useForm<z.infer<typeof PaymentMethodSchema>>({
     resolver: zodResolver(PaymentMethodSchema),
     defaultValues: { type: paymentMethod || GLOBAL.PAYMENT_METHOD_DEFAULT }
   })
@@ -63,13 +63,13 @@ const PaymentForm: FC<PaymentMethodFormProps> = ({ paymentMethod }) => {
 
   return (
     <Fragment>
-      <div className="max-w-md mx-auto space-y-4 items-center">
-        <h1 className="h2-bold my-2">{en.payment_method.label}</h1>
-        <p className="text-sm text-muted-foreground">{en.payment_method.description}</p>
+      <div className={"max-w-md mx-auto space-y-4 items-center"}>
+        <h1 className={"h2-bold my-2"}>{transl('payment_method.label')}</h1>
+        <p className={"text-sm text-muted-foreground"}>{transl('payment_method.description')}</p>
         <Form {...form}>
-          <form method={'post'} onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form method={'post'} onSubmit={handleSubmit(onSubmit)} className={"space-y-4"}>
             {PAYMENT_METHODS.map((_method, index) => (
-              <LoadingBtn key={index} isPending={loadingMethod === _method && isPending} type={'submit'}  label={_method} variant={'secondary'} className={`btn btn-primary w-full`}  onClick={() => handleButtonClick(_method)} icon={renderPaymentMethodIcon(_method)} />
+              <LoadingBtn key={index} isPending={loadingMethod === _method && isPending} type={'submit'} variant={'outline'} label={_method} className={`w-full`} dotColor={'text-black'}  onClick={() => handleButtonClick(_method)} icon={renderPaymentMethodIcon(_method)} />
             ))}
           </form>
         </Form>
