@@ -68,7 +68,7 @@ export async function getLatestProducts() {
     key    : CACHE_KEY.featuredProducts,
     ttl    : CACHE_TTL.featuredProducts,
     fetcher: async () => {
-      const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, orderBy: { createdAt: 'desc' } })
+      const data = await prisma.product.findMany({ take: GLOBAL.LATEST_PRODUCT_QUANTITY, where: { stock: { gt: 0 } }, orderBy: { createdAt: 'desc' } })
       return convertToPlainObject(data)
     }
   })
