@@ -15,7 +15,7 @@ export default function ResetPasswordEmail({ resetLink, year, siteName }: ResetP
       <Head />
       <Preview>{transl('smtp.reset_password.subject', { name: GLOBAL.APP_NAME })}</Preview>
       <Tailwind>
-        <Body className={'min-w-[700px] h-[700px] bg-transparent text-[#999] m-20 items-center align-middle font-sans'}>
+        <Body className={'min-w-[700px] h-[700px] bg-transparent text-gray-500 m-20 items-center align-middle font-sans'}>
           <Container className={'max-w-[600px] my-10 mx-auto bg-[#0E0E0E] border border-[#1D2020] rounded-lg p-10 shadow-lg'}>
             <Section className={'flex justify-center items-center mt-8 gap-2'}>
               <Img src={ASSET_DIR.LOGO_PRODUCTION_PNG} width={'40'} alt="Logo" />
