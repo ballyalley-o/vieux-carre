@@ -7,6 +7,8 @@ import PurchaseReceiptEmail from './purchase-receipt'
 const resend = new Resend(GLOBAL.RESEND.RESEND_API_KEY as string)
 
 export const sendPurchaseReceipt = async ({ order }: { order: Order }) => {
+  console.log('sending email receipt: ')
+
   try {
       await resend.emails.send({
         from   : `${GLOBAL.APP_NAME} <${GLOBAL.RESEND.SENDER_EMAIL}>`,
