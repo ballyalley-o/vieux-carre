@@ -607,6 +607,9 @@ export const en = {
     label: 'Your Bag'
   },
   smtp: {
+    purchase_receipt: {
+      subject: `Order Confirmation {orderId}`
+    },
     reset_password: {
       subject: `Your Password Reset Request`,
       title  : `{name} Password Reset`,
