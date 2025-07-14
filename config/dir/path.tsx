@@ -20,6 +20,9 @@ export const PATH_DIR         = {
   BAG             : connect('bag'),
   CHECKOUT        : connect('order', 'checkout'),
   EMAIL_IMAGE     : (img: string) => connectUrl(GLOBAL.SERVER_URL, img),
+  LEGAL           : {
+                    PRIVACY_POLICY: connect('privacy', 'private-policy')
+  },
   MOCK            : connect('__mock', 'sample-data.ts'),
   ORDER           : connect('order'),
   ORDER_VIEW      : (id: string) => connect('order', id),
