@@ -4,17 +4,16 @@ import { Badge } from 'component/ui'
 import { transl } from "lib"
 
 interface PrivacyPolicyRawProps {
-  updatedDate: string
   appName    : string
 }
 
-const PrivacyPolicyRaw = ({ updatedDate, appName }: PrivacyPolicyRawProps) => {
+const PrivacyPolicyRaw = ({ appName }: PrivacyPolicyRawProps) => {
     return (
       <section className={'relative'}>
         <div className={'h-[100px] top-0 z-30 sticky bg-background'}>
           <h1 className={'text-4xl font-bold'}>PRIVACY POLICY</h1>
           <Badge variant={'secondary'} className={'my-2'}>
-            <p>Last updated: {updatedDate}</p>
+            <p>Last updated: July 14, 2025</p>
           </Badge>
         </div>
 
@@ -433,4 +432,4 @@ const PrivacyPolicyRaw = ({ updatedDate, appName }: PrivacyPolicyRawProps) => {
     )
 }
 
-export default PrivacyPolicyRaw;
+export default PrivacyPolicyRaw
