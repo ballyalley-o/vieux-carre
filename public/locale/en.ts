@@ -9,6 +9,9 @@ export const en = {
     label: 'All'
   },
   add_to_bag   : 'Add to Bag',
+  and: {
+    label: 'and'
+  },
   archived_user: {
     label: 'Archived User'
   },
@@ -607,6 +610,9 @@ export const en = {
     label: 'Your Bag'
   },
   smtp: {
+    purchase_receipt: {
+      subject: `Order Confirmation {orderId}`
+    },
     reset_password: {
       subject: `Your Password Reset Request`,
       title  : `{name} Password Reset`,
@@ -737,6 +743,9 @@ export const en = {
     }
   },
   legal: {
-    copyright_notice: `All rights reserved.`
+    copyright_notice  : `All rights reserved.`,
+    agreement_notice_1: `By continuing, you agree to our`,
+    privacy_policy    : 'Privacy Policy',
+    terms_of_use      : 'Terms of Use'
   }
 }

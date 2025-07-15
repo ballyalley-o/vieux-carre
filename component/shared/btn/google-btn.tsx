@@ -17,7 +17,7 @@ const GoogleSignInBtn = ({ disabled, loading, onClick }: GoogleSignInBtnProps) =
   const handleSignIn = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     onClick?.()
-    signIn('google', { callbackUrl: '/' })
+    signIn('google', { prompt: 'select_account', callbackUrl: '/' })
   }
   return (
     <div className={'my-5'}>

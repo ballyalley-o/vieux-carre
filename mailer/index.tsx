@@ -11,7 +11,7 @@ export const sendPurchaseReceipt = async ({ order }: { order: Order }) => {
       await resend.emails.send({
         from   : `${GLOBAL.APP_NAME} <${GLOBAL.RESEND.SENDER_EMAIL}>`,
         to     : order.user.email,
-        subject: `Order Confirmation ${order.id}`,
+        subject: transl('smtp.purchase_receipt.subject', { orderId: order.id}),
         react  : <PurchaseReceiptEmail order={order} />
     })
   } catch (error) {
