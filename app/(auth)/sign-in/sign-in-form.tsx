@@ -58,7 +58,6 @@ const SignInForm = () => {
           <RHFPasswordField control={control} register={register} name={'password'} formKey={'password'} disabled={oAuth} />
           <div>
             <SignInButton />
-
             <Separatr label={transl('or.label')} />
             <GoogleSignInBtn loading={isOAuthIsLoading} onClick={() => { setOAuth(true);  setIsOAuthIsLoading(true) }} />
           </div>
