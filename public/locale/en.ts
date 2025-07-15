@@ -741,6 +741,7 @@ export const en = {
   },
   legal: {
     copyright_notice: `All rights reserved.`,
-    privacy_policy  : 'Privacy Policy'
+    privacy_policy  : 'Privacy Policy',
+    terms_of_use    : 'Terms of Use'
   }
 }
