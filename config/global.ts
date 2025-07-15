@@ -18,7 +18,8 @@ export const GLOBAL = {
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
-  POLICY                 :{
+  LEGAL                  :{
+        LEGAL_CONTACT              : process.env.LEGAL_CONTACT || '',
         PRIVACY_POLICY_UPDATED_DATE: process.env.PRIVACY_POLICY_UPDATED_DATE || ''
   },
   USER_ROLES             : process.env.USER_ROLES && process.env.USER_ROLES.split(';') || ['user', 'admin'],
