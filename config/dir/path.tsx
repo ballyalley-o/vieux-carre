@@ -32,7 +32,7 @@ export const PATH_DIR         = {
   CHECKOUT        : connect(_ORDER, 'checkout'),
   EMAIL_IMAGE     : (img: string) => connectUrl(_BASE, img),
   LEGAL           : {
-                    PRIVACY_POLICY: connect(_LEGAL, 'private-policy'),
+                    PRIVACY_POLICY: connect(_LEGAL, 'privacy-policy'),
                     TERMS_OF_USE  : connect(_LEGAL, 'terms-of-use')
   },
   MOCK            : connect('__mock', 'sample-data.ts'),
