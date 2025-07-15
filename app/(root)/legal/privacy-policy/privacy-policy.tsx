@@ -1,13 +1,13 @@
-import Script from "next/script"
 import Link from "next/link"
 import { Badge } from 'component/ui'
 import { transl } from "lib"
 
 interface PrivacyPolicyRawProps {
-  appName    : string
+  appName: string
+  email  : string
 }
 
-const PrivacyPolicyRaw = ({ appName }: PrivacyPolicyRawProps) => {
+const PrivacyPolicyRaw = ({ appName, email }: PrivacyPolicyRawProps) => {
     return (
       <section className={'relative'}>
         <div className={'h-[100px] top-0 z-30 sticky bg-background'}>
@@ -18,7 +18,9 @@ const PrivacyPolicyRaw = ({ appName }: PrivacyPolicyRawProps) => {
         </div>
 
         <div className={'space-y-8 h-[500px] overflow-auto'}>
-          <h3 className={'text-2xl'}>{appName} {transl('legal.privacy_policy')}</h3>
+          <h3 className={'text-2xl'}>
+            {appName} {transl('legal.privacy_policy')}
+          </h3>
           <p>
             This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the
             Service and tells You about Your privacy rights and how the law protects You.
@@ -418,14 +420,7 @@ const PrivacyPolicyRaw = ({ appName }: PrivacyPolicyRawProps) => {
           <h2 className={'text-2xl'}>Contact Us</h2>
           <p>If you have any questions about this Privacy Policy, You can contact us:</p>
           <ul className={'space-y-4 gap-2 ml-5 my-5'}>
-            <li>
-              By email:
-              <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="4d3a223f260d2f2c212134212220242f2c22632e2220">
-                [email&#160;protected]
-                {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-              </a>
-              <Script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" strategy="afterInteractive" />
-            </li>
+            <li>By email: {email}</li>
           </ul>
         </div>
       </section>
