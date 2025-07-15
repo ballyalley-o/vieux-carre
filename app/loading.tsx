@@ -1,34 +1,43 @@
 'use client'
+
 import { useTheme } from 'next-themes'
+import { motion, Variants } from 'framer-motion'
+
+const boxVariants = {
+  animate: (i: number) => ({
+    x         : [0, 10, -10, 0],
+    y         : [0, -10, 10, 0],
+    transition: {
+      duration: 2,
+      repeat  : Infinity,
+      ease    : 'easeInOut',
+      delay   : i * 0.2
+    }
+  })
+} as Variants
 
 const Loading = () => {
   const { theme } = useTheme()
-
-  const render = () => {
-    if (typeof window === 'undefined') return null
-    if (theme === 'dark') {
-      return (
-        <div className="relative w-16 h-16">
-          <div className={`absolute w-6 h-6 bg-gray-50 rounded-sm animate-[shuffle1_2s_ease-in-out_infinite]`} />
-          <div className={`absolute w-6 h-6 bg-gray-100 rounded-sm animate-[shuffle2_2s_ease-in-out_infinite]`} />
-          <div className={`absolute w-6 h-6 bg-gray-50 rounded-sm animate-[shuffle3_2s_ease-in-out_infinite]`} />
-          <div className={`absolute w-6 h-6 bg-gray-100 rounded-sm animate-[shuffle4_2s_ease-in-out_infinite]`} />
-        </div>
-      )
-    } else {
-      return (
-        <div className="relative w-16 h-16">
-          <div className={`absolute w-6 h-6 bg-gray-800 rounded-sm animate-[shuffle1_2s_ease-in-out_infinite]`} />
-          <div className={`absolute w-6 h-6 bg-gray-900 rounded-sm animate-[shuffle2_2s_ease-in-out_infinite]`} />
-          <div className={`absolute w-6 h-6 bg-gray-800 rounded-sm animate-[shuffle3_2s_ease-in-out_infinite]`} />
-          <div className={`absolute w-6 h-6 bg-gray-900 rounded-sm animate-[shuffle4_2s_ease-in-out_infinite]`} />
-        </div>
-      )
-    }
-  }
+  const boxColor  = theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+  const render    = () => (
+      [0, 1, 2, 3].map((i) => (
+        <motion.div
+          key={i}
+          custom={i}
+          variants={boxVariants}
+          animate="animate"
+          className={`absolute w-4 h-4 md:w-6 md:h-6 ${boxColor} rounded-sm`}
+          style={{
+            top      : i % 2 === 0 ? 0: '50%',
+            left     : i < 2 ? 0      : '50%',
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
+      ))
+  )
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm z-50">
-      <div className="relative md:w-16 md:h-16 h-10 w-10">
+    <div className={"fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm z-50"}>
+      <div className={"relative md:w-16 md:h-16 h-10 w-10"}>
         {render()}
       </div>
     </div>

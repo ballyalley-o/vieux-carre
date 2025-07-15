@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from 'hook'
 import { signUpUser } from 'lib/action/user.action'
 import { Button } from 'component/ui/button'
-import { AppAuthRedir } from 'component/shared/app'
+import { AppAuthRedir, AppLegal } from 'component/shared/app'
 import { RHFFormField, RHFPasswordField } from 'component/shared/rhf'
 import { EllipsisLoader } from 'component/shared/loader'
 import { PATH_DIR } from 'config'
@@ -24,7 +24,7 @@ const SignUpForm = () => {
   const SignUpButton = () => {
     return (
       <div className={'mb-5'}>
-        <Button disabled={isSubmitting} className="w-full" variant={'default'}>
+        <Button disabled={isSubmitting} className={"w-full"} variant={'default'}>
           {isSubmitting ? <EllipsisLoader /> : transl('sign_up.label')}
         </Button>
       </div>
@@ -63,6 +63,7 @@ const SignUpForm = () => {
           />
           <SignUpButton />
           <AppAuthRedir type={'sign-up'} />
+          <AppLegal />
         </div>
       </form>
     </FormProvider>

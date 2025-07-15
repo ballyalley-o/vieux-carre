@@ -1,4 +1,5 @@
 // prettier-ignore
+// TODO: integrate AWS SSM to keep secrets
 export const GLOBAL = {
   APP_NAME          : process.env.NEXT_PUBLIC_APP_NAME || 'Vieux Carré',
   APP_VERSION       : process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
@@ -17,6 +18,9 @@ export const GLOBAL = {
   NEXTAUTH_STRATEGY      : process.env.NEXTAUTH_STRATEGY || 'jwt',
   LATEST_PRODUCT_QUANTITY: 4,
   LOCALE                 : process.env.NEXT_PUBLIC_LOCALE || 'en-US',
+  LEGAL                  :{
+        LEGAL_CONTACT              : process.env.LEGAL_CONTACT || ''
+  },
   USER_ROLES             : process.env.USER_ROLES && process.env.USER_ROLES.split(';') || ['user', 'admin'],
   LIMIT                  : {
                             ADMIN_ORDERS              : 10,
