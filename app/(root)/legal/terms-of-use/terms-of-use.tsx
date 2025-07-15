@@ -1,4 +1,3 @@
-import Script from "next/script"
 import Link from "next/link"
 import { Badge } from 'component/ui'
 import { transl } from "lib"
@@ -211,7 +210,7 @@ const TermsOfUseRaw = ({ appName, appUrl, email }: TermsOfUseRawProps) => {
             </p>
             <h2 className={'text-2xl'}>Contact Us</h2>
             <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
-            <ul>
+            <ul  className={'space-y-4 gap-2 ml-5 my-5'}>
               <li>By email: {email}</li>
             </ul>
         </div>
