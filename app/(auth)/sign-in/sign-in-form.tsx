@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from 'hook'
 import { signInWithCredentials } from 'lib/action'
 import { Button } from 'component/ui/button'
-import { AppAuthRedir } from 'component/shared/app'
+import { AppAuthRedir, AppLegal } from 'component/shared/app'
 import { RHFPasswordField, RHFFormField } from 'component/shared/rhf'
 import { GoogleSignInBtn } from 'component/shared/btn'
 import { EllipsisLoader } from 'component/shared/loader'
@@ -28,7 +28,7 @@ const SignInForm = () => {
 
   const SignInButton = () => {
     return (
-      <div className="mb-5">
+      <div className={"mb-5"}>
         <Button disabled={isSubmitting || oAuth} className="w-full" variant={'default'}>
           {isSubmitting ? <EllipsisLoader /> : transl('sign_in.label')}
         </Button>
@@ -58,10 +58,12 @@ const SignInForm = () => {
           <RHFPasswordField control={control} register={register} name={'password'} formKey={'password'} disabled={oAuth} />
           <div>
             <SignInButton />
+
             <Separatr label={transl('or.label')} />
             <GoogleSignInBtn loading={isOAuthIsLoading} onClick={() => { setOAuth(true);  setIsOAuthIsLoading(true) }} />
           </div>
           <AppAuthRedir type={'sign-in'} />
+          <AppLegal />
         </div>
       </form>
     </FormProvider>
