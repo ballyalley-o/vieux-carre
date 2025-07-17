@@ -1,10 +1,10 @@
 'use client'
 
+import { ASSET_DIR,  } from 'vc.dir'
 import Image from 'next/image'
 import { Button } from 'component/ui'
-import { ASSET_DIR, HTTP_RESPONSE } from 'config'
 import { CODE } from 'lib/constant'
-import { transl } from 'lib'
+import { transl, HTTP_RESPONSE } from 'lib'
 
 const NotFoundPage = () => {
   const handleNavigateHome = () => (window.location.href = '/')
