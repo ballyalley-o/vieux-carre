@@ -497,6 +497,9 @@ export const en = {
   select_by_category: {
     label: 'Select by Category'
   },
+  shopping_bag: {
+    label: 'Shopping Bag'
+  },
   shipping: {
     label      : 'Shipping',
     description: 'Complete the form with your shipping information'
