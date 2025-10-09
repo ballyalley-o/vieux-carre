@@ -21,7 +21,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
   const { isDirty, setDirty } = useFormState()
   const router                = useRouter()
   const form                  = useForm<Product>({
-    resolver: type === 'update' ? zodResolver(UpdateProductSchema) : zodResolver(ProductSchema),
+    resolver     : type            === 'update' ? zodResolver(UpdateProductSchema) : zodResolver(ProductSchema),
     defaultValues: product && type === 'update' ? product : productDefaultValue
   })
 
@@ -76,15 +76,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
         <form method={'POST'} onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex flex-col md:flex-row gap-4">
             <RHFFormField control={control} name={'name'} formKey={'name'} withWrapper={false} />
-            <RHFFormField
-              control={control}
-              name={'slug'}
-              formKey={'slug'}
-              type={'inputWithButton'}
-              withWrapper={false}
-              buttonLabel={transl('generate.label')}
-              onClick={handleSlugify}
-            />
+            <RHFFormField control={control} name={'slug'}formKey={'slug'}type={'inputWithButton'}withWrapper={false}buttonLabel={transl('generate.label')}onClick={handleSlugify} />
           </div>
           <div className="flex flex-col md:flex-row gap-4">
             <RHFFormField control={control} name={'category'} formKey={'category'} withWrapper={false} />
@@ -107,13 +99,7 @@ const ProductForm: FC<ProductForm> = ({ type, product, productId }) => {
             <BannerUploadField isFeatured={isFeatured} banner={banner!} form={form}  />
           </div>
           <div className="flex justify-end">
-            <LoadingBtn
-              isPending={formState.isSubmitting}
-              label={`${capitalize(type)} Product`}
-              disabled={formState.isSubmitting}
-              className={'min-w-24 sm:w-full'}
-              icon={type === 'create' ? <Plus size={20} /> : <MoveUpRight size={20} />}
-            />
+            <LoadingBtn isPending={formState.isSubmitting} label={`${capitalize(type)} Product`} disabled={formState.isSubmitting} className={'min-w-24 sm:w-full'} icon={type === 'create' ? <Plus size={20} /> : <MoveUpRight size={20} />} />
           </div>
         </form>
       </Form>
