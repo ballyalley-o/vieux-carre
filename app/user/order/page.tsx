@@ -1,13 +1,12 @@
 import { Metadata } from 'next'
-import { en } from 'public/locale'
-import { getMyOrders, formatCurrency, formatDateTime, formatId, deleteOrder } from 'lib'
+import { PATH_DIR } from 'vc.dir'
+import { getMyOrders, formatCurrency, formatDateTime, formatId, deleteOrder, transl } from 'lib'
 import { Table, Badge } from 'component/ui'
 import { TblHead, TblBody } from 'component/shared/tbl'
 import { TooltpGoBadge } from 'component/shared/tooltp'
 import { Pagination, DeleteDialg } from 'component/shared'
-import { PATH_DIR } from 'config'
 
-export const metadata: Metadata = { title: 'My Orders' }
+export const metadata: Metadata = { title: transl('my_orders.label') }
 
 interface UserOrdersPageProps {
   searchParams: Promise<{ page: string }>
@@ -35,7 +34,7 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
         id: 'id',
         value: (
           <div className={'flex flex-row items-center'}>
-           <TooltpGoBadge trigger={formatId(item.id)} href={PATH_DIR.ORDER_VIEW(item.id)} content={`${en.go_to.label} this order`} />
+           <TooltpGoBadge trigger={formatId(item.id)} href={PATH_DIR.ORDER_VIEW(item.id)} content={`${transl('go_to.label')} this order`} />
           </div>
         ),
         align: 'left'
@@ -66,8 +65,8 @@ const UserOrdersPage = async ({ searchParams }: UserOrdersPageProps) => {
 
   return (
     <div className={'space-y-2'}>
-      <h2 className="h2-bold">{en.order.orders.label}</h2>
-      <div className="overflow-x-auto">
+      <h2 className={"h2-bold"}>{transl('order.orders.label')}</h2>
+      <div className={"overflow-x-auto"}>
         <Table>
           <TblHead cells={HEADER.cells} />
           <TblBody cells={BODY} items={orders.orders as unknown as Order[]} />
