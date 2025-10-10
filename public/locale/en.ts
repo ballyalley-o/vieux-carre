@@ -330,6 +330,9 @@ export const en = {
     label      : 'Money Back Guarantee',
     description: ' days money back guarantee'
   },
+  my_orders: {
+    label: 'My Orders'
+  },
   navigation: {
     account: {
       label: 'Account'
